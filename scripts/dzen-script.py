@@ -299,11 +299,11 @@ def main():
     help='Things to display aligned right')
 
   parser.add_argument(
-    '-s', '--soundcard', type=int, metavar='sc', default=1,
+    '-s', '--soundcard', type=int, metavar='sc', default=0,
     help='number of soundcard to use for volume')
 
   parser.add_argument(
-    '-b', '--bat', type=int, metavar='bat', default=0,
+    '-b', '--bat', type=int, metavar='bat', default=1,
     help='number of battery to use for power info')
 
   parser.add_argument(
