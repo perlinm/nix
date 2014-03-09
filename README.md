@@ -1,4 +1,4 @@
 window-manager-scripts
 ======================
 
-This repository contains my window manager configuration file and any scripts I use for normal use of my laptop.
+This repository contains my window manager (currently xmonad) configuration file, as well as any scripts I frequently use on my laptop.
