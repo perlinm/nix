@@ -1,0 +1,32 @@
+#!/bin/sh
+
+green='#357C17'
+red='#C11B17'
+batt_dir=/sys/class/power_supply/BAT1
+
+battery(){
+  charge=$(echo "$(cat $batt_dir/charge_now)/ \
+      $(cat $batt_dir/charge_full)*100+0.5" | bc -l)
+  charge=${charge/.*}
+  status=$(cat $batt_dir/status)
+
+  if [ $status = Discharging ]; then
+    color=$red
+  else
+    color=$green
+  fi
+
+  text=$(acpi | awk '{print substr($5,1,length($5)-3)}')
+  if [ $status = Full ] || [ $text = dis* ]; then
+    text=""
+  fi
+	if [ ${#text} -ge 6 ]; then
+			text="..."
+	fi
+}
+
+while [ -n "$(ps aux | grep xmonad | grep -v grep)f" ]; do
+  battery
+	echo "$text   ^fg($color) $charge"
+  sleep 1
+done

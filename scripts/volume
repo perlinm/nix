@@ -1,0 +1,42 @@
+#!/bin/sh
+
+thisFile=$(basename $0)
+scriptDir=$(dirname $(readlink -f $0))
+
+red="#C11B17"
+blue="#00688B"
+
+state=$(amixer get Master | awk '{if(NR==6) print $6}' | sed 's/[^a-z]//g')
+if [ $1 = inc ]; then
+	amixer -q set Master 5%+
+elif [ $1 = dec ]; then
+  amixer -q set Master 5%-
+elif [ $1 = max ]; then
+  amixer -q set Master 100%
+elif [ $1 = min ]; then
+  amixer -q set Master 0%
+elif [ $1 = med ]; then
+  amixer -q set Master 80%
+elif [ $1 = set ]; then
+  amixer set Master $3%
+elif [ $1 = on ]; then
+  amixer -q set Master on
+elif [ $1 = off ]; then
+  amixer -q set Master off
+elif [ $1 = toggle ]; then
+  if [ $state = on ]; then
+    amixer -q set Master off
+  elif [ $state = off ]; then
+    amixer -q set Master on
+  fi
+fi
+
+state=$(amixer get Master | awk '{if(NR==6) print $6}' | sed 's/[^a-z]//g')
+volume=$(amixer get Master | awk '{if(NR==6) print $5}' | sed 's/[^0-9]*//g')
+if [ $state = on ]; then
+  volColor=$blue
+elif [ $state = off ]; then
+  volColor=$red
+fi
+
+echo "^fg($volColor) $volume" >> $scriptDir/.currentVolume

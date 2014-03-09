@@ -1,0 +1,26 @@
+#!/bin/sh
+
+thisFile=$(basename $0)
+scriptDir=$(dirname $(readlink -f $0))
+
+if [ $1 = dec ]; then
+  xbacklight -dec 20
+elif [ $1 = inc ]; then
+  xbacklight -inc 20
+elif [ $1 = dim ]; then
+  xbacklight -set 20
+elif [ $1 = max ]; then
+  xbacklight -set 100
+elif [ $1 = set ]; then
+  xbacklight -set $2
+fi
+
+light=$(xbacklight -get)
+
+if [ $(echo $light | sed 's/.*[.]//g' | awk '{print substr($1,1,1)}') -ge 5 ]; then
+  light=$(($(echo $light | sed 's/[.].*//g')+1))
+else
+  light=$(echo $light | sed 's/[.].*//g')
+fi
+
+echo "^fg(#FFBB00) $light" >> $scriptDir/.currentLight

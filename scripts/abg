@@ -1,0 +1,53 @@
+#!/bin/sh
+
+thisFile=$(readlink -f $0)
+apodDir='/home/perlinm/Pictures/apod'
+
+read n < $apodDir/current
+num=$(($(cat $apodDir/history | wc | awk '{print $1}')-1))
+
+if ! [ "$1" ]; then
+
+  echo "No command given"
+
+elif [ "$1" = "swap" ]; then
+
+  feh --bg-fill $(ls $apodDir/*.* -1 | shuf -n1 | tee -a $apodDir/history)
+  echo "1" > $apodDir/current
+
+elif [ "$1" = "remove" ]; then
+
+  if [ $n -le $num ]; then
+    currentPic=$(cat $apodDir/history | tail -n $n | head -n1)
+    touch $currentPic
+    echo $currentPic >> $apodDir/removed
+    mv $file $apodDir/bad
+    sed "$(($num-$n+2))d" $apodDir/history > $apodDir/tmp
+    mv $apodDir/tmp $apodDir/history
+  fi
+  $thisFile swap
+
+elif [ "$1" = "last" ]; then
+
+  if [ $n -lt $num ]; then
+    echo $(($n+1)) > $apodDir/current
+    feh --bg-fill $(cat $apodDir/history | tail -n $(($n+1)) | head -n1)
+  fi
+
+elif [ "$1" = "next" ]; then
+
+  if [ $n -gt 1 ]; then
+    echo $(($n-1)) > $apodDir/current
+    feh --bg-fill $(cat $apodDir/history | tail -n $(($n-1)) | head -n1)
+  fi
+
+elif [ "$1" = "newest" ]; then
+
+  feh --bg-fill $(ls $apodDir/*.* -1tr | tail -1 | tee -a $apodDir/history)
+  echo "1" > $apodDir/current
+
+else
+
+  echo "Not a valid command:" "$1"
+
+fi

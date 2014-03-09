@@ -1,0 +1,29 @@
+#!/bin/zsh
+
+ethInterface=eno1
+wInterface=wlp2s0
+
+state(){ cat /sys/class/net/$1/operstate }
+wFile=/proc/net/wireless
+
+while [ -n $(ps aux | grep xmonad | grep linux | awk '{print $1}') ]
+do
+  if [ $(state $ethInterface) = up ]; then
+    echo "Ethernet"
+  elif [ $(state $wInterface) = up ]; then
+    linkQuality=$(cat $wFile | grep $wInterface \
+        | awk '{print $3}' | sed 's/[^0-9]//g')
+    linkQuality=$(( $linkQuality*100/70 ))%
+    signalStrength=$(cat $wFile | grep $wInterface \
+        | awk '{print $4}' | sed 's/[^-0-9]//g')dBm
+    network=$(iwconfig $wInterface | grep ESSID \
+        | sed 's/.*"\(.*\)"[^"]*$/\1/')
+    if [ ${#network} -gt 10 ]; then
+        network=${network:0:7}...
+    fi
+    echo $linkQuality $signalStrength $network
+  else
+    echo
+  fi
+  sleep 5
+done

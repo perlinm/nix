@@ -1,0 +1,3 @@
+#!/bin/zsh
+
+xfce4-terminal --title='sage-calc' --command='sage -q'

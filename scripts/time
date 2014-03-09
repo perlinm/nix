@@ -1,0 +1,6 @@
+#!/bin/zsh
+
+while [ -n $(ps aux | grep xmonad | grep linux | awk '{print $1}') ]; do
+  date +'%a %Y-%m-%d %T'
+  sleep 1
+done
