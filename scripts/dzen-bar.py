@@ -46,20 +46,12 @@ parser.add_argument(
     help='Client name width')
 
 parser.add_argument(
-    '--spacer', default='  ', help='Spacer separating things')
-
-parser.add_argument(
-    '-chw', '--char_width', type=int, default=7,
-    help='Width (in px) of a character in your font. ' \
-    + 'For Monospace-[8/9], it is 7.')
+    '-tw', '--tray_width', type=int, default=10,
+    help='System tray width')
 
 parser.add_argument(
     '-th', '--tray_height', type=int, default=16,
     help='System tray height (in px)')
-
-parser.add_argument(
-    '-tw', '--tray_width', type=int, default=10,
-    help='System tray width')
 
 parser.add_argument(
     '-bg', '--background', type=str, default='#1a1a1a',
@@ -68,6 +60,14 @@ parser.add_argument(
 parser.add_argument(
     '-ws', '--workspaces', type=int, default=11,
     help='Number of workspaces')
+
+parser.add_argument(
+    '--spacer', default='  ', help='Spacer separating things')
+
+parser.add_argument(
+    '-chw', '--char_width', type=int, default=7,
+    help='Width (in px) of a character in your font. ' \
+    + 'For Monospace-[8/9], it is 7.')
 
 args = parser.parse_args()
 
@@ -107,7 +107,7 @@ def res():
 tail = '..'
 def one_cstr(align,color,string,length):
   if type(color) is list or type(color) is tuple:
-    color = mp.colors.rgb2hex(color)
+    color = mp.colors.rgb2hex([color[0],color[1],color[2]])
   color_text = '^fg(%s)' %color if color != None else ''
   out_str = str(string).replace('\n','')
   if length >= 0:
@@ -247,6 +247,47 @@ def systray():
             + 'x1+' + str(int((pad+0.5)*args.char_width)) + '+0',
             '--lower-on-start'])
 
+
+# cpu info
+cm_cpu = get_cmap('RdGy')
+
+def get_idles():
+  stat = []
+  with open('/proc/stat','r') as f:
+    for line in f:
+      if not 'cpu' in line:
+        break
+      stat.append(line)
+  idles = np.array([int(s.split()[4]) for s in stat[1:]])
+  return idles
+
+old_idles = get_idles()
+old_cpu_time = datetime.datetime.min
+
+with open('/proc/cpuinfo', 'r') as f:
+  for line in f:
+    if 'cpu cores' in line:
+      ncores = int(line.split()[-1])
+
+threads_per_core = int(len(old_idles)/ncores)
+cpu_len = (threads_per_core*3 + 2)*ncores + 1
+
+def cpu(align):
+  global old_idles, old_cpu_time
+  idles = get_idles()
+  cpu_time = datetime.datetime.now()
+  dt = (cpu_time - old_cpu_time).total_seconds()
+  vals = list(100 - (idles - old_idles)/dt)
+  colors = []
+  for i in range(len(vals)):
+    colors.append(cm_cpu(int(vals[i])/100.))
+    if vals[i] == 100:
+      vals[i] = '00'
+  lengths = [2]*len(vals)
+  old_idles = idles
+  old_cpu_time = cpu_time
+  return cstr(align,colors,vals,lengths)
+
 # function, value dictionaries
 left = args.left.split()
 center = args.center.split()
@@ -380,63 +421,6 @@ exit(1)
 
 
 
-
-# cpu info
-cpucols = [(0.0, (0.2, 0.2, 0.2)),
-           (0.1, (0.3, 0.3, 0.3)),
-           (0.3, (.7, .8, .25)),
-           (0.6, (.8, .6, 0)),
-           (1.0, (1, 0, 0))]
-
-cm_cpu = mp.colors.LinearSegmentedColormap.from_list(
-  'cpu', cpucols, 100)
-
-# get initial cpu values
-f = open('/proc/stat', 'r')
-stat = []
-line = f.readline()
-while 'cpu' in line:
-  stat.append(line)
-  line = f.readline()
-f.close()
-old_idles = np.array([int(s.split()[4]) for s in stat[1:]])
-old_cpu_time = datetime.datetime.min
-f = open('/proc/cpuinfo', 'r')
-while True:
-  line = f.readline()
-  if 'cpu cores' in line:
-    break
-f.close()
-ncores = int(line.split()[-1])
-threads_per_core = int(len(old_idles)/ncores)
-
-cpu_len = (threads_per_core*3 + 2)*ncores + 1
-def cpu():
-  global old_idles, old_cpu_time
-  f = open('/proc/stat', 'r')
-  stat = []
-  line = f.readline()
-  while 'cpu' in line:
-    stat.append(line)
-    line = f.readline()
-  f.close()
-  idles = np.array([int(s.split()[4]) for s in stat[1:]])
-  cur_cpu_time = datetime.datetime.now()
-  dt = (cur_cpu_time - old_cpu_time).total_seconds()
-  vals = 100 - (idles - old_idles)/dt
-  string = ['^fg(%s)|' %textcolor]
-  for i in range(ncores):
-    for j in range(threads_per_core):
-      val = vals[i + ncores*j]
-      color = mp.colors.rgb2hex(cm_cpu(val/100.))
-      display = '^fg(%s)%2i' %(color,val) \
-        if val < 100 else '^fg(%s)00' %color
-      string.append(display)
-    string.append('^fg(%s)|' %textcolor)
-
-  old_idles = idles
-  old_cpu_time = cur_cpu_time
-  return ' '.join(string), cpu_len
 
 # core temp
 tempcols = [(0.0, (0, 1, 1)),

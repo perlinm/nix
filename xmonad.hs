@@ -43,7 +43,8 @@ red = "#c11b17"
 green = "#347c17"
 blue = "#00688b"
 yellow = "#ffbb00"
-barFont = "monospace-8"
+barFont = "monospace-9"
+barHeight = 16
 
 myBorderWidth = 1
 myNormalBorderColor = fullBlack
@@ -53,12 +54,18 @@ myWorkspaces = Prelude.map show [0..10]
 
 script = "/home/perlinm/scripts/"
 
-restartCMD = "/usr/bin/xmonad --recompile && /usr/bin/xmonad --restart"
-
 myRun = "$(yeganesh -x --"
         ++ " -nb '" ++ black ++ "'"
         ++ " -nf '" ++ white ++ "'" ++ " -sf '" ++ white ++ "'"
         ++ " -fn " ++ barFont ++ ")"
+
+barScript = "dzen-bar.py"
+infoBar = script ++ barScript ++ " -l 'xmonad' | dzen2 -h " ++ show barHeight
+          ++ " -fn " ++ barFont ++ " -e 'onstart=lower;button1=lower'"
+
+killBar = "killall dzen2 stalonetray " ++ barScript ++ " 2> /dev/null"
+restartCMD = "/usr/bin/xmonad --recompile && /usr/bin/xmonad --restart"
+
 
 -----------------------------------------------------------------------
 -- Window rules
@@ -107,7 +114,7 @@ myScratchPads = [ NS "sage-calc" spawnCalc findCalc manageCalc,
 -----------------------------------------------------------------------
 -- Workspace info log
 
-myLog = dynamicLogWithPP $ defaultPP {
+myLog info = dynamicLogWithPP $ defaultPP {
   ppCurrent = wrap "c " "",
   ppVisible = wrap "v " "",
   ppHidden = wrap "h " "" . noScratchPad,
@@ -115,7 +122,8 @@ myLog = dynamicLogWithPP $ defaultPP {
   ppUrgent = wrap "u " "",
   ppOrder = \(ws:l:t:_) -> [ws,l,t],
   ppSep = "|:|",
-  ppWsSep = "|"
+  ppWsSep = "|",
+  ppOutput = hPutStrLn info
 }
   where
     noScratchPad ws = if ws == "NSP" then "" else ws
@@ -222,8 +230,9 @@ myKeys conf@(XConfig {XMonad.modMask = w}) = M.fromList $
     ((a, xK_F1), namedScratchpadAction myScratchPads "sage-calc"),
     ((a, xK_F2), namedScratchpadAction myScratchPads "vol-control"),
     ((a, xK_F3), namedScratchpadAction myScratchPads "htop-term"),
-    ---------- Kill ----------
-    ((w .|. a, xK_BackSpace), spawn restartCMD),
+    ---------- Restart ----------
+    ((w .|. a, xK_BackSpace), spawn killBar),
+    ((w, xK_BackSpace), spawn restartCMD),
     ---------- Misc ----------
     ((c, xK_slash), spawn (script ++ "volume toggle")),
     ((c, xK_Up), spawn (script ++ "volume inc")),
@@ -266,6 +275,7 @@ myMouseBindings (XConfig {XMonad.modMask = modMask}) = M.fromList $
 -- Run XMonad
 
 main = do
+  infoBar <- spawnPipe infoBar
   xmonad $ defaultConfig {
 	terminal = myTerminal,
         borderWidth = myBorderWidth,
@@ -282,7 +292,7 @@ main = do
                      <+> manageHook defaultConfig,
         XMonad.keys = myKeys,
         mouseBindings = myMouseBindings,
-        logHook = myLog,
+        logHook = myLog infoBar,
         startupHook = myStartupHook
                       <+> ewmhDesktopsStartup >> setWMName "LG3D",
         handleEventHook = ewmhDesktopsEventHook <+> FS.fullscreenEventHook
