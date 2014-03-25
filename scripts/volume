@@ -6,11 +6,11 @@ scriptDir=$(dirname $(readlink -f $0))
 red="#C11B17"
 blue="#00688B"
 
-state=$(amixer get Master | awk '{if(NR==6) print $6}' | sed 's/[^a-z]//g')
+state=$(amixer get Master | awk '{if(NR==5) print $6}' | sed 's/[^a-z]//g')
 if [ $1 = inc ]; then
-	amixer -q set Master 5%+
+	amixer -q set Master 5dB+
 elif [ $1 = dec ]; then
-  amixer -q set Master 5%-
+  amixer -q set Master 5dB-
 elif [ $1 = max ]; then
   amixer -q set Master 100%
 elif [ $1 = min ]; then
@@ -31,8 +31,8 @@ elif [ $1 = toggle ]; then
   fi
 fi
 
-state=$(amixer get Master | awk '{if(NR==6) print $6}' | sed 's/[^a-z]//g')
-volume=$(amixer get Master | awk '{if(NR==6) print $5}' | sed 's/[^0-9]*//g')
+state=$(amixer get Master | awk '{if(NR==5) print $6}' | sed 's/[^a-z]//g')
+volume=$(amixer get Master | awk '{if(NR==5) print $4}' | sed 's/[^0-9]*//g')
 if [ $state = on ]; then
   volColor=$blue
 elif [ $state = off ]; then

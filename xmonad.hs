@@ -114,7 +114,7 @@ myManageHook = composeAll . concat $
   ]
   where
     myFloats = ["Xfce4-appfinder","Nm-connection-editor",
-               "Nm-openconnect-auth-dialog"," "]
+               "Nm-openconnect-auth-dialog"," ","Wicd-client.py"]
 
 -----------------------------------------------------------------------
 -- Scratchpads
@@ -152,6 +152,17 @@ myScratchPads = [ NS "sage-calc" spawnCalc findCalc manageCalc,
 -----------------------------------------------------------------------
 -- Logs for Dzen
 
+myLog = dynamicLogWithPP $ defaultPP {
+  ppCurrent = wrap "c " "",
+  ppVisible = wrap "v " "",
+  ppHidden = wrap "h " "",
+  ppHiddenNoWindows = wrap "hnw " "",
+  ppUrgent = wrap "u " "",
+  ppOrder = \(ws:l:t:_) -> [ws,l,t],
+  ppSep = "|:|",
+  ppWsSep = "|"
+}
+
 wsLog spaces = dynamicLogWithPP $ defaultPP {
   ppCurrent = dzenColor blue black,
   ppVisible = dzenColor blue black,
@@ -184,7 +195,7 @@ myStartupHook = do
          ++ " --transparent true --alpha 0 --tint " ++ trayColor)
   spawn ("echo ' ' > " ++ script ++ ".currentVolume")
   spawn ("echo ' ' > " ++ script ++ ".currentLight")
-  spawn (script ++ "light max")
+  spawn (script ++ "light 60")
   spawn (script ++ "volume off")
   spawn (script ++ "volume med")
 
@@ -284,7 +295,6 @@ myKeys conf@(XConfig {XMonad.modMask = w}) = M.fromList $
     ---------- Kill ----------
     ((w .|. a, xK_BackSpace), spawn killBars),
     ((w, xK_BackSpace), spawn restartCMD),
-    ((w .|. c, xK_Escape), io (exitWith ExitSuccess)),
     ---------- Misc ----------
     ((c, xK_slash), spawn (script ++ "volume toggle")),
     ((c, xK_Up), spawn (script ++ "volume inc")),
@@ -310,7 +320,8 @@ myKeys conf@(XConfig {XMonad.modMask = w}) = M.fromList $
     ((w, xK_slash), windows copyToAll),
     ((w .|. s, xK_slash), killAllOtherCopies),
     ((c .|. a, xK_space), windowMenu),
-    ((c .|. s, xK_space), goToSelected defaultGSConfig)
+    ((c .|. s, xK_space), goToSelected defaultGSConfig),
+    ((c .|. a .|. s, xK_z), spawn "sus")
   ]
 
 -----------------------------------------------------------------------
@@ -325,24 +336,25 @@ myMouseBindings (XConfig {XMonad.modMask = modMask}) = M.fromList $
 -----------------------------------------------------------------------
 -- Workspaces
 
-workspaceList = Prelude.map show [0..10]
-myWorkspaces = [ "^ca(1,xdotool key super+" ++ cmd ++ ")" ++ ws ++ "^ca()" |
-                 ws <- workspaceList,
-                 let cmd = if ws == "0" then "grave"
-                           else if ws == "10" then "0"
-                           else ws ]
+myWorkspaces = Prelude.map show [0..10]
+--workspaceList = Prelude.map show [0..10]
+--myWorkspaces = [ "^ca(1,xdotool key super+" ++ cmd ++ ")" ++ ws ++ "^ca()" |
+--                 ws <- workspaceList,
+--                 let cmd = if ws == "0" then "grave"
+--                           else if ws == "10" then "0"
+--                           else ws ]
 
 -----------------------------------------------------------------------
 -- Run XMonad
 
 main = do
-  workspaceBar <- spawnPipe workspaceBar
-  clientBar <- spawnPipe clientBar
-  timeBar <- spawnPipe timeBar
-  volBar <- spawnPipe volBar
-  lightBar <- spawnPipe lightBar
-  battBar <- spawnPipe battBar
-  wifiBar <- spawnPipe wifiBar
+--  workspaceBar <- spawnPipe workspaceBar
+--  clientBar <- spawnPipe clientBar
+--  timeBar <- spawnPipe timeBar
+--  volBar <- spawnPipe volBar
+--  lightBar <- spawnPipe lightBar
+--  battBar <- spawnPipe battBar
+--  wifiBar <- spawnPipe wifiBar
   xmonad $ defaultConfig {
 	terminal = myTerminal,
         borderWidth = myBorderWidth,
@@ -350,7 +362,9 @@ main = do
         focusedBorderColor = myFocusedBorderColor,
         focusFollowsMouse = myFocusFollowsMouse,
         modMask = mod4Mask,
+--
         XMonad.workspaces = myWorkspaces,
+--
         layoutHook = myLayoutHook,
         manageHook = namedScratchpadManageHook myScratchPads
                      <+> placeHook myPlacement
@@ -359,8 +373,13 @@ main = do
                      <+> manageHook defaultConfig,
         XMonad.keys = myKeys,
         mouseBindings = myMouseBindings,
-        logHook = wsLog workspaceBar <+> clientLog clientBar,
-        startupHook = myStartupHook
-                      <+> ewmhDesktopsStartup >> setWMName "LG3D",
+--
+        logHook = myLog,
+        startupHook = ewmhDesktopsStartup >> setWMName "LG3D",
+--
+--        logHook = wsLog workspaceBar <+> clientLog clientBar,
+--        startupHook = myStartupHook
+--                      <+> ewmhDesktopsStartup >> setWMName "LG3D",
+--
         handleEventHook = ewmhDesktopsEventHook <+> FS.fullscreenEventHook
     }
