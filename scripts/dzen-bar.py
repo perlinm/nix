@@ -42,20 +42,32 @@ parser.add_argument(
     help='Network info width')
 
 parser.add_argument(
-    '-sw', '--systray_width', type=int, default=13,
-    help='Systray width')
-
-parser.add_argument(
-    '-cw', '--client_width', type=int, default=25,
+    '-clw', '--client_width', type=int, default=30,
     help='Client name width')
 
 parser.add_argument(
     '--spacer', default='  ', help='Spacer separating things')
 
 parser.add_argument(
-    '--char_width', type=int, default=7,
+    '-chw', '--char_width', type=int, default=7,
     help='Width (in px) of a character in your font. ' \
-    + 'For Monospace8, it is 7.')
+    + 'For Monospace-[8/9], it is 7.')
+
+parser.add_argument(
+    '-th', '--tray_height', type=int, default=16,
+    help='System tray height (in px)')
+
+parser.add_argument(
+    '-tw', '--tray_width', type=int, default=10,
+    help='System tray width')
+
+parser.add_argument(
+    '-bg', '--background', type=str, default='#1a1a1a',
+    help='Background color for system tray')
+
+parser.add_argument(
+    '-ws', '--workspaces', type=int, default=11,
+    help='Number of workspaces')
 
 args = parser.parse_args()
 
@@ -195,6 +207,7 @@ ws_color = {
   'hnw' : white,
   'u' : red
 }
+layout_length = 6
 
 def xmonad(line,align):
   info = line.split('|:|')
@@ -209,14 +222,36 @@ def xmonad(line,align):
     strings.append(ws[i].split()[1])
     lengths.append(len(strings[i]))
   colors += [textcolor,None,yellow]
-  strings += [layout,' '*args.systray_width,title]
-  lengths += [6,args.systray_width,args.client_width]
+  strings += [layout,' '*args.tray_width,title]
+  lengths += [layout_length,args.tray_width,args.client_width]
   return cstr(align,colors,strings,lengths)
+
+# system tray (bound to xmonad)
+def systray():
+  region = (left if 'xmonad' in left
+            else (center if 'xmonad' in center else right))
+  pad = args.workspaces*2 + layout_length + 2
+  for item in region:
+    if item == 'xmonad':
+      break
+    pad += funs[item]()[1]
+
+  if 'xmonad' not in left:
+    pad += section_length(left) + l_pad
+    if 'xmonad' not in center:
+      pad += section_length(center) + r_pad
+
+  sp.Popen(['killall','stalonetray'])
+  sp.Popen(['stalonetray','--background',args.background,'--geometry',
+            str(int(args.tray_width*args.char_width/args.tray_height))
+            + 'x1+' + str(int((pad+0.5)*args.char_width)) + '+0',
+            '--lower-on-start'])
 
 # function, value dictionaries
 left = args.left.split()
 center = args.center.split()
 right = args.right.split()
+used_funs = left+center+right
 
 all_funs = {
   'bat' : lambda: battery(aligns['bat']),
@@ -225,7 +260,6 @@ all_funs = {
   'light' : lambda: light(aligns['light']),
   'mem' : lambda: memory(aligns['mem']),
   'network' : lambda: network(aligns['network']),
-  'systray' : lambda: systray(aligns['systray']),
   'temp' : lambda: core_temp(aligns['temp']),
   'vol' : lambda: volume(aligns['vol']),
   'weather' : lambda: weather(aligns['weather']),
@@ -238,9 +272,9 @@ all_timed_funs = [[1,['clock', 'cpu', 'light', 'mem', 'temp']],
 timed_funs = [[]]*len(all_timed_funs)
 for i in range(len(timed_funs)):
   timed_funs[i] = [all_timed_funs[i][0],
-                   [f for f in all_timed_funs[i][1] if f in left+center+right]]
-funs = dict((f, all_funs[f]) for f in left+center+right)
-aligns = dict((f, 'l' if f in left else 'r') for f in left+center+right)
+                   [f for f in all_timed_funs[i][1] if f in used_funs]]
+funs = dict((f, all_funs[f]) for f in used_funs)
+aligns = dict((f, 'l' if f in left else 'r') for f in used_funs)
 vals = dict((f, funs[f]() if f not in arg_funs else ['',0]) for f in funs)
 
 # bar info
@@ -260,18 +294,27 @@ def section_text(bar):
       text += args.spacer
   return text
 
+old_width = 0
+l_pad = ''
+r_pad = ''
 def bar_text(seconds):
-  width = res()/args.char_width
+  global old_width, l_pad, r_pad
+
+  width = int(res()/args.char_width)
+  if width != old_width:
+    old_width = width
+    l_pad = ' '*np.ceil(width/2 - section_length(left)
+                        - section_length(center)/2)
+    r_pad = ' '*np.floor(width/2 - section_length(right)
+                         - section_length(center)/2)
+    if 'xmonad' in used_funs:
+      systray()
 
   for i in range(len(timed_funs)):
     if seconds % timed_funs[i][0] == 0:
       for j in range(len(timed_funs[i][1])):
         vals[timed_funs[i][1][j]] = funs[timed_funs[i][1][j]]()
 
-  l_pad = ' '*np.ceil(width/2 - section_length(left)
-                      - section_length(center)/2)
-  r_pad = ' '*np.floor(width/2 - section_length(right)
-                       - section_length(center)/2)
 
   return (section_text(left) + l_pad + section_text(center)
           + r_pad + section_text(right))
@@ -309,11 +352,11 @@ def xmonad_poll(stdin):
 second_thread = threading.Thread(target=second_poll)
 second_thread.start()
 
-if 'vol' in left+center+right:
+if 'vol' in used_funs:
   vol_thread = threading.Thread(target=vol_poll)
   vol_thread.start()
 
-if 'xmonad' in left+center+right:
+if 'xmonad' in used_funs:
   xmonad_thread = threading.Thread(target=xmonad_poll(sys.stdin))
   xmonad_thread.start()
 
