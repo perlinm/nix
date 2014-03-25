@@ -36,7 +36,7 @@ myAppFinder = "xfce4-appfinder"
 
 fullBlack = "#000000"
 fullWhite = "#ffffff"
-black = "#1a1a1a"
+black = "#111111"
 white = "#dddddd"
 grey = "#777777"
 red = "#c11b17"
@@ -60,7 +60,7 @@ myRun = "$(yeganesh -x --"
         ++ " -fn " ++ barFont ++ ")"
 
 barScript = "dzen-bar.py"
-infoBar = script ++ barScript ++ " -l 'xmonad' | dzen2 -h " ++ show barHeight
+infoBar = script ++ barScript ++ " | dzen2 -h " ++ show barHeight
           ++ " -fn " ++ barFont ++ " -e 'onstart=lower;button1=lower'"
 
 killBar = "killall dzen2 stalonetray " ++ barScript ++ " 2> /dev/null"

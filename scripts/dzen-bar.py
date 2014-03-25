@@ -15,7 +15,7 @@ parser.add_argument(
     help='Things to display aligned left')
 
 parser.add_argument(
-    '-c', '--center', default='',
+    '-c', '--center', default='cpu',
     help='Things to display aligned in the center')
 
 parser.add_argument(
@@ -71,10 +71,11 @@ parser.add_argument(
 
 args = parser.parse_args()
 
+
 # color definitions
 fullBlack = [0, 0, 0] # "#000000"
 fullWhite = [1, 1, 1] # "#ffffff"
-black = [.1, .1, .1] # "#1a1a1a"
+black = [2/30., 2/30., .2/30.] # "#111111"
 white = [.87, .87, .87] # "#dddddd"
 grey = [.47, .47, .47] # "#777777"
 red = [.76, .11, .09] # "#c11b17"
@@ -88,6 +89,7 @@ color_maps = [m for m in cm.datad if not m.endswith("_r")]
 def get_cmap(name):
   return cm.get_cmap(color_maps[color_maps.index(name)])
 
+
 # color map test
 def test_cmap(cmap):
   nums = ''
@@ -99,9 +101,6 @@ def test_cmap(cmap):
   time.sleep(500)
   exit(1)
 
-# screen resolution
-def res():
-  return int(sp.check_output('xrandr').split()[7])
 
 # format strings with colors for dzen and return string length
 tail = '..'
@@ -118,7 +117,7 @@ def one_cstr(align,color,string,length):
       if align == 'l':
         out_str += spacer
       else:
-        out_str = out_str+spacer
+        out_str = spacer + out_str
   return color_text + out_str, len(out_str)
 
 def cstr(align,colors,strings,length=-1):
@@ -138,11 +137,13 @@ def cstr(align,colors,strings,length=-1):
         out_length += 1
   return out_str, out_length
 
+
 # date and time
 def clock(align):
   now = datetime.datetime.now()
   time = now.strftime('%a %Y-%m-%d %H:%M:%S')
   return cstr(align,textcolor,time)
+
 
 # volume
 cm_light = get_cmap('cool')
@@ -152,10 +153,12 @@ def volume(align):
   color = cm_light(1-vol/100.) if mixer.getmute()[0] == 0 else red
   return cstr(align,color,vol,3)
 
+
 # screen brightness
 def light(align):
   value = int(float(sp.check_output('xbacklight'))+0.5)
   return cstr(align,yellow,value,3)
+
 
 # battery
 cm_bat = get_cmap('autumn')
@@ -174,6 +177,7 @@ def battery(align):
   charge_color = cm_bat(int(charge)/100.)
   time_color = textcolor
   return cstr(align,[time_color, charge_color], [time, charge], [6,3])
+
 
 # network
 def network_up(interface):
@@ -198,6 +202,7 @@ def network(align):
                 +network_name,args.network_width)
   else:
     return cstr(align,textcolor,'',args.network_width)
+
 
 # xmonad info
 ws_color = {
@@ -226,6 +231,7 @@ def xmonad(line,align):
   lengths += [layout_length,args.tray_width,args.client_width]
   return cstr(align,colors,strings,lengths)
 
+
 # system tray (bound to xmonad)
 def systray():
   region = (left if 'xmonad' in left
@@ -247,9 +253,8 @@ def systray():
             + 'x1+' + str(int((pad+0.5)*args.char_width)) + '+0',
             '--lower-on-start'])
 
-
 # cpu info
-cm_cpu = get_cmap('RdGy')
+cm_cpu = get_cmap('hot')
 
 def get_idles():
   stat = []
@@ -281,14 +286,14 @@ def cpu(align):
   colors = []
   for i in range(len(vals)):
     colors.append(cm_cpu(int(vals[i])/100.))
-    if vals[i] == 100:
-      vals[i] = '00'
+    vals[i] = int(vals[i]) if vals[i] < 100 else '00'
   lengths = [2]*len(vals)
   old_idles = idles
   old_cpu_time = cpu_time
   return cstr(align,colors,vals,lengths)
 
-# function, value dictionaries
+
+# function and value dictionaries
 left = args.left.split()
 center = args.center.split()
 right = args.right.split()
@@ -318,7 +323,11 @@ funs = dict((f, all_funs[f]) for f in used_funs)
 aligns = dict((f, 'l' if f in left else 'r') for f in used_funs)
 vals = dict((f, funs[f]() if f not in arg_funs else ['',0]) for f in funs)
 
+
 # bar info
+def res():
+  return int(sp.check_output('xrandr').split()[7])
+
 def section_length(bar):
   if len(bar) == 0:
     return 0
@@ -351,24 +360,25 @@ def bar_text(seconds):
     if 'xmonad' in used_funs:
       systray()
 
-  for i in range(len(timed_funs)):
-    if seconds % timed_funs[i][0] == 0:
-      for j in range(len(timed_funs[i][1])):
-        vals[timed_funs[i][1][j]] = funs[timed_funs[i][1][j]]()
-
-
   return (section_text(left) + l_pad + section_text(center)
           + r_pad + section_text(right))
+
 
 # polling functions
 seconds = 1
 def second_poll():
   global seconds
   while True:
+    now = time.time()
+    for i in range(len(timed_funs)):
+      if seconds % timed_funs[i][0] == 0:
+        for j in range(len(timed_funs[i][1])):
+          vals[timed_funs[i][1][j]] = funs[timed_funs[i][1][j]]()
     print(bar_text(seconds))
     sys.stdout.flush()
-    time.sleep(1)
     seconds += 1
+    elapsed = time.time()-now
+    time.sleep(1. - elapsed)
 
 def vol_poll():
   global vals
@@ -401,25 +411,15 @@ if 'xmonad' in used_funs:
   xmonad_thread = threading.Thread(target=xmonad_poll(sys.stdin))
   xmonad_thread.start()
 
-exit(1)
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+# weather
+def weather(align):
+  weath = pywapi.get_weather_from_noaa('KCVO')
+  temp = str(int(float(weath['temp_c']))) + ' C'
+  return cstr(align, textcolor, temp, 5)
 
 
 # core temp
@@ -433,7 +433,8 @@ def core_temp():
   info = sp.check_output(['acpi','-t']).split()
   temp = int(float(info[3]))
   color = mp.colors.rgb2hex(cm_temp(temp/100.))
-  return '^fg(' + color + ')' + str(temp) + ' C', 4
+  return cstr(color,temp+' C',4)
+
 
 # memory
 memcols = [(0.0, (0, 1, 1)),
@@ -456,9 +457,3 @@ def memory():
     post = ' G'
     mem = '%.1f' %(mem_free)
   return '^fg(' + color + ')' + mem + post, mem_len
-
-# weather
-def weather():
-  weath = pywapi.get_weather_from_noaa('KCVO')
-  w = '^fg(%s)' %textcolor + weath['temp_c'] + ' C' # + weath['weather']
-  return w, 4
