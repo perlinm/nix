@@ -1,5 +1,0 @@
-#!/bin/zsh
-
-scriptDir=$(dirname $(readlink -f $0))
-
-tail -f $scriptDir/.currentLight

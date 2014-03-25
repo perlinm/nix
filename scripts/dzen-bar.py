@@ -61,14 +61,14 @@ args = parser.parse_args()
 
 # color definitions
 fullBlack = [0, 0, 0] # "#000000"
-fullWhite = [1, 1, 1] # "#FFFFFF"
-black = [.1, .1, .1] # "#1A1A1A"
-white = [.87, .87, .87] # "#DDDDDD"
+fullWhite = [1, 1, 1] # "#ffffff"
+black = [.1, .1, .1] # "#1a1a1a"
+white = [.87, .87, .87] # "#dddddd"
 grey = [.47, .47, .47] # "#777777"
-red = [.76, .11, .09] # "#C11B17"
-green = [.21, .49, .09] # "#347C17"
-blue = [0, .41, .55] # "#00688B"
-yellow = [1., .73, 0] # "#FFBB00"
+red = [.76, .11, .09] # "#c11b17"
+green = [.21, .49, .09] # "#347c17"
+blue = [0, .41, .55] # "#00688b"
+yellow = [1., .73, 0] # "#ffbb00"
 
 textcolor = white
 
@@ -93,7 +93,7 @@ def res():
 
 # format strings with colors for dzen and return string length
 tail = '..'
-def one_cstr(color,string,length):
+def one_cstr(align,color,string,length):
   if type(color) is list or type(color) is tuple:
     color = mp.colors.rgb2hex(color)
   color_text = '^fg(%s)' %color if color != None else ''
@@ -102,19 +102,23 @@ def one_cstr(color,string,length):
     if len(out_str) > length:
       out_str = out_str[:length-len(tail)]+tail
     elif len(out_str) < length:
-      out_str = ' '*(length-len(out_str))+out_str
+      spacer = ' '*(length-len(out_str))
+      if align == 'l':
+        out_str += spacer
+      else:
+        out_str = out_str+spacer
   return color_text + out_str, len(out_str)
 
-def cstr(colors,strings,length=-1):
+def cstr(align,colors,strings,length=-1):
   if not type(strings) is list:
-    out_str, out_length = one_cstr(colors,strings,length)
+    out_str, out_length = one_cstr(align,colors,strings,length)
   else:
     if length == -1:
       length = [-1]*len(strings)
     out_str = ''
     out_length = 0
     for i in range(len(strings)):
-      addition = one_cstr(colors[i],strings[i],length[i])
+      addition = one_cstr(align,colors[i],strings[i],length[i])
       out_str += addition[0]
       out_length += addition[1]
       if i+1 < len(strings):
@@ -123,27 +127,27 @@ def cstr(colors,strings,length=-1):
   return out_str, out_length
 
 # date and time
-def clock():
+def clock(align):
   now = datetime.datetime.now()
   time = now.strftime('%a %Y-%m-%d %H:%M:%S')
-  return cstr(textcolor,time)
+  return cstr(align,textcolor,time)
 
 # volume
 cm_light = get_cmap('cool')
-def volume():
+def volume(align):
   mixer = alsaaudio.Mixer(cardindex = args.soundcard)
   vol = mixer.getvolume()[0]
   color = cm_light(1-vol/100.) if mixer.getmute()[0] == 0 else red
-  return cstr(color,vol,3)
+  return cstr(align,color,vol,3)
 
 # screen brightness
-def light():
+def light(align):
   value = int(float(sp.check_output('xbacklight'))+0.5)
-  return cstr(yellow,value,3)
+  return cstr(align,yellow,value,3)
 
 # battery
 cm_bat = get_cmap('autumn')
-def battery():
+def battery(align):
   acpi = (sp.check_output('acpi').decode('utf-8')).split()
   state = acpi[2][:-1]
   charge = acpi[3][:acpi[3].index('%')]
@@ -157,7 +161,7 @@ def battery():
 
   charge_color = cm_bat(int(charge)/100.)
   time_color = textcolor
-  return cstr([time_color, charge_color], [time, charge], [6,3])
+  return cstr(align,[time_color, charge_color], [time, charge], [6,3])
 
 # network
 def network_up(interface):
@@ -165,9 +169,9 @@ def network_up(interface):
     state = f.read(1)
   return True if state == 'u' else False
 
-def network():
+def network(align):
   if network_up(args.eth):
-    return cstr(textcolor,'ethernet',args.network_width)
+    return cstr(align,textcolor,'ethernet',args.network_width)
   elif network_up(args.wl):
     f = open('/proc/net/wireless','r')
     for line in f:
@@ -178,10 +182,10 @@ def network():
         network_name = (sp.check_output(['iwgetid','-r']).
                         decode('utf-8')).split()[0]
     f.close()
-    return cstr(textcolor,str(link_quality)+'% '+str(signal_strength)+'dBm '
+    return cstr(align,textcolor,str(link_quality)+'% '+str(signal_strength)+'dBm '
                 +network_name,args.network_width)
   else:
-    return cstr(textcolor,'',args.network_width)
+    return cstr(align,textcolor,'',args.network_width)
 
 # xmonad info
 ws_color = {
@@ -192,12 +196,7 @@ ws_color = {
   'u' : red
 }
 
-def test(t):
-    f = open('/home/perlinm/test','a')
-    f.write(str(t)+'\n\n')
-    f.close()
-
-def xmonad(line):
+def xmonad(line,align):
   info = line.split('|:|')
   ws = info[0].split('|')
   layout = info[1].split()[0]
@@ -211,9 +210,8 @@ def xmonad(line):
     lengths.append(len(strings[i]))
   colors += [textcolor,None,yellow]
   strings += [layout,' '*args.systray_width,title]
-  lengths += [len(layout),args.systray_width,args.client_width]
-  test(strings)
-  return cstr(colors,strings,lengths)
+  lengths += [6,args.systray_width,args.client_width]
+  return cstr(align,colors,strings,lengths)
 
 # function, value dictionaries
 left = args.left.split()
@@ -221,17 +219,17 @@ center = args.center.split()
 right = args.right.split()
 
 all_funs = {
-  'bat' : lambda: battery(),
-  'clock' : lambda: clock(),
-  'cpu' : lambda: cpu(),
-  'light' : lambda: light(),
-  'mem' : lambda: memory(),
-  'network' : lambda: network(),
-  'systray' : lambda: systray(),
-  'temp' : lambda: core_temp(),
-  'vol' : lambda: volume(),
-  'weather' : lambda: weather(),
-  'xmonad' : lambda line: xmonad(line),
+  'bat' : lambda: battery(aligns['bat']),
+  'clock' : lambda: clock(aligns['clock']),
+  'cpu' : lambda: cpu(aligns['cpu']),
+  'light' : lambda: light(aligns['light']),
+  'mem' : lambda: memory(aligns['mem']),
+  'network' : lambda: network(aligns['network']),
+  'systray' : lambda: systray(aligns['systray']),
+  'temp' : lambda: core_temp(aligns['temp']),
+  'vol' : lambda: volume(aligns['vol']),
+  'weather' : lambda: weather(aligns['weather']),
+  'xmonad' : lambda line: xmonad(line,aligns['xmonad']),
 }
 arg_funs = ['xmonad']
 
@@ -242,6 +240,7 @@ for i in range(len(timed_funs)):
   timed_funs[i] = [all_timed_funs[i][0],
                    [f for f in all_timed_funs[i][1] if f in left+center+right]]
 funs = dict((f, all_funs[f]) for f in left+center+right)
+aligns = dict((f, 'l' if f in left else 'r') for f in left+center+right)
 vals = dict((f, funs[f]() if f not in arg_funs else ['',0]) for f in funs)
 
 # bar info

@@ -34,76 +34,31 @@ import XMonad.Util.NamedScratchpad
 myTerminal = "xfce4-terminal"
 myAppFinder = "xfce4-appfinder"
 
+fullBlack = "#000000"
+fullWhite = "#ffffff"
+black = "#1a1a1a"
+white = "#dddddd"
+grey = "#777777"
+red = "#c11b17"
+green = "#347c17"
+blue = "#00688b"
+yellow = "#ffbb00"
+barFont = "monospace-8"
+
 myBorderWidth = 1
 myNormalBorderColor = fullBlack
 myFocusedBorderColor = grey
 myFocusFollowsMouse = True
+myWorkspaces = Prelude.map show [0..10]
 
 script = "/home/perlinm/scripts/"
 
-killDzen = "killall dzen2 2> /dev/null"
-killTrayer = "killall trayer 2> /dev/null"
-killScripts = "kill $(ps aux | grep " ++ script
-              ++ " | awk '{print $2}') 2> /dev/null"
-killBars = killDzen ++ " && " ++ killTrayer ++ " && " ++ killScripts
 restartCMD = "/usr/bin/xmonad --recompile && /usr/bin/xmonad --restart"
-
-trayColor = "0x1A1A1A"
-fullBlack = "#000000"
-fullWhite = "#FFFFFF"
-black = "#1A1A1A"
-white = "#DDDDDD"
-grey = "#777777"
-red = "#C11B17"
-green = "#347C17"
-blue = "#00688B"
-yellow = "#FFBB00"
-xRes = 1366
-barHeight = 15
-barFont = "'DejaVu-8:normal'"
 
 myRun = "$(yeganesh -x --"
         ++ " -nb '" ++ black ++ "'"
         ++ " -nf '" ++ white ++ "'" ++ " -sf '" ++ white ++ "'"
         ++ " -fn " ++ barFont ++ ")"
-
-dzenBar = "dzen2 -p -h " ++ show barHeight
-          ++ " -bg '" ++ black  ++ "'"
-          ++ " -fg '" ++ white ++ "'"
-          ++ " -fn " ++ barFont
-          ++ " -e 'onstart=lower'"
-
-wsWidth = 195
-trayWidth = 90
-timeWidth = 155
-volWidth = 36
-lightWidth = 36
-battWidth = 74
-wifiWidth = 155
-
-trayPos = wsWidth
-clientPos = trayPos + trayWidth
-timePos = xRes - timeWidth
-volPos = timePos - volWidth
-lightPos = volPos - lightWidth
-battPos = lightPos - battWidth
-wifiPos = battPos - wifiWidth
-
-clientWidth = wifiPos - clientPos
-
-workspaceBar = dzenBar ++ " -ta l -w " ++ show wsWidth
-clientBar = dzenBar ++ " -ta l -x " ++ show clientPos
-            ++ " -w " ++ show clientWidth
-timeBar = script ++ "time | " ++ dzenBar
-          ++ " -ta r -x " ++ show timePos ++ " -w " ++ show timeWidth
-volBar = script ++ "volBar | " ++ dzenBar
-         ++ " -x " ++ show volPos ++ " -w " ++ show volWidth
-lightBar = script ++ "lightBar | " ++ dzenBar
-           ++ " -x " ++ show lightPos ++ " -w " ++ show lightWidth
-battBar = script ++ "battery | " ++ dzenBar
-          ++ " -x " ++ show battPos ++ " -w " ++ show battWidth
-wifiBar = script ++ "network | " ++ dzenBar
-          ++ " -x " ++ show wifiPos ++ " -w " ++ show wifiWidth
 
 -----------------------------------------------------------------------
 -- Window rules
@@ -150,51 +105,26 @@ myScratchPads = [ NS "sage-calc" spawnCalc findCalc manageCalc,
 
 
 -----------------------------------------------------------------------
--- Logs for Dzen
+-- Workspace info log
 
 myLog = dynamicLogWithPP $ defaultPP {
   ppCurrent = wrap "c " "",
   ppVisible = wrap "v " "",
-  ppHidden = wrap "h " "",
-  ppHiddenNoWindows = wrap "hnw " "",
+  ppHidden = wrap "h " "" . noScratchPad,
+  ppHiddenNoWindows = wrap "hnw " "" . noScratchPad,
   ppUrgent = wrap "u " "",
   ppOrder = \(ws:l:t:_) -> [ws,l,t],
   ppSep = "|:|",
   ppWsSep = "|"
 }
-
-wsLog spaces = dynamicLogWithPP $ defaultPP {
-  ppCurrent = dzenColor blue black,
-  ppVisible = dzenColor blue black,
-  ppHidden = dzenColor green black . noScratchPad,
-  ppHiddenNoWindows = dzenColor white black . noScratchPad,
-  ppUrgent = dzenColor red black,
-  ppOrder = \(ws:l:_:_) -> [ws,
-                            "^ca(1,xdotool key super+space)" ++ l ++ "^ca()" ],
-  ppOutput = hPutStrLn spaces
-}
   where
     noScratchPad ws = if ws == "NSP" then "" else ws
-
-clientLog clients = dynamicLogWithPP $ defaultPP {
-  ppTitle = dzenColor yellow black,
-  ppOrder = \(_:_:t:_) -> [t],
-  ppOutput = hPutStrLn clients
-}
 
 -----------------------------------------------------------------------
 -- Startup commands
 
 myStartupHook :: X()
 myStartupHook = do
-  spawn ("trayer --edge top --align left --heighttype pixel --height "
-         ++ show barHeight ++ " --distancefrom left --distance "
-         ++ show trayPos ++ " --widthtype pixel --width "
-         ++ show trayWidth
-         ++ " --SetPartialStrut true --SetDockType true"
-         ++ " --transparent true --alpha 0 --tint " ++ trayColor)
-  spawn ("echo ' ' > " ++ script ++ ".currentVolume")
-  spawn ("echo ' ' > " ++ script ++ ".currentLight")
   spawn (script ++ "light 60")
   spawn (script ++ "volume off")
   spawn (script ++ "volume med")
@@ -293,8 +223,7 @@ myKeys conf@(XConfig {XMonad.modMask = w}) = M.fromList $
     ((a, xK_F2), namedScratchpadAction myScratchPads "vol-control"),
     ((a, xK_F3), namedScratchpadAction myScratchPads "htop-term"),
     ---------- Kill ----------
-    ((w .|. a, xK_BackSpace), spawn killBars),
-    ((w, xK_BackSpace), spawn restartCMD),
+    ((w .|. a, xK_BackSpace), spawn restartCMD),
     ---------- Misc ----------
     ((c, xK_slash), spawn (script ++ "volume toggle")),
     ((c, xK_Up), spawn (script ++ "volume inc")),
@@ -334,27 +263,9 @@ myMouseBindings (XConfig {XMonad.modMask = modMask}) = M.fromList $
   ]
 
 -----------------------------------------------------------------------
--- Workspaces
-
-myWorkspaces = Prelude.map show [0..10]
---workspaceList = Prelude.map show [0..10]
---myWorkspaces = [ "^ca(1,xdotool key super+" ++ cmd ++ ")" ++ ws ++ "^ca()" |
---                 ws <- workspaceList,
---                 let cmd = if ws == "0" then "grave"
---                           else if ws == "10" then "0"
---                           else ws ]
-
------------------------------------------------------------------------
 -- Run XMonad
 
 main = do
---  workspaceBar <- spawnPipe workspaceBar
---  clientBar <- spawnPipe clientBar
---  timeBar <- spawnPipe timeBar
---  volBar <- spawnPipe volBar
---  lightBar <- spawnPipe lightBar
---  battBar <- spawnPipe battBar
---  wifiBar <- spawnPipe wifiBar
   xmonad $ defaultConfig {
 	terminal = myTerminal,
         borderWidth = myBorderWidth,
@@ -362,9 +273,7 @@ main = do
         focusedBorderColor = myFocusedBorderColor,
         focusFollowsMouse = myFocusFollowsMouse,
         modMask = mod4Mask,
---
         XMonad.workspaces = myWorkspaces,
---
         layoutHook = myLayoutHook,
         manageHook = namedScratchpadManageHook myScratchPads
                      <+> placeHook myPlacement
@@ -373,13 +282,8 @@ main = do
                      <+> manageHook defaultConfig,
         XMonad.keys = myKeys,
         mouseBindings = myMouseBindings,
---
         logHook = myLog,
-        startupHook = ewmhDesktopsStartup >> setWMName "LG3D",
---
---        logHook = wsLog workspaceBar <+> clientLog clientBar,
---        startupHook = myStartupHook
---                      <+> ewmhDesktopsStartup >> setWMName "LG3D",
---
+        startupHook = myStartupHook
+                      <+> ewmhDesktopsStartup >> setWMName "LG3D",
         handleEventHook = ewmhDesktopsEventHook <+> FS.fullscreenEventHook
     }
