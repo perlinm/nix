@@ -3,7 +3,7 @@ import matplotlib as mp
 import matplotlib.cm as cm
 import numpy as np
 import subprocess as sp
-import time, sys, datetime, alsaaudio, argparse, select, pywapi, threading
+import time, sys, datetime, alsaaudio, argparse, select, pywapi, threading, re
 
 # arguments
 parser = argparse.ArgumentParser(
@@ -42,11 +42,11 @@ parser.add_argument(
     help='Network info width')
 
 parser.add_argument(
-    '-clw', '--client_width', type=int, default=30,
+    '-clw', '--client_width', type=int, default=100,
     help='Client name width')
 
 parser.add_argument(
-    '-tw', '--tray_width', type=int, default=10,
+    '-tw', '--tray_width', type=int, default=8,
     help='System tray width')
 
 parser.add_argument(
@@ -54,7 +54,7 @@ parser.add_argument(
     help='System tray height (in px)')
 
 parser.add_argument(
-    '-bg', '--background', type=str, default='#1a1a1a',
+    '-bg', '--background', type=str, default='#111111',
     help='Background color for system tray')
 
 parser.add_argument(
@@ -147,12 +147,13 @@ def clock(align):
 
 # volume
 cm_light = get_cmap('cool')
+p = re.compile('\w')
 def volume(align):
-  mixer = alsaaudio.Mixer(cardindex = args.soundcard)
-  vol = mixer.getvolume()[0]
-  color = cm_light(1-vol/100.) if mixer.getmute()[0] == 0 else red
+  info = sp.check_output(['amixer','-M','get','Master'])
+  vol = ''.join(p.findall(info.split()[-3].decode('utf-8')))
+  state = ''.join(p.findall(info.split()[-1].decode('utf-8')))
+  color = cm_light(1-int(vol)/100.) if state == 'on' else red
   return cstr(align,color,vol,3)
-
 
 # screen brightness
 def light(align):
@@ -166,17 +167,20 @@ def battery(align):
   acpi = (sp.check_output('acpi').decode('utf-8')).split()
   state = acpi[2][:-1]
   charge = acpi[3][:acpi[3].index('%')]
-
-  if 'Charging' in state or 'Discharging' in state:
-    time = acpi[4][:-3] + ('+' if 'Charging' in state else '-')
-  elif 'Full' in state:
-    time = ''
-  else:
-    time = '?????'
-
   charge_color = cm_bat(int(charge)/100.)
   time_color = textcolor
-  return cstr(align,[time_color, charge_color], [time, charge], [6,3])
+
+  if 'Charging' in state or 'Discharging' in state:
+    time = acpi[4][:-3]
+    charge += '+' if 'Charging' in state else '-'
+  elif 'Full' in state:
+    time = ''
+    charge += ' '
+  else:
+    time = '?????'
+    charge += '?'
+
+  return cstr(align,[time_color, charge_color], [time, charge], [6,4])
 
 
 # network
@@ -226,27 +230,15 @@ def xmonad(line,align):
     colors.append(ws_color[ws[i].split()[0]])
     strings.append(ws[i].split()[1])
     lengths.append(len(strings[i]))
-  colors += [textcolor,None,yellow]
-  strings += [layout,' '*args.tray_width,title]
-  lengths += [layout_length,args.tray_width,args.client_width]
+  colors += [textcolor,yellow]
+  strings += [layout,title]
+  lengths += [layout_length,args.client_width]
   return cstr(align,colors,strings,lengths)
 
 
-# system tray (bound to xmonad)
+# system tray
 def systray():
-  region = (left if 'xmonad' in left
-            else (center if 'xmonad' in center else right))
-  pad = args.workspaces*2 + layout_length + 2
-  for item in region:
-    if item == 'xmonad':
-      break
-    pad += funs[item]()[1]
-
-  if 'xmonad' not in left:
-    pad += section_length(left) + l_pad
-    if 'xmonad' not in center:
-      pad += section_length(center) + r_pad
-
+  pad = width() - max_size(right)
   sp.Popen(['killall','stalonetray'])
   sp.Popen(['stalonetray','--background',args.background,'--geometry',
             str(int(args.tray_width*args.char_width/args.tray_height))
@@ -324,44 +316,78 @@ aligns = dict((f, 'l' if f in left else 'r') for f in used_funs)
 vals = dict((f, funs[f]() if f not in arg_funs else ['',0]) for f in funs)
 
 
-# bar info
-def res():
-  return int(sp.check_output('xrandr').split()[7])
+# bar width in characters
+def width():
+  return int(int(sp.check_output('xrandr').split()[7])/args.char_width)
 
+# maximum size of left/right bars
+def max_size(bar):
+  size = (width()-section_length(center)[0])/2
+  return int(np.floor(size)) if bar == left else int(np.ceil(size))
+
+# length of sections in characters
 def section_length(bar):
   if len(bar) == 0:
     return 0
   length = len(args.spacer)*(len(bar)-1)
   for i in range(len(bar)):
     length += vals[bar[i]][1]
-  return length
 
+  truncation = 0
+  # account for spacer to center section
+  if bar == center:
+    length += 2*len(args.spacer)
+  # truncate left and right sections if necessary
+  elif length > max_size(bar):
+    truncation = length - max_size(bar)
+    length = max_size(bar)
+
+  return length, truncation
+
+# section text
 def section_text(bar):
   text = ''
   for i in range(len(bar)):
     text += vals[bar[i]][0]
     if i+1 < len(bar):
       text += args.spacer
+
+  truncation = section_length(bar)[1]
+  # add spacers to center section
+  if bar == center:
+    text = args.spacer + text + args.spacer
+  # truncate left and right sections if necessary
+  elif truncation != 0:
+    if bar == left:
+      if text[-truncation:] == ' '*truncation:
+        text = text[:-truncation]
+      else:
+        text = text[:-(truncation+len(tail))] + tail
+    if bar == right:
+      if text[:truncation] == ' '*truncation:
+        text = text[truncation:]
+      else:
+        text = tail + text[truncation+len(tail):]
+
   return text
 
 old_width = 0
-l_pad = ''
-r_pad = ''
+l_pad = 0
+r_pad = 0
+# compile text for entire bar
 def bar_text(seconds):
   global old_width, l_pad, r_pad
 
-  width = int(res()/args.char_width)
-  if width != old_width:
-    old_width = width
-    l_pad = ' '*np.ceil(width/2 - section_length(left)
-                        - section_length(center)/2)
-    r_pad = ' '*np.floor(width/2 - section_length(right)
-                         - section_length(center)/2)
+  # if width has changed, adjust padding between sections
+  if width() != old_width:
+    old_width = width()
+    l_pad = max_size(left) - section_length(left)[0]
+    r_pad = max_size(right) - section_length(right)[0]
     if 'xmonad' in used_funs:
       systray()
 
-  return (section_text(left) + l_pad + section_text(center)
-          + r_pad + section_text(right))
+  return (section_text(left) + ' '*l_pad + section_text(center)
+            + ' '*r_pad + section_text(right))
 
 
 # polling functions
@@ -377,7 +403,7 @@ def second_poll():
     print(bar_text(seconds))
     sys.stdout.flush()
     seconds += 1
-    elapsed = time.time()-now
+    elapsed = time.time() - now
     time.sleep(1. - elapsed)
 
 def vol_poll():
