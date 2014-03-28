@@ -279,14 +279,13 @@ def get_idles():
   idles = np.array([int(s.split()[4]) for s in stat[1:]])
   return idles
 
-old_idles = get_idles()
-old_cpu_time = datetime.datetime.min
-
 with open('/proc/cpuinfo', 'r') as f:
   for line in f:
     if 'cpu cores' in line:
       ncores = int(line.split()[-1])
 
+old_idles = get_idles()
+old_cpu_time = datetime.datetime.min
 threads_per_core = int(len(old_idles)/ncores)
 cpu_len = (threads_per_core*3 + 2)*ncores + 1
 
@@ -402,8 +401,7 @@ def bar_text(seconds):
     old_width = width()
     l_pad = max_size(left) - section_length(left)[0]
     r_pad = max_size(right) - section_length(right)[0]
-    if 'xmonad' in used_funs:
-      systray()
+    systray()
 
   return (section_text(left) + ' '*l_pad + section_text(center)
             + ' '*r_pad + section_text(right))
