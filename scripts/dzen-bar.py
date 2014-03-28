@@ -234,9 +234,8 @@ ws_color = {
 layout_length = 6
 ws_keys = ['grave','1','2','3','4','5','6','7','8','9','0','space','']
 
-for i in range(len(ws_keys)):
+for i in range(len(ws_keys)-1):
   ws_keys[i] = 'super+' + ws_keys[i]
-ws_keys[-1] = ''
 scroll_up_keys = ['super+Right']*11+['','']
 scroll_down_keys = ['super+Left']*11+['','']
 
