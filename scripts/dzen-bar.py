@@ -42,7 +42,7 @@ parser.add_argument(
     help='Network info width')
 
 parser.add_argument(
-    '-clw', '--client_width', type=int, default=100,
+    '-clw', '--client_width', type=int, default=60,
     help='Client name width')
 
 parser.add_argument(
@@ -62,22 +62,18 @@ parser.add_argument(
     help='Number of workspaces')
 
 parser.add_argument(
-    '--spacer', default='  ', help='Spacer separating things')
-
-parser.add_argument(
     '-chw', '--char_width', type=int, default=7,
     help='Width (in px) of a character in your font. ' \
     + 'For Monospace-[8/9], it is 7.')
 
 args = parser.parse_args()
 
-
 # color definitions
 fullBlack = [0, 0, 0] # "#000000"
 fullWhite = [1, 1, 1] # "#ffffff"
 black = [2/30., 2/30., .2/30.] # "#111111"
 white = [.87, .87, .87] # "#dddddd"
-grey = [.47, .47, .47] # "#777777"
+gray = [.47, .47, .47] # "#777777"
 red = [.76, .11, .09] # "#c11b17"
 green = [.21, .49, .09] # "#347c17"
 blue = [0, .41, .55] # "#00688b"
@@ -88,7 +84,6 @@ textcolor = white
 color_maps = [m for m in cm.datad if not m.endswith("_r")]
 def get_cmap(name):
   return cm.get_cmap(color_maps[color_maps.index(name)])
-
 
 # color map test
 def test_cmap(cmap):
@@ -101,49 +96,71 @@ def test_cmap(cmap):
   time.sleep(500)
   exit(1)
 
-
-# format strings with colors for dzen and return string length
+# format strings for dzen; return string and its display length
+spacer = '  '
 tail = '..'
-def one_cstr(align,color,string,length):
+default_color = textcolor
+default_keysym = ''
+def one_fstr(align,string,length,color,keysym):
   if type(color) is list or type(color) is tuple:
     color = mp.colors.rgb2hex([color[0],color[1],color[2]])
   color_text = '^fg(%s)' %color if color != None else ''
   out_str = str(string).replace('\n','')
-  if length >= 0:
-    if len(out_str) > length:
-      out_str = out_str[:length-len(tail)]+tail
-    elif len(out_str) < length:
-      spacer = ' '*(length-len(out_str))
-      if align == 'l':
-        out_str += spacer
-      else:
-        out_str = spacer + out_str
-  return color_text + out_str, len(out_str)
 
-def cstr(align,colors,strings,length=-1):
-  if not type(strings) is list:
-    out_str, out_length = one_cstr(align,colors,strings,length)
+  pad = ''
+  if len(out_str) > length:
+    out_str = out_str[:length-len(tail)]+tail
+  elif len(out_str) < length:
+    pad = ' '*(length-len(out_str))
+
+  if len(keysym) > 0:
+    for i in range(len(keysym)):
+      if len(keysym[i][1]) > 0:
+        None
+        out_str = ('^ca('+str(keysym[i][0])+',xdotool key '
+                   +keysym[i][1]+')'+out_str+'^ca()')
+
+  if align == 'l':
+    out_str += pad
   else:
-    if length == -1:
-      length = [-1]*len(strings)
+    out_str = pad + out_str
+
+  return color_text + out_str, length
+
+def fstr(align,string,length,color=default_color,
+         keysym=default_keysym):
+  if not type(string) is list:
+    out_str, out_length = one_fstr(align,string,length,color,keysym)
+  else:
+    if color == default_color:
+      color = [color]*len(string)
+    if keysym == default_keysym:
+      multi_keysym = [keysym]*len(string)
+    else:
+      if type(keysym[0]) is not list: keysym = [keysym]
+      multi_keysym = []
+      for i in range(len(string)):
+        multi_keysym.append([])
+        for j in range(len(keysym)):
+          multi_keysym[i].append([])
+          multi_keysym[i][j] = [keysym[j][0],keysym[j][1][i]]
     out_str = ''
     out_length = 0
-    for i in range(len(strings)):
-      addition = one_cstr(align,colors[i],strings[i],length[i])
+    for i in range(len(string)):
+      addition = one_fstr(align,string[i],length[i],color[i],
+                          multi_keysym[i])
       out_str += addition[0]
       out_length += addition[1]
-      if i+1 < len(strings):
+      if i+1 < len(string):
         out_str += ' '
         out_length += 1
   return out_str, out_length
-
 
 # date and time
 def clock(align):
   now = datetime.datetime.now()
   time = now.strftime('%a %Y-%m-%d %H:%M:%S')
-  return cstr(align,textcolor,time)
-
+  return fstr(align,time,23)
 
 # volume
 cm_light = get_cmap('cool')
@@ -153,13 +170,12 @@ def volume(align):
   vol = ''.join(p.findall(info.split()[-3].decode('utf-8')))
   state = ''.join(p.findall(info.split()[-1].decode('utf-8')))
   color = cm_light(1-int(vol)/100.) if state == 'on' else red
-  return cstr(align,color,vol,3)
+  return fstr(align,vol,3,color)
 
 # screen brightness
 def light(align):
   value = int(float(sp.check_output('xbacklight'))+0.5)
-  return cstr(align,yellow,value,3)
-
+  return fstr(align,value,3,yellow)
 
 # battery
 cm_bat = get_cmap('autumn')
@@ -180,8 +196,7 @@ def battery(align):
     time = '?????'
     charge += '?'
 
-  return cstr(align,[time_color, charge_color], [time, charge], [6,4])
-
+  return fstr(align,[time,charge],[6,4],[time_color,charge_color])
 
 # network
 def network_up(interface):
@@ -191,7 +206,7 @@ def network_up(interface):
 
 def network(align):
   if network_up(args.eth):
-    return cstr(align,textcolor,'ethernet',args.network_width)
+    string = 'ethernet'
   elif network_up(args.wl):
     f = open('/proc/net/wireless','r')
     for line in f:
@@ -202,11 +217,11 @@ def network(align):
         network_name = (sp.check_output(['iwgetid','-r']).
                         decode('utf-8')).split()[0]
     f.close()
-    return cstr(align,textcolor,str(link_quality)+'% '+str(signal_strength)+'dBm '
-                +network_name,args.network_width)
+    string = (str(link_quality)+'% '+str(signal_strength)+'dBm '
+              +network_name)
   else:
-    return cstr(align,textcolor,'',args.network_width)
-
+    string = ''
+  return fstr(align,string,args.network_width)
 
 # xmonad info
 ws_color = {
@@ -217,6 +232,13 @@ ws_color = {
   'u' : red
 }
 layout_length = 6
+ws_keys = ['grave','1','2','3','4','5','6','7','8','9','0','space','']
+
+for i in range(len(ws_keys)):
+  ws_keys[i] = 'super+' + ws_keys[i]
+ws_keys[-1] = ''
+scroll_up_keys = ['super+Right']*11+['','']
+scroll_down_keys = ['super+Left']*11+['','']
 
 def xmonad(line,align):
   info = line.split('|:|')
@@ -233,8 +255,8 @@ def xmonad(line,align):
   colors += [textcolor,yellow]
   strings += [layout,title]
   lengths += [layout_length,args.client_width]
-  return cstr(align,colors,strings,lengths)
-
+  return fstr(align,strings,lengths,colors,
+              keysym=[[1,ws_keys],[4,scroll_up_keys],[5,scroll_down_keys]])
 
 # system tray
 def systray():
@@ -282,8 +304,7 @@ def cpu(align):
   lengths = [2]*len(vals)
   old_idles = idles
   old_cpu_time = cpu_time
-  return cstr(align,colors,vals,lengths)
-
+  return fstr(align,vals,lengths,colors)
 
 # function and value dictionaries
 left = args.left.split()
@@ -315,7 +336,6 @@ funs = dict((f, all_funs[f]) for f in used_funs)
 aligns = dict((f, 'l' if f in left else 'r') for f in used_funs)
 vals = dict((f, funs[f]() if f not in arg_funs else ['',0]) for f in funs)
 
-
 # bar width in characters
 def width():
   return int(int(sp.check_output('xrandr').split()[7])/args.char_width)
@@ -328,15 +348,15 @@ def max_size(bar):
 # length of sections in characters
 def section_length(bar):
   if len(bar) == 0:
-    return 0
-  length = len(args.spacer)*(len(bar)-1)
+    return 0, 0
+  length = len(spacer)*(len(bar)-1)
   for i in range(len(bar)):
     length += vals[bar[i]][1]
 
   truncation = 0
   # account for spacer to center section
   if bar == center:
-    length += 2*len(args.spacer)
+    length += 2*len(spacer)
   # truncate left and right sections if necessary
   elif length > max_size(bar):
     truncation = length - max_size(bar)
@@ -350,12 +370,12 @@ def section_text(bar):
   for i in range(len(bar)):
     text += vals[bar[i]][0]
     if i+1 < len(bar):
-      text += args.spacer
+      text += spacer
 
   truncation = section_length(bar)[1]
   # add spacers to center section
   if bar == center:
-    text = args.spacer + text + args.spacer
+    text = spacer + text + spacer
   # truncate left and right sections if necessary
   elif truncation != 0:
     if bar == left:
@@ -389,7 +409,6 @@ def bar_text(seconds):
   return (section_text(left) + ' '*l_pad + section_text(center)
             + ' '*r_pad + section_text(right))
 
-
 # polling functions
 seconds = 1
 def second_poll():
@@ -419,9 +438,9 @@ def vol_poll():
       sys.stdout.flush()
     p.unregister(fd)
 
-def xmonad_poll(stdin):
+def xmonad_poll():
   global vals
-  for line in stdin:
+  for line in sys.stdin:
     vals['xmonad'] = funs['xmonad'](line)
     print(bar_text(seconds))
     sys.stdout.flush()
@@ -434,7 +453,7 @@ if 'vol' in used_funs:
   vol_thread.start()
 
 if 'xmonad' in used_funs:
-  xmonad_thread = threading.Thread(target=xmonad_poll(sys.stdin))
+  xmonad_thread = threading.Thread(target=xmonad_poll())
   xmonad_thread.start()
 
 
@@ -445,8 +464,7 @@ if 'xmonad' in used_funs:
 def weather(align):
   weath = pywapi.get_weather_from_noaa('KCVO')
   temp = str(int(float(weath['temp_c']))) + ' C'
-  return cstr(align, textcolor, temp, 5)
-
+  return fstr(align, textcolor, temp, 5)
 
 # core temp
 tempcols = [(0.0, (0, 1, 1)),
@@ -459,8 +477,7 @@ def core_temp():
   info = sp.check_output(['acpi','-t']).split()
   temp = int(float(info[3]))
   color = mp.colors.rgb2hex(cm_temp(temp/100.))
-  return cstr(color,temp+' C',4)
-
+  return fstr(color,temp+' C',4)
 
 # memory
 memcols = [(0.0, (0, 1, 1)),
