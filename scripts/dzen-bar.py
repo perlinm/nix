@@ -3,7 +3,7 @@ import matplotlib as mp
 import matplotlib.cm as cm
 import numpy as np
 import subprocess as sp
-import time, sys, datetime, alsaaudio, argparse, select, pywapi, threading, re
+import time, sys, datetime, argparse, select, threading, re, alsaaudio#, pywapi
 
 # arguments
 parser = argparse.ArgumentParser(
@@ -69,11 +69,11 @@ parser.add_argument(
 args = parser.parse_args()
 
 # color definitions
-fullBlack = [0, 0, 0] # "#000000"
-fullWhite = [1, 1, 1] # "#ffffff"
-black = [2/30., 2/30., .2/30.] # "#111111"
-white = [.87, .87, .87] # "#dddddd"
-gray = [.47, .47, .47] # "#777777"
+fullBlack = [0]*3 # "#000000"
+fullWhite = [1]*3 # "#ffffff"
+black = [2/30.]*3 # "#111111"
+white = [.87]*3 # "#dddddd"
+gray = [.47]*3 # "#777777"
 red = [.76, .11, .09] # "#c11b17"
 green = [.21, .49, .09] # "#347c17"
 blue = [0, .41, .55] # "#00688b"
@@ -260,7 +260,7 @@ def xmonad(line,align):
 # system tray
 def systray():
   pad = width() - max_size(right)
-  sp.Popen(['killall','stalonetray'])
+  sp.call(['killall','stalonetray'])
   sp.Popen(['stalonetray','--background',args.background,'--geometry',
             str(int(args.tray_width*args.char_width/args.tray_height))
             + 'x1+' + str(int((pad+0.5)*args.char_width)) + '+0',
@@ -324,8 +324,8 @@ all_funs = {
 }
 arg_funs = ['xmonad']
 
-all_timed_funs = [[1,['clock', 'cpu', 'light', 'mem', 'temp']],
-                [5,['bat', 'network']], [600,['weather']]]
+all_timed_funs = [[1,['clock', 'cpu', 'light', 'mem', 'temp', 'network']],
+                [5,['bat']], [600,['weather']]]
 timed_funs = [[]]*len(all_timed_funs)
 for i in range(len(timed_funs)):
   timed_funs[i] = [all_timed_funs[i][0],

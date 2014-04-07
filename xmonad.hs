@@ -66,7 +66,6 @@ infoBar = script ++ barScript ++ " | dzen2 -h " ++ show barHeight
 killBar = "killall dzen2 stalonetray " ++ barScript ++ " 2> /dev/null"
 restartCMD = "/usr/bin/xmonad --recompile && /usr/bin/xmonad --restart"
 
-
 -----------------------------------------------------------------------
 -- Window rules
 
@@ -76,40 +75,53 @@ myManageHook = composeAll . concat $
   ]
   where
     myFloats = ["Xfce4-appfinder","Nm-connection-editor",
-               "Nm-openconnect-auth-dialog"," ","Wicd-client.py"]
+               "Nm-openconnect-auth-dialog"," ","Wicd-client.py",
+               "Python2"]
 
 -----------------------------------------------------------------------
 -- Scratchpads
 
-myScratchPads = [ NS "sage-calc" spawnCalc findCalc manageCalc,
-                  NS "vol-control" spawnMixer findMixer manageMixer,
-                  NS "htop-term" spawnHtop findHtop manageHtop ]
+calcName = "calc"
+mixerName = "mixer"
+htopName = "htop"
+wifiName = "wicd-curses"
+myScratchPads = [ NS calcName spawnCalc findCalc manageCalc,
+                  NS mixerName spawnMixer findMixer manageMixer,
+                  NS htopName spawnHtop findHtop manageHtop,
+                  NS wifiName spawnWifi findWifi manageWifi ]
   where
-    spawnCalc = (script ++ "sage-calc")
-    findCalc = title =? "sage-calc"
+    spawnCalc = (script ++ "pads " ++ calcName)
+    findCalc = title =? ("pad-" ++ calcName)
     manageCalc = customFloating $ W.RationalRect l t w h
       where
         h = 2/3
         w = 1/3
         t = 1/25
         l = 1-w
-    spawnMixer = (script ++ "vol-control")
-    findMixer = title =? "vol-control"
+    spawnMixer = (script ++ "pads " ++ mixerName)
+    findMixer = title =? ("pad-" ++ mixerName)
     manageMixer = customFloating $ W.RationalRect l t w h
       where
         h = 3/4
         w = 2/3
         t = (1-h)/2
         l = (1-w)/2
-    spawnHtop = (script ++ "htop-term")
-    findHtop = title =? "htop-term"
+    spawnHtop = (script ++ "pads " ++ htopName)
+    findHtop = title =? ("pad-" ++ htopName)
     manageHtop = customFloating $ W.RationalRect l t w h
       where
         h = 4/5
         w = 1/2
         t = (1-h)/2
         l = (1-w)/2
-
+    spawnWifi = (script ++ "pads " ++ wifiName)
+    findWifi = title =? ("pad-" ++ wifiName)
+    manageWifi = customFloating $ W.RationalRect l t w h
+      where
+        h = 1/2
+        w = 1/2
+        t = (1-h)/2
+        l = (1-w)/2
 
 -----------------------------------------------------------------------
 -- Workspace info log
@@ -133,10 +145,7 @@ myLog info = dynamicLogWithPP $ defaultPP {
 
 myStartupHook :: X()
 myStartupHook = do
-  spawn (script ++ "light 60")
-  spawn (script ++ "volume off")
-  spawn (script ++ "volume med")
-
+  spawn (script ++ "bg-slides")
 
 -----------------------------------------------------------------------
 -- Layout definitions
@@ -227,9 +236,10 @@ myKeys conf@(XConfig {XMonad.modMask = w}) = M.fromList $
     ((w, xK_Tab), spawn $ XMonad.terminal conf),
     ((a, xK_grave), spawn myRun),
     ((a .|. c, xK_grave), spawn myAppFinder),
-    ((a, xK_F1), namedScratchpadAction myScratchPads "sage-calc"),
-    ((a, xK_F2), namedScratchpadAction myScratchPads "vol-control"),
-    ((a, xK_F3), namedScratchpadAction myScratchPads "htop-term"),
+    ((a, xK_F1), namedScratchpadAction myScratchPads calcName),
+    ((a, xK_F2), namedScratchpadAction myScratchPads mixerName),
+    ((a, xK_F3), namedScratchpadAction myScratchPads wifiName),
+    ((a, xK_F4), namedScratchpadAction myScratchPads htopName),
     ---------- Restart ----------
     ((w .|. a, xK_BackSpace), spawn killBar),
     ((w, xK_BackSpace), spawn restartCMD),
@@ -240,16 +250,17 @@ myKeys conf@(XConfig {XMonad.modMask = w}) = M.fromList $
     ((c .|. s, xK_Up), spawn (script ++ "volume max")),
     ((c .|. s, xK_Down), spawn (script ++ "volume min")),
     ((c .|. s, xK_slash), spawn (script ++ "volume med")),
-    ((a, xK_Up), spawn (script ++ "light max")),
-    ((a, xK_Down), spawn (script ++ "light dim")),
-    ((a .|. s, xK_Up), spawn (script ++ "light inc")),
-    ((a .|. s, xK_Down), spawn (script ++ "light dec")),
+    ((a, xK_Up), spawn (script ++ "light inc")),
+    ((a, xK_Down), spawn (script ++ "light dec")),
+    ((a .|. s, xK_Up), spawn (script ++ "light max")),
+    ((a .|. s, xK_Down), spawn (script ++ "light dim")),
+    ((a .|. s, xK_slash), spawn (script ++ "light med")),
     ((w, xK_backslash), spawn (script ++ "print")),
     ((w .|. a, xK_backslash), spawn (script ++ "print --select")),
-    ((a, xK_slash), spawn (script ++ "abg swap")),
-    ((a, xK_apostrophe), spawn (script ++ "abg remove")),
-    ((a, xK_period), spawn (script ++ "abg next")),
-    ((a, xK_comma), spawn (script ++ "abg last")),
+--    ((a, xK_slash), spawn (script ++ "abg swap")),
+--    ((a, xK_apostrophe), spawn (script ++ "abg remove")),
+--    ((a, xK_period), spawn (script ++ "abg next")),
+--    ((a, xK_comma), spawn (script ++ "abg last")),
     ((a, xK_semicolon), spawn (script ++ "touchpad-toggle")),
     ((c .|. a, xK_Up), spawn (script ++ "orient normal")),
     ((c .|. a, xK_Down), spawn (script ++ "orient inverted")),

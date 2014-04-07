@@ -1,3 +1,0 @@
-#!/bin/zsh
-
-xfce4-terminal --title='vol-control' --command='alsamixer --view all'

@@ -10,4 +10,6 @@ elif [ $1 = max ]; then
   xbacklight -set 100
 elif [ $1 = set ]; then
   xbacklight -set $2
+elif [ $1 = med ]; then
+  xbacklight -set 60
 fi

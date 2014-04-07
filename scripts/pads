@@ -1,0 +1,15 @@
+#!/bin/zsh
+
+if ! [ $1 ]; then
+  exit 0
+fi
+
+command=
+if [ $1 = calc ]; then
+  command="sage -q"
+elif [ $1 = mixer ]; then
+  command="alsamixer --view all"
+else
+  command=$1
+fi
+xfce4-terminal --title="pad-$1" --command="$command"
