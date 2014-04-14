@@ -326,10 +326,10 @@ arg_funs = ['xmonad']
 
 all_timed_funs = [[1,['clock', 'cpu', 'light', 'mem', 'temp', 'network']],
                 [5,['bat']], [600,['weather']]]
-timed_funs = [[]]*len(all_timed_funs)
-for i in range(len(timed_funs)):
-  timed_funs[i] = [all_timed_funs[i][0],
-                   [f for f in all_timed_funs[i][1] if f in used_funs]]
+timed_funs = []
+for i in range(len(all_timed_funs)):
+  timed_funs.append([all_timed_funs[i][0],
+                     [f for f in all_timed_funs[i][1] if f in used_funs]])
 funs = dict((f, all_funs[f]) for f in used_funs)
 aligns = dict((f, 'l' if f in left else 'r') for f in used_funs)
 vals = dict((f, funs[f]() if f not in arg_funs else ['',0]) for f in funs)
@@ -394,10 +394,11 @@ l_pad = 0
 r_pad = 0
 # compile text for entire bar
 def bar_text(seconds):
-  global old_width, l_pad, r_pad
+  global l_pad, r_pad
 
   # if width has changed, adjust padding between sections
   if width() != old_width:
+    global old_width
     old_width = width()
     l_pad = max_size(left) - section_length(left)[0]
     r_pad = max_size(right) - section_length(right)[0]
