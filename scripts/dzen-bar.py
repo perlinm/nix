@@ -215,8 +215,11 @@ def network(align):
         link_quality = int(float(line[2])*100/70)
         signal_strength = int(float(line[3]))
     f.close()
-    network_name = (sp.check_output(['iwgetid','-r']).
-                    decode('utf-8')).split()[0]
+    try:
+      network_name = (sp.check_output(['iwgetid','-r']).
+                      decode('utf-8')).split()[0]
+    except:
+      network_name = '...'
     string = (str(link_quality)+'% '+str(signal_strength)+'dBm '
               +network_name)
   else:
