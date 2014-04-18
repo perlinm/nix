@@ -79,13 +79,14 @@ green = [.21, .49, .09] # "#347c17"
 blue = [0, .41, .55] # "#00688b"
 yellow = [1., .73, 0] # "#ffbb00"
 
-textcolor = white
+textcolor = mp.colors.rgb2hex(white)
 
 color_maps = [m for m in cm.datad if not m.endswith("_r")]
 def get_cmap(name):
   return cm.get_cmap(color_maps[color_maps.index(name)])
 
 # color map test
+testnum = 0
 def test_cmap(cmap):
   nums = ''
   for i in range(0, 101, 2):
@@ -100,60 +101,71 @@ def test_cmap(cmap):
 spacer = '  '
 tail = '..'
 default_color = textcolor
-default_keysym = ''
-def one_fstr(align,string,length,color,keysym):
-  if type(color) is list or type(color) is tuple:
-    color = mp.colors.rgb2hex([color[0],color[1],color[2]])
-  color_text = '^fg(%s)' %color if color != None else ''
-  out_str = str(string).replace('\n','')
+default_keysyms = [['','']]
+def one_fstr(align,string,length,color,keysyms,current_keys):
+  pre_text = ''
+  end_text = ''
 
-  pad = ''
+  # construct text and truncate and/or pad with spaces if necessary
+  out_str = str(string).replace('\n','')
+  pad = ['','']
   if len(out_str) > length:
     out_str = out_str[:length-len(tail)]+tail
   elif len(out_str) < length:
-    pad = ' '*(length-len(out_str))
+    pad[1 if align == 'l' else 0] = ' '*(length-len(out_str))
 
-  if len(keysym) > 0:
-    for i in range(len(keysym)):
-      if len(keysym[i][1]) > 0:
-        None
-        out_str = ('^ca('+str(keysym[i][0])+',xdotool key '
-                   +keysym[i][1]+')'+out_str+'^ca()')
+  # add keypress options if necessary
+  if keysyms != default_keysyms:
+    try:
+      while current_keys[-1] not in keysyms[1]:
+        pre_text += '^ca()'
+        current_keys.pop()
+    except: None
+    for i in range(len(keysyms)):
+      if keysyms[i][1] not in current_keys and keysyms[i][1] != '':
+        pre_text += ('^ca(%s,xdotool key %s)'
+                     %(str(keysyms[i][0]),keysyms[i][1]))
+        current_keys.append(keysyms[i][1])
 
-  if align == 'l':
-    out_str += pad
-  else:
-    out_str = pad + out_str
+  # color text, if the color has changed
+  if type(color) is list or type(color) is tuple:
+    color = mp.colors.rgb2hex([color[0],color[1],color[2]])
+  pre_text += '^fg(%s)'%color
+  end_text += '^fg()'
 
-  return color_text + out_str, length
+  return pre_text + pad[0] + out_str + pad[1] + end_text, length, current_keys
 
 def fstr(align,string,length,color=default_color,
-         keysym=default_keysym):
+         keysyms=default_keysyms):
+  if type(keysyms[0]) is not list: keysyms = [keysyms]
   if not type(string) is list:
-    out_str, out_length = one_fstr(align,string,length,color,keysym)
+    out_str, out_length, current_keys = \
+      one_fstr(align,string,length,color,keysyms,[])
   else:
     if color == default_color:
       color = [color]*len(string)
-    if keysym == default_keysym:
-      multi_keysym = [keysym]*len(string)
+    if keysyms == default_keysyms:
+      multi_keysyms = [keysyms]*len(string)
     else:
-      if type(keysym[0]) is not list: keysym = [keysym]
-      multi_keysym = []
+      multi_keysyms = []
       for i in range(len(string)):
-        multi_keysym.append([])
-        for j in range(len(keysym)):
-          multi_keysym[i].append([])
-          multi_keysym[i][j] = [keysym[j][0],keysym[j][1][i]]
+        multi_keysyms.append([])
+        for j in range(len(keysyms)):
+          multi_keysyms[i].append([])
+          multi_keysyms[i][j] = [keysyms[j][0],keysyms[j][1][i]]
     out_str = ''
     out_length = 0
+    current_keys = []
     for i in range(len(string)):
-      addition = one_fstr(align,string[i],length[i],color[i],
-                          multi_keysym[i])
-      out_str += addition[0]
-      out_length += addition[1]
+      str_info = one_fstr(align,string[i],length[i],color[i],
+                          multi_keysyms[i],current_keys)
+      out_str += str_info[0]
+      out_length += str_info[1]
+      current_keys = str_info[2]
       if i+1 < len(string):
         out_str += ' '
         out_length += 1
+  out_str += '^ca()'*len(current_keys)
   return out_str, out_length
 
 # date and time
@@ -258,7 +270,7 @@ def xmonad(line,align):
   strings += [layout,title]
   lengths += [layout_length,args.client_width]
   return fstr(align,strings,lengths,colors,
-              keysym=[[1,ws_keys],[4,scroll_up_keys],[5,scroll_down_keys]])
+              keysyms=[[5,scroll_down_keys],[4,scroll_up_keys],[1,ws_keys]])
 
 # system tray
 def systray():
@@ -397,18 +409,16 @@ l_pad = 0
 r_pad = 0
 # compile text for entire bar
 def bar_text(seconds):
-  global l_pad, r_pad
-
+  global l_pad, r_pad, old_width
   # if width has changed, adjust padding between sections
   if width() != old_width:
-    global old_width
     old_width = width()
     l_pad = max_size(left) - section_length(left)[0]
     r_pad = max_size(right) - section_length(right)[0]
     systray()
 
   return (section_text(left) + ' '*l_pad + section_text(center)
-            + ' '*r_pad + section_text(right))
+          + ' '*r_pad + section_text(right))
 
 # polling functions
 seconds = 1
