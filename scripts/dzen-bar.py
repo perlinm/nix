@@ -423,6 +423,7 @@ def bar_text(seconds):
 # polling functions
 seconds = 1
 def second_poll():
+  time.sleep(1)
   global seconds
   while True:
     now = time.time()
@@ -437,6 +438,7 @@ def second_poll():
     time.sleep(1. - elapsed)
 
 def vol_poll():
+  if 'vol' not in used_funs: return None
   global vals
   while True:
     p = select.poll()
@@ -450,6 +452,7 @@ def vol_poll():
     p.unregister(fd)
 
 def xmonad_poll():
+  if 'xmonad' not in used_funs: return None
   global vals
   for line in sys.stdin:
     vals['xmonad'] = funs['xmonad'](line)
@@ -459,14 +462,11 @@ def xmonad_poll():
 second_thread = threading.Thread(target=second_poll)
 second_thread.start()
 
-if 'vol' in used_funs:
-  vol_thread = threading.Thread(target=vol_poll)
-  vol_thread.start()
+vol_thread = threading.Thread(target=vol_poll)
+vol_thread.start()
 
-if 'xmonad' in used_funs:
-  xmonad_thread = threading.Thread(target=xmonad_poll())
-  xmonad_thread.start()
-
+xmonad_thread = threading.Thread(target=xmonad_poll())
+xmonad_thread.start()
 
 
 
