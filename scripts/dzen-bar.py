@@ -435,7 +435,8 @@ def second_poll():
     sys.stdout.flush()
     seconds += 1
     elapsed = time.time() - now
-    time.sleep(1. - elapsed)
+    if elapsed < 1:
+      time.sleep(1. - elapsed)
 
 def vol_poll():
   if 'vol' not in used_funs: return None

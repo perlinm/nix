@@ -1,15 +1,7 @@
 #!/bin/zsh
 
-this_file=$(basename $0)
-
 bg_dir=/home/perlinm/Pictures/backgrounds
 
-if [ $(ps aux | grep $this_file | grep "/bin/zsh" | wc -l) -ne 2 ]; then
-  kill $(ps aux | grep $this_file | grep "/bin/zsh" | awk '{print $2}')
-fi
-while true; do
-  pic=$(ls $bg_dir/* | shuf -n 1)
-  feh --bg-fill $pic
-  echo "$pic" >> $bg_dir/.current
-  sleep 24h
-done
+pic=$(ls $bg_dir/* | shuf -n 1)
+feh --bg-fill $pic
+echo "$pic" >> $bg_dir/.current
