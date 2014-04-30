@@ -60,7 +60,7 @@ myRun = "$(yeganesh -x --"
         ++ " -fn " ++ barFont ++ ")"
 
 barScript = "dzen-bar.py"
-infoBar = script ++ barScript ++ " | dzen2 -h " ++ show barHeight
+infoBar = "nice -n -10 " ++ script ++ barScript ++ " | dzen2 -h " ++ show barHeight
           ++ " -fn " ++ barFont ++ " -e 'onstart=lower;button1=lower'"
 
 killBar = "killall dzen2 stalonetray " ++ barScript ++ " 2> /dev/null"
@@ -71,12 +71,14 @@ restartCMD = "/usr/bin/xmonad --recompile && /usr/bin/xmonad --restart"
 
 myManageHook = composeAll . concat $
   [
-    [ className =? c --> doCenterFloat  | c <- myFloats ]
+    [ (className =? c <&&> title /=? t) --> doCenterFloat
+          | c <- cFloats, t <- tSinks ]
   ]
   where
-    myFloats = ["Xfce4-appfinder","Nm-connection-editor",
+    cFloats = ["Xfce4-appfinder","Nm-connection-editor",
                "Nm-openconnect-auth-dialog"," ","Wicd-client.py",
-               "Python2"]
+               "Python2", "MATLAB", "com-mathworks-util-PostVMInit"]
+    tSinks = ["MATLAB R2012b"]
 
 -----------------------------------------------------------------------
 -- Scratchpads
@@ -96,16 +98,16 @@ myScratchPads = [ NS termName spawnTerm findTerm manageTerm,
     findTerm = title =? ("pad-" ++ termName)
     manageTerm = customFloating $ W.RationalRect l t w h
       where
-        h = 1/3
-        w = 2/5
+        h = 1/2
+        w = 0.45
         t = (1-h)*9/10
-        l = (1-w)/20
+        l = (1/2-w)/2
     spawnCalc = (script ++ "pads " ++ calcName)
     findCalc = title =? ("pad-" ++ calcName)
     manageCalc = customFloating $ W.RationalRect l t w h
       where
         h = 2/3
-        w = 1/3
+        w = 2/5
         t = 1/25
         l = 1-w
     spawnWifi = (script ++ "pads " ++ wifiName)

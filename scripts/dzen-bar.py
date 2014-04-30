@@ -3,7 +3,7 @@ import matplotlib as mp
 import matplotlib.cm as cm
 import numpy as np
 import subprocess as sp
-import time, sys, datetime, argparse, select, threading, re, alsaaudio#, pywapi
+import time, sys, datetime, argparse, select, threading, re, alsaaudio
 
 # arguments
 parser = argparse.ArgumentParser(
@@ -437,6 +437,8 @@ def second_poll():
     elapsed = time.time() - now
     if elapsed < 1:
       time.sleep(1. - elapsed)
+
+p = select.poll()
 
 def vol_poll():
   if 'vol' not in used_funs: return None
