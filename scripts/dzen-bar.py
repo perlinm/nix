@@ -438,8 +438,6 @@ def second_poll():
     if elapsed < 1:
       time.sleep(1. - elapsed)
 
-p = select.poll()
-
 def vol_poll():
   if 'vol' not in used_funs: return None
   global vals
