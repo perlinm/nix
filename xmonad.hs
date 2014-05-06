@@ -198,6 +198,8 @@ myKeys conf@(XConfig {XMonad.modMask = w}) = M.fromList $
   ]
   ++
   [
+    ((w, xK_p), moveTo Prev (WSIs notNSP)),
+    ((w, xK_g), moveTo Next (WSIs notNSP)),
     ((w, xK_Left), moveTo Prev (WSIs notNSP)),
     ((w, xK_Right), moveTo Next (WSIs notNSP)),
     ((w .|. c, xK_Left), swapTo' Prev (WSIs notNSP)),

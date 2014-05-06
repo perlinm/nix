@@ -438,18 +438,20 @@ def second_poll():
     if elapsed < 1:
       time.sleep(1. - elapsed)
 
+mixer = alsaaudio.Mixer(cardindex = args.soundcard)
 def vol_poll():
   if 'vol' not in used_funs: return None
   global vals
+  global mixer
+  p = select.poll()
   while True:
-    p = select.poll()
+    fd,em = mixer.polldescriptors()[0]
+    p.register(fd,em)
+    p.poll()
     mixer = alsaaudio.Mixer(cardindex = args.soundcard)
-    fd, em = mixer.polldescriptors()[0]
-    p.register(fd)
-    if p.poll():
-      vals['vol'] = funs['vol']()
-      print(bar_text(seconds))
-      sys.stdout.flush()
+    vals['vol'] = funs['vol']()
+    print(bar_text(seconds))
+    sys.stdout.flush()
     p.unregister(fd)
 
 def xmonad_poll():
