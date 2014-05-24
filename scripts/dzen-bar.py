@@ -3,70 +3,23 @@ import matplotlib as mp
 import matplotlib.cm as cm
 import numpy as np
 import subprocess as sp
-import time, sys, datetime, argparse, select, threading, re, alsaaudio
+import time, sys, datetime, select, threading, re, alsaaudio
 
-# arguments
-parser = argparse.ArgumentParser(
-    description='Returns a string containing various system status ' \
-    + 'for use in a dzen status bar.')
+left = 'xmonad'
+center = 'cpu'
+right = 'network bat light vol clock'
 
-parser.add_argument(
-    '-l', '--left', default='xmonad',
-    help='Things to display aligned left')
+soundcard = 0
+eth_interface = 'eno1'
+wl_interface = 'wlp2s0'
 
-parser.add_argument(
-    '-c', '--center', default='cpu',
-    help='Things to display aligned in the center')
-
-parser.add_argument(
-    '-r', '--right',
-    default='network bat light vol clock',
-    help='Things to display aligned right')
-
-parser.add_argument(
-    '-s', '--soundcard', type=int, default=0,
-    help='Soundcard number to use for volume')
-
-parser.add_argument(
-    '-b', '--bat', type=int, default=-1,
-    help='Battery number to use for power info')
-
-parser.add_argument(
-    '-e', '--eth',default='eno1', help='Ethernet interface')
-
-parser.add_argument(
-    '-w', '--wl', default='wlp2s0', help='Wireless interface')
-
-parser.add_argument(
-    '-nw', '--network_width', type=int, default=21,
-    help='Network info width')
-
-parser.add_argument(
-    '-clw', '--client_width', type=int, default=60,
-    help='Client name width')
-
-parser.add_argument(
-    '-tw', '--tray_width', type=int, default=8,
-    help='System tray width')
-
-parser.add_argument(
-    '-th', '--tray_height', type=int, default=16,
-    help='System tray height (in px)')
-
-parser.add_argument(
-    '-bg', '--background', type=str, default='#111111',
-    help='Background color for system tray')
-
-parser.add_argument(
-    '-ws', '--workspaces', type=int, default=11,
-    help='Number of workspaces')
-
-parser.add_argument(
-    '-chw', '--char_width', type=int, default=7,
-    help='Width (in px) of a character in your font. ' \
-    + 'For Monospace-[8/9], it is 7.')
-
-args = parser.parse_args()
+network_width = 21
+client_width = 60
+tray_width = 8
+tray_height = 16
+background = '#111111'
+workspaces = 11
+char_width = 7 # Monospace-[8/9]
 
 # color definitions
 fullBlack = [0]*3 # "#000000"
@@ -151,8 +104,7 @@ def fstr(align,string,length,color=default_color,
       for i in range(len(string)):
         multi_keysyms.append([])
         for j in range(len(keysyms)):
-          multi_keysyms[i].append([])
-          multi_keysyms[i][j] = [keysyms[j][0],keysyms[j][1][i]]
+          multi_keysyms[i].append([keysyms[j][0],keysyms[j][1][i]])
     out_str = ''
     out_length = 0
     current_keys = []
@@ -182,12 +134,14 @@ def volume(align):
   vol = ''.join(p.findall(info.split()[-3].decode('utf-8')))
   state = ''.join(p.findall(info.split()[-1].decode('utf-8')))
   color = cm_light(1-int(vol)/100.) if state == 'on' else red
-  return fstr(align,vol,3,color)
+  return fstr(align,vol,3,color,[[1,'ctrl+slash'],[4,'ctrl+Down'],
+                                 [5,'ctrl+Up']])
 
 # screen brightness
 def light(align):
   value = int(float(sp.check_output('xbacklight'))+0.5)
-  return fstr(align,value,3,yellow)
+  return fstr(align,value,3,yellow,[[1,'alt+slash'],[4,'alt+Down'],
+                                    [5,'alt+Up']])
 
 # battery
 cm_bat = get_cmap('autumn')
@@ -217,12 +171,12 @@ def network_up(interface):
   return True if state == 'u' else False
 
 def network(align):
-  if network_up(args.eth):
+  if network_up(eth_interface):
     string = 'ethernet'
-  elif network_up(args.wl):
+  elif network_up(wl_interface):
     f = open('/proc/net/wireless','r')
     for line in f:
-      if args.wl in line:
+      if wl_interface in line:
         line = line.split()
         link_quality = int(float(line[2])*100/70)
         signal_strength = int(float(line[3]))
@@ -236,7 +190,7 @@ def network(align):
               +network_name)
   else:
     string = ''
-  return fstr(align,string,args.network_width)
+  return fstr(align,string,network_width)
 
 # xmonad info
 ws_color = {
@@ -268,17 +222,17 @@ def xmonad(line,align):
     lengths.append(len(strings[i]))
   colors += [textcolor,yellow]
   strings += [layout,title]
-  lengths += [layout_length,args.client_width]
+  lengths += [layout_length,client_width]
   return fstr(align,strings,lengths,colors,
-              keysyms=[[5,scroll_down_keys],[4,scroll_up_keys],[1,ws_keys]])
+              [[5,scroll_down_keys],[4,scroll_up_keys],[1,ws_keys]])
 
 # system tray
 def systray():
   pad = width() - max_size(right)
   sp.call(['killall','stalonetray'])
-  sp.Popen(['stalonetray','--background',args.background,'--geometry',
-            str(int(args.tray_width*args.char_width/args.tray_height))
-            + 'x1+' + str(int((pad+0.5)*args.char_width)) + '+0',
+  sp.Popen(['stalonetray','--background',background,'--geometry',
+            str(int(tray_width*char_width/tray_height))
+            + 'x1+' + str(int((pad+0.5)*char_width)) + '+0',
             '--lower-on-start'])
 
 # cpu info
@@ -320,9 +274,9 @@ def cpu(align):
   return fstr(align,vals,lengths,colors)
 
 # function and value dictionaries
-left = args.left.split()
-center = args.center.split()
-right = args.right.split()
+left = left.split()
+center = center.split()
+right = right.split()
 used_funs = left+center+right
 
 all_funs = {
@@ -351,7 +305,7 @@ vals = dict((f, funs[f]() if f not in arg_funs else ['',0]) for f in funs)
 
 # bar width in characters
 def width():
-  return int(int(sp.check_output('xrandr').split()[7])/args.char_width)
+  return int(int(sp.check_output('xrandr').split()[7])/char_width)
 
 # maximum size of left/right bars
 def max_size(bar):
@@ -438,7 +392,7 @@ def second_poll():
     if elapsed < 1:
       time.sleep(1. - elapsed)
 
-mixer = alsaaudio.Mixer(cardindex = args.soundcard)
+mixer = alsaaudio.Mixer(cardindex = soundcard)
 def vol_poll():
   if 'vol' not in used_funs: return None
   global vals
@@ -448,7 +402,7 @@ def vol_poll():
     fd,em = mixer.polldescriptors()[0]
     p.register(fd,em)
     p.poll()
-    mixer = alsaaudio.Mixer(cardindex = args.soundcard)
+    mixer = alsaaudio.Mixer(cardindex = soundcard)
     vals['vol'] = funs['vol']()
     print(bar_text(seconds))
     sys.stdout.flush()

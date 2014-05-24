@@ -77,7 +77,8 @@ myManageHook = composeAll . concat $
   where
     cFloats = ["Xfce4-appfinder","Nm-connection-editor",
                "Nm-openconnect-auth-dialog"," ","Wicd-client.py",
-               "Python2", "MATLAB", "com-mathworks-util-PostVMInit"]
+               "Python2", "MATLAB", "com-mathworks-util-PostVMInit",
+               "Toplevel"]
     tSinks = ["MATLAB R2012b"]
 
 -----------------------------------------------------------------------
@@ -265,14 +266,16 @@ myKeys conf@(XConfig {XMonad.modMask = w}) = M.fromList $
     ((c .|. s, xK_Up), spawn (script ++ "volume max")),
     ((c .|. s, xK_Down), spawn (script ++ "volume min")),
     ((c .|. s, xK_slash), spawn (script ++ "volume med")),
+    ((c, xK_m), spawn (script ++ "mic-toggle")),
     ((a, xK_Up), spawn (script ++ "light inc")),
     ((a, xK_Down), spawn (script ++ "light dec")),
     ((a .|. s, xK_Up), spawn (script ++ "light max")),
     ((a .|. s, xK_Down), spawn (script ++ "light dim")),
     ((a .|. s, xK_slash), spawn (script ++ "light med")),
+    ((a, xK_slash), spawn (script ++ "light toggle")),
     ((w, xK_backslash), spawn (script ++ "print")),
     ((w .|. a, xK_backslash), spawn (script ++ "print --select")),
-    ((a, xK_slash), spawn (script ++ "bg-slides")),
+    ((a, xK_comma), spawn (script ++ "bg-slides")),
     ((a, xK_semicolon), spawn (script ++ "touchpad-toggle")),
     ((c .|. a, xK_Up), spawn (script ++ "orient normal")),
     ((c .|. a, xK_Down), spawn (script ++ "orient inverted")),
