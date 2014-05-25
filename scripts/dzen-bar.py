@@ -28,7 +28,7 @@ htop_pad = 'alt+F4'
 ws_keys = ['grave']+[str(n) for n in range(1,10)]+['0']
 left_keys = ['super+' + k for k in ws_keys+['z']*2]
 mid_keys = ['alt+z']*12+['super+shift+slash']
-right_keys = ['']*12+['super+slash']
+right_keys = ['']*11+['super+space','super+slash']
 scroll_up_keys = ['super+' + k for k in ['Right']*12+['w']]
 scroll_down_keys = ['super+' + k for k in ['Left']*12+['f']]
 
