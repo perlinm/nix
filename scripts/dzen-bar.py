@@ -14,12 +14,25 @@ eth_interface = 'eno1'
 wl_interface = 'wlp2s0'
 
 network_width = 21
-client_width = 60
+client_width = 58
 tray_width = 8
 tray_height = 16
 background = '#111111'
 workspaces = 11
 char_width = 7 # Monospace-[8/9]
+bar_height = 8 # volume, brightness, cpu, etc.
+
+wifi_pad = 'alt+F3'
+htop_pad = 'alt+F4'
+
+ws_keys = ['grave']+[str(n) for n in range(1,10)]+['0']
+left_keys = ['super+' + k for k in ws_keys+['space','z']]
+mid_keys = ['super+ctrl+' + k for k in
+            ws_keys]+['','super+shift+slash']
+right_keys = ['super+alt+' + k for k in
+              ws_keys]+['alt+z','super+slash']
+scroll_up_keys = ['super+' + k for k in ['Right']*12+['w']]
+scroll_down_keys = ['super+' + k for k in ['Left']*12+['f']]
 
 # color definitions
 fullBlack = [0]*3 # "#000000"
@@ -45,7 +58,7 @@ def test_cmap(cmap):
   for i in range(0, 101, 2):
     color = mp.colors.rgb2hex(cmap(i/100.))
     nums += '^fg(' + color + ')' + str(i) + ' '
-    print (nums)
+    print(nums)
   sys.stdout.flush()
   time.sleep(500)
   exit(1)
@@ -55,17 +68,18 @@ spacer = '  '
 tail = '..'
 default_color = textcolor
 default_keysyms = [['','']]
-def one_fstr(align,string,length,color,keysyms,current_keys):
+def one_fstr(align,string,length,color,keysyms,current_keys,bar):
   pre_text = ''
   end_text = ''
 
-  # construct text and truncate and/or pad with spaces if necessary
   out_str = str(string).replace('\n','')
   pad = ['','']
-  if len(out_str) > length:
-    out_str = out_str[:length-len(tail)]+tail
-  elif len(out_str) < length:
-    pad[1 if align == 'l' else 0] = ' '*(length-len(out_str))
+  if not bar:
+    # construct text and truncate and/or pad with spaces if necessary
+    if len(out_str) > length:
+      out_str = out_str[:length-len(tail)]+tail
+    elif len(out_str) < length:
+      pad[1 if align == 'l' else 0] = ' '*(length-len(out_str))
 
   # add keypress options if necessary
   if keysyms != default_keysyms:
@@ -86,14 +100,15 @@ def one_fstr(align,string,length,color,keysyms,current_keys):
   pre_text += '^fg(%s)'%color
   end_text += '^fg()'
 
-  return pre_text + pad[0] + out_str + pad[1] + end_text, length, current_keys
+  return pre_text + pad[0] + out_str + pad[1] + end_text, \
+    length, current_keys
 
 def fstr(align,string,length,color=default_color,
-         keysyms=default_keysyms):
+         keysyms=default_keysyms,bars=False):
   if type(keysyms[0]) is not list: keysyms = [keysyms]
   if not type(string) is list:
     out_str, out_length, current_keys = \
-      one_fstr(align,string,length,color,keysyms,[])
+      one_fstr(align,string,length,color,keysyms,[],bars)
   else:
     if color == default_color:
       color = [color]*len(string)
@@ -108,9 +123,11 @@ def fstr(align,string,length,color=default_color,
     out_str = ''
     out_length = 0
     current_keys = []
+    if type(bars) is not list:
+      bars = [bars]*len(string)
     for i in range(len(string)):
       str_info = one_fstr(align,string[i],length[i],color[i],
-                          multi_keysyms[i],current_keys)
+                          multi_keysyms[i],current_keys,bars[i])
       out_str += str_info[0]
       out_length += str_info[1]
       current_keys = str_info[2]
@@ -119,6 +136,12 @@ def fstr(align,string,length,color=default_color,
         out_length += 1
   out_str += '^ca()'*len(current_keys)
   return out_str, out_length
+
+def make_bar(fill,chars):
+  full_width = chars*char_width
+  bar_width = int(fill*full_width)
+  return '^r({1}x{0})^ro({2}x{0})'.format(
+    bar_height,bar_width,full_width-bar_width)
 
 # date and time
 def clock(align):
@@ -134,14 +157,19 @@ def volume(align):
   vol = ''.join(p.findall(info.split()[-3].decode('utf-8')))
   state = ''.join(p.findall(info.split()[-1].decode('utf-8')))
   color = cm_light(1-int(vol)/100.) if state == 'on' else red
-  return fstr(align,vol,3,color,[[1,'ctrl+slash'],[4,'ctrl+Down'],
-                                 [5,'ctrl+Up']])
+
+  chars = 4
+  bar_text = make_bar(float(vol.replace('\n',''))/100,chars)
+  return fstr(align,bar_text,chars,color,
+              [[1,'ctrl+slash'],[4,'ctrl+Down'],[5,'ctrl+Up']],True)
 
 # screen brightness
 def light(align):
-  value = int(float(sp.check_output('xbacklight'))+0.5)
-  return fstr(align,value,3,yellow,[[1,'alt+slash'],[4,'alt+Down'],
-                                    [5,'alt+Up']])
+  value = float(sp.check_output('xbacklight'))
+  chars = 4
+  bar_text = make_bar(value/100,chars)
+  return fstr(align,bar_text,chars,yellow,
+              [[1,'alt+slash'],[4,'alt+Down'],[5,'alt+Up']],True)
 
 # battery
 cm_bat = get_cmap('autumn')
@@ -154,15 +182,16 @@ def battery(align):
 
   if 'Charging' in state or 'Discharging' in state:
     time = acpi[4][:-3]
-    charge += '+' if 'Charging' in state else '-'
+    time += '+' if 'Charging' in state else '-'
   elif 'Full' in state:
     time = ''
-    charge += ' '
   else:
     time = '?????'
-    charge += '?'
 
-  return fstr(align,[time,charge],[6,4],[time_color,charge_color])
+  chars = 4
+  bar_text = make_bar(float(charge)/100,chars)
+  return fstr(align,[time,bar_text],[6,chars],
+              [time_color,charge_color],bars=[False,True])
 
 # network
 def network_up(interface):
@@ -174,13 +203,12 @@ def network(align):
   if network_up(eth_interface):
     string = 'ethernet'
   elif network_up(wl_interface):
-    f = open('/proc/net/wireless','r')
-    for line in f:
-      if wl_interface in line:
-        line = line.split()
-        link_quality = int(float(line[2])*100/70)
-        signal_strength = int(float(line[3]))
-    f.close()
+    with open('/proc/net/wireless','r') as f:
+      for line in f:
+        if wl_interface in line:
+          line = line.split()
+          link_quality = int(float(line[2])*100/70)
+          signal_strength = int(float(line[3]))
     try:
       network_name = (sp.check_output(['iwgetid','-r']).
                       decode('utf-8')).split()[0]
@@ -190,7 +218,7 @@ def network(align):
               +network_name)
   else:
     string = ''
-  return fstr(align,string,network_width)
+  return fstr(align,string,network_width,keysyms=[1,wifi_pad])
 
 # xmonad info
 ws_color = {
@@ -201,12 +229,6 @@ ws_color = {
   'u' : red
 }
 layout_length = 6
-ws_keys = ['grave','1','2','3','4','5','6','7','8','9','0','space','']
-
-for i in range(len(ws_keys)-1):
-  ws_keys[i] = 'super+' + ws_keys[i]
-scroll_up_keys = ['super+Right']*11+['','']
-scroll_down_keys = ['super+Left']*11+['','']
 
 def xmonad(line,align):
   info = line.split('|:|')
@@ -224,7 +246,8 @@ def xmonad(line,align):
   strings += [layout,title]
   lengths += [layout_length,client_width]
   return fstr(align,strings,lengths,colors,
-              [[5,scroll_down_keys],[4,scroll_up_keys],[1,ws_keys]])
+              [[5,scroll_down_keys],[4,scroll_up_keys],
+               [3,right_keys],[2,mid_keys],[1,left_keys]])
 
 # system tray
 def systray():
@@ -267,11 +290,17 @@ def cpu(align):
   colors = []
   for i in range(len(vals)):
     colors.append(cm_cpu(int(vals[i])/100.))
-    vals[i] = int(vals[i]) if vals[i] < 100 else '00'
-  lengths = [2]*len(vals)
+
+  width = 3
+  lengths = [width]*len(vals)
+  bar_texts = []
+  for i in range(len(vals)):
+    bar_texts.append(make_bar(float(vals[i])/100,width))
+
   old_idles = idles
   old_cpu_time = cpu_time
-  return fstr(align,vals,lengths,colors)
+  return fstr(align,bar_texts,lengths,colors,
+              [1,[htop_pad]*4],bars=True)
 
 # function and value dictionaries
 left = left.split()
@@ -293,15 +322,18 @@ all_funs = {
 }
 arg_funs = ['xmonad']
 
-all_timed_funs = [[1,['clock', 'cpu', 'light', 'mem', 'temp', 'network']],
-                [5,['bat']], [600,['weather']]]
+all_timed_funs = [[1,['clock', 'cpu', 'light', 'mem',
+                      'temp', 'network']],
+                      [5,['bat']], [600,['weather']]]
 timed_funs = []
 for i in range(len(all_timed_funs)):
   timed_funs.append([all_timed_funs[i][0],
-                     [f for f in all_timed_funs[i][1] if f in used_funs]])
+                     [f for f in all_timed_funs[i][1]
+                      if f in used_funs]])
 funs = dict((f, all_funs[f]) for f in used_funs)
 aligns = dict((f, 'l' if f in left else 'r') for f in used_funs)
-vals = dict((f, funs[f]() if f not in arg_funs else ['',0]) for f in funs)
+vals = dict((f, funs[f]() if f not in arg_funs
+             else ['',0]) for f in funs)
 
 # bar width in characters
 def width():

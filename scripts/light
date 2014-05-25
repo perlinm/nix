@@ -20,7 +20,7 @@ elif [ $1 = toggle ]; then
   else
     med=60
   fi
-  current=$(printf "%.0f" $(xbacklight -get))
+  current=$(printf "%.0f" $(xbacklight))
   if [ $current -ge $med ]; then
     $0 dim
   else
