@@ -26,11 +26,9 @@ wifi_pad = 'alt+F3'
 htop_pad = 'alt+F4'
 
 ws_keys = ['grave']+[str(n) for n in range(1,10)]+['0']
-left_keys = ['super+' + k for k in ws_keys+['space','z']]
-mid_keys = ['super+ctrl+' + k for k in
-            ws_keys]+['','super+shift+slash']
-right_keys = ['super+alt+' + k for k in
-              ws_keys]+['alt+z','super+slash']
+left_keys = ['super+' + k for k in ws_keys+['z']*2]
+mid_keys = ['alt+z']*12+['super+shift+slash']
+right_keys = ['']*12+['super+slash']
 scroll_up_keys = ['super+' + k for k in ['Right']*12+['w']]
 scroll_down_keys = ['super+' + k for k in ['Left']*12+['f']]
 
