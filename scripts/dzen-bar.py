@@ -3,7 +3,7 @@ import matplotlib as mp
 import matplotlib.cm as cm
 import numpy as np
 import subprocess as sp
-import time, sys, datetime, select, threading, re, alsaaudio
+import time, sys, datetime, select, threading, re, alsaaudio, pyinotify
 
 left = 'xmonad'
 center = 'cpu'
@@ -320,7 +320,7 @@ all_funs = {
 }
 arg_funs = ['xmonad']
 
-all_timed_funs = [[1,['clock', 'cpu', 'light', 'mem',
+all_timed_funs = [[1,['clock', 'cpu', 'mem',
                       'temp', 'network']],
                       [5,['bat']], [600,['weather']]]
 timed_funs = []
@@ -438,6 +438,20 @@ def vol_poll():
     sys.stdout.flush()
     p.unregister(fd)
 
+class BrightnessHandler(pyinotify.ProcessEvent):
+  def process_IN_OPEN(self,event):
+    vals['light'] = funs['light']()
+    print(bar_text(seconds))
+    sys.stdout.flush()
+
+def light_poll():
+  wm = pyinotify.WatchManager()
+  wm.add_watch('/sys/class/backlight/intel_backlight/uevent',
+               pyinotify.IN_OPEN)
+  eh = BrightnessHandler()
+  notifier = pyinotify.Notifier(wm, eh)
+  notifier.loop()
+
 def xmonad_poll():
   if 'xmonad' not in used_funs: return None
   global vals
@@ -451,6 +465,9 @@ second_thread.start()
 
 vol_thread = threading.Thread(target=vol_poll)
 vol_thread.start()
+
+light_thread = threading.Thread(target=light_poll)
+light_thread.start()
 
 xmonad_thread = threading.Thread(target=xmonad_poll())
 xmonad_thread.start()

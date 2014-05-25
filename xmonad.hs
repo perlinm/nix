@@ -64,7 +64,8 @@ infoBar = "nice -n -10 " ++ script ++ barScript ++ " | dzen2 -h " ++ show barHei
           ++ " -fn " ++ barFont ++ " -e 'onstart=lower;button1=lower'"
 
 killBar = "killall dzen2 stalonetray " ++ barScript ++ " 2> /dev/null"
-restartCMD = "/usr/bin/xmonad --recompile && /usr/bin/xmonad --restart"
+recompileCMD = "/usr/bin/xmonad --recompile"
+restartCMD = "/usr/bin/xmonad --restart"
 
 -----------------------------------------------------------------------
 -- Window rules
@@ -184,8 +185,8 @@ myKeys = \conf -> mkKeymap conf $
     [
      ("M4" ++ mod ++ "-" ++ key, windows $ func ws) |
      (ws,key) <- zip myWorkspaces numRow,
-              (func,mod) <- [(W.greedyView, ""), (W.shift, "-M1"),
-                             (\i -> W.greedyView i . W.shift i,"-S")]
+              (func,mod) <- [(W.greedyView, ""), (W.shift, "-S"),
+                             (\i -> W.greedyView i . W.shift i,"-M1")]
     ]
     ++
     [
@@ -244,8 +245,8 @@ myKeys = \conf -> mkKeymap conf $
     ("M1-<F4>", namedScratchpadAction myScratchPads htopName),
     ("M1-<F5>", namedScratchpadAction myScratchPads mixerName),
     ---------- Restart ----------
-    ("M4-M1-<Backspace>", spawn killBar),
-    ("M4-<Backspace>", spawn restartCMD),
+    ("M4-M1-<Backspace>", spawn recompileCMD),
+    ("M4-<Backspace>", (spawn killBar) <+> (spawn restartCMD)),
     ---------- Misc ----------
     ("C-/", spawn (script ++ "volume toggle")),
     ("C-<U>", spawn (script ++ "volume inc")),
@@ -254,7 +255,7 @@ myKeys = \conf -> mkKeymap conf $
     ("C-S-<D>", spawn (script ++ "volume min")),
     ("C-S-/", spawn (script ++ "volume med")),
     ("C-m", spawn (script ++ "mic-toggle")),
-    ("M1-<U", spawn (script ++ "light inc")),
+    ("M1-<U>", spawn (script ++ "light inc")),
     ("M1-<D>", spawn (script ++ "light dec")),
     ("M1-S-<U>", spawn (script ++ "light max")),
     ("M1-S-<D>", spawn (script ++ "light dim")),
@@ -270,8 +271,6 @@ myKeys = \conf -> mkKeymap conf $
     ("M1-C-<R>", spawn (script ++ "orient right")),
     ("M4-/", windows copyToAll),
     ("M4-S-/", killAllOtherCopies),
-    ("C-M1-<Space>", windowMenu),
-    ("C-S-<Space>", goToSelected defaultGSConfig),
     ("M1-C-S-z", spawn "sus")
     ]
 
