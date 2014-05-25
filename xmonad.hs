@@ -184,8 +184,8 @@ myKeys = \conf -> mkKeymap conf $
     [
      ("M4" ++ mod ++ "-" ++ key, windows $ func ws) |
      (ws,key) <- zip myWorkspaces numRow,
-              (func,mod) <- [(W.greedyView, ""), (W.shift, "-S"),
-                             (\i -> W.greedyView i . W.shift i,"-M1")]
+              (func,mod) <- [(W.greedyView, ""), (W.shift, "-M1"),
+                             (\i -> W.greedyView i . W.shift i,"-S")]
     ]
     ++
     [
@@ -280,8 +280,8 @@ myKeys = \conf -> mkKeymap conf $
 
 myMouseBindings (XConfig {XMonad.modMask = modMask}) = M.fromList $
   [
-    ((mod1Mask, button1), (\w -> XMonad.focus w >> mouseMoveWindow w)),
-    ((mod4Mask .|. mod1Mask, button1),
+    ((mod1Mask .|. mod4Mask, button1), (\w -> XMonad.focus w >> mouseMoveWindow w)),
+    ((mod1Mask .|. mod4Mask, button3),
      (\w -> XMonad.focus w >> Flex.mouseResizeWindow w))
   ]
 
