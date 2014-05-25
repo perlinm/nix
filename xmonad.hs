@@ -178,8 +178,8 @@ myPlacement = withGaps (16,16,16,16) (fixed (0.5,0.5))
 
 notNSP = (return $ ("NSP" /=) . W.tag) :: X (WindowSpace -> Bool)
 
-numRow = ["grave"] ++ (Prelude.map show [1..9]) ++ ["0"]
-myKeys =
+numRow = ["`"] ++ (Prelude.map show [1..9]) ++ ["0"]
+myKeys = \conf -> mkKeymap conf $
     ---------- Workspace management ----------
     [
      ("M4" ++ mod ++ "-" ++ key, windows $ func ws) |
@@ -216,7 +216,7 @@ myKeys =
     ---------- Layout management ----------
     ("M4-<Space>", sendMessage NextLayout),
     --((w .|. s, space), sendMessage PrevLayout),
-    ("M4-M1-<Space>", sendMessage FirstLayout),
+    ("M4-M1-<Space>", setLayout $ XMonad.layoutHook conf),
     ("M4-z", sendMessage (Toggle FULL)),
     ("M4-r", sendMessage (IncMasterN 1)),
     ("M4-s", sendMessage (IncMasterN (-1))),
@@ -235,7 +235,7 @@ myKeys =
     ("M4-t", withFocused $ windows . W.sink),
     ("M4-<Esc>", kill),
     ---------- Spawn ----------
-    --("M4-<Tab>", spawn $ XMonad.terminal conf),
+    ("M4-<Tab>", spawn $ XMonad.terminal conf),
     ("M1-`", spawn myRun),
     ("M1-C-`", spawn myAppFinder),
     ("M1-<F1>", namedScratchpadAction myScratchPads termName),
@@ -291,13 +291,13 @@ myMouseBindings (XConfig {XMonad.modMask = modMask}) = M.fromList $
 main = do
   infoBar <- spawnPipe infoBar
   xmonad $ defaultConfig {
-	terminal = myTerminal,
+        terminal = myTerminal,
         borderWidth = myBorderWidth,
         normalBorderColor = myNormalBorderColor,
         focusedBorderColor = myFocusedBorderColor,
         focusFollowsMouse = myFocusFollowsMouse,
         modMask = mod4Mask,
-        XMonad.keys =  \_ -> M.fromList [],
+        XMonad.keys =  myKeys,
         XMonad.workspaces = myWorkspaces,
         layoutHook = myLayoutHook,
         manageHook = namedScratchpadManageHook myScratchPads
@@ -310,4 +310,4 @@ main = do
         startupHook = myStartupHook
                       <+> ewmhDesktopsStartup >> setWMName "LG3D",
         handleEventHook = ewmhDesktopsEventHook <+> FS.fullscreenEventHook
-    } `additionalKeysP` myKeys
+    }
