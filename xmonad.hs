@@ -78,9 +78,8 @@ myManageHook = composeAll . concat $
   where
     cFloats = ["Xfce4-appfinder","Nm-connection-editor",
                "Nm-openconnect-auth-dialog"," ","Wicd-client.py",
-               "Python2", "MATLAB", "com-mathworks-util-PostVMInit",
-               "Toplevel"]
-    tSinks = ["MATLAB R2012b"]
+               "Python2","Toplevel","Pavucontrol"]
+    tSinks = ["Gimp"]
 
 -----------------------------------------------------------------------
 -- Scratchpads
@@ -165,12 +164,13 @@ myStartupHook = do
 -- Layout definitions
 
 normal = renamed [Replace "Normal"] $ ResizableTall 1 (1/50) (1/2) []
+matlab = renamed [Replace "Matlab"] $ ResizableTall 1 (1/50) (11/20) []
 emacs = renamed [Replace "Emacs"] $ ResizableTall 1 (1/50) (2/5) []
 chat = renamed [Replace "Chat"] $ ResizableTall 1 (1/50) (3/4) []
 skype = renamed [Replace "Skype"] $ ResizableTall 1 (1/50) (63/100) []
 myLayoutHook = smartBorders $ avoidStruts $ windowNavigation $
     mkToggle (single FULL)
-  ( normal ||| emacs ||| chat ||| skype )
+  ( normal ||| matlab ||| emacs ||| chat ||| skype )
 
 myPlacement = withGaps (16,16,16,16) (fixed (0.5,0.5))
 
@@ -195,8 +195,8 @@ myKeys = \conf -> mkKeymap conf $
     ]
     ++
     [
-     ("M4-p", moveTo Prev (WSIs notNSP)),
-     ("M4-g", moveTo Next (WSIs notNSP)),
+     ("M4-M1-w", moveTo Prev (WSIs notNSP)),
+     ("M4-M1-f", moveTo Next (WSIs notNSP)),
      ("M4-<L>", moveTo Prev (WSIs notNSP)),
      ("M4-<R>", moveTo Next (WSIs notNSP)),
      ("M4-C-<L>", swapTo' Prev (WSIs notNSP)),
@@ -262,9 +262,9 @@ myKeys = \conf -> mkKeymap conf $
     ("M1-S-/", spawn (script ++ "light med")),
     ("M1-/", spawn (script ++ "light toggle")),
     ("M4-\\", spawn (script ++ "print")),
-    ("M4-M1-\\", spawn (script ++ "print --select")),
+    ("M4-M1-\\", spawn (script ++ "print -s")),
     ("M1-,", spawn (script ++ "bg-slides")),
-    ("M1-;", spawn (script ++ "touchpad-toggle")),
+    ("M4-M1-;", spawn (script ++ "touchpad-toggle")),
     ("M1-C-<U>", spawn (script ++ "orient normal")),
     ("M1-C-<D>", spawn (script ++ "orient inverted")),
     ("M1-C-<L>", spawn (script ++ "orient left")),
@@ -279,8 +279,8 @@ myKeys = \conf -> mkKeymap conf $
 
 myMouseBindings (XConfig {XMonad.modMask = modMask}) = M.fromList $
   [
-    ((mod1Mask .|. mod4Mask, button1), (\w -> XMonad.focus w >> mouseMoveWindow w)),
-    ((mod1Mask .|. mod4Mask, button3),
+    ((mod1Mask, button3), (\w -> XMonad.focus w >> mouseMoveWindow w)),
+    ((mod4Mask, button3),
      (\w -> XMonad.focus w >> Flex.mouseResizeWindow w))
   ]
 

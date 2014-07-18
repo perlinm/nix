@@ -1,24 +1,19 @@
 #!/bin/zsh
 
 if [ $1 = inc ]; then
-	amixer -q set Master 3dB+
+  pamixer --increase 3
 elif [ $1 = dec ]; then
-  amixer -q set Master 3dB-
+  pamixer --decrease 3
 elif [ $1 = max ]; then
-  amixer -q set Master 100%
+  pamixer --set-volume 100
 elif [ $1 = min ]; then
-  amixer -q set Master 0%
+  pamixer --set-volume 0
 elif [ $1 = med ]; then
-  amixer -Mq set Master 51%
+  pamixer --set-volume 50
 elif [ $1 = on ]; then
-  amixer -q set Master on
+  pamixer --mute
 elif [ $1 = off ]; then
-  amixer -q set Master off
+  pamixer --unmute
 elif [ $1 = toggle ]; then
-  state=$(amixer get Master | awk '{if(NR==5) print substr($6,3,1)}')
-  if [ $state = n ]; then
-    amixer -q set Master off
-  elif [ $state = f ]; then
-    amixer -q set Master on
-  fi
+  pamixer --toggle-mute
 fi

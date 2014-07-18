@@ -5,6 +5,11 @@ import numpy as np
 import subprocess as sp
 import time, sys, datetime, select, threading, re, alsaaudio, pyinotify
 
+logfile = '/home/perlinm/scripts/.dzen-bar.log'
+def log(str):
+    with open(logfile,'a') as l:
+        l.write('%s\n'%str)
+
 left = 'xmonad'
 center = 'cpu'
 right = 'network bat light vol clock'
@@ -27,8 +32,8 @@ htop_pad = 'alt+F4'
 
 ws_keys = ['grave']+[str(n) for n in range(1,10)]+['0']
 left_keys = ['super+' + k for k in ws_keys+['z']*2]
-mid_keys = ['alt+z']*12+['super+shift+slash']
-right_keys = ['']*11+['super+space','super+slash']
+mid_keys = ['']*12+['super+shift+slash']
+right_keys = ['alt+z']*11+['super+space','super+slash']
 scroll_up_keys = ['super+' + k for k in ['Right']*12+['w']]
 scroll_down_keys = ['super+' + k for k in ['Left']*12+['f']]
 
@@ -151,28 +156,32 @@ def clock(align):
 cm_light = get_cmap('cool')
 p = re.compile('\w')
 def volume(align):
-  info = sp.check_output(['amixer','-M','get','Master'])
-  vol = ''.join(p.findall(info.split()[-3].decode('utf-8')))
-  state = ''.join(p.findall(info.split()[-1].decode('utf-8')))
-  color = cm_light(1-int(vol)/100.) if state == 'on' else red
+  state = sp.getoutput('pamixer --get-mute')
+  vol = int(sp.getoutput('pamixer --get-volume'))
+  if state == 'false' and vol > 0:
+    color = cm_light(1-int(vol)/100.)
+  else:
+    color = red
 
   chars = 4
-  bar_text = make_bar(float(vol.replace('\n',''))/100,chars)
+  bar_text = make_bar(vol/100,chars)
   return fstr(align,bar_text,chars,color,
-              [[1,'ctrl+slash'],[4,'ctrl+Down'],[5,'ctrl+Up']],True)
+              [[1,'ctrl+slash'],[3,'ctrl+shift+slash'],
+               [4,'ctrl+Down'],[5,'ctrl+Up']],True)
 
 # screen brightness
 def light(align):
-  value = float(sp.check_output('xbacklight'))
+  value = float(sp.getoutput('xbacklight'))
   chars = 4
   bar_text = make_bar(value/100,chars)
   return fstr(align,bar_text,chars,yellow,
-              [[1,'alt+slash'],[4,'alt+Down'],[5,'alt+Up']],True)
+              [[1,'alt+slash'],[3,'alt+shift+slash'],
+               [4,'alt+Down'],[5,'alt+Up']],True)
 
 # battery
 cm_bat = get_cmap('autumn')
 def battery(align):
-  acpi = (sp.check_output('acpi').decode('utf-8')).split()
+  acpi = sp.getoutput('acpi').split()
   state = acpi[2][:-1]
   charge = acpi[3][:acpi[3].index('%')]
   charge_color = cm_bat(int(charge)/100.)
@@ -193,24 +202,23 @@ def battery(align):
 
 # network
 def network_up(interface):
-  with open('/sys/class/net/'+interface+'/operstate','r') as f:
-    state = f.read(1)
-  return True if state == 'u' else False
+  state = sp.getoutput('cat /sys/class/net/%s/operstate'%interface)
+  return True if state == 'up' else False
 
 def network(align):
   if network_up(eth_interface):
     string = 'ethernet'
   elif network_up(wl_interface):
+    link_quality = '??'
+    signal_strength = '??'
     with open('/proc/net/wireless','r') as f:
       for line in f:
         if wl_interface in line:
           line = line.split()
           link_quality = int(float(line[2])*100/70)
           signal_strength = int(float(line[3]))
-    try:
-      network_name = (sp.check_output(['iwgetid','-r']).
-                      decode('utf-8')).split()[0]
-    except:
+    network_name = sp.getoutput('iwgetid -r')
+    if not network_name:
       network_name = '...'
     string = (str(link_quality)+'% '+str(signal_strength)+'dBm '
               +network_name)
@@ -287,7 +295,7 @@ def cpu(align):
   vals = list(100 - (idles - old_idles)/dt)
   colors = []
   for i in range(len(vals)):
-    colors.append(cm_cpu(int(vals[i])/100.))
+    colors.append([vals[i]/100]*3)
 
   width = 3
   lengths = [width]*len(vals)
@@ -335,7 +343,7 @@ vals = dict((f, funs[f]() if f not in arg_funs
 
 # bar width in characters
 def width():
-  return int(int(sp.check_output('xrandr').split()[7])/char_width)
+  return int(int(sp.getoutput('xrandr').split()[7])/char_width)
 
 # maximum size of left/right bars
 def max_size(bar):
@@ -422,21 +430,30 @@ def second_poll():
     if elapsed < 1:
       time.sleep(1. - elapsed)
 
-mixer = alsaaudio.Mixer(cardindex = soundcard)
+
+### FIXME: update volume corretly
+#mixer = alsaaudio.Mixer(cardindex = soundcard)
 def vol_poll():
   if 'vol' not in used_funs: return None
   global vals
   global mixer
-  p = select.poll()
+
   while True:
-    fd,em = mixer.polldescriptors()[0]
-    p.register(fd,em)
-    p.poll()
-    mixer = alsaaudio.Mixer(cardindex = soundcard)
     vals['vol'] = funs['vol']()
     print(bar_text(seconds))
     sys.stdout.flush()
-    p.unregister(fd)
+    time.sleep(1)
+
+#  p = select.poll()
+#  while True:
+#    fd,em = mixer.polldescriptors()[0]
+#    p.register(fd,em)
+#    p.poll()
+#    mixer = alsaaudio.Mixer(cardindex = soundcard)
+#    vals['vol'] = funs['vol']()
+#    print(bar_text(seconds))
+#    sys.stdout.flush()
+#    p.unregister(fd)
 
 class BrightnessHandler(pyinotify.ProcessEvent):
   def process_IN_OPEN(self,event):
@@ -474,7 +491,7 @@ xmonad_thread.start()
 
 
 
-
+'''
 # weather
 def weather(align):
   weath = pywapi.get_weather_from_noaa('KCVO')
@@ -515,3 +532,4 @@ def memory():
     post = ' G'
     mem = '%.1f' %(mem_free)
   return '^fg(' + color + ')' + mem + post, mem_len
+'''
