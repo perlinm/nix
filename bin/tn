@@ -1,0 +1,98 @@
+#!/bin/zsh
+
+this_file=$(readlink -f $0)
+
+if [ -z $1 ]; then
+  echo "Need arguments"
+  exit 1
+fi
+
+wireless_interface=wlp2s0
+home_dir=/home/perlinm
+research_dir=$home_dir/Workspace/Research
+sw_dir=deft/papers/square-well-liquid
+
+vpn_split=$home_dir/.osu-split-tunnel.conf
+vpn_full=$home_dir/.osu-full-tunnel.conf
+
+vpn_up=
+if [ $(pidof vpnc) ]; then
+  vpn_up=on
+fi
+
+osu_up=
+if [ "$(iwconfig $wireless_interface | grep ESSID | grep OSU)" ] \
+    || [ $vpn_up ]; then
+  osu_up=on
+fi
+
+if [ $1 = down ]; then
+  if [ $vpn_up ]; then
+    sudo kill $(pidof vpnc)
+  fi
+
+elif [ $1 = status ]; then
+  if [ $osu_up ]; then
+    echo "OSU network or VPN up"
+  else
+    echo "OSU network and VPN down"
+  fi
+
+elif [ $1 = osu ]; then
+  if ! [ $osu_up ]; then
+    if ! [ $2 ]; then
+      echo "Putting up OSU VPN (split tunnel)"
+      sudo vpnc $vpn_split
+    else
+      echo "Putting up OSU VPN (full tunnel)"
+      sudo vpnc $vpn_full
+    fi
+  fi
+
+elif [ $1 = "mox" ]; then
+  if ! [ $osu_up ]; then
+    $this_file status
+    $this_file osu
+  fi
+
+  localSrc=$research_dir/MOX
+  host='perlinm@rogue.ne.oregonstate.edu'
+  hostDest=$host:'~/Research'
+  hostSrc=$hostDest/MOX
+
+  if [ -z $2 ]; then
+    ssh $host
+  else
+    if [ $2 = up ]; then
+      rsync -ulrvt -e ssh $localSrc $hostDest
+    elif [ $2 = down ]; then
+      rsync -ulrvt -e ssh $hostSrc $research_dir
+    fi
+  fi
+
+elif [ $1 = deft ]; then
+  host=perlinm@quipu.physics.oregonstate.edu
+  if [ -z $2 ]; then
+    ssh $host
+  else
+    if [ $2 = up ]; then
+      rsync -ulrvt $research_dir/$sw_dir/data $host:~/$sw_dir/
+      rsync -ulrvt "$research_dir/$sw_dir/figs/*.pdf" $host:~/$sw_dir/figs/
+    elif [ $2 = down ]; then
+      rsync -ulrvt -e ssh $host:~/$sw_dir/data $research_dir/$sw_dir/
+      rsync -ulrvt -e ssh "$host:~/$sw_dir/figs/*.pdf" $research_dir/$sw_dir/figs
+    fi
+  fi
+
+elif [ $1 = paho ]; then
+  ssh paholg.com
+
+elif [ $1 = onid ]; then
+  ssh shell.onid.oregonstate.edu
+
+elif [ $1 = nasa ]; then
+  ssh jumpgate
+
+else
+  echo "Not a valid command"
+fi

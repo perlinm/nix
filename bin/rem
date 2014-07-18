@@ -1,0 +1,40 @@
+#!/usr/bin/python2
+import sys, os, shutil, subprocess
+
+tmpRoot = os.path.expanduser('~/.tmp/')
+ext = '.bk'
+
+def remove(target,dest):
+  try:
+    os.rename(target,dest)
+  except:
+    if not os.path.isdir(target):
+      os.remove(target)
+    else:
+      shutil.rmtree(target)
+
+def backup(target):
+  if os.path.lexists(target+ext):
+    backup(target+ext)
+
+def exists(target):
+  return subprocess.call(['ls',target], \
+                          stdout=open(os.devnull,'w'), \
+                          stderr=open(os.devnull,'w')) == 0
+
+for arg in sys.argv[1:]:
+  if not exists(arg):
+    print 'Does not exist:',arg
+    continue
+  target = os.path.abspath(arg)
+  tmpPath = tmpRoot + target
+  tmpDir = os.path.dirname(tmpPath)
+  if exists(tmpDir):
+    if os.path.isdir(tmpDir):
+      if exists(tmpPath):
+        backup(tmpPath)
+    else:
+      backup(tmpDir)
+  else:
+    os.makedirs(tmpDir)
+  remove(target,tmpPath)

@@ -1,0 +1,8 @@
+#!/usr/bin/zsh
+
+desk=''
+if [ $1 ]; then
+  desk='-nosplash -nodesktop'
+fi
+
+matlab $desk $* -r "ltpda_startup;"

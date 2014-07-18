@@ -1,0 +1,7 @@
+#!/bin/zsh
+
+if [ -e /media/mnt/Workspace/.perlinm ]; then
+  rsync -Lurv ~/workspace /media/mnt --exclude '*/.xmonad/xmonad.o'
+else
+  echo "Drive not mounted to /media/mnt"
+fi

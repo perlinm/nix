@@ -1,0 +1,41 @@
+#!/usr/bin/python2
+import sys, os, fnmatch, subprocess
+
+tags = [ '*.aux', '*.log', '*.tex.backup', '*_region_.tex',
+         '*.synctex.gz', '*.blg','*.bbl', '*.nav', '*.dvi',
+         '*.toc', '*.el', '#*#', '.#*','.#*', '*~', '*.swp',
+         '*.pyc', '*.bcf', '*.run.xml', '*.emacs.d/auto-save-list*',
+         '*.cpt' ]
+
+emptyFileTags = [ '*.out', '*.snm' ]
+
+excludes = [ '/deft/', '/.emacs.d/', '/.tmp/', '/ltpda' ]
+
+def rem(root,item):
+  path = os.path.abspath(os.path.join(root,item))
+  remove = True
+  for exclude in excludes:
+    if exclude in path:
+      remove = False
+  if remove:
+    print path
+    subprocess.call(['rem',path])
+
+def clean(dir):
+  for root, dirs, files in os.walk(dir):
+    for tag in tags:
+      for file in fnmatch.filter(files,tag):
+        rem(root,file)
+    for tag in emptyFileTags:
+      for file in fnmatch.filter(files,tag):
+        if os.path.getsize(os.path.join(root,file)) == 0:
+          rem(root,file)
+    for dir in dirs:
+      if dir == 'auto':
+        rem(root,dir)
+
+if len(sys.argv) == 1:
+  clean(os.getcwd())
+else:
+  for arg in sys.argv[1:]:
+    clean(arg)
