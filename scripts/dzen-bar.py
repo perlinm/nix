@@ -223,7 +223,7 @@ def network(align):
     string = (str(link_quality)+'% '+str(signal_strength)+'dBm '
               +network_name)
   else:
-    string = ''
+    string = 'offline'
   return fstr(align,string,network_width,keysyms=[1,wifi_pad])
 
 # xmonad info

@@ -1,6 +1,6 @@
 #!/bin/zsh
 
-cd ~/Pictures/screenshots
+cd ~/pictures/screenshots
 
 for i in $*; do
   if [ $i = -s ] || [ $i = --select ]; then

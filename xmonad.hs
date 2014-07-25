@@ -16,11 +16,10 @@ import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.Place
 import XMonad.Hooks.SetWMName
 import XMonad.Layout.Fullscreen as FS
-import XMonad.Layout.MultiToggle
-import XMonad.Layout.MultiToggle.Instances
 import XMonad.Layout.NoBorders
 import XMonad.Layout.Renamed
 import XMonad.Layout.ResizableTile
+import XMonad.Layout.ToggleLayouts
 import XMonad.Layout.WindowNavigation
 import XMonad.StackSet as W
 import XMonad.Util.EZConfig
@@ -29,7 +28,7 @@ import XMonad.Util.Run (spawnPipe)
 import XMonad.Util.NamedScratchpad
 
 -----------------------------------------------------------------------
--- Variables
+-- variables
 
 myTerminal = "xfce4-terminal"
 myAppFinder = "xfce4-appfinder"
@@ -68,7 +67,7 @@ recompileCMD = "/usr/bin/xmonad --recompile"
 restartCMD = "/usr/bin/xmonad --restart"
 
 -----------------------------------------------------------------------
--- Window rules
+-- window rules
 
 myManageHook = composeAll . concat $
   [
@@ -82,7 +81,7 @@ myManageHook = composeAll . concat $
     tSinks = ["Gimp"]
 
 -----------------------------------------------------------------------
--- Scratchpads
+-- scratchpads
 
 termName = "term"
 calcName = "calc"
@@ -137,7 +136,7 @@ myScratchPads = [ NS termName spawnTerm findTerm manageTerm,
         l = (1-w)/2
 
 -----------------------------------------------------------------------
--- Workspace info log
+-- workspace info log
 
 myLog info = dynamicLogWithPP $ defaultPP {
   ppCurrent = wrap "c " "",
@@ -154,34 +153,35 @@ myLog info = dynamicLogWithPP $ defaultPP {
     noScratchPad ws = if ws == "NSP" then "" else ws
 
 -----------------------------------------------------------------------
--- Startup commands
+-- startup commands
 
 myStartupHook :: X()
 myStartupHook = do
   spawn (script ++ "bg-slides")
 
 -----------------------------------------------------------------------
--- Layout definitions
+-- layout definitions
 
-normal = renamed [Replace "Normal"] $ ResizableTall 1 (1/50) (1/2) []
-matlab = renamed [Replace "Matlab"] $ ResizableTall 1 (1/50) (11/20) []
-emacs = renamed [Replace "Emacs"] $ ResizableTall 1 (1/50) (2/5) []
-chat = renamed [Replace "Chat"] $ ResizableTall 1 (1/50) (3/4) []
-skype = renamed [Replace "Skype"] $ ResizableTall 1 (1/50) (63/100) []
+normal = renamed [Replace "normal"] $ ResizableTall 1 (1/50) (1/2) []
+matlab = renamed [Replace "matlab"] $ ResizableTall 1 (1/50) (11/20) []
+emacs = renamed [Replace "emacs"] $ ResizableTall 1 (1/50) (2/5) []
+chat = renamed [Replace "chat"] $ ResizableTall 1 (1/50) (3/4) []
+skype = renamed [Replace "skype"] $ ResizableTall 1 (1/50) (63/100) []
+full = renamed [Replace "full"] $ Full
 myLayoutHook = smartBorders $ avoidStruts $ windowNavigation $
-    mkToggle (single FULL)
+    toggleLayouts full
   ( normal ||| matlab ||| emacs ||| chat ||| skype )
 
 myPlacement = withGaps (16,16,16,16) (fixed (0.5,0.5))
 
 -----------------------------------------------------------------------
--- Key commands
+-- key commands
 
 notNSP = (return $ ("NSP" /=) . W.tag) :: X (WindowSpace -> Bool)
 
 numRow = ["`"] ++ (Prelude.map show [1..9]) ++ ["0"]
 myKeys = \conf -> mkKeymap conf $
-    ---------- Workspace management ----------
+    ---------- workspace management ----------
     [
      ("M4" ++ mod ++ "-" ++ key, windows $ func ws) |
      (ws,key) <- zip myWorkspaces numRow,
@@ -214,11 +214,11 @@ myKeys = \conf -> mkKeymap conf $
      ("M4-M1-n", shiftTo Prev (WSIs notNSP) >> moveTo Prev (WSIs notNSP)),
      ("M4-M1-i", shiftTo Next (WSIs notNSP) >> moveTo Next (WSIs notNSP)),
      ("M1-z", toggleWS' ["NSP"]),
-    ---------- Layout management ----------
+    ---------- layout management ----------
     ("M4-<Space>", sendMessage NextLayout),
-    --((w .|. s, space), sendMessage PrevLayout),
+    --("M4-S-<Space>", sendMessage PrevLayout),
     ("M4-M1-<Space>", setLayout $ XMonad.layoutHook conf),
-    ("M4-z", sendMessage (Toggle FULL)),
+    ("M4-z", sendMessage (Toggle "full")),
     ("M4-r", sendMessage (IncMasterN 1)),
     ("M4-s", sendMessage (IncMasterN (-1))),
     ("M4-x", sendMessage Shrink),
@@ -226,7 +226,7 @@ myKeys = \conf -> mkKeymap conf $
     ("M4-M1-x", sendMessage MirrorExpand),
     ("M4-M1-c", sendMessage MirrorShrink),
     ("M4-v", sendMessage ToggleStruts),
-    ---------- Window management ----------
+    ---------- window management ----------
     ("M4-w", windows W.focusUp),
     ("M4-f", windows W.focusDown),
     ("M4-S-w", windows W.swapUp),
@@ -235,7 +235,7 @@ myKeys = \conf -> mkKeymap conf $
     ("M4-a", windows W.swapMaster),
     ("M4-t", withFocused $ windows . W.sink),
     ("M4-<Esc>", kill),
-    ---------- Spawn ----------
+    ---------- spawn ----------
     ("M4-<Tab>", spawn $ XMonad.terminal conf),
     ("M1-`", spawn myRun),
     ("M1-C-`", spawn myAppFinder),
@@ -244,10 +244,10 @@ myKeys = \conf -> mkKeymap conf $
     ("M1-<F3>", namedScratchpadAction myScratchPads wifiName),
     ("M1-<F4>", namedScratchpadAction myScratchPads htopName),
     ("M1-<F5>", namedScratchpadAction myScratchPads mixerName),
-    ---------- Restart ----------
+    ---------- restart ----------
     ("M4-M1-<Backspace>", spawn recompileCMD),
     ("M4-<Backspace>", (spawn killBar) <+> (spawn restartCMD)),
-    ---------- Misc ----------
+    ---------- misc ----------
     ("C-/", spawn (script ++ "volume toggle")),
     ("C-<U>", spawn (script ++ "volume inc")),
     ("C-<D>", spawn (script ++ "volume dec")),
@@ -275,7 +275,7 @@ myKeys = \conf -> mkKeymap conf $
     ]
 
 -----------------------------------------------------------------------
--- Cursor actions
+-- cursor actions
 
 myMouseBindings (XConfig {XMonad.modMask = modMask}) = M.fromList $
   [
@@ -285,7 +285,7 @@ myMouseBindings (XConfig {XMonad.modMask = modMask}) = M.fromList $
   ]
 
 -----------------------------------------------------------------------
--- Run XMonad
+-- run XMonad
 
 main = do
   infoBar <- spawnPipe infoBar
