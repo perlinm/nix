@@ -252,7 +252,7 @@ def xmonad(line,align):
   strings += [layout,title]
   lengths += [layout_length,client_width]
   return fstr(align,strings,lengths,colors,
-              [[5,scroll_down_keys],[4,scroll_up_keys],
+              [[4,scroll_down_keys],[5,scroll_up_keys],
                [3,right_keys],[2,mid_keys],[1,left_keys]])
 
 # system tray

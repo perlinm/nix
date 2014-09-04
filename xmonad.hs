@@ -77,7 +77,8 @@ myManageHook = composeAll . concat $
   where
     cFloats = ["Xfce4-appfinder","Nm-connection-editor",
                "Nm-openconnect-auth-dialog"," ","Wicd-client.py",
-               "Python2","Toplevel","Pavucontrol"]
+               "Python2","Toplevel","Pavucontrol","Lancelot",
+               "Plasma-desktop"]
     tSinks = ["Gimp"]
 
 -----------------------------------------------------------------------
@@ -195,8 +196,8 @@ myKeys = \conf -> mkKeymap conf $
     ]
     ++
     [
-     ("M4-M1-w", moveTo Prev (WSIs notNSP)),
-     ("M4-M1-f", moveTo Next (WSIs notNSP)),
+     ("M4-r", moveTo Prev (WSIs notNSP)),
+     ("M4-s", moveTo Next (WSIs notNSP)),
      ("M4-<L>", moveTo Prev (WSIs notNSP)),
      ("M4-<R>", moveTo Next (WSIs notNSP)),
      ("M4-C-<L>", swapTo' Prev (WSIs notNSP)),
@@ -219,10 +220,10 @@ myKeys = \conf -> mkKeymap conf $
     --("M4-S-<Space>", sendMessage PrevLayout),
     ("M4-M1-<Space>", setLayout $ XMonad.layoutHook conf),
     ("M4-z", sendMessage (Toggle "full")),
-    ("M4-r", sendMessage (IncMasterN 1)),
-    ("M4-s", sendMessage (IncMasterN (-1))),
     ("M4-x", sendMessage Shrink),
     ("M4-c", sendMessage Expand),
+    ("M4-S-x", sendMessage (IncMasterN 1)),
+    ("M4-S-c", sendMessage (IncMasterN (-1))),
     ("M4-M1-x", sendMessage MirrorExpand),
     ("M4-M1-c", sendMessage MirrorShrink),
     ("M4-v", sendMessage ToggleStruts),
@@ -235,7 +236,7 @@ myKeys = \conf -> mkKeymap conf $
     ("M4-a", windows W.swapMaster),
     ("M4-t", withFocused $ windows . W.sink),
     ("M4-<Esc>", kill),
-    ---------- spawn ----------
+    ---------- spawning ----------
     ("M4-<Tab>", spawn $ XMonad.terminal conf),
     ("M1-`", spawn myRun),
     ("M1-C-`", spawn myAppFinder),
@@ -244,9 +245,10 @@ myKeys = \conf -> mkKeymap conf $
     ("M1-<F3>", namedScratchpadAction myScratchPads wifiName),
     ("M1-<F4>", namedScratchpadAction myScratchPads htopName),
     ("M1-<F5>", namedScratchpadAction myScratchPads mixerName),
-    ---------- restart ----------
+    ---------- restart/quit ----------
     ("M4-M1-<Backspace>", spawn recompileCMD),
     ("M4-<Backspace>", (spawn killBar) <+> (spawn restartCMD)),
+    ("C-M4-<Backspace>", io (exitWith ExitSuccess)),
     ---------- misc ----------
     ("C-/", spawn (script ++ "volume toggle")),
     ("C-<U>", spawn (script ++ "volume inc")),
@@ -288,7 +290,7 @@ myMouseBindings (XConfig {XMonad.modMask = modMask}) = M.fromList $
 -- run XMonad
 
 main = do
-  infoBar <- spawnPipe infoBar
+--  infoBar <- spawnPipe infoBar
   xmonad $ defaultConfig {
         terminal = myTerminal,
         borderWidth = myBorderWidth,
@@ -305,7 +307,7 @@ main = do
                      <+> FS.fullscreenManageHook
                      <+> manageHook defaultConfig,
         mouseBindings = myMouseBindings,
-        logHook = myLog infoBar,
+--        logHook = myLog infoBar,
         startupHook = myStartupHook
                       <+> ewmhDesktopsStartup >> setWMName "LG3D",
         handleEventHook = ewmhDesktopsEventHook <+> FS.fullscreenEventHook

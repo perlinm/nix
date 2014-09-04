@@ -1,0 +1,10 @@
+#!/bin/zsh
+
+for task in $*; do
+  if [ -z "$(pidof $task)" ]; then
+    echo "executing $task"
+    $task &
+  else
+    echo "$task is already running"
+  fi
+done

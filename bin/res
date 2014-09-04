@@ -1,1 +1,1 @@
-sudo shutdown -r now
+systemctl reboot
