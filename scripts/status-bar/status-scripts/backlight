@@ -1,0 +1,4 @@
+#!/usr/bin/sh
+
+brightness=`xbacklight -get`
+echo $brightness/100 | bc -l

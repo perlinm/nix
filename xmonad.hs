@@ -5,7 +5,6 @@ import XMonad
 import XMonad.Actions.CycleWS
 import XMonad.Actions.CopyWindow
 import XMonad.Actions.FlexibleResize as Flex
-import XMonad.Actions.GridSelect
 import XMonad.Actions.NoBorders
 import XMonad.Actions.WindowMenu
 import XMonad.Actions.WorkspaceNames
@@ -27,11 +26,12 @@ import XMonad.Util.Loggers
 import XMonad.Util.Run (spawnPipe)
 import XMonad.Util.NamedScratchpad
 
+import XMonad.Config.Xfce
+
 -----------------------------------------------------------------------
 -- variables
 
 myTerminal = "xfce4-terminal"
-myAppFinder = "xfce4-appfinder"
 
 fullBlack = "#000000"
 fullWhite = "#ffffff"
@@ -53,33 +53,29 @@ myWorkspaces = Prelude.map show [0..10]
 
 script = "/home/perlinm/scripts/"
 
+{-
 myRun = "$(yeganesh -x --"
         ++ " -nb '" ++ black ++ "'"
         ++ " -nf '" ++ white ++ "'" ++ " -sf '" ++ white ++ "'"
         ++ " -fn " ++ barFont ++ ")"
+-}
+myRun = "xfce4-appfinder --collapsed"
 
-barScript = "dzen-bar.py"
-infoBar = "nice -n -10 " ++ script ++ barScript ++ " | dzen2 -h " ++ show barHeight
-          ++ " -fn " ++ barFont ++ " -e 'onstart=lower;button1=lower'"
-
-killBar = "killall dzen2 stalonetray " ++ barScript ++ " 2> /dev/null"
 recompileCMD = "/usr/bin/xmonad --recompile"
 restartCMD = "/usr/bin/xmonad --restart"
 
 -----------------------------------------------------------------------
 -- window rules
 
+-- todo: get tSinks to work
 myManageHook = composeAll . concat $
   [
-    [ (className =? c <&&> title /=? t) --> doCenterFloat
-          | c <- cFloats, t <- tSinks ]
+    [ (className =? c) --> doCenterFloat | c <- cFloats ]
   ]
   where
-    cFloats = ["Xfce4-appfinder","Nm-connection-editor",
-               "Nm-openconnect-auth-dialog"," ","Wicd-client.py",
-               "Python2","Toplevel","Pavucontrol","Lancelot",
-               "Plasma-desktop"]
-    tSinks = ["Gimp"]
+    cFloats = ["Xfce4-appfinder","Xfce4-panel","Xfce4-notifyd",
+               "Nm-connection-editor","Nm-openconnect-auth-dialog",
+               " ","Wicd-client.py","Python2","Pavucontrol"]
 
 -----------------------------------------------------------------------
 -- scratchpads
@@ -164,14 +160,13 @@ myStartupHook = do
 -- layout definitions
 
 normal = renamed [Replace "normal"] $ ResizableTall 1 (1/50) (1/2) []
-matlab = renamed [Replace "matlab"] $ ResizableTall 1 (1/50) (11/20) []
 emacs = renamed [Replace "emacs"] $ ResizableTall 1 (1/50) (2/5) []
 chat = renamed [Replace "chat"] $ ResizableTall 1 (1/50) (3/4) []
 skype = renamed [Replace "skype"] $ ResizableTall 1 (1/50) (63/100) []
 full = renamed [Replace "full"] $ Full
 myLayoutHook = smartBorders $ avoidStruts $ windowNavigation $
     toggleLayouts full
-  ( normal ||| matlab ||| emacs ||| chat ||| skype )
+  ( normal ||| emacs ||| chat ||| skype )
 
 myPlacement = withGaps (16,16,16,16) (fixed (0.5,0.5))
 
@@ -239,16 +234,16 @@ myKeys = \conf -> mkKeymap conf $
     ---------- spawning ----------
     ("M4-<Tab>", spawn $ XMonad.terminal conf),
     ("M1-`", spawn myRun),
-    ("M1-C-`", spawn myAppFinder),
     ("M1-<F1>", namedScratchpadAction myScratchPads termName),
-    ("M1-<F2>", namedScratchpadAction myScratchPads calcName),
+--    ("M1-<F2>", namedScratchpadAction myScratchPads calcName),
     ("M1-<F3>", namedScratchpadAction myScratchPads wifiName),
     ("M1-<F4>", namedScratchpadAction myScratchPads htopName),
     ("M1-<F5>", namedScratchpadAction myScratchPads mixerName),
     ---------- restart/quit ----------
     ("M4-M1-<Backspace>", spawn recompileCMD),
-    ("M4-<Backspace>", (spawn killBar) <+> (spawn restartCMD)),
-    ("C-M4-<Backspace>", io (exitWith ExitSuccess)),
+    ("M4-<Backspace>", spawn restartCMD),
+--    ("C-M4-<Backspace>", io (exitWith ExitSuccess)),
+    ("C-M4-<Backspace>", spawn "xfce4-session-logout"),
     ---------- misc ----------
     ("C-/", spawn (script ++ "volume toggle")),
     ("C-<U>", spawn (script ++ "volume inc")),
@@ -267,13 +262,8 @@ myKeys = \conf -> mkKeymap conf $
     ("M4-M1-\\", spawn (script ++ "print -s")),
     ("M1-,", spawn (script ++ "bg-slides")),
     ("M4-M1-;", spawn (script ++ "touchpad-toggle")),
-    ("M1-C-<U>", spawn (script ++ "orient normal")),
-    ("M1-C-<D>", spawn (script ++ "orient inverted")),
-    ("M1-C-<L>", spawn (script ++ "orient left")),
-    ("M1-C-<R>", spawn (script ++ "orient right")),
     ("M4-/", windows copyToAll),
-    ("M4-S-/", killAllOtherCopies),
-    ("M1-C-S-z", spawn "sus")
+    ("M4-S-/", killAllOtherCopies)
     ]
 
 -----------------------------------------------------------------------
@@ -281,8 +271,8 @@ myKeys = \conf -> mkKeymap conf $
 
 myMouseBindings (XConfig {XMonad.modMask = modMask}) = M.fromList $
   [
-    ((mod1Mask, button3), (\w -> XMonad.focus w >> mouseMoveWindow w)),
-    ((mod4Mask, button3),
+    ((mod1Mask, button1), (\w -> XMonad.focus w >> mouseMoveWindow w)),
+    ((mod1Mask, button3),
      (\w -> XMonad.focus w >> Flex.mouseResizeWindow w))
   ]
 
@@ -290,8 +280,7 @@ myMouseBindings (XConfig {XMonad.modMask = modMask}) = M.fromList $
 -- run XMonad
 
 main = do
---  infoBar <- spawnPipe infoBar
-  xmonad $ defaultConfig {
+  xmonad $ xfceConfig {
         terminal = myTerminal,
         borderWidth = myBorderWidth,
         normalBorderColor = myNormalBorderColor,
@@ -308,7 +297,6 @@ main = do
                      <+> manageHook defaultConfig,
         mouseBindings = myMouseBindings,
 --        logHook = myLog infoBar,
-        startupHook = myStartupHook
-                      <+> ewmhDesktopsStartup >> setWMName "LG3D",
+        startupHook = ewmhDesktopsStartup >> setWMName "LG3D",
         handleEventHook = ewmhDesktopsEventHook <+> FS.fullscreenEventHook
     }

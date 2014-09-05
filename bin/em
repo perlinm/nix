@@ -1,10 +1,7 @@
 #!/bin/zsh
 
-if [ -z $(ps aux | grep emacs | grep daemon | awk '{print $1}') ]; then
+if [ -z "$(pidof emacs)" ]; then
   emacs --daemon
 fi
-if [ -z $1 ]; then
-  /usr/bin/emacsclient -c --no-wait
-else
-  /usr/bin/emacsclient -t --no-wait $1
-fi
+
+/usr/bin/emacsclient -c -n

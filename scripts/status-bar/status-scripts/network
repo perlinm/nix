@@ -1,0 +1,21 @@
+#!/usr/bin/sh
+
+eth=em1
+wifi=wlp2s0
+
+state(){
+ cat /sys/class/net/$1/operstate
+}
+
+if [ `state $eth` = up ]; then
+  echo "ethernet"
+elif [ `state $wifi` = up ]; then
+  name=`iwgetid -r`
+  link=`cat /proc/net/wireless \
+          | grep $wifi \
+          | awk '{print $4}' \
+          | sed 's/[^0-9\-]//g'`dBm
+  echo $link $name
+else
+  echo "no connection"
+fi

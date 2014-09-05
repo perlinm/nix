@@ -1,19 +1,15 @@
 #!/bin/zsh
 
 if [ $1 = inc ]; then
-  pamixer --increase 3
+  amixer set Master 3%+
 elif [ $1 = dec ]; then
-  pamixer --decrease 3
+  amixer set Master 3%-
 elif [ $1 = max ]; then
-  pamixer --set-volume 100
+  amixer set Master 100%
 elif [ $1 = min ]; then
-  pamixer --set-volume 0
+  amixer set Master 0%
 elif [ $1 = med ]; then
-  pamixer --set-volume 50
-elif [ $1 = on ]; then
-  pamixer --mute
-elif [ $1 = off ]; then
-  pamixer --unmute
-elif [ $1 = toggle ]; then
-  pamixer --toggle-mute
+  amixer set Master 50%
+else
+  amixer set Master $1
 fi

@@ -1,0 +1,159 @@
+#!/usr/bin/python3
+import sys, time, threading
+import subprocess as sp
+import matplotlib as mp
+import matplotlib.cm as cm
+
+logfile = '/home/perlinm/scripts/.dzen-bar.log'
+def log(str):
+  with open(logfile,'a') as l:
+    l.write('%s\n'%str)
+
+### process inputs
+
+try:
+  char_width = int(sys.argv[1])
+  bar_height = int(sys.argv[2])
+except:
+  char_width = 7
+  bar_height = 12
+
+## misc functions
+
+# get output of shell command as string
+def get_output(args):
+  return sp.check_output([str(arg) for arg in args]).rstrip().decode('utf-8')
+
+# color maps
+color_maps = [m for m in cm.datad if not m.endswith('_r')]
+def get_cmap(name):
+  return cm.get_cmap(color_maps[color_maps.index(name)])
+def hex_color(rgb_color):
+  return mp.colors.rgb2hex(rgb_color)
+
+# convert script output to status bar
+def make_bar(script,width):
+  level = float(get_output([info_dir+script]))
+  text = get_output([misc_dir+'draw-bar',bar_height,
+                     char_width*width,level])
+
+### global variables
+
+# directories
+root_dir = '/home/perlinm/scripts/status-bar/'
+info_dir = root_dir + 'info/'
+misc_dir = root_dir + 'misc/'
+
+# width of bars in units of character width
+vol_width = 4
+batt_width = 4
+light_width = 4
+cpu_width = 3
+
+# keyboard shortcuts in xmonad
+net_pad = 'alt+F3'
+htop_pad = 'alt+F4'
+
+# structure containing all text, functions, colors, and keysyms
+data = {
+  'time' : {},
+  'vol' : {},
+  'light' : {},
+  'batt bar' : {},
+  'batt' : {},
+  'net' : {},
+  'cpu' : {}
+}
+
+### functions
+
+# time
+def time_fun():
+  data['time']['text'] = get_output([info_dir+'time'])
+
+data['time']['col'] = get_output([misc_dir+'color','white'])
+data['time']['fun'] = time_fun
+
+# volume
+cm_vol = get_cmap('cool')
+def volume_fun():
+  level = float(get_output([info_dir+'volume']))
+  rect = get_output([misc_dir+'draw-bar',bar_height,
+                     char_width*vol_width,level])
+  data['vol']['text'] = rect
+
+  state = get_output([info_dir+'volume','state'])
+  if state == 'on' and level > 0:
+    color = hex_color(cm_vol(level))
+  else:
+    color = get_output([misc_dir+'color','red'])
+  data['vol']['color'] = color
+
+data['vol']['fun'] = volume_fun
+
+# backlight brightness
+def light_fun():
+  level = float(get_output([info_dir+'backlight']))
+  rect = get_output([misc_dir+'draw-bar',bar_height,
+                     char_width*light_width,level])
+  data['light']['text'] = rect
+
+data['light']['col'] = get_output([misc_dir+'color','yellow'])
+data['light']['fun'] = light_fun
+
+# battery info
+cm_batt = get_cmap('autumn')
+def batt_bar_fun():
+  level = float(get_output([info_dir+'battery']))
+  rect = get_output([misc_dir+'draw-bar',bar_height,
+                     char_width*batt_width,level])
+  data['batt bar']['text'] = rect
+  data['batt bar']['color'] = hex_color(cm_batt(level))
+
+data['batt bar']['fun'] = batt_bar_fun
+
+def batt_fun():
+  state = get_output([info_dir+'battery','state'])
+  time = get_output([info_dir+'battery','time']) 
+  data['batt']['text'] = time
+  if state == 'Charging':
+    data['batt']['text'] += '+'
+  elif state == 'Discharging':
+    data['batt']['text'] += '-'
+  else:
+    data['batt']['text'] += ' '
+
+data['batt']['col'] = get_output([misc_dir+'color','white'])
+data['batt']['fun'] = batt_fun
+
+# network info
+def net_fun():
+  data['net']['text'] = get_output([info_dir+'network'])
+
+data['net']['col'] = get_output([misc_dir+'color','white'])
+data['net']['fun'] = net_fun
+
+# cpu info
+
+
+
+### keysyms
+
+data['vol']['keysyms'] = [[1,'ctrl+slash'],[3,'ctrl+shift+slash'],
+                          [4,'ctrl+Down'],[5,'ctrl+Up']]
+data['light']['keysyms'] = [[1,'alt+slash'],[3,'alt+shift+slash'],
+                            [4,'alt+Down'],[5,'alt+Up']]
+data['net']['keysyms'] = [[1,net_pad]]
+data['cpu']['keysyms'] = [[1,htop_pad]]
+
+
+for key in data:
+  try:
+    data[key]['fun']()
+  except:
+    None
+
+for key in data:
+  print(key)
+  print(data[key])
+  print()

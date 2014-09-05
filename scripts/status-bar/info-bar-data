@@ -1,0 +1,225 @@
+#!/usr/bin/python3
+import sys, time, datetime, threading
+import subprocess as sp
+import numpy as np
+import matplotlib as mp
+import matplotlib.cm as cm
+
+logfile = '/home/perlinm/scripts/.dzen-bar.log'
+def log(str):
+  with open(logfile,'a') as l:
+    l.write('%s\n'%str)
+
+
+### process inputs
+
+
+try:
+  char_width = int(sys.argv[1])
+  bar_height = int(sys.argv[2])
+except:
+  char_width = 7
+  bar_height = 12
+
+
+### global variables
+
+# data entry order of appearance, right to left
+order = ['time','vol','light','batt','net','cpu']
+
+# directories
+src = '/home/perlinm/scripts/status-bar/status-scripts/'
+
+# width of bars in units of character width
+vol_width = 4
+batt_width = 4
+light_width = 4
+cpu_width = 3
+
+# keyboard shortcuts in xmonad
+net_pad = 'alt+F3'
+htop_pad = 'alt+F4'
+
+# all text objects
+text = {
+  'time' : '',
+  'vol' : '',
+  'light' : '',
+  'batt' : '',
+  'net' : '',
+  'cpu' : ''
+}
+funs = {}
+
+# structure containing all text, functions, colors, and keysyms
+data = {
+  'time' : {},
+  'vol' : {},
+  'light' : {},
+  'batt' : {},
+  'net' : {},
+  'cpu' : {}
+}
+
+
+### misc functions
+
+
+# get output of shell command as string
+def run(args):
+  return sp.check_output([str(arg) for arg in args]).rstrip().decode('utf-8')
+
+# color maps
+color_maps = [m for m in cm.datad if not m.endswith('_r')]
+def get_cmap(name):
+  return cm.get_cmap(color_maps[color_maps.index(name)])
+def hex_color(rgb_color):
+  return mp.colors.rgb2hex(rgb_color)
+
+# convert script output to status bar
+def make_bar(script,width):
+  level = float(run([src+script]))
+  text = run([src+'draw-bar',bar_height,
+                     char_width*width,level])
+
+
+### functions
+
+
+# time
+def time_fun():
+  data['time']['text'] = run([src+'time'])
+
+data['time']['col'] = run([src+'color-name','white'])
+data['time']['fun'] = time_fun
+
+# volume
+cm_vol = get_cmap('cool')
+def volume_fun():
+  level = float(run([src+'volume']))
+  rect = run([src+'draw-bar',bar_height,
+                     char_width*vol_width,level])
+  data['vol']['text'] = rect
+
+  state = run([src+'volume','state'])
+  if state == 'on' and level > 0:
+    color = hex_color(cm_vol(level))
+  else:
+    color = run([src+'color-name','red'])
+  data['vol']['col'] = color
+
+data['vol']['fun'] = volume_fun
+
+# backlight brightness
+def light_fun():
+  level = float(run([src+'backlight']))
+  rect = run([src+'draw-bar',bar_height,
+                     char_width*light_width,level])
+  data['light']['text'] = rect
+
+data['light']['col'] = run([src+'color-name','yellow'])
+data['light']['fun'] = light_fun
+
+# battery info
+data['batt']['text'] = ['']*2
+data['batt']['col'] = ['']*2
+cm_batt = get_cmap('autumn')
+def batt_fun():
+  # bar indicating charge
+  level = float(run([src+'battery']))
+  rect = run([src+'draw-bar',bar_height,
+                     char_width*batt_width,level])
+  data['batt']['text'][0] = rect
+  data['batt']['col'][0] = hex_color(cm_batt(level))
+
+  # text indicating time to [dis]charge 
+  state = run([src+'battery','state'])
+  now = run([src+'battery','time']) 
+  data['batt']['text'][1] = now
+  if state == 'Charging':
+    data['batt']['text'][1] += '+'
+  elif state == 'Discharging':
+    data['batt']['text'][1] += '-'
+  else:
+    data['batt']['text'][1] += ' '
+
+data['batt']['col'][1] = run([src+'color-name','white'])
+data['batt']['fun'] = batt_fun
+
+# network info
+def net_fun():
+  data['net']['text'] = run([src+'network'])
+
+data['net']['col'] = run([src+'color-name','white'])
+data['net']['fun'] = net_fun
+
+# cpu info
+cpus = int(run(['nproc']))
+
+data['cpu']['text'] = ['']*cpus
+data['cpu']['col'] = ['']*cpus
+
+def get_idles():
+  stat = []
+  with open('/proc/stat','r') as f:
+    for line in f:
+      if not 'cpu' in line:
+        break
+      stat.append(line)
+  idles = np.array([int(s.split()[4]) for s in stat[1:]])
+  return idles
+
+old_idles = get_idles()
+old_cpu_time = datetime.datetime.now()
+
+def cpu_fun():
+  global old_idles, old_cpu_time
+  idles = get_idles()
+  cpu_time = datetime.datetime.now()
+  dt = (cpu_time - old_cpu_time).total_seconds()
+  vals = list(100 - (idles - old_idles)/dt)
+  for i in range(cpus):
+    val = float(vals[i])/100
+    rect = run([src+'draw-bar',bar_height,
+                       char_width*cpu_width,val])
+    data['cpu']['text'][i] = rect
+    data['cpu']['col'][i] = hex_color([float(val)]*3)
+
+data['cpu']['fun'] = cpu_fun 
+
+
+### keysyms
+
+
+data['vol']['keysyms'] = [[1,'ctrl+slash'],[3,'ctrl+shift+slash'],
+                          [4,'ctrl+Down'],[5,'ctrl+Up']]
+data['light']['keysyms'] = [[1,'alt+slash'],[3,'alt+shift+slash'],
+                            [4,'alt+Down'],[5,'alt+Up']]
+data['net']['keysyms'] = [[1,net_pad]]
+data['cpu']['keysyms'] = [[1,htop_pad]]
+
+
+### format text
+
+for key in data:
+  try:
+    data[key]['fun']()
+  except:
+    None
+
+def format(key):
+  data[key]['text'] = run([src+'set-color',
+                           data[key]['col'],data[key]['text']])
+  try:
+    for sym in data[key]['keysyms']:
+      data[key]['text'] = run([src+'add-key',
+                               sym[0],sym[1],data[key]['text']])
+  except:
+    None
+
+
+for key in data:
+  format(key)
+  print(key)
+  print(data[key]['text'])
+  print()

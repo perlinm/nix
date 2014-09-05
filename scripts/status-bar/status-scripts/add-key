@@ -1,0 +1,16 @@
+#!/usr/bin/python3
+import sys
+
+# import arguments
+try:
+  mouse_button = sys.argv[1]
+  key_combo = sys.argv[2]
+  in_text = sys.argv[3]
+except:
+  exit(0)
+
+# add key simulation
+out_text = '^ca(%s,xdotool key %s)'%(mouse_button,key_combo) + in_text + '^ca()'
+
+# return formatted text
+print(out_text)
