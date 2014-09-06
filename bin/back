@@ -1,6 +1,7 @@
 #!/bin/zsh
 
 mount_point=/run/media/perlinm/PERLINM
+mount_point=/media/mnt
 
 if [ -e $mount_point/.perlinm ]; then
   rsync -Lurv ~/Workspace $mount_point \

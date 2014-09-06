@@ -20,9 +20,11 @@ sudo yum upgrade
 
 # install stuff for self
 sudo yum install \
-  zsh vim-enhanced pmount git-all keychain \
+  zsh vim-enhanced \
+  @xfce @kde-desktop xcompmgr \
+  xmonad ghc-xmonad ghc-xmonad-contrib \
+  htop git-all pmount keychain \
   wicd wicd-curses wicd-kde \
-  vpnc openssh \
   google-chrome-stable firefox \
   texlive-scheme-full \
   haskell-platform \
@@ -31,10 +33,12 @@ sudo yum install \
   numpy python3-numpy \
   python-matplotlib python3-matplotlib \
   scipy python3-scipy \
-  @xfce @kde-desktop \
-  ghc-xmonad ghc-xmonad-contrib \
+  feh geeqie gimp \
   mplayer smplayer vlc vlc-extras \
-  feh gimp inkscape geeqie lxappearance
+  pavucontrol lxappearance \
+  icedtea-web vpnc openssh \
+  qbittorrent xbacklight
+  
 
 # install xfce panel plugins
 sudo yum install \
@@ -45,7 +49,8 @@ sudo yum install \
   xfce4-systemload-plugin \
   xfce4-weather-plugin \
   xfce4-xkb-plugin \
-  xmonad-log-applet-xfce
+  xmonad-log-applet-xfce \
+  volumeicon
 
 # install stuff for deft
 sudo yum install \
@@ -57,14 +62,6 @@ sudo yum install \
 
 # change user shell
 sudo chsh -s /usr/bin/zsh perlinm
-
-# switch wireless interface controllers
-sudo systemctl stop NetworkManager
-sudo systemctl disable NetworkManager
-sudo systemctl stop wpa_supplicant
-sudo systemctl disable wpa_supplicant
-sudo systemctl enable wicd
-sudo systemctl start wicd
 
 # install skype
 cd /tmp
