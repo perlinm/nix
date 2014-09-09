@@ -1,4 +1,4 @@
-import Data.Map as M
+import Data.Map
 import System.IO
 import System.Exit
 import XMonad
@@ -6,9 +6,8 @@ import XMonad.Actions.CycleWS
 import XMonad.Actions.CopyWindow
 import XMonad.Actions.FlexibleResize as Flex
 import XMonad.Actions.NoBorders
-import XMonad.Actions.WindowMenu
 import XMonad.Actions.WorkspaceNames
-import XMonad.Hooks.DynamicLog
+import XMonad.Config.Xfce
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
@@ -22,62 +21,46 @@ import XMonad.Layout.ToggleLayouts
 import XMonad.Layout.WindowNavigation
 import XMonad.StackSet as W
 import XMonad.Util.EZConfig
-import XMonad.Util.Loggers
 import XMonad.Util.Run (spawnPipe)
 import XMonad.Util.NamedScratchpad
 
-import XMonad.Config.Xfce
-
------------------------------------------------------------------------
+---------------------------------------------------------------------------------
 -- variables
 
-myTerminal = "xfce4-terminal"
-
-fullBlack = "#000000"
-fullWhite = "#ffffff"
-black = "#111111"
-white = "#dddddd"
-grey = "#777777"
-red = "#c11b17"
-green = "#347c17"
-blue = "#00688b"
-yellow = "#ffbb00"
-barFont = "monospace-9"
-barHeight = 16
-
 myBorderWidth = 1
-myNormalBorderColor = fullBlack
-myFocusedBorderColor = grey
+myNormalBorderColor = "#000000"
+myFocusedBorderColor = "#777777"
 myFocusFollowsMouse = True
-myWorkspaces = Prelude.map show [0..10]
+
+myWorkspaces = Prelude.map show [0..10] ++ ["NSP"]
 
 script = "/home/perlinm/scripts/"
 
-{-
-myRun = "$(yeganesh -x --"
-        ++ " -nb '" ++ black ++ "'"
-        ++ " -nf '" ++ white ++ "'" ++ " -sf '" ++ white ++ "'"
-        ++ " -fn " ++ barFont ++ ")"
--}
+myTerminal = "xfce4-terminal"
 myRun = "xfce4-appfinder --collapsed"
 
 recompileCMD = "/usr/bin/xmonad --recompile"
 restartCMD = "/usr/bin/xmonad --restart"
 
------------------------------------------------------------------------
+---------------------------------------------------------------------------------
 -- window rules
 
--- todo: get tSinks to work
 myManageHook = composeAll . concat $
   [
-    [ (className =? c) --> doCenterFloat | c <- cFloats ]
+    [ (className =? f) --> doCenterFloat | f <- floats ],
+    [ (className =? i) --> doIgnore | i <- ignores ],
+    [ (roleName =? s) --> (ask >>= doF . W.sink) | s <- sinks ],
+    [ (roleName =? s) --> (ask >>= doF . W.sink) | s <- sinks ]
   ]
   where
-    cFloats = ["Xfce4-appfinder","Xfce4-panel","Xfce4-notifyd",
-               "Nm-connection-editor","Nm-openconnect-auth-dialog",
-               " ","Wicd-client.py","Python2","Pavucontrol"]
+    roleName = stringProperty "WM_WINDOW_ROLE"
+    floats = ["Xfce4-appfinder","Xfce4-panel","Nm-connection-editor",
+               "Nm-openconnect-auth-dialog"," ","Wicd-client.py","Python2",
+               "Pavucontrol"]
+    ignores = ["Xfce4-notifyd"]
+    sinks = ["gimp-image-window"]
 
------------------------------------------------------------------------
+---------------------------------------------------------------------------------
 -- scratchpads
 
 termName = "term"
@@ -132,31 +115,13 @@ myScratchPads = [ NS termName spawnTerm findTerm manageTerm,
         t = (1-h)/2
         l = (1-w)/2
 
------------------------------------------------------------------------
--- workspace info log
-
-myLog info = dynamicLogWithPP $ defaultPP {
-  ppCurrent = wrap "c " "",
-  ppVisible = wrap "v " "",
-  ppHidden = wrap "h " "" . noScratchPad,
-  ppHiddenNoWindows = wrap "hnw " "" . noScratchPad,
-  ppUrgent = wrap "u " "",
-  ppOrder = \(ws:l:t:_) -> [ws,l,t],
-  ppSep = "|:|",
-  ppWsSep = "|",
-  ppOutput = hPutStrLn info
-}
-  where
-    noScratchPad ws = if ws == "NSP" then "" else ws
-
------------------------------------------------------------------------
+---------------------------------------------------------------------------------
 -- startup commands
 
 myStartupHook :: X()
-myStartupHook = do
-  spawn (script ++ "bg-slides")
+myStartupHook = do spawn (script ++ "bg-slides")
 
------------------------------------------------------------------------
+---------------------------------------------------------------------------------
 -- layout definitions
 
 normal = renamed [Replace "normal"] $ ResizableTall 1 (1/50) (1/2) []
@@ -165,55 +130,52 @@ chat = renamed [Replace "chat"] $ ResizableTall 1 (1/50) (3/4) []
 skype = renamed [Replace "skype"] $ ResizableTall 1 (1/50) (63/100) []
 full = renamed [Replace "full"] $ Full
 myLayoutHook = smartBorders $ avoidStruts $ windowNavigation $
-    toggleLayouts full
-  ( normal ||| emacs ||| chat ||| skype )
+               toggleLayouts full ( normal ||| emacs ||| chat ||| skype )
 
 myPlacement = withGaps (16,16,16,16) (fixed (0.5,0.5))
 
------------------------------------------------------------------------
+---------------------------------------------------------------------------------
 -- key commands
 
-notNSP = (return $ ("NSP" /=) . W.tag) :: X (WindowSpace -> Bool)
-
-numRow = ["`"] ++ (Prelude.map show [1..9]) ++ ["0"]
+numRow = ["`"] ++ (Prelude.map show [1..9]) ++ ["0","-"]
 myKeys = \conf -> mkKeymap conf $
     ---------- workspace management ----------
     [
-     ("M4" ++ mod ++ "-" ++ key, windows $ func ws) |
-     (ws,key) <- zip myWorkspaces numRow,
-              (func,mod) <- [(W.greedyView, ""), (W.shift, "-S"),
-                             (\i -> W.greedyView i . W.shift i,"-M1")]
+     ("M4" ++ mod ++ "-" ++ key, windows $ func ws)
+         | (ws,key) <- zip myWorkspaces numRow,
+                       (func,mod) <- [(W.greedyView, ""),(W.shift, "-S"),
+                                      (\i -> W.greedyView i . W.shift i,"-M1")]
     ]
     ++
     [
-     ("M4-C-" ++ key, swapWithCurrent ws) |
-     (ws,key) <- zip myWorkspaces numRow
+     ("M4-C-" ++ key, swapWithCurrent ws)
+         | (ws,key) <- zip myWorkspaces numRow
     ]
     ++
     [
-     ("M4-r", moveTo Prev (WSIs notNSP)),
-     ("M4-s", moveTo Next (WSIs notNSP)),
-     ("M4-<L>", moveTo Prev (WSIs notNSP)),
-     ("M4-<R>", moveTo Next (WSIs notNSP)),
-     ("M4-C-<L>", swapTo' Prev (WSIs notNSP)),
-     ("M4-C-<R>", swapTo' Next (WSIs notNSP)),
-     ("M4-S-<L>", shiftTo Prev (WSIs notNSP)),
-     ("M4-S-<R>", shiftTo Next (WSIs notNSP)),
-     ("M4-M1-<L>", shiftTo Prev (WSIs notNSP) >> moveTo Prev (WSIs notNSP)),
-     ("M4-M1-<R>", shiftTo Next (WSIs notNSP) >> moveTo Next (WSIs notNSP)),
-     ("M4-n", moveTo Prev (WSIs notNSP)),
-     ("M4-i", moveTo Next (WSIs notNSP)),
-     ("M4-C-n", swapTo' Prev (WSIs notNSP)),
-     ("M4-C-i", swapTo' Next (WSIs notNSP)),
-     ("M4-S-n", shiftTo Prev (WSIs notNSP)),
-     ("M4-S-i", shiftTo Next (WSIs notNSP)),
-     ("M4-M1-n", shiftTo Prev (WSIs notNSP) >> moveTo Prev (WSIs notNSP)),
-     ("M4-M1-i", shiftTo Next (WSIs notNSP) >> moveTo Next (WSIs notNSP)),
-     ("M1-z", toggleWS' ["NSP"]),
+     ("M4-r", prevWS),
+     ("M4-s", nextWS),
+     ("M4-<L>", prevWS),
+     ("M4-<R>", nextWS),
+     ("M4-C-<L>", swapTo Prev),
+     ("M4-C-<R>", swapTo Next),
+     ("M4-S-<L>", shiftToPrev),
+     ("M4-S-<R>", shiftToNext),
+     ("M4-M1-<L>", shiftToPrev >> prevWS),
+     ("M4-M1-<R>", shiftToNext >> nextWS),
+     ("M4-n", prevWS),
+     ("M4-i", nextWS),
+     ("M4-C-n", swapTo Prev),
+     ("M4-C-i", swapTo Next),
+     ("M4-S-n", shiftToPrev),
+     ("M4-S-i", shiftToNext),
+     ("M4-M1-n", shiftToPrev >> prevWS),
+     ("M4-M1-i", shiftToNext >> nextWS),
+     ("M1-z", toggleWS),
     ---------- layout management ----------
     ("M4-<Space>", sendMessage NextLayout),
     --("M4-S-<Space>", sendMessage PrevLayout),
-    ("M4-M1-<Space>", setLayout $ XMonad.layoutHook conf),
+    ("M4-M1-<Space>", setLayout $ layoutHook conf),
     ("M4-z", sendMessage (Toggle "full")),
     ("M4-x", sendMessage Shrink),
     ("M4-c", sendMessage Expand),
@@ -232,10 +194,10 @@ myKeys = \conf -> mkKeymap conf $
     ("M4-t", withFocused $ windows . W.sink),
     ("M4-<Esc>", kill),
     ---------- spawning ----------
-    ("M4-<Tab>", spawn $ XMonad.terminal conf),
+    ("M4-<Tab>", spawn $ terminal conf),
     ("M1-`", spawn myRun),
     ("M1-<F1>", namedScratchpadAction myScratchPads termName),
---    ("M1-<F2>", namedScratchpadAction myScratchPads calcName),
+    ("M1-<F2>", namedScratchpadAction myScratchPads calcName),
     ("M1-<F3>", namedScratchpadAction myScratchPads wifiName),
     ("M1-<F4>", namedScratchpadAction myScratchPads htopName),
     ("M1-<F5>", namedScratchpadAction myScratchPads mixerName),
@@ -266,17 +228,16 @@ myKeys = \conf -> mkKeymap conf $
     ("M4-S-/", killAllOtherCopies)
     ]
 
------------------------------------------------------------------------
+---------------------------------------------------------------------------------
 -- cursor actions
 
-myMouseBindings (XConfig {XMonad.modMask = modMask}) = M.fromList $
+myMouseBindings (XConfig {}) = fromList $
   [
     ((mod1Mask, button1), (\w -> XMonad.focus w >> mouseMoveWindow w)),
-    ((mod1Mask, button3),
-     (\w -> XMonad.focus w >> Flex.mouseResizeWindow w))
+    ((mod1Mask, button3), (\w -> XMonad.focus w >> Flex.mouseResizeWindow w))
   ]
 
------------------------------------------------------------------------
+---------------------------------------------------------------------------------
 -- run XMonad
 
 main = do
@@ -293,10 +254,9 @@ main = do
         manageHook = namedScratchpadManageHook myScratchPads
                      <+> placeHook myPlacement
                      <+> myManageHook <+> manageDocks
-                     <+> FS.fullscreenManageHook
+                     <+> fullscreenManageHook
                      <+> manageHook defaultConfig,
         mouseBindings = myMouseBindings,
---        logHook = myLog infoBar,
         startupHook = ewmhDesktopsStartup >> setWMName "LG3D",
         handleEventHook = ewmhDesktopsEventHook <+> FS.fullscreenEventHook
     }

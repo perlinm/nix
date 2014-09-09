@@ -7,7 +7,7 @@ fi
 if [ $1 = term ]; then
   cmd= 
 elif [ $1 = calc ]; then
-  cmd="sage -q"
+  cmd="ipython3 --profile=perlinm"
 elif [ $1 = mixer ]; then
   cmd="alsamixer --view all"
 else

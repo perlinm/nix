@@ -31,14 +31,15 @@ sudo yum install \
   emacs emacs-goodies emacs-auctex emacs-haskell-mode emacs-auto-complete \
   python python3 \
   numpy python3-numpy \
-  python-matplotlib python3-matplotlib \
   scipy python3-scipy \
+  sympy python3-sympy \
+  python-matplotlib python3-matplotlib \
+  python-ipython python3-ipython \
   feh geeqie gimp \
   mplayer smplayer vlc vlc-extras \
   pavucontrol lxappearance \
   icedtea-web vpnc openssh \
   qbittorrent xbacklight
-  
 
 # install xfce panel plugins
 sudo yum install \
@@ -72,3 +73,11 @@ sudo mv .wicd_curses_fix.py /usr/share/wicd/curses/curses_misc.py
 cd /tmp
 wget --no-check-certificate https://raw.githubusercontent.com/mikaperlin/scripts-configs-etc/master/scripts/install-skype.sh
 sudo sh install-skype.sh
+
+# swap network interface controllers
+sudo systemctl stop NetworkManager
+sudo systemctl stop wpa_supplicant
+sudo systemctl disable NetworkManager
+sudo systemctl disable wpa_supplicant
+sudo systemctl enable wicd
+sudo systemctl start wicd
