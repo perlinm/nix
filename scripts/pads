@@ -2,20 +2,23 @@
 
 if ! [ $1 ]; then
   exit 0
+else
+  arg=$1
 fi
 
-if [ $1 = term ]; then
-  cmd= 
-elif [ $1 = calc ]; then
-  cmd="ipython3 --profile=perlinm"
-elif [ $1 = mixer ]; then
-  cmd="alsamixer --view all"
-else
-  cmd=$1
-fi
+shell(){
+  if [ $1 ]; then
+    cmd="--command=$1"
+  else
+    cmd=
+  fi
+  xfce4-terminal --title="pad-$arg" $cmd
+}
 
-if [ $cmd ]; then
-  xfce4-terminal --title="pad-$1" --command="$cmd"
+if [ $arg = term ]; then
+  shell
+elif [ $arg = calc ]; then
+  shell "ipython3 --profile=perlinm"
 else
-  xfce4-terminal --title="pad-$1"
+  shell $arg
 fi

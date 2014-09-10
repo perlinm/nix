@@ -1,11 +1,11 @@
 #!/bin/sh
 
-echo $0
+med=60
 
 if [ $1 = dec ]; then
-  xbacklight -dec 20
+  xbacklight -dec 10
 elif [ $1 = inc ]; then
-  xbacklight -inc 20
+  xbacklight -inc 10
 elif [ $1 = dim ]; then
   xbacklight -set 20
 elif [ $1 = max ]; then
@@ -13,13 +13,8 @@ elif [ $1 = max ]; then
 elif [ $1 = set ]; then
   xbacklight -set $2
 elif [ $1 = med ]; then
-  xbacklight -set 60
+  xbacklight -set $med
 elif [ $1 = toggle ]; then
-  if [ $2 ]; then
-    med=$2
-  else
-    med=60
-  fi
   current=$(printf "%.0f" $(xbacklight))
   if [ $current -ge $med ]; then
     $0 dim

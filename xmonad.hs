@@ -1,3 +1,4 @@
+import Control.Monad
 import Data.Map
 import System.IO
 import System.Exit
@@ -49,14 +50,13 @@ myManageHook = composeAll . concat $
   [
     [ (className =? f) --> doCenterFloat | f <- floats ],
     [ (className =? i) --> doIgnore | i <- ignores ],
-    [ (roleName =? s) --> (ask >>= doF . W.sink) | s <- sinks ],
     [ (roleName =? s) --> (ask >>= doF . W.sink) | s <- sinks ]
   ]
   where
     roleName = stringProperty "WM_WINDOW_ROLE"
     floats = ["Xfce4-appfinder","Xfce4-panel","Nm-connection-editor",
-               "Nm-openconnect-auth-dialog"," ","Wicd-client.py","Python2",
-               "Pavucontrol"]
+              "Nm-openconnect-auth-dialog"," ","Wicd-client.py","Python2",
+              "Wrapper"]
     ignores = ["Xfce4-notifyd"]
     sinks = ["gimp-image-window"]
 
@@ -107,11 +107,11 @@ myScratchPads = [ NS termName spawnTerm findTerm manageTerm,
         t = (1-h)/2
         l = (1-w)/2
     spawnMixer = (script ++ "pads " ++ mixerName)
-    findMixer = title =? ("pad-" ++ mixerName)
+    findMixer = className =? ("Pavucontrol")
     manageMixer = customFloating $ W.RationalRect l t w h
       where
-        h = 3/4
-        w = 2/3
+        h = 4/5
+        w = 1/2
         t = (1-h)/2
         l = (1-w)/2
 
@@ -137,95 +137,102 @@ myPlacement = withGaps (16,16,16,16) (fixed (0.5,0.5))
 ---------------------------------------------------------------------------------
 -- key commands
 
+-- define number row, direction keys, and modification keys
 numRow = ["`"] ++ (Prelude.map show [1..9]) ++ ["0","-"]
+arrows = [["<L>","<R>","<U>","<D>"],["n","i","u","e"]]
+mod_keys = ["","C-","S-","M1-"]
+-- define direction functions
+leftFuns = [prevWS, swapTo Prev, shiftToPrev, shiftToPrev >> prevWS]
+rightFuns = [nextWS, swapTo Next, shiftToNext, shiftToNext >> nextWS]
+upFuns = [prevScreen, swapPrevScreen, shiftPrevScreen,
+           shiftPrevScreen >> swapPrevScreen]
+downFuns = [nextScreen, swapNextScreen, shiftNextScreen,
+             shiftNextScreen >> swapNextScreen]
+-- pair up modification keys with functions
+funsCol = [ zip mod_keys dirFuns
+                    | dirFuns <- [leftFuns,rightFuns,upFuns,downFuns] ]
+-- pair up directions with appropriate functions
+dirControlsCol = join [ zip dirs funsCol | dirs <- arrows ]
+-- collect all combinations of directions, modification keys, and functions
+--   into a single list
+dirControls = join [[(fst c,mod,fun) | (mod,fun) <- snd c ]
+                        | c <- dirControlsCol]
+
 myKeys = \conf -> mkKeymap conf $
     ---------- workspace management ----------
     [
-     ("M4" ++ mod ++ "-" ++ key, windows $ func ws)
+     ("M4-" ++ mod ++ key, windows $ func ws)
          | (ws,key) <- zip myWorkspaces numRow,
-                       (func,mod) <- [(W.greedyView, ""),(W.shift, "-S"),
-                                      (\i -> W.greedyView i . W.shift i,"-M1")]
+           (func,mod) <- [(W.greedyView, ""),(W.shift, "S-"),
+                          (\i -> W.greedyView i . W.shift i,"M1-")]
     ]
     ++
     [
-     ("M4-C-" ++ key, swapWithCurrent ws)
-         | (ws,key) <- zip myWorkspaces numRow
+     ("M4-C-" ++ key, swapWithCurrent ws) | (ws,key) <- zip myWorkspaces numRow
+    ]
+    ++
+    [
+     ("M4-" ++ mod ++ dir, func) | (dir,mod,func) <- dirControls
     ]
     ++
     [
      ("M4-r", prevWS),
      ("M4-s", nextWS),
-     ("M4-<L>", prevWS),
-     ("M4-<R>", nextWS),
-     ("M4-C-<L>", swapTo Prev),
-     ("M4-C-<R>", swapTo Next),
-     ("M4-S-<L>", shiftToPrev),
-     ("M4-S-<R>", shiftToNext),
-     ("M4-M1-<L>", shiftToPrev >> prevWS),
-     ("M4-M1-<R>", shiftToNext >> nextWS),
-     ("M4-n", prevWS),
-     ("M4-i", nextWS),
-     ("M4-C-n", swapTo Prev),
-     ("M4-C-i", swapTo Next),
-     ("M4-S-n", shiftToPrev),
-     ("M4-S-i", shiftToNext),
-     ("M4-M1-n", shiftToPrev >> prevWS),
-     ("M4-M1-i", shiftToNext >> nextWS),
      ("M1-z", toggleWS),
-    ---------- layout management ----------
-    ("M4-<Space>", sendMessage NextLayout),
-    --("M4-S-<Space>", sendMessage PrevLayout),
-    ("M4-M1-<Space>", setLayout $ layoutHook conf),
-    ("M4-z", sendMessage (Toggle "full")),
-    ("M4-x", sendMessage Shrink),
-    ("M4-c", sendMessage Expand),
-    ("M4-S-x", sendMessage (IncMasterN 1)),
-    ("M4-S-c", sendMessage (IncMasterN (-1))),
-    ("M4-M1-x", sendMessage MirrorExpand),
-    ("M4-M1-c", sendMessage MirrorShrink),
-    ("M4-v", sendMessage ToggleStruts),
-    ---------- window management ----------
-    ("M4-w", windows W.focusUp),
-    ("M4-f", windows W.focusDown),
-    ("M4-S-w", windows W.swapUp),
-    ("M4-S-f", windows W.swapDown),
-    ("M4-q", windows W.focusMaster),
-    ("M4-a", windows W.swapMaster),
-    ("M4-t", withFocused $ windows . W.sink),
-    ("M4-<Esc>", kill),
-    ---------- spawning ----------
-    ("M4-<Tab>", spawn $ terminal conf),
-    ("M1-`", spawn myRun),
-    ("M1-<F1>", namedScratchpadAction myScratchPads termName),
-    ("M1-<F2>", namedScratchpadAction myScratchPads calcName),
-    ("M1-<F3>", namedScratchpadAction myScratchPads wifiName),
-    ("M1-<F4>", namedScratchpadAction myScratchPads htopName),
-    ("M1-<F5>", namedScratchpadAction myScratchPads mixerName),
-    ---------- restart/quit ----------
-    ("M4-M1-<Backspace>", spawn recompileCMD),
-    ("M4-<Backspace>", spawn restartCMD),
---    ("C-M4-<Backspace>", io (exitWith ExitSuccess)),
-    ("C-M4-<Backspace>", spawn "xfce4-session-logout"),
-    ---------- misc ----------
-    ("C-/", spawn (script ++ "volume toggle")),
-    ("C-<U>", spawn (script ++ "volume inc")),
-    ("C-<D>", spawn (script ++ "volume dec")),
-    ("C-S-<U>", spawn (script ++ "volume max")),
-    ("C-S-<D>", spawn (script ++ "volume min")),
-    ("C-S-/", spawn (script ++ "volume med")),
-    ("C-m", spawn (script ++ "mic-toggle")),
-    ("M1-<U>", spawn (script ++ "light inc")),
-    ("M1-<D>", spawn (script ++ "light dec")),
-    ("M1-S-<U>", spawn (script ++ "light max")),
-    ("M1-S-<D>", spawn (script ++ "light dim")),
-    ("M1-S-/", spawn (script ++ "light med")),
-    ("M1-/", spawn (script ++ "light toggle")),
-    ("M4-\\", spawn (script ++ "print")),
-    ("M4-M1-\\", spawn (script ++ "print -s")),
-    ("M1-,", spawn (script ++ "bg-slides")),
-    ("M4-M1-;", spawn (script ++ "touchpad-toggle")),
-    ("M4-/", windows copyToAll),
-    ("M4-S-/", killAllOtherCopies)
+     ---------- layout management ----------
+     ("M4-<Space>", sendMessage NextLayout),
+     --("M4-S-<Space>", sendMessage PrevLayout),
+     ("M4-M1-<Space>", setLayout $ layoutHook conf),
+     ("M4-z", sendMessage (Toggle "full")),
+     ("M4-x", sendMessage Shrink),
+     ("M4-c", sendMessage Expand),
+     ("M4-S-x", sendMessage (IncMasterN 1)),
+     ("M4-S-c", sendMessage (IncMasterN (-1))),
+     ("M4-M1-x", sendMessage MirrorExpand),
+     ("M4-M1-c", sendMessage MirrorShrink),
+     ("M4-v", sendMessage ToggleStruts),
+     ---------- window management ----------
+     ("M4-w", windows W.focusUp),
+     ("M4-f", windows W.focusDown),
+     ("M4-S-w", windows W.swapUp),
+     ("M4-S-f", windows W.swapDown),
+     ("M4-q", windows W.focusMaster),
+     ("M4-a", windows W.swapMaster),
+     ("M4-t", withFocused $ windows . W.sink),
+     ("M4-<Esc>", kill),
+     ---------- spawning ----------
+     ("M4-<Tab>", spawn $ terminal conf),
+     ("M1-`", spawn myRun),
+     ("M1-<F1>", namedScratchpadAction myScratchPads termName),
+     ("M1-<F2>", namedScratchpadAction myScratchPads calcName),
+     ("M1-<F3>", namedScratchpadAction myScratchPads wifiName),
+     ("M1-<F4>", namedScratchpadAction myScratchPads htopName),
+     ("M1-<F5>", namedScratchpadAction myScratchPads mixerName),
+     ---------- restart/quit ----------
+     ("M4-M1-<Backspace>", spawn recompileCMD),
+     ("M4-<Backspace>", spawn restartCMD),
+--   ("C-M4-<Backspace>", io (exitWith ExitSuccess)),
+     ("C-M4-<Backspace>", spawn "xfce4-session-logout"),
+     ---------- misc ----------
+     ("C-/", spawn (script ++ "volume toggle")),
+     ("C-<U>", spawn (script ++ "volume inc")),
+     ("C-<D>", spawn (script ++ "volume dec")),
+     ("C-S-<U>", spawn (script ++ "volume max")),
+     ("C-S-<D>", spawn (script ++ "volume min")),
+     ("C-S-/", spawn (script ++ "volume med")),
+     ("C-m", spawn (script ++ "mic-toggle")),
+     ("M1-<U>", spawn (script ++ "light inc")),
+     ("M1-<D>", spawn (script ++ "light dec")),
+     ("M1-S-<U>", spawn (script ++ "light max")),
+     ("M1-S-<D>", spawn (script ++ "light dim")),
+     ("M1-S-/", spawn (script ++ "light med")),
+     ("M1-/", spawn (script ++ "light toggle")),
+     ("M4-\\", spawn (script ++ "print")),
+     ("M4-M1-\\", spawn (script ++ "print -s")),
+     ("M1-,", spawn (script ++ "bg-slides")),
+     ("M4-M1-;", spawn (script ++ "touchpad-toggle")),
+     ("M4-/", windows copyToAll),
+     ("M4-S-/", killAllOtherCopies)
     ]
 
 ---------------------------------------------------------------------------------

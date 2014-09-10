@@ -1,9 +1,9 @@
 #!/bin/zsh
 
 if [ $1 = inc ]; then
-  amixer set Master 3%+
+  amixer set Master 5%+
 elif [ $1 = dec ]; then
-  amixer set Master 3%-
+  amixer set Master 5%-
 elif [ $1 = max ]; then
   amixer set Master 100%
 elif [ $1 = min ]; then

@@ -37,9 +37,10 @@ sudo yum install \
   python-ipython python3-ipython \
   feh geeqie gimp \
   mplayer smplayer vlc vlc-extras \
-  pavucontrol lxappearance \
+  pavucontrol xdotool \
+  lxappearance xbacklight \
   icedtea-web vpnc openssh \
-  qbittorrent xbacklight
+  qbittorrent
 
 # install xfce panel plugins
 sudo yum install \
