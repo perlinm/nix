@@ -20,27 +20,29 @@ sudo yum upgrade
 
 # install stuff for self
 sudo yum install \
-  zsh vim-enhanced \
+  zsh vim-enhanced meld gparted \
   @xfce @kde-desktop xcompmgr \
   xmonad ghc-xmonad ghc-xmonad-contrib \
-  htop git-all pmount keychain \
+  htop git-all pmount keychain pavucontrol arandr \
   wicd wicd-curses wicd-kde \
   google-chrome-stable firefox \
   texlive-scheme-full \
   haskell-platform \
-  emacs emacs-goodies emacs-auctex emacs-haskell-mode emacs-auto-complete \
+  emacs emacs-goodies \
+  emacs-auctex emacs-pymacs emacs-haskell-mode emacs-auto-complete \
   python python3 \
   numpy python3-numpy \
   scipy python3-scipy \
   sympy python3-sympy \
   python-matplotlib python3-matplotlib \
   python-ipython python3-ipython \
-  feh geeqie gimp \
+  feh geeqie gimp scrot \
   mplayer smplayer vlc vlc-extras \
-  pavucontrol xdotool \
-  lxappearance xbacklight \
-  icedtea-web vpnc openssh \
-  qbittorrent
+  xdotool xclip xbacklight \
+  icedtea-web vpnc openssh wine \
+  lxappearance qbittorrent pdftk \
+  evince evince-djvu evince-dvi \
+  libreoffice
 
 # install xfce panel plugins
 sudo yum install \

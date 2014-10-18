@@ -7,7 +7,7 @@ if [ -z $1 ]; then
   exit 1
 fi
 
-wireless_interface=wlp2s0
+wireless_interface=wlp3s0
 home_dir=/home/perlinm
 research_dir=$home_dir/Workspace/Research
 sw_dir=deft/papers/square-well-liquid

@@ -1,15 +1,28 @@
 #!/bin/zsh
 
 if [ $1 = inc ]; then
-  amixer set Master 5%+
+  pamixer --increase 5
 elif [ $1 = dec ]; then
-  amixer set Master 5%-
+  pamixer --decrease 5
 elif [ $1 = max ]; then
-  amixer set Master 100%
+  pamixer --set-volume 100
 elif [ $1 = min ]; then
-  amixer set Master 0%
+  pamixer --set-volume 0
 elif [ $1 = med ]; then
-  amixer set Master 50%
-else
-  amixer set Master $1
+  pamixer --set-volume 50
+elif [ $1 = on ]; then
+  pamixer --unmute
+elif [ $1 = off ]; then
+  pamixer --mute
+  volnoti-show -m
+elif [ $1 = toggle ]; then
+  if [ `pamixer --get-mute` = true ]; then
+    $0 on
+  else
+    $0 off
+  fi
+fi
+
+if [ `pamixer --get-mute` = false ]; then
+  volnoti-show `pamixer --get-volume`
 fi

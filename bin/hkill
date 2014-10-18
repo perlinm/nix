@@ -1,0 +1,7 @@
+#!/usr/bin/zsh
+
+for i in $*; do
+  sudo kill -9 \
+    $(ps aux | grep $i | grep -v $0 | grep -v grep | awk '{print $2}') \
+    2>/dev/null
+done

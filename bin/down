@@ -1,1 +1,1 @@
-systemctl halt
+systemctl poweroff

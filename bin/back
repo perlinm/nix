@@ -1,6 +1,5 @@
 #!/bin/zsh
 
-mount_point=/run/media/perlinm/PERLINM
 mount_point=/media/mnt
 
 if [ -e $mount_point/.perlinm ]; then
@@ -8,7 +7,8 @@ if [ -e $mount_point/.perlinm ]; then
     --exclude="*/lpf/workspace/*.mat" \
     --exclude="*/lpf/workspace/*/*.mat" \
     --exclude="*/lpf/workspace/*/*/*.mat" \
-    --exclude="*/lpf/workspace/*/*/*/*.mat"
+    --exclude="*/lpf/workspace/*/*/*/*.mat" \
+    --exclude="*/.config/google-chrome/*"
 else
-  echo "Backup drive not mounted"
+  echo "backup drive not mounted"
 fi

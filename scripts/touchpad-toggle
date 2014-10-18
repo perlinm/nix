@@ -1,3 +1,16 @@
 #!/bin/sh
 
-synclient TouchpadOff=$(synclient -l | grep -c 'TouchpadOff.*=.*0')
+idle_time=0.5 # seconds
+
+killall syndaemon
+
+state=`synclient -l | grep TouchpadOff | sed 's/^.*= //'`
+if [ $state -eq 1 ]
+then
+  notify-send -t 1 "Touchpad on"
+  synclient TouchpadOff=0
+  syndaemon -d -K -i $idle_time
+else
+  notify-send -t 1 "Touchpad off"
+  synclient TouchpadOff=1
+fi

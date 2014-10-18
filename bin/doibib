@@ -1,0 +1,5 @@
+#!/bin/sh
+
+for i in $*; do
+  curl -LH "Accept: text/bibliography; style=bibtex" http://dx.doi.org/$i
+done

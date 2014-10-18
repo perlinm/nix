@@ -1,0 +1,15 @@
+#!/usr/bin/sh
+
+
+small=800x600
+large=1366x768
+
+current=$(xrandr | grep 'Screen 0' | awk '{print $8 $9 $10}' | sed 's/[^0-Z]//g')
+
+if [ $current = $small ]; then
+  set=$large
+elif [ $current = $large ]; then
+  set=$small
+fi
+
+xrandr --output LVDS1 --mode $set

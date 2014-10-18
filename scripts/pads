@@ -19,6 +19,12 @@ if [ $arg = term ]; then
   shell
 elif [ $arg = calc ]; then
   shell "ipython3 --profile=perlinm"
+elif [ $arg = network ]; then
+  if [ $(systemctl is-active wicd) = active ]; then
+    shell wicd-curses
+  else
+    shell
+  fi
 else
   shell $arg
 fi

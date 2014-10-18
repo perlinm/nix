@@ -1,0 +1,72 @@
+# update current system
+pacman -Syyu
+
+# sort mirrors
+pacman -S reflector
+reflector --verbose --country 'United States' \
+  -l 200 -p http --sort rate --save /etc/pacman.d/mirrorlist
+pacman -Syy
+
+# set up grub
+pacman -S grub linux
+grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=grub \
+  --boot-directory=/boot/EFI --recheck --debug
+grub-mkconfig -o /boot/EFI/grub/grub.cfg
+mkdir /boot/EFI/boot
+cp /boot/EFI/grub/grubx64.efi /boot/EFI/boot/bootx64.efi
+
+# install packages from arch repo
+pacman -S \
+  sudo dosfstools zsh vim udevil wicd htop wget rsync ntp \
+  xorg xorg-apps xf86-input-intel arandr pulseaudio pavucontrol \
+  ghc haddock happy alex xmonad xmonad-contrib \
+  xfce4 xfce4-goodies kde kde-meta \
+  slim slim-themes xcompmgr xdotool xclip meld gparted \
+  emacs texlive-most texlive-lang auctex \
+  python python2 python-numpy python2-numpy \
+  python-sympy python2-sympy python-matplotlib python2-matplotlib \
+  python-scipy python2-scipy ipython ipython2 \
+  libreoffice-still libreoffice-still-en-US hunspell-en \
+  libreoffice-still-gnome libreoffice-still-kde4 \
+  firefox jre8-openjdk vpnc openssh icedtea-web \
+  feh geeqie vlc mplayer smplayer gimp inkscape \
+  keychain lxappearance evince
+
+# install pacaur
+cd /tmp
+wget http://aur.archlinux.org/packages/co/cower/cower.tar.gz
+tar xvzf cower.tar.gz && cd cower
+makepkg -s && pacman -U cower*.pkg.tar.xz
+cd ..
+wget http://aur.archlinux.org/packages/pa/pacaur/pacaur.tar.gz
+tar xvzf pacaur && cd pacaur
+makepkg -s && pacman -U pacaur*.pkg.tar.xz
+
+# install packages from AUR
+pacaur -S \
+  google-chrome pamixer volnoti qbittorrent
+
+# color pacman output and enable multilib repository
+cat /etc/pacman.conf \
+  | sed 's/#\[multilib\]/\[multilib\]\nInclude = \/etc\/pacman\.d\/mirrorlist/' \
+  | sed 's/#Color/Color/' \
+  > /tmp/pacman.conf
+mv /tmp/pacman.conf /etc/
+
+# install fonts
+pacaur -S ttf-ms-fonts ttf-oxygen ttf-droid ttf-liberation ttf-ubuntu-font-family
+
+# install skype and wine
+pacman -S skype wine
+
+# add user
+useradd -m -g users -G wheesl,sys,lp,network,video,audio,storage,scannes,power -s /usr/bin/zsh perlinm
+
+# set keyboard layout
+loadkeys /usr/share/kbd/keymaps/i386/colemak/colemak.map.gz
+localectl set-keymap colemak
+localectl set-x11-keymap us,us pc104 colemak, caps:backspace,shift:both_capslock
+kbdrate -d 200 -r 60
+
+# synchronize system time
+timedatectl set-ntp true

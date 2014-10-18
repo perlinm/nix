@@ -38,7 +38,7 @@ myWorkspaces = Prelude.map show [0..10] ++ ["NSP"]
 script = "/home/perlinm/scripts/"
 
 myTerminal = "xfce4-terminal"
-myRun = "xfce4-appfinder --collapsed"
+myRun = "gmrun"
 
 recompileCMD = "/usr/bin/xmonad --recompile"
 restartCMD = "/usr/bin/xmonad --restart"
@@ -56,7 +56,7 @@ myManageHook = composeAll . concat $
     roleName = stringProperty "WM_WINDOW_ROLE"
     floats = ["Xfce4-appfinder","Xfce4-panel","Nm-connection-editor",
               "Nm-openconnect-auth-dialog"," ","Wicd-client.py","Python2",
-              "Wrapper"]
+              "Wrapper","Thunar","Arandr"]
     ignores = ["Xfce4-notifyd"]
     sinks = ["gimp-image-window"]
 
@@ -65,7 +65,7 @@ myManageHook = composeAll . concat $
 
 termName = "term"
 calcName = "calc"
-wifiName = "wicd-curses"
+wifiName = "network"
 htopName = "htop"
 mixerName = "mixer"
 myScratchPads = [ NS termName spawnTerm findTerm manageTerm,
@@ -74,7 +74,7 @@ myScratchPads = [ NS termName spawnTerm findTerm manageTerm,
                   NS htopName spawnHtop findHtop manageHtop,
                   NS mixerName spawnMixer findMixer manageMixer ]
   where
-    spawnTerm = (script ++ "pads " ++ termName)
+    spawnTerm = script ++ "pads " ++ termName
     findTerm = title =? ("pad-" ++ termName)
     manageTerm = customFloating $ W.RationalRect l t w h
       where
@@ -82,7 +82,7 @@ myScratchPads = [ NS termName spawnTerm findTerm manageTerm,
         w = 0.45
         t = (1-h)*9/10
         l = (1/2-w)/2
-    spawnCalc = (script ++ "pads " ++ calcName)
+    spawnCalc = script ++ "pads " ++ calcName
     findCalc = title =? ("pad-" ++ calcName)
     manageCalc = customFloating $ W.RationalRect l t w h
       where
@@ -90,7 +90,7 @@ myScratchPads = [ NS termName spawnTerm findTerm manageTerm,
         w = 2/5
         t = 1/25
         l = 1-w
-    spawnWifi = (script ++ "pads " ++ wifiName)
+    spawnWifi = script ++ "pads " ++ wifiName
     findWifi = title =? ("pad-" ++ wifiName)
     manageWifi = customFloating $ W.RationalRect l t w h
       where
@@ -98,7 +98,7 @@ myScratchPads = [ NS termName spawnTerm findTerm manageTerm,
         w = 1/2
         t = (1-h)/2
         l = (1-w)/2
-    spawnHtop = (script ++ "pads " ++ htopName)
+    spawnHtop = script ++ "pads " ++ htopName
     findHtop = title =? ("pad-" ++ htopName)
     manageHtop = customFloating $ W.RationalRect l t w h
       where
@@ -106,8 +106,8 @@ myScratchPads = [ NS termName spawnTerm findTerm manageTerm,
         w = 1/2
         t = (1-h)/2
         l = (1-w)/2
-    spawnMixer = (script ++ "pads " ++ mixerName)
-    findMixer = className =? ("Pavucontrol")
+    spawnMixer = "pavucontrol"
+    findMixer = className =? "Pavucontrol"
     manageMixer = customFloating $ W.RationalRect l t w h
       where
         h = 4/5
@@ -116,18 +116,12 @@ myScratchPads = [ NS termName spawnTerm findTerm manageTerm,
         l = (1-w)/2
 
 ---------------------------------------------------------------------------------
--- startup commands
-
-myStartupHook :: X()
-myStartupHook = do spawn (script ++ "bg-slides")
-
----------------------------------------------------------------------------------
 -- layout definitions
 
 normal = renamed [Replace "normal"] $ ResizableTall 1 (1/50) (1/2) []
 emacs = renamed [Replace "emacs"] $ ResizableTall 1 (1/50) (2/5) []
-chat = renamed [Replace "chat"] $ ResizableTall 1 (1/50) (3/4) []
-skype = renamed [Replace "skype"] $ ResizableTall 1 (1/50) (63/100) []
+chat = renamed [Replace "chat"] $ ResizableTall 1 (1/50) (73/100) []
+skype = renamed [Replace "skype"] $ ResizableTall 1 (1/50) (64/100) []
 full = renamed [Replace "full"] $ Full
 myLayoutHook = smartBorders $ avoidStruts $ windowNavigation $
                toggleLayouts full ( normal ||| emacs ||| chat ||| skype )
@@ -211,8 +205,16 @@ myKeys = \conf -> mkKeymap conf $
      ---------- restart/quit ----------
      ("M4-M1-<Backspace>", spawn recompileCMD),
      ("M4-<Backspace>", spawn restartCMD),
---   ("C-M4-<Backspace>", io (exitWith ExitSuccess)),
-     ("C-M4-<Backspace>", spawn "xfce4-session-logout"),
+     ("C-M4-<Backspace>", io (exitWith ExitSuccess)),
+--     ("C-M4-<Backspace>", spawn "xfce4-session-logout"),
+     ---------- media keys ----------
+     ("<XF86AudioMute>", spawn (script ++ "volume toggle")),
+     ("<XF86AudioRaiseVolume>", spawn (script ++ "volume inc")),
+     ("<XF86AudioLowerVolume>", spawn (script ++ "volume dec")),
+     ("<XF86MonBrightnessUp>", spawn (script ++ "light inc")),
+     ("<XF86MonBrightnessDown>", spawn (script ++ "light dec")),
+     ("<XF86Display>", spawn "arandr"),
+     ("<XF86Search>", spawn myRun),
      ---------- misc ----------
      ("C-/", spawn (script ++ "volume toggle")),
      ("C-<U>", spawn (script ++ "volume inc")),
@@ -231,6 +233,7 @@ myKeys = \conf -> mkKeymap conf $
      ("M4-M1-\\", spawn (script ++ "print -s")),
      ("M1-,", spawn (script ++ "bg-slides")),
      ("M4-M1-;", spawn (script ++ "touchpad-toggle")),
+     ("M4-M1-=", spawn (script ++ "screen-toggle")),
      ("M4-/", windows copyToAll),
      ("M4-S-/", killAllOtherCopies)
     ]
