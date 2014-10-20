@@ -1,12 +1,17 @@
 #!/bin/sh
 
+if [ $(pidof xbacklight) ]; then
+  exit 0
+fi
+
 med=60
-time=50
+time=200
+delta=20
 
 if [ $1 = dec ]; then
-  xbacklight -dec 20 -time $time
+  xbacklight -dec $delta -time $time
 elif [ $1 = inc ]; then
-  xbacklight -inc 20 -time $time
+  xbacklight -inc $delta -time $time
 elif [ $1 = dim ]; then
   xbacklight -set 20
 elif [ $1 = max ]; then

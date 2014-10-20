@@ -40,9 +40,6 @@ script = "/home/perlinm/scripts/"
 myTerminal = "xfce4-terminal"
 myRun = "gmrun"
 
-recompileCMD = "/usr/bin/xmonad --recompile"
-restartCMD = "/usr/bin/xmonad --restart"
-
 ---------------------------------------------------------------------------------
 -- window rules
 
@@ -202,29 +199,29 @@ myKeys = \conf -> mkKeymap conf $
      ("M1-<F3>", namedScratchpadAction myScratchPads wifiName),
      ("M1-<F4>", namedScratchpadAction myScratchPads htopName),
      ("M1-<F5>", namedScratchpadAction myScratchPads mixerName),
-     ---------- restart/quit ----------
-     ("M4-M1-<Backspace>", spawn recompileCMD),
-     ("M4-<Backspace>", spawn restartCMD),
-     ("C-M4-<Backspace>", io (exitWith ExitSuccess)),
---     ("C-M4-<Backspace>", spawn "xfce4-session-logout"),
      ---------- media keys ----------
      ("<XF86AudioMute>", spawn (script ++ "volume toggle")),
-     ("<XF86AudioRaiseVolume>", spawn (script ++ "volume inc")),
      ("<XF86AudioLowerVolume>", spawn (script ++ "volume dec")),
-     ("<XF86MonBrightnessUp>", spawn (script ++ "light inc")),
+     ("<XF86AudioRaiseVolume>", spawn (script ++ "volume inc")),
      ("<XF86MonBrightnessDown>", spawn (script ++ "light dec")),
+     ("<XF86MonBrightnessUp>", spawn (script ++ "light inc")),
      ("<XF86Display>", spawn "arandr"),
      ("<XF86Search>", spawn myRun),
+     ---------- testing media keys ----------
+     ("<XF86AudioMicMute>", spawn (script ++ "volume toggle")),
+     ("<XF86Tools>", spawn (script ++ "volume toggle")),
+     ("<XF86LaunchA>", spawn (script ++ "volume toggle")),
+     ("<XF86MyComputer>", spawn (script ++ "volume toggle")),
      ---------- misc ----------
      ("C-/", spawn (script ++ "volume toggle")),
-     ("C-<U>", spawn (script ++ "volume inc")),
      ("C-<D>", spawn (script ++ "volume dec")),
-     ("C-S-<U>", spawn (script ++ "volume max")),
+     ("C-<U>", spawn (script ++ "volume inc")),
      ("C-S-<D>", spawn (script ++ "volume min")),
+     ("C-S-<U>", spawn (script ++ "volume max")),
      ("C-S-/", spawn (script ++ "volume med")),
      ("C-m", spawn (script ++ "mic-toggle")),
-     ("M1-<U>", spawn (script ++ "light inc")),
      ("M1-<D>", spawn (script ++ "light dec")),
+     ("M1-<U>", spawn (script ++ "light inc")),
      ("M1-S-<U>", spawn (script ++ "light max")),
      ("M1-S-<D>", spawn (script ++ "light dim")),
      ("M1-S-/", spawn (script ++ "light med")),
@@ -235,7 +232,9 @@ myKeys = \conf -> mkKeymap conf $
      ("M4-M1-;", spawn (script ++ "touchpad-toggle")),
      ("M4-M1-=", spawn (script ++ "screen-toggle")),
      ("M4-/", windows copyToAll),
-     ("M4-S-/", killAllOtherCopies)
+     ("M4-S-/", killAllOtherCopies),
+     ---------- quit ----------
+     ("C-M4-<Backspace>", io (exitWith ExitSuccess))
     ]
 
 ---------------------------------------------------------------------------------

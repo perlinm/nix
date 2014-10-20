@@ -21,12 +21,10 @@ cp /boot/EFI/grub/grubx64.efi /boot/EFI/boot/bootx64.efi
 cp /etc/pacman.conf /etc/pacman.conf~
 cat /etc/pacman.conf \
   | sed 's/#Color/Color/' \
+  | sed 's/\[extra\]/\[haskell-core\]\nServer = http:\/\/xsounds.org\/\~haskell\/core\/$arch\n\n\[extra\]/' \
   | sed 's/#\[multilib\]/\[multilib\]\nInclude = \/etc\/pacman\.d\/mirrorlist/' \
   > /tmp/pacman.conf
 mv /tmp/pacman.conf /etc/
-
-# include in above parsing of pacman.confto enable haskell-core repo
-#  | sed 's/\[extra\]/\[haskell-core\]\nServer = http:\/\/xsounds.org\/\~haskell\/core\/$arch\n\n\[extra\]/' \
 
 # initialize GPG keys, enable key signing, sign arch repo admin keys, refresh key list
 pacman-key --init
@@ -36,18 +34,18 @@ cat /etc/pacman.d/gnupg/gpg.conf \
   > /tmp/gpg.conf
 mv /tmp/gpg.conf /etc/pacman.d/gnupg/gpg.conf
 pacman-key --populate archlinux
+pacman-key -r 4209170B
+pacman-key --lsign-key 4209170B
 pacman-key --refresh-keys
 pacman -Syy
 
-# include above before key refreshing to sign haskell-core repo admin key
-#pacman-key -r 4209170B
-#pacman-key --lsign-key 4209170B
-
 # install packages from arch repos
 pacman -S \
-  sudo dosfstools zsh vim udevil wicd htop wget rsync keychain \
+  sudo pacmatic dosfstools wget wicd \
+  zsh zsh-lovers zsh-completion vim udevil htop rsync keychain \
   xorg xorg-apps xf86-input-intel arandr pulseaudio pavucontrol \
-  ghc alex happy haddock xmonad xmonad-contrib \
+  ghc alex happy haskell-haddock-library \
+  haskell-xmonad haskell-xmonad-contrib \
   xfce4 xfce4-goodies kde kde-meta \
   slim slim-themes xcompmgr xdotool xclip meld gparted \
   emacs texlive-most texlive-lang auctex emacs-haskell-mode \
@@ -56,13 +54,9 @@ pacman -S \
   python-scipy python2-scipy ipython ipython2 \
   libreoffice-still libreoffice-still-en-US hunspell-en \
   libreoffice-still-gnome libreoffice-still-kde4
-  firefox jre8-openjdk vpnc openssh icedtea-web \
+  firefox jre8-openjdk vpnc opensshdtea-web \
   feh geeqie vlc mplayer smplayer gimp inkscape \
-  lxappearance evince skype wine
-
-# include above in place of ghc, etc. if using haskell-core repo
-#  ghc alex happy haskell-haddock-library \
-#  haskell-xmonad haskell-xmonad-contrib \
+  lxappearance evince skype v4l2ucp wine wicd-gtk
 
 # install pacaur
 cd /tmp
@@ -76,11 +70,15 @@ makepkg -s && pacman -U pacaur*.pkg.tar.xz
 
 # install packages from AUR
 pacaur -S \
-  google-chrome pamixer volnoti qbittorrent \
+  google-chrome pamixer pulseaudio-ctl volnoti qbittorrent \
   ttf-ms-fonts ttf-oxygen ttf-droid ttf-liberation ttf-ubuntu-font-family
 
 # add user
 useradd -m -g users -G wheesl,sys,lp,network,video,audio,storage,scannes,power -s /usr/bin/zsh perlinm
+
+# set and synchronize system time
+ln -sf /usr/share/zoneinfo/America/Los_Angeles /etc/localtime
+timedatectl set-ntp true
 
 # set keyboard layout
 loadkeys /usr/share/kbd/keymaps/i386/colemak/colemak.map.gz
@@ -88,9 +86,8 @@ localectl set-keymap colemak
 localectl set-x11-keymap us,us pc104 colemak, caps:backspace,shift:both_capslock
 kbdrate -d 200 -r 60
 
-# synchronize system time
-timedatectl set-ntp true
-
 # install packages for deft
-pacman -S scons python2-markdown gnuplot
-pacaur -S haskell-hunit
+pacman -S scons python2-markdown gnuplot haskell-hunit
+
+# install windows partition utilities
+pacman -S ntfs-3g

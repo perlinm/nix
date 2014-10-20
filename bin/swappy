@@ -1,38 +1,22 @@
 #!/bin/bash
 
-esc(){
-  if [ $? -ne 0 ]; then
-    echo "swappy failed"
-    exit $?
-  fi
-}
+python=/usr/bin/python
 
-if [[ $# -eq 0 ]]; then
-  if [ `readlink /usr/bin/python` == "python2" ]; then
+if ! [ $1 ]; then
+  if [ `readlink $python` == "python2" ]; then
     new=3
   else
     new=2
   fi
-  echo "Toggling python to version $new"
-  sudo rm /usr/bin/python
-  esc
-  sudo ln -s python$new /usr/bin/python
-  sudo rm /usr/bin/python-config
-  sudo ln -s python$new-config /usr/bin/python-config
-  exit 0
-elif [[ $1 == 2 || $1 == 3 ]]; then
-  echo "Setting python to version $1"
-  if [ `readlink /usr/bin/python` != "python$1" ]; then
-    sudo rm /usr/bin/python
-    esc
-    sudo ln -s python$1 /usr/bin/python
-  fi
-  if [ `readlink /usr/bin/python-config` != "python$1-config" ]; then
-    sudo rm /usr/bin/python-config
-    esc
-    sudo ln -s python$1-config /usr/bin/python-config
-    fi
-  else
-    echo 'Run with 2 or 3'
-  exit 1
+elif [ $1 = 2 ] || [ $1 = 3 ]; then
+  new=$1
+else
+  echo "run with options 2 or 3" 
+fi
+if [ `readlink /usr/bin/python` != "python$new" ]; then
+  echo "symlinking python to python$new"
+  sudo ln -sf python$new $python
+  sudo ln -sf python$new-config $python-config
+else
+  echo "python already symlinked to python$new"
 fi
