@@ -41,22 +41,23 @@ pacman -Syy
 
 # install packages from arch repos
 pacman -S \
-  sudo pacmatic dosfstools wget wicd \
-  zsh zsh-lovers zsh-completion vim udevil htop rsync keychain \
+  sudo pacmatic dosfstools wget wicd zsh vim \
+  zsh-lovers zsh-completion udevil htop rsync keychain \
   xorg xorg-apps xf86-input-intel arandr pulseaudio pavucontrol \
   ghc alex happy haskell-haddock-library \
   haskell-xmonad haskell-xmonad-contrib \
   xfce4 xfce4-goodies kde kde-meta \
   slim slim-themes xcompmgr xdotool xclip meld gparted \
-  emacs texlive-most texlive-lang auctex emacs-haskell-mode \
+  emacs texlive-most texlive-lang auctex \
+  emacs-python-mode emacs-haskell-mode \
   python python2 python-numpy python2-numpy \
   python-sympy python2-sympy python-matplotlib python2-matplotlib \
   python-scipy python2-scipy ipython ipython2 \
   libreoffice-still libreoffice-still-en-US hunspell-en \
   libreoffice-still-gnome libreoffice-still-kde4
-  firefox jre8-openjdk vpnc opensshdtea-web \
+  firefox jre8-openjdk vpnc openssh icedtea-web aspell-en \
   feh geeqie vlc mplayer smplayer gimp inkscape \
-  lxappearance evince skype v4l2ucp wine wicd-gtk
+  lxappearance evince skype v4l2ucp wine wicd-gtk acpi
 
 # install pacaur
 cd /tmp
@@ -80,14 +81,18 @@ useradd -m -g users -G wheesl,sys,lp,network,video,audio,storage,scannes,power -
 ln -sf /usr/share/zoneinfo/America/Los_Angeles /etc/localtime
 timedatectl set-ntp true
 
-# set keyboard layout
+# set keyboard layout and repeat delay/rate
 loadkeys /usr/share/kbd/keymaps/i386/colemak/colemak.map.gz
 localectl set-keymap colemak
-localectl set-x11-keymap us,us pc104 colemak, caps:backspace,shift:both_capslock
+localectl set-x11-keymap us,us pc105 colemak, \
+  caps:backspace,shift:both_capslock,grp:alts_toggle
 kbdrate -d 200 -r 60
 
 # install packages for deft
-pacman -S scons python2-markdown gnuplot haskell-hunit
+pacman -S scons python2-markdown gnuplot haskell-hunit mlocate time
 
 # install windows partition utilities
 pacman -S ntfs-3g
+
+# German dictionary
+pacman -S aspell-de

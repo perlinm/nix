@@ -116,7 +116,7 @@ myScratchPads = [ NS termName spawnTerm findTerm manageTerm,
 -- layout definitions
 
 normal = renamed [Replace "normal"] $ ResizableTall 1 (1/50) (1/2) []
-emacs = renamed [Replace "emacs"] $ ResizableTall 1 (1/50) (2/5) []
+emacs = renamed [Replace "emacs"] $ ResizableTall 1 (1/50) (39/100) []
 chat = renamed [Replace "chat"] $ ResizableTall 1 (1/50) (73/100) []
 skype = renamed [Replace "skype"] $ ResizableTall 1 (1/50) (64/100) []
 full = renamed [Replace "full"] $ Full

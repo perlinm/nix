@@ -1,16 +1,14 @@
 #!/bin/zsh
 
-this_file=$(readlink -f $0)
-
-if [ -z $1 ]; then
-  echo "Need arguments"
+if ! [ $1 ]; then
+  echo "no arguments given"
   exit 1
 fi
 
 wireless_interface=wlp3s0
+
 home_dir=/home/perlinm
-research_dir=$home_dir/Workspace/Research
-sw_dir=deft/papers/square-well-liquid
+research_dir=$home_dir/Workspace/research
 
 vpn_split=$home_dir/.osu-split-tunnel.conf
 vpn_full=$home_dir/.osu-full-tunnel.conf
@@ -51,37 +49,50 @@ elif [ $1 = osu ]; then
 
 elif [ $1 = "mox" ]; then
   if ! [ $osu_up ]; then
-    $this_file status
-    $this_file osu
+    $0 status
+    $0 osu
   fi
 
-  localSrc=$research_dir/MOX
-  host='perlinm@rogue.ne.oregonstate.edu'
-  hostDest=$host:'~/Research'
-  hostSrc=$hostDest/MOX
+  remote_addr=perlinm@rogue.ne.oregonstate.edu
+  mox_dir=mox
 
   if [ -z $2 ]; then
-    ssh $host
+    ssh $remote_addr
   else
     if [ $2 = up ]; then
-      rsync -ulrvt -e ssh $localSrc $hostDest
+      src=$research_dir/
+      dest=$remote_addr:
     elif [ $2 = down ]; then
-      rsync -ulrvt -e ssh $hostSrc $research_dir
+      src=$remote_addr:
+      dest=$research_dir/
+    else
+      echo "usage: tn mox [up/down]"
+      exit 1
     fi
+    rsync -ulrvt -e ssh $src$mox_dir $dest
   fi
 
 elif [ $1 = deft ]; then
-  host=perlinm@quipu.physics.oregonstate.edu
+
+  remote_addr=perlinm@quipu.physics.oregonstate.edu
+  sw_mc_dir=deft/src/Monte-Carlo
+  deft_dir=deft
+
   if [ -z $2 ]; then
-    ssh $host
+    ssh $remote_addr
   else
     if [ $2 = up ]; then
-      rsync -ulrvt $research_dir/$sw_dir/data $host:~/$sw_dir/
-      rsync -ulrvt "$research_dir/$sw_dir/figs/*.pdf" $host:~/$sw_dir/figs/
+      src=$research_dir/
+      dest=$remote_addr:
     elif [ $2 = down ]; then
-      rsync -ulrvt -e ssh $host:~/$sw_dir/data $research_dir/$sw_dir/
-      rsync -ulrvt -e ssh "$host:~/$sw_dir/figs/*.pdf" $research_dir/$sw_dir/figs
+      src=$remote_addr:
+      dest=$research_dir/
+    else
+      echo "usage: tn deft [up/down]"
+      exit 1
     fi
+    rsync -ulrvt -e ssh $src$deft/papers/square-well-liquid $dest/papers/
+    rsync -ulrvt -e ssh $src$deft/src/Monte-Carlo $dest/src/
   fi
 
 elif [ $1 = paho ]; then
@@ -94,5 +105,5 @@ elif [ $1 = nasa ]; then
   ssh jumpgate
 
 else
-  echo "Not a valid command"
+  echo "no valid command given"
 fi

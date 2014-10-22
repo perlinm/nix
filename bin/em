@@ -1,7 +1,13 @@
 #!/bin/zsh
 
+em=/usr/bin/emacsclient
+
 if [ -z "$(pidof emacs)" ]; then
   emacs --daemon
 fi
 
-/usr/bin/emacsclient -c -n
+if ! [ $1 ]; then
+  $em -c -n
+else
+  $em -c -t $1
+fi
