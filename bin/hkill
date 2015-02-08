@@ -1,5 +1,10 @@
 #!/usr/bin/zsh
 
+if ! [ $(id -u) = 0 ]; then
+  echo "please run with sudo"
+  exit 0
+fi
+
 for i in $*; do
   sudo kill -9 \
     $(ps aux | grep $i | grep -v $0 | grep -v grep | awk '{print $2}') \

@@ -1,0 +1,46 @@
+#!/bin/sh
+
+file=/etc/systemd/logind.conf
+handle=HandleLidSwitch=
+daemon=systemd-logind
+
+action=`cat $file | grep $handle | sed "s/$handle//"`
+
+if ! [ $1 ] || [ $1 = stat ] || [ $1 = status ]; then
+  echo "lid action:" $action
+
+else
+  if [ $1 = toggle ]; then
+    if [ $action = suspend ]; then
+      new_action=ignore
+    elif [ $action = ignore ]; then
+      new_action=suspend
+    fi
+
+  elif [ $1 = suspend ] || [ $1 = sus ] || [ $1 = on ]; then
+    new_action=suspend
+
+  elif [ $1 = ignore ] || [ $1 = off ]; then
+    new_action=ignore
+
+  else
+    echo "no valid action chosen"
+    exit 1
+
+  fi
+
+  if [ $action != $new_action ]; then
+    if ! [ $(id -u) = 0 ]; then
+      echo "run with sudo"
+      exit 1
+    fi
+
+    cat $file | sed "s/$handle$action/$handle$new_action/" > ~/.TMPLID
+    sudo mv ~/.TMPLID $file
+    sudo systemctl restart $daemon
+  fi
+
+  echo "lid action:" $new_action
+
+fi
+

@@ -13,7 +13,7 @@ if len(sys.argv) > 2:
 
 def check(exitStatus):
     if exitStatus != 0:
-        print 'Terminating due to nonzero exit status:',exitStatus
+        print 'terminating due to nonzero exit status:',exitStatus
         exit(exitStatus)
 
 clearExts = ['.aux', '.bbl', '.blg', '.brf', '.dvi', '.ilg', '.ind',

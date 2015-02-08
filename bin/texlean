@@ -3,12 +3,14 @@ import sys, os, fnmatch, subprocess
 
 tags = [ '*.aux', '*.log', '*.tex.backup', '*_region_.tex',
          '*.synctex.gz', '*.blg','*.bbl', '*.nav', '*.dvi',
-         '*.toc', '*.el', '#*#', '.#*', '*~', '*.swp', '*.pyc',
+         '*.toc', '*.lop', '*.el', '#*#', '.#*', '*~', '*.swp', '*.pyc',
          '*.cpt', '*.bcf', '*.run.xml', '*.emacs.d/auto-save-list*']
 
 emptyFileTags = [ '*.out', '*.snm' ]
 
 excludes = [ '/deft/', '/.emacs.d/', '/.tmp/', '/ltpda' ]
+
+bannedDirs = [ '/home/perlinm' ]
 
 def rem(root,item):
   path = os.path.abspath(os.path.join(root,item))
@@ -21,6 +23,9 @@ def rem(root,item):
     subprocess.call(['rem',path])
 
 def clean(dir):
+  if os.path.abspath(dir) in bannedDirs:
+    print 'Directory banned from cleaning:',dir
+    exit(-1)
   for root, dirs, files in os.walk(dir):
     for tag in tags:
       for file in fnmatch.filter(files,tag):

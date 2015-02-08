@@ -6,7 +6,7 @@ if len(sys.argv) not in [1,2]:
     exit(-1)
 
 if len(sys.argv) == 1:
-    drive = '/dev/sdc1'
+    drive = '/dev/sdb1'
     print('defaulting to drive:',drive)
 elif len(sys.argv) == 2:
     drive = sys.argv[1]

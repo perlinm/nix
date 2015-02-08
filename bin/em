@@ -6,8 +6,4 @@ if [ -z "$(pidof emacs)" ]; then
   emacs --daemon
 fi
 
-if ! [ $1 ]; then
-  $em -c -n
-else
-  $em -c -t $1
-fi
+$em -c -n $*

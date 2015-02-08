@@ -62,12 +62,12 @@ myManageHook = composeAll . concat $
 
 termName = "term"
 calcName = "calc"
-wifiName = "network"
+altTermName = "alt-term"
 htopName = "htop"
 mixerName = "mixer"
 myScratchPads = [ NS termName spawnTerm findTerm manageTerm,
                   NS calcName spawnCalc findCalc manageCalc,
-                  NS wifiName spawnWifi findWifi manageWifi,
+                  NS altTermName spawnAltTerm findAltTerm manageAltTerm,
                   NS htopName spawnHtop findHtop manageHtop,
                   NS mixerName spawnMixer findMixer manageMixer ]
   where
@@ -79,6 +79,14 @@ myScratchPads = [ NS termName spawnTerm findTerm manageTerm,
         w = 0.45
         t = (1-h)*9/10
         l = (1/2-w)/2
+    spawnAltTerm = script ++ "pads " ++ altTermName
+    findAltTerm = title =? ("pad-" ++ altTermName)
+    manageAltTerm = customFloating $ W.RationalRect l t w h
+      where
+        h = 1/2
+        w = 0.45
+        t = (1-h)*9/10
+        l = 1/2+(1/2-w)/2
     spawnCalc = script ++ "pads " ++ calcName
     findCalc = title =? ("pad-" ++ calcName)
     manageCalc = customFloating $ W.RationalRect l t w h
@@ -87,14 +95,6 @@ myScratchPads = [ NS termName spawnTerm findTerm manageTerm,
         w = 2/5
         t = 1/25
         l = 1-w
-    spawnWifi = script ++ "pads " ++ wifiName
-    findWifi = title =? ("pad-" ++ wifiName)
-    manageWifi = customFloating $ W.RationalRect l t w h
-      where
-        h = 1/2
-        w = 1/2
-        t = (1-h)/2
-        l = (1-w)/2
     spawnHtop = script ++ "pads " ++ htopName
     findHtop = title =? ("pad-" ++ htopName)
     manageHtop = customFloating $ W.RationalRect l t w h
@@ -131,7 +131,7 @@ myPlacement = withGaps (16,16,16,16) (fixed (0.5,0.5))
 -- define number row, direction keys, and modification keys
 numRow = ["`"] ++ (Prelude.map show [1..9]) ++ ["0","-"]
 arrows = [["<L>","<R>","<U>","<D>"],["n","i","u","e"]]
-mod_keys = ["","C-","S-","M1-"]
+modKeys = ["","C-","S-","M1-"]
 -- define direction functions
 leftFuns = [prevWS, swapTo Prev, shiftToPrev, shiftToPrev >> prevWS]
 rightFuns = [nextWS, swapTo Next, shiftToNext, shiftToNext >> nextWS]
@@ -140,7 +140,7 @@ upFuns = [prevScreen, swapPrevScreen, shiftPrevScreen,
 downFuns = [nextScreen, swapNextScreen, shiftNextScreen,
              shiftNextScreen >> swapNextScreen]
 -- pair up modification keys with functions
-funsCol = [ zip mod_keys dirFuns
+funsCol = [ zip modKeys dirFuns
                     | dirFuns <- [leftFuns,rightFuns,upFuns,downFuns] ]
 -- pair up directions with appropriate functions
 dirControlsCol = join [ zip dirs funsCol | dirs <- arrows ]
@@ -148,6 +148,8 @@ dirControlsCol = join [ zip dirs funsCol | dirs <- arrows ]
 --   into a single list
 dirControls = join [[(fst c,mod,fun) | (mod,fun) <- snd c ]
                         | c <- dirControlsCol]
+
+-- check output of 'xmodmap' for modifier key map
 
 myKeys = \conf -> mkKeymap conf $
     ---------- workspace management ----------
@@ -183,6 +185,8 @@ myKeys = \conf -> mkKeymap conf $
      ("M4-M1-c", sendMessage MirrorShrink),
      ("M4-v", sendMessage ToggleStruts),
      ---------- window management ----------
+     ("M1-<Tab>", windows W.focusUp),
+     ("M1-S-<Tab>", windows W.focusDown),
      ("M4-w", windows W.focusUp),
      ("M4-f", windows W.focusDown),
      ("M4-S-w", windows W.swapUp),
@@ -195,8 +199,8 @@ myKeys = \conf -> mkKeymap conf $
      ("M4-<Tab>", spawn $ terminal conf),
      ("M1-`", spawn myRun),
      ("M1-<F1>", namedScratchpadAction myScratchPads termName),
-     ("M1-<F2>", namedScratchpadAction myScratchPads calcName),
-     ("M1-<F3>", namedScratchpadAction myScratchPads wifiName),
+     ("M1-<F2>", namedScratchpadAction myScratchPads altTermName),
+     ("M1-<F3>", namedScratchpadAction myScratchPads calcName),
      ("M1-<F4>", namedScratchpadAction myScratchPads htopName),
      ("M1-<F5>", namedScratchpadAction myScratchPads mixerName),
      ---------- media keys ----------
@@ -212,7 +216,7 @@ myKeys = \conf -> mkKeymap conf $
      ("<XF86Tools>", spawn (script ++ "volume toggle")),
      ("<XF86LaunchA>", spawn (script ++ "volume toggle")),
      ("<XF86MyComputer>", spawn (script ++ "volume toggle")),
-     ---------- misc ----------
+     ---------- volume ----------
      ("C-/", spawn (script ++ "volume toggle")),
      ("C-<D>", spawn (script ++ "volume dec")),
      ("C-<U>", spawn (script ++ "volume inc")),
@@ -220,17 +224,26 @@ myKeys = \conf -> mkKeymap conf $
      ("C-S-<U>", spawn (script ++ "volume max")),
      ("C-S-/", spawn (script ++ "volume med")),
      ("C-m", spawn (script ++ "mic-toggle")),
+     ---------- backlight ----------
      ("M1-<D>", spawn (script ++ "light dec")),
      ("M1-<U>", spawn (script ++ "light inc")),
      ("M1-S-<U>", spawn (script ++ "light max")),
      ("M1-S-<D>", spawn (script ++ "light dim")),
      ("M1-S-/", spawn (script ++ "light med")),
      ("M1-/", spawn (script ++ "light toggle")),
+     ("M5-<D>", spawn (script ++ "light dec")),
+     ("M5-<U>", spawn (script ++ "light inc")),
+     ("M5-S-<U>", spawn (script ++ "light max")),
+     ("M5-S-<D>", spawn (script ++ "light dim")),
+     ("M5-S-/", spawn (script ++ "light med")),
+     ("M5-/", spawn (script ++ "light toggle")),
+     ---------- screenshots ----------
      ("M4-\\", spawn (script ++ "print")),
      ("M4-M1-\\", spawn (script ++ "print -s")),
-     ("M1-,", spawn (script ++ "bg-slides")),
-     ("M4-M1-;", spawn (script ++ "touchpad-toggle")),
-     ("M4-M1-=", spawn (script ++ "screen-toggle")),
+     ---------- misc ----------
+     ("M5-,", spawn (script ++ "bg-slides")),
+     ("M5-;", spawn (script ++ "touchpad-toggle")),
+     ("M5-=", spawn (script ++ "screen-toggle")),
      ("M4-/", windows copyToAll),
      ("M4-S-/", killAllOtherCopies),
      ---------- quit ----------

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/zsh
 
 for i in $*; do
   curl -LH "Accept: text/bibliography; style=bibtex" http://dx.doi.org/$i

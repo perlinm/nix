@@ -2,6 +2,11 @@
 
 python=/usr/bin/python
 
+if ! [ $(id -u) = 0 ]; then
+  echo "please run with sudo"
+  exit 0
+fi 
+
 if ! [ $1 ]; then
   if [ `readlink $python` == "python2" ]; then
     new=3
