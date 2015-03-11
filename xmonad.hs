@@ -18,6 +18,7 @@ import XMonad.Layout.Fullscreen as FS
 import XMonad.Layout.NoBorders
 import XMonad.Layout.Renamed
 import XMonad.Layout.ResizableTile
+import XMonad.Layout.Spacing
 import XMonad.Layout.ToggleLayouts
 import XMonad.Layout.WindowNavigation
 import XMonad.StackSet as W
@@ -35,10 +36,15 @@ myFocusFollowsMouse = True
 
 myWorkspaces = Prelude.map show [0..10] ++ ["NSP"]
 
-script = "/home/perlinm/scripts/"
+home = "/home/perlinm/"
+script = home ++ "scripts/"
 
 myTerminal = "xfce4-terminal"
 myRun = "gmrun"
+
+browser = "firefox"
+emacs = home ++ "bin/em"
+pdfReader = "okular"
 
 ---------------------------------------------------------------------------------
 -- window rules
@@ -116,62 +122,64 @@ myScratchPads = [ NS termName spawnTerm findTerm manageTerm,
 -- layout definitions
 
 normal = renamed [Replace "normal"] $ ResizableTall 1 (1/50) (1/2) []
-emacs = renamed [Replace "emacs"] $ ResizableTall 1 (1/50) (39/100) []
+latex = renamed [Replace "latex"] $ ResizableTall 1 (1/50) (39/100) []
 chat = renamed [Replace "chat"] $ ResizableTall 1 (1/50) (73/100) []
 skype = renamed [Replace "skype"] $ ResizableTall 1 (1/50) (64/100) []
 full = renamed [Replace "full"] $ Full
-myLayoutHook = smartBorders $ avoidStruts $ windowNavigation $
-               toggleLayouts full ( normal ||| emacs ||| chat ||| skype )
+myLayoutHook = smartBorders $ avoidStruts $ windowNavigation $ smartSpacing 3 $
+               toggleLayouts full ( normal ||| latex ||| chat ||| skype )
 
 myPlacement = withGaps (16,16,16,16) (fixed (0.5,0.5))
 
 ---------------------------------------------------------------------------------
 -- key commands
 
--- define number row, direction keys, and modification keys
+-- define number row, arrow keys, and modification keys
 numRow = ["`"] ++ (Prelude.map show [1..9]) ++ ["0","-"]
 arrows = [["<L>","<R>","<U>","<D>"],["n","i","u","e"]]
 modKeys = ["","C-","S-","M1-"]
--- define direction functions
-leftFuns = [prevWS, swapTo Prev, shiftToPrev, shiftToPrev >> prevWS]
-rightFuns = [nextWS, swapTo Next, shiftToNext, shiftToNext >> nextWS]
-upFuns = [prevScreen, swapPrevScreen, shiftPrevScreen,
-           shiftPrevScreen >> swapPrevScreen]
-downFuns = [nextScreen, swapNextScreen, shiftNextScreen,
-             shiftNextScreen >> swapNextScreen]
--- pair up modification keys with functions
-funsCol = [ zip modKeys dirFuns
-                    | dirFuns <- [leftFuns,rightFuns,upFuns,downFuns] ]
--- pair up directions with appropriate functions
-dirControlsCol = join [ zip dirs funsCol | dirs <- arrows ]
--- collect all combinations of directions, modification keys, and functions
---   into a single list
-dirControls = join [[(fst c,mod,fun) | (mod,fun) <- snd c ]
-                        | c <- dirControlsCol]
 
--- check output of 'xmodmap' for modifier key map
+-- define window actions in each direction performed by modification keys
+actLeft = [prevWS, swapTo Prev, shiftToPrev, shiftToPrev >> prevWS]
+actRight = [nextWS, swapTo Next, shiftToNext, shiftToNext >> nextWS]
+actUp = [prevScreen, swapPrevScreen, shiftPrevScreen, shiftPrevScreen >> swapPrevScreen]
+actDn = [nextScreen, swapNextScreen, shiftNextScreen, shiftNextScreen >> swapNextScreen]
+
+{-
+  for each set of actions, pair up modification keys with the respective action
+  e.g. ("C-", swapTo Prev)
+-}
+modActions = [ zip modKeys dirFuns | dirFuns <- [actLeft,actRight,actUp,actDn] ]
+
+
+-- for each set of arrow keys, pair up arrows with respective modification key and action
+dirControlsSet = join [ zip dirs modActions | dirs <- arrows ]
+
+-- collect all appropriate combinations of keys and workspace actions into a single list
+dirControls = join [ [ (dir,mod,fun) | let dir = fst set, (mod,fun) <- snd set ]
+                     | set <- dirControlsSet ]
+
+
+
+-- note: check output of 'xmodmap' for modifier key map (i.e. M1, M4, etc.)
 
 myKeys = \conf -> mkKeymap conf $
     ---------- workspace management ----------
     [
      ("M4-" ++ mod ++ key, windows $ func ws)
          | (ws,key) <- zip myWorkspaces numRow,
-           (func,mod) <- [(W.greedyView, ""),(W.shift, "S-"),
-                          (\i -> W.greedyView i . W.shift i,"M1-")]
+           (mod,func) <- [ ("", W.greedyView), ("S-", W.shift),
+                           ("M1-", \i -> W.greedyView i . W.shift i) ]
     ]
     ++
-    [
-     ("M4-C-" ++ key, swapWithCurrent ws) | (ws,key) <- zip myWorkspaces numRow
-    ]
+    [ ("M4-C-" ++ key, swapWithCurrent ws) | (ws,key) <- zip myWorkspaces numRow ]
     ++
-    [
-     ("M4-" ++ mod ++ dir, func) | (dir,mod,func) <- dirControls
-    ]
+    [ ("M4-" ++ mod ++ dir, func) | (dir,mod,func) <- dirControls ]
     ++
     [
      ("M4-r", prevWS),
      ("M4-s", nextWS),
-     ("M1-z", toggleWS),
+     ("M1-z", toggleWS' ["NSP"]),
      ---------- layout management ----------
      ("M4-<Space>", sendMessage NextLayout),
      --("M4-S-<Space>", sendMessage PrevLayout),
@@ -185,8 +193,8 @@ myKeys = \conf -> mkKeymap conf $
      ("M4-M1-c", sendMessage MirrorShrink),
      ("M4-v", sendMessage ToggleStruts),
      ---------- window management ----------
-     ("M1-<Tab>", windows W.focusUp),
-     ("M1-S-<Tab>", windows W.focusDown),
+     --("M1-<Tab>", windows W.focusUp),
+     --("M1-S-<Tab>", windows W.focusDown),
      ("M4-w", windows W.focusUp),
      ("M4-f", windows W.focusDown),
      ("M4-S-w", windows W.swapUp),
@@ -223,14 +231,7 @@ myKeys = \conf -> mkKeymap conf $
      ("C-S-<D>", spawn (script ++ "volume min")),
      ("C-S-<U>", spawn (script ++ "volume max")),
      ("C-S-/", spawn (script ++ "volume med")),
-     ("C-m", spawn (script ++ "mic-toggle")),
      ---------- backlight ----------
-     ("M1-<D>", spawn (script ++ "light dec")),
-     ("M1-<U>", spawn (script ++ "light inc")),
-     ("M1-S-<U>", spawn (script ++ "light max")),
-     ("M1-S-<D>", spawn (script ++ "light dim")),
-     ("M1-S-/", spawn (script ++ "light med")),
-     ("M1-/", spawn (script ++ "light toggle")),
      ("M5-<D>", spawn (script ++ "light dec")),
      ("M5-<U>", spawn (script ++ "light inc")),
      ("M5-S-<U>", spawn (script ++ "light max")),
@@ -243,7 +244,9 @@ myKeys = \conf -> mkKeymap conf $
      ---------- misc ----------
      ("M5-,", spawn (script ++ "bg-slides")),
      ("M5-;", spawn (script ++ "touchpad-toggle")),
-     ("M5-=", spawn (script ++ "screen-toggle")),
+     ("M4-<F1>", spawn emacs),
+     ("M4-<F2>", spawn browser),
+     ("M4-<F3>", spawn pdfReader),
      ("M4-/", windows copyToAll),
      ("M4-S-/", killAllOtherCopies),
      ---------- quit ----------

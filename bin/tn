@@ -110,7 +110,7 @@ elif [ $1 = deft ]; then
   deft_dir=deft
 
   if [ $# = 1 ]; then
-    ssh $remote_addr
+    mosh $remote_addr
   else
     if [ $2 = commit ]; then
       cd $research_dir/$deft_dir
@@ -130,20 +130,18 @@ elif [ $1 = deft ]; then
       echo "usage: tn deft [up/down/commit]"
       exit 1
     fi
-    rsync -ulrvt -e ssh $src$deft_dir/papers/square-well-liquid/data \
-          $dest$deft_dir/papers/square-well-liquid/
-    rsync -ulrvt -e ssh $src$deft_dir/papers/square-well-liquid/figs \
-          $dest$deft_dir/papers/square-well-liquid/
-    rsync -ulrvt -e ssh $src$deft_dir/papers/square-well-liquid/jobs \
-          $dest$deft_dir/papers/square-well-liquid/
-    rsync -ulrvt -e ssh $src$deft_dir/papers/square-well-liquid/histogram-paper.pdf \
-          $dest$deft_dir/papers/square-well-liquid/
-    rsync -ulrvt -e ssh $src$deft_dir/papers/square-well-liquid/paper.pdf \
-          $dest$deft_dir/papers/square-well-liquid/
-    rsync -ulrvt -e ssh $src$deft_dir/papers/square-well-liquid/run-swms.py \
-          $dest$deft_dir/papers/square-well-liquid/
-    rsync -ulrvt -e ssh $src$deft_dir/papers/square-well-liquid/run-param-sims.sh \
-          $dest$deft_dir/papers/square-well-liquid/
+    rsync -ulrvt -e ssh $src$deft_dir/papers/histogram/data \
+          $dest$deft_dir/papers/histogram/
+    rsync -ulrvt -e ssh $src$deft_dir/papers/histogram/figs \
+          $dest$deft_dir/papers/histogram/
+    rsync -ulrvt -e ssh $src$deft_dir/papers/histogram/histogram-paper.pdf \
+          $dest$deft_dir/papers/histogram/
+    rsync -ulrvt -e ssh $src$deft_dir/papers/histogram/paper.pdf \
+          $dest$deft_dir/papers/histogram/
+    rsync -ulrvt -e ssh $src$deft_dir/papers/histogram/run-swmc.py \
+          $dest$deft_dir/papers/histogram/
+    rsync -ulrvt -e ssh $src$deft_dir/papers/histogram/run-param-sims.py \
+          $dest$deft_dir/papers/histogram/
     rsync -ulrvt -e ssh $src$deft_dir/src/Monte-Carlo/square-well-monte-carlo.cpp \
           $dest$deft_dir/src/Monte-Carlo
     rsync -ulrvt -e ssh $src$deft_dir/src/Monte-Carlo/square-well.cpp \
@@ -153,7 +151,7 @@ elif [ $1 = deft ]; then
   fi
 
 elif [ $1 = paho ]; then
-  ssh paholg.com
+  ssh paho.asuscomm.com
 
 elif [ $1 = onid ]; then
   ssh shell.onid.oregonstate.edu

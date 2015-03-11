@@ -2,7 +2,7 @@
 import sys, os, fnmatch, subprocess
 
 tags = [ '*.aux', '*.log', '*.tex.backup', '*_region_.tex',
-         '*.synctex.gz', '*.blg','*.bbl', '*.nav', '*.dvi',
+         '*.synctex.gz', '*.blg','*.bbl', '*.nav', '*.dvi', '*.lof',
          '*.toc', '*.lop', '*.el', '#*#', '.#*', '*~', '*.swp', '*.pyc',
          '*.cpt', '*.bcf', '*.run.xml', '*.emacs.d/auto-save-list*']
 
@@ -11,6 +11,8 @@ emptyFileTags = [ '*.out', '*.snm' ]
 excludes = [ '/deft/', '/.emacs.d/', '/.tmp/', '/ltpda' ]
 
 bannedDirs = [ '/home/perlinm' ]
+
+force_flag = '--force'
 
 def rem(root,item):
   path = os.path.abspath(os.path.join(root,item))
@@ -41,5 +43,8 @@ def clean(dir):
 if len(sys.argv) == 1:
   clean(os.getcwd())
 else:
-  for arg in sys.argv[1:]:
+  args = sys.argv[1:]
+  if force_flag in args:
+    args.remove(force_flag)
+  for arg in args:
     clean(arg)

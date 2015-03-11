@@ -1,0 +1,3 @@
+#!/usr/bin/sh
+
+sudo kill -9 `ps aux | grep skype/skype | grep -v grep | awk '{print $2}'`

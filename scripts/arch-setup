@@ -144,7 +144,7 @@ makepkg -s && pacman -U pacaur*.pkg.tar.xz
 pacaur -S \
   google-chrome pamixer pulseaudio-ctl volnoti qbittorrent \
   ttf-ms-fonts ttf-oxygen ttf-droid ttf-liberation ttf-ubuntu-font-family \
-  laptop-mode-tools
+  laptop-mode-tools orchis-gtk-theme-git
 
 systemctl enable laptop-mode
 
@@ -176,3 +176,6 @@ timedatectl set-ntp true
 ##############################
 
 pacman -S scons python2-markdown gnuplot haskell-hunit mlocate time valgrind
+
+## notes ###
+# add [infinality-bundle] to pacman.conf and install infinality-bundle
