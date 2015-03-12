@@ -1,0 +1,29 @@
+#!/bin/zsh
+
+local_deft=~/deft
+quipu_deft='perlinm@quipu.physics.oregonstate.edu:~/deft'
+
+cd $local_deft
+
+if [ $# -le 1 ] && (! [ $1 = up ] || ! [ $1 = down ]); then
+
+  echo "usage:" $(basename $0) "[up/down] target"
+  exit 1
+
+elif [ $1 = up ]; then
+
+  from=$local_deft
+  to=$quipu_deft
+
+elif [ $1 = down ]; then
+
+  from=$quipu_deft
+  to=$local_deft
+
+fi
+
+for i in ${*:2}; do
+
+    scp -p $from/$i $to/$i
+
+done
