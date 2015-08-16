@@ -1,0 +1,303 @@
+### these notes assume that:
+###   A. a base arch system has been installed (base base-devel)
+###   A. the system boots properly
+###   B. the system can connect to a wired interface
+
+####################
+# basic
+####################
+
+# make and enable swapfile
+fallocate -l 8GB /swapfile
+chmod 0600 /swapfile
+mkswap /swapfile
+swapon /swapfile
+echo "/swapfile none swap defaults 0 0" >> /etc/fstab
+
+# sort mirrors
+cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist~
+pacman -S reflector
+reflector --verbose --country 'United States' -l 200 -p http --sort rate \
+  /etc/pacman.d/mirrorlist
+pacman -Syy
+
+# install linux lernels
+pacman -S linux linux-lts
+
+# color pacman output and enable multilib repo
+cp /etc/pacman.conf /etc/pacman.conf~
+#-- manually uncomment line 'Color' and enable the multilib repo in /etc/pacman.conf --#
+pacman -Syy
+
+# daemon to generate system entropy
+pacman -S haveged
+systemctl enable haveged
+systemctl start haveged
+
+# initialize pacman keyring
+pacman-key --init
+pacman-key --populate archlinux
+
+# basic console tools
+pacman -S sudo vim wget rsync openssh git htop udevil keychain time acpi ntfs-3g mosh
+
+# keyboard configuration
+localectl set-x11-keymap us,us pc105 colemak, shift:both_capslock,caps:backspace
+loadkeys colemak
+kbdrate -d 200 -r 60
+
+# shell interpreter
+pacman -S zsh zsh-lovers
+
+# user
+useradd -m -G wheel,power -s /usr/bin/zsh perlinm
+### manually run 'visudo' and allow members of wheel to run any command
+
+# blacklist pc speaker
+echo "blacklist pcspkr" > /etc/modprobe.d/nobeep.conf
+
+####################
+# console utilities
+####################
+
+# valgrind (for debugging c/c++)
+pacman -S valgrind
+
+# python packages
+pacman -S python python2 python-numpy python2-numpy python-matplotlib python2-matplotlib \
+  python-sympy python2-sympy python-scipy python2-scipy ipython ipython2
+
+# haskell packages
+pacman -S ghc cabal-install haddock happy alex
+
+# java packages
+pacman -S jre8-openjdk
+
+# latex packages
+pacman -S texlive-most
+
+# emacs and auctex
+pacman -S emacs emacs-python-mode emacs-haskell-mode auctex
+
+####################
+# graphic utilities
+####################
+
+# xorg
+pacman -S xorg xorg-drivers xorg-apps
+
+# kde5
+pacman -S plasma-meta kde-applications
+
+# xfce4
+pacman -S xfce4 xfce4-goodies
+
+# xmonad plus window compositor
+pacman -S xmonad xmonad-contrib xcompmgr
+
+# basic X utilities
+pacman -S xdotool xclip
+
+# nested X environment to run within X
+pacman -S xorg-server-xephyr
+
+# network management
+pacman -S wicd wicd-gtk network-manager-applet
+
+# graphic development utilities
+pacman -S meld gparted
+
+# video and audio management tools
+pacman -S arandr pulseaudio pavucontrol
+
+# camera settings
+pacman -S v4l2ucp
+
+# browser
+pacman -S firefox icedtea-web flashplugin
+
+# misc.
+pacman -S feh geeqie vlc mplayer smplayer gimp inkscape lxappearance wine evince skype
+
+# office suite and dictionary
+pacman -S libreoffice-fresh aspell-en
+
+# network printer utilities
+pacman -S cups hplip
+
+# intel microcode
+pacman -S intel-ucode
+### manually add 'initrd /intel-ucode.img' as the first initrd in /etc/loader/entries/*.conf
+
+# display manager and theme
+pacman -S lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings numix-themes
+systemctl enable lightdm
+### manually launch 'lightdm-gtk-greeter-settings' to configure
+### background image cannot be in /home
+### if background image not set correctly, try different themes
+
+# launcher
+pacman -S bashrun xterm
+### manually add $HOME/bin to path in ~/.config/bashrun/rc, then run 'bashrun --restart'
+### add font option, e.g. '-fa 'Monospace' -fs 14', to xterm_options in ~/.config/bashrun/rc
+
+####################
+# AUR
+####################
+
+### log in as perlinm
+
+# auto retrieve pgp keys
+cp /usr/share/gnupg/gpg-conf.skel ~/.gnupg/gpg.conf
+echo '\nkeyserver-options auto-key-retrieve' >> ~/.gnupg/gpg.conf
+
+# pacmatic, pacaur, and powerpill
+pacman -S pacmatic
+cd /tmp
+wget http://aur.archlinux.org/cgit/aur.git/snapshot/cower.tar.gz
+tar xvzf cower.tar.gz && cd cower
+makepkg -sri
+cd ..
+wget http://aur.archlinux.org/cgit/aur.git/snapshot/pacaur.tar.gz
+tar xvzf pacaur && cd pacaur
+makepkg -sri
+pacaur -S powerpill
+
+### make sure that the following two lines are in ~/.zshrc
+export pacman_program="pacaur"
+export pacman="powerpill"
+
+### manually change SigLevel line to 'SigLevel = PackageRequired DatabaseOptional'
+###   in /etc/pacman.conf
+
+# misc. AUR packages
+pacmatic -S pamixer pulseaudio-ctl qbittorrent deluge laptop-mode-tools pdftk
+sudo systemctl enable laptop-mode
+
+# start network daemon
+sudo systemctl enable NetworkManager
+sudo systemctl start NetworkManager
+
+####################
+# misc
+####################
+
+# make laptop respond properly to lid
+### manually uncomment 'HandleLidSwitch' in /etc/systemd/logind.conf
+### manually add file /etc/sudoers.d/lid-swidch with line
+###   'ALL ALL=NOPASSWD:/home/perlinm/bin/lid-switch' 
+
+# configure git
+git config --global user.name "Michael A. Perlin"
+git config --global user.email mika.perlin@gmail.com
+git config --global core.editor=emacs
+
+# don't clear boot messages
+sudo mkdir -p /etc/systemd/system/getty@tty1.service.d
+sudo touch /etc/systemd/system/getty@tty1.service.d/noclear.conf
+### manually write '[Service]\nTTYVTDisallocate=no' to the above file
+
+# fonts
+pacmatic -S ttf-ms-fonts ttf-oxygen ttf-droid ttf-liberation ttf-ubuntu-font-family
+### manually add the following text after the multilib repo in /etc/pacman.conf:
+# [infinality-bundle]\nServer = http://bohoomil.com/repo/$arch
+pacmatic -Sy
+### on another tty: sudo dirmngr
+sudo pacman-key -r 962DDE58
+sudo pacman-key -f 962DDE58
+sudo pacman-key --lsign-key 962DDE58
+pacmatic -S infinality-bundle
+
+# widget and themes
+cd /tmp
+git clone https://github.com/moka-project/orchis-gtk-theme.git
+sudo cp -r orchis-gtk-theme/Orchis /usr/share/themes
+pacmatic -S gtk-engine-murrine
+pacmatic -S moka-icon-theme-git
+### manually enable themes via lxappearance
+### manually set gtk theme for qt via qtconfig-qt4
+### maybe set greeter theme via lightdm-gtk-greeter-settings
+
+# tool to manipulate pdf filies
+pacmatic -S pdftk-bin
+
+# google chrome and talk plugin
+pacmatic -S google-chrome google-talkplugin
+
+# firefox browser sound plugins
+pacmatic -S gstramer0.10-plugins
+### if there are sound problems, change 'media.gstreamer.enabled' to 'false' in about:config
+### if youtube does not work in fixefor, use flash instead of html5
+
+# equivalent of quicktime for linux
+pacmatic -S gecko-mediaplayer
+
+### configure touch pad via /etc/X11/xorg.conf.d/99-synaptics.conf
+###   particularly paying attention to option "AreaTopEdge" (see man synaptics)
+###   use evtest to check vertical coordinate values on touchpad
+
+### manually set cursor theme via lxappearance
+### set cursor theme at greeter by writing '[Icon Theme]\nInherits=cursor_name'
+###   to /usr/share/icons/default/index.theme
+
+### to enable running a script without invoking sudo,
+###   write 'ALL ALL=NOPASSWD:script_path' to /etc/sudoers.d/script_name
+### EXTREMELY IMPORTANT: make sure NOBODY can write to the above script, and that the script
+###   is owned by root, i.e. run 'chmod 0555 script_path' and 'chown root.root script_path'
+###   before using the script, run EXTENSIVE tests to make sure that it works properly
+### example use: write 'ALL ALL=NOPASSWD:/usr/bin/fdisk -l' to '/etc/sudoers.d/fdisk-l'
+
+# give user NTFS mounting permissions
+sudo gpasswd -a perlinm disk
+pacmatic -S ntfs-3g-fuse
+### for ntfs drive management, set both default_options_ntfs and allowed_options_ntfs in
+###   /etc/udevil/udevil/udevil.conf simply (ONLY) to 'permissions'
+
+# dropbox
+pacmatic -S dropbox
+
+### manually configure /boot/loader/loader.conf (on UEFI systems) as needed
+
+# remove default tab completion rules for 'mt'
+sudo mv /usr/share/zsh/functions/Completion/Unix/_mt \
+  /usr/share/zsh/functions/Completion/Unix/_mt~
+
+# kingsoft - replacing MSOffice/LibreOffice
+pacmapic -S wps-office
+
+# printing
+sudo groupadd printadmin
+sudo gpasswd -a perlinm lp
+sudo gpasswd -a perlinm printadmin
+### manually append 'printadmin' to line 'SystemGroup sys root' in /etc/cups/cups-files.conf
+### go to 'http://localhost:631/' in browser to configure cups
+### set default printer via 'lpoptions -d printer_name'
+### view ArchWiki page CUPS for printer help
+
+# scanning
+sudo gpasswd -a perlinm scanner
+pacmatic -S iscan iscan-data
+### manually install whatever printer/scanner drivers (and maybe plugins) are needed
+### for mom's epson XP-810 printer: iscan-plugin-network epson-inkjet-printer-201308w
+### for any epson printer, find ip address via 'scanimage -L'
+###   and add line 'net scanner_ip' to /etc/sane.d/epkowa.conf
+### view ArchWiki page SANE for scanner help
+
+# virtual machine + permissions to use USB devices
+pacmatic -S virtualbox
+sudo gpasswd -a perlinm vboxusers
+### must run 'modprobe vboxdrv' before running virtualbox
+
+# for using r packages in python3
+pacmatic -S python-rpy2
+
+# fac dependencies
+pacmatic -S python-markdown python2-markdown ruby-sass graphviz
+
+# deft dependencies
+pacmatic -S scons gnuplot haskell-hunit mlocate
+### note: deft still does not build via scons
+
+# todo:
+# poppling/crackling sound when pulseaudio starts
+# deft dependencies

@@ -40,11 +40,8 @@ home = "/home/perlinm/"
 script = home ++ "scripts/"
 
 myTerminal = "xfce4-terminal"
-myRun = "gmrun"
-
-browser = "firefox"
-emacs = home ++ "bin/em"
-pdfReader = "okular"
+myRun = "bashrun"
+myFinder = "xfce4-appfinder"
 
 ---------------------------------------------------------------------------------
 -- window rules
@@ -59,7 +56,7 @@ myManageHook = composeAll . concat $
     roleName = stringProperty "WM_WINDOW_ROLE"
     floats = ["Xfce4-appfinder","Xfce4-panel","Nm-connection-editor",
               "Nm-openconnect-auth-dialog"," ","Wicd-client.py","Python2",
-              "Wrapper","Thunar","Arandr"]
+              "Thunar","Arandr","Wrapper-1.0","XTerm"]
     ignores = ["Xfce4-notifyd"]
     sinks = ["gimp-image-window"]
 
@@ -136,7 +133,7 @@ myPlacement = withGaps (16,16,16,16) (fixed (0.5,0.5))
 
 -- define number row, arrow keys, and modification keys
 numRow = ["`"] ++ (Prelude.map show [1..9]) ++ ["0","-"]
-arrows = [["<L>","<R>","<U>","<D>"],["n","i","u","e"]]
+arrows = [["<L>","<R>","<U>","<D>"],["n","i","u","e"],["r","s","g","d"]]
 modKeys = ["","C-","S-","M1-"]
 
 -- define window actions in each direction performed by modification keys
@@ -177,8 +174,6 @@ myKeys = \conf -> mkKeymap conf $
     [ ("M4-" ++ mod ++ dir, func) | (dir,mod,func) <- dirControls ]
     ++
     [
-     ("M4-r", prevWS),
-     ("M4-s", nextWS),
      ("M1-z", toggleWS' ["NSP"]),
      ---------- layout management ----------
      ("M4-<Space>", sendMessage NextLayout),
@@ -206,6 +201,7 @@ myKeys = \conf -> mkKeymap conf $
      ---------- spawning ----------
      ("M4-<Tab>", spawn $ terminal conf),
      ("M1-`", spawn myRun),
+     ("M1-C-`", spawn myFinder),
      ("M1-<F1>", namedScratchpadAction myScratchPads termName),
      ("M1-<F2>", namedScratchpadAction myScratchPads altTermName),
      ("M1-<F3>", namedScratchpadAction myScratchPads calcName),
@@ -232,21 +228,18 @@ myKeys = \conf -> mkKeymap conf $
      ("C-S-<U>", spawn (script ++ "volume max")),
      ("C-S-/", spawn (script ++ "volume med")),
      ---------- backlight ----------
-     ("M5-<D>", spawn (script ++ "light dec")),
-     ("M5-<U>", spawn (script ++ "light inc")),
-     ("M5-S-<U>", spawn (script ++ "light max")),
-     ("M5-S-<D>", spawn (script ++ "light dim")),
-     ("M5-S-/", spawn (script ++ "light med")),
-     ("M5-/", spawn (script ++ "light toggle")),
+     ("M1-<D>", spawn (script ++ "light dec")),
+     ("M1-<U>", spawn (script ++ "light inc")),
+     ("M1-S-<U>", spawn (script ++ "light max")),
+     ("M1-S-<D>", spawn (script ++ "light dim")),
+     ("M1-S-/", spawn (script ++ "light med")),
+     --("M5-/", spawn (script ++ "light toggle")),
      ---------- screenshots ----------
      ("M4-\\", spawn (script ++ "print")),
      ("M4-M1-\\", spawn (script ++ "print -s")),
      ---------- misc ----------
-     ("M5-,", spawn (script ++ "bg-slides")),
-     ("M5-;", spawn (script ++ "touchpad-toggle")),
-     ("M4-<F1>", spawn emacs),
-     ("M4-<F2>", spawn browser),
-     ("M4-<F3>", spawn pdfReader),
+     ("M1-,", spawn (script ++ "bg-slides")),
+     ("M1-;", spawn (script ++ "touchpad-toggle")),
      ("M4-/", windows copyToAll),
      ("M4-S-/", killAllOtherCopies),
      ---------- quit ----------

@@ -1,40 +1,25 @@
-#!/usr/bin/python2
+#!/usr/bin/env python3
 import sys, os, shutil, subprocess
 
-tmpRoot = os.path.expanduser('~/.tmp/')
-ext = '.bk'
+trash_dir = os.path.expanduser('/home/perlinm/.trash')
+old_ext = '.old'
 
-def remove(target,dest):
-  try:
-    os.rename(target,dest)
-  except:
-    if not os.path.isdir(target):
-      os.remove(target)
-    else:
-      shutil.rmtree(target)
-
-def backup(target):
-  if os.path.lexists(target+ext):
-    backup(target+ext)
-
-def exists(target):
-  return subprocess.call(['ls',target], \
-                          stdout=open(os.devnull,'w'), \
-                          stderr=open(os.devnull,'w')) == 0
-
-for arg in sys.argv[1:]:
-  if not exists(arg):
-    print 'Does not exist:',arg
-    continue
-  target = os.path.abspath(arg)
-  tmpPath = tmpRoot + target
-  tmpDir = os.path.dirname(tmpPath)
-  if exists(tmpDir):
-    if os.path.isdir(tmpDir):
-      if exists(tmpPath):
-        backup(tmpPath)
-    else:
-      backup(tmpDir)
+def backup(item):
+  if not os.path.exists(item+old_ext):
+    os.rename(item,item+old_ext)
   else:
-    os.makedirs(tmpDir)
-  remove(target,tmpPath)
+    backup(item+old_ext)
+
+for item in sys.argv[1:]:
+  item_path = os.path.abspath(item)
+  item_dest = trash_dir + item_path
+  if not os.path.exists(os.path.dirname(item_dest)):
+    os.makedirs(os.path.dirname(item_dest))
+  try:
+    while os.path.exists(item_dest):
+      backup(item_dest)
+    os.rename(item_path,item_dest)
+  except PermissionError:
+    print("invoke with sudo (permission error)")
+  except Exception as ex:
+    print(ex)

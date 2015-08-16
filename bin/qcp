@@ -1,9 +1,14 @@
-#!/bin/zsh
+#!/usr/bin/zsh
 
-local_deft=~/deft
-quipu_deft='perlinm@quipu.physics.oregonstate.edu:~/deft'
+if ! [[ "$(pwd)/" =~ "./deft/.*" ]]; then
+  echo 'not within deft directory'
+  exit 1
+fi
 
-cd $local_deft
+remote_deft='perlinm@wentworth.physics.oregonstate.edu:~/deft'
+
+local_dir=$(pwd)
+remote_dir=$remote_deft$(pwd | sed 's/.*deft//')
 
 if [ $# -le 1 ] && (! [ $1 = up ] || ! [ $1 = down ]); then
 
@@ -12,18 +17,18 @@ if [ $# -le 1 ] && (! [ $1 = up ] || ! [ $1 = down ]); then
 
 elif [ $1 = up ]; then
 
-  from=$local_deft
-  to=$quipu_deft
+  from=$local_dir
+  to=$remote_dir
 
 elif [ $1 = down ]; then
 
-  from=$quipu_deft
-  to=$local_deft
+  from=$remote_dir
+  to=$local_dir
 
 fi
 
 for i in ${*:2}; do
 
-    scp -p $from/$i $to/$i
+  scp -pr $from/$i $to/$(dirname $i)/
 
 done

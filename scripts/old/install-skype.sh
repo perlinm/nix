@@ -21,7 +21,8 @@ yum install alsa-lib.i686 fontconfig.i686 freetype.i686 \
 # download the latest version of skype and extract
 cd /tmp
 wget --trust-server-names http://www.skype.com/go/getskype-linux-dynamic
-tar xvf skype-*.tar* -C /opt/skype --strip-components=1
+mkdir /opt/skype
+tar xvf skype-4.3*.tar* -C /opt/skype --strip-components=1
 
 # create skype links
 ln -sf /opt/skype/skype.desktop /usr/share/applications/skype.desktop

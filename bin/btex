@@ -37,4 +37,5 @@ for file in sys.argv[1:]:
     for (command,extension) in \
       [ latex, bibtex, latex, latex, pdflatex ]:
         exitStatus = sp.call([command,file+extension])
+        print command
         check(exitStatus)

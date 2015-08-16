@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/usr/bin/zsh
 
 if ! [ $1 ]; then
   exit 0
@@ -18,7 +18,7 @@ shell(){
 if [ $arg = term ] || [ $arg = alt-term ]; then
   shell
 elif [ $arg = calc ]; then
-  shell "ipython3 --profile=perlinm"
+  shell "ipython3 --profile=perlinm --no-banner"
 else
   shell $arg
 fi

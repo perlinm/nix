@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/usr/bin/zsh
 
 for task in $*; do
   if [ -z "$(pidof $task)" ]; then

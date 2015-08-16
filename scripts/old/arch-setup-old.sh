@@ -8,8 +8,7 @@ pacman -S base base-devel
 
 # sort mirrors
 pacman -S reflector
-reflector --verbose --country 'United States' \
-  -l 200 -p http --sort rate --save /etc/pacman.d/mirrorlist
+reflector --verbose --country 'United States' -l 200 -p http --sort rate --save /etc/pacman.d/mirrorlist
 pacman -Syy
 
 # set up grub
@@ -25,7 +24,7 @@ cp /boot/EFI/grub/grubx64.efi /boot/EFI/boot/bootx64.efi
 cp /etc/pacman.conf /etc/pacman.conf~
 cat /etc/pacman.conf \
   | sed 's/#Color/Color/' \
-  | sed 's/\[extra\]/\[haskell-core\]\nServer = http:\/\/xsounds.org\/\~haskell\/core\/$arch\n\n\[extra\]/' \
+#  | sed 's/\[extra\]/\[haskell-core\]\nServer = http:\/\/xsounds.org\/\~haskell\/core\/$arch\n\n\[extra\]/' \
   | sed 's/#\[multilib\]/\[multilib\]\nInclude = \/etc\/pacman\.d\/mirrorlist/' \
   > /tmp/pacman.conf
 mv /tmp/pacman.conf /etc/
@@ -33,10 +32,10 @@ mv /tmp/pacman.conf /etc/
 # initialize GPG keys, enable key signing, sign arch and haskell-core repo admin keys
 pacman-key --init
 mv /etc/pacman.d/gnupg/gpg.conf /etc/pacman.d/gnupg/gpg.conf~
-cat /etc/pacman.d/gnupg/gpg.conf \
-  | sed 's/hkp:\/\/pool\.sks-keyservers\.net/hkp:\/\/pgp\.mit\.edu:11371/' \
-  > /tmp/gpg.conf
-mv /tmp/gpg.conf /etc/pacman.d/gnupg/gpg.conf
+#cat /etc/pacman.d/gnupg/gpg.conf \
+#  | sed 's/hkp:\/\/pool\.sks-keyservers\.net/hkp:\/\/pgp\.mit\.edu:11371/' \
+#  > /tmp/gpg.conf
+#mv /tmp/gpg.conf /etc/pacman.d/gnupg/gpg.conf
 pacman-key --populate archlinux
 pacman-key -r 4209170B
 pacman-key --lsign-key 4209170B
@@ -66,6 +65,7 @@ pacman -S \
   python-sympy python2-sympy \
   python-scipy python2-scipy \
   ipython ipython2
+  pypy3 pypy
 
 # ghc and haskell utilities
 pacman -S ghc alex happy haskell-haddock-library

@@ -1,13 +1,10 @@
-#!/bin/zsh
+#!/usr/bin/zsh
 
 mount_point=/media/mnt
 
 if [ -e $mount_point/.perlinm ]; then
-  rsync -Lurvp $* ~/Workspace $mount_point \
-    --exclude="*/lpf/workspace/*.mat" \
-    --exclude="*/lpf/workspace/*/*.mat" \
-    --exclude="*/lpf/workspace/*/*/*.mat" \
-    --exclude="*/lpf/workspace/*/*/*/*.mat" \
+  rsync --recursive --update --copy-links --perms --group --verbose --partial --progress \
+    $* /home/perlinm/Workspace $mount_point \
     --exclude="*/.config/google-chrome/*"
 else
   echo "backup drive not mounted"

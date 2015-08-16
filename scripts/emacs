@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/usr/bin/zsh
 
 if [ -z $(ps aux | grep emacs | grep daemon | awk '{print $1}') ]; then
   emacs --daemon

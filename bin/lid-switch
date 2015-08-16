@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
 file=/etc/systemd/logind.conf
 handle=HandleLidSwitch=

@@ -41,7 +41,6 @@ sudo yum install \
   xdotool xclip xbacklight \
   icedtea-web vpnc openssh wine \
   lxappearance qbittorrent pdftk \
-  evince evince-djvu evince-dvi \
   libreoffice
 
 # install xfce panel plugins
@@ -67,20 +66,21 @@ sudo yum install \
 # change user shell
 sudo chsh -s /usr/bin/zsh perlinm
 
-# fix wicd-curses
-# WARNING: only known to be valid for fedora 20 with wicd 1.7.2.4
-wget --no-check-certificate https://raw.githubusercontent.com/mikaperlin/scripts-configs-etc/master/scripts/.wicd_curses_misc.py
-sudo mv .wicd_curses_fix.py /usr/share/wicd/curses/curses_misc.py
-
 # install skype
 cd /tmp
 wget --no-check-certificate https://raw.githubusercontent.com/mikaperlin/scripts-configs-etc/master/scripts/install-skype.sh
 sudo sh install-skype.sh
 
-# swap network interface controllers
-sudo systemctl stop NetworkManager
-sudo systemctl stop wpa_supplicant
-sudo systemctl disable NetworkManager
-sudo systemctl disable wpa_supplicant
-sudo systemctl enable wicd
-sudo systemctl start wicd
+
+# todo:
+# haveged
+# udevil
+# aspell-en
+# cups, hplip
+# intel-ucode
+# volnoti
+# infinality bundle (ttf-ms-fonts?)
+# laptop-mode-tools
+# orchis-gtk-theme
+# set keyboard layout and repeat/delay rate
+# configure trackpad
