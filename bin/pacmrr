@@ -5,7 +5,7 @@
 # IT JP KZ KR LV LU MK NL NC NZ NO PL PT RO RU RS SG SK ZA ES LK SE CH TW TR 
 # UA GB US UZ VN
 country='US'
-url="https://www.archlinux.org/mirrorlist/?country=US&protocol=http&ip_version=4&use_mirror_status=on"
+url="https://www.archlinux.org/mirrorlist/?country=DE&protocol=http&ip_version=4&use_mirror_status=on"
 
 # Download
 tmp_ml=$(mktemp --suffix=-mirrorlist)  # temporary mirrorlist

@@ -17,8 +17,7 @@ echo "/swapfile none swap defaults 0 0" >> /etc/fstab
 # sort mirrors
 cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist~
 pacman -S reflector
-reflector --verbose --country 'United States' -l 200 -p http --sort rate \
-  /etc/pacman.d/mirrorlist
+reflector --verbose --country 'United States' -l 200 -p http --sort rate > /etc/pacman.d/mirrorlist
 pacman -Syy
 
 # install linux lernels
@@ -56,6 +55,11 @@ useradd -m -G wheel,power -s /usr/bin/zsh perlinm
 # blacklist pc speaker
 echo "blacklist pcspkr" > /etc/modprobe.d/nobeep.conf
 
+# locale
+### uncomment en_GB.UTF-8 UTF-8 and en_US.UTF-8 UTF-8 in /etc/locale.gen
+locale-gen
+localectl set-locale LANG=en_US.UTF-8 LC_TIME=en_GB.UTF-8
+
 ####################
 # console utilities
 ####################
@@ -78,6 +82,9 @@ pacman -S texlive-most
 
 # emacs and auctex
 pacman -S emacs emacs-python-mode emacs-haskell-mode auctex
+
+# rust programming language
+pacman -S rust
 
 ####################
 # graphic utilities
@@ -117,10 +124,13 @@ pacman -S v4l2ucp
 pacman -S firefox icedtea-web flashplugin
 
 # misc.
-pacman -S feh geeqie vlc mplayer smplayer gimp inkscape lxappearance wine evince skype
+pacman -S feh geeqie vlc mplayer smplayer gimp inkscape lxappearance wine evince skype scrot
 
 # office suite and dictionary
 pacman -S libreoffice-fresh aspell-en
+
+# kingsoft - replacing MSOffice/LibreOffice
+pacmapic -S wps-office
 
 # network printer utilities
 pacman -S cups hplip
@@ -140,6 +150,10 @@ systemctl enable lightdm
 pacman -S bashrun xterm
 ### manually add $HOME/bin to path in ~/.config/bashrun/rc, then run 'bashrun --restart'
 ### add font option, e.g. '-fa 'Monospace' -fs 14', to xterm_options in ~/.config/bashrun/rc
+
+# start network daemon
+sudo systemctl enable NetworkManager
+sudo systemctl start NetworkManager
 
 ####################
 # AUR
@@ -163,9 +177,9 @@ tar xvzf pacaur && cd pacaur
 makepkg -sri
 pacaur -S powerpill
 
-### make sure that the following two lines are in ~/.zshrc
+### make sure that the following line is in ~/.zshrc
 export pacman_program="pacaur"
-export pacman="powerpill"
+### append 'pacmanbin=powerpill' to /etc/xdg/pacaur/config
 
 ### manually change SigLevel line to 'SigLevel = PackageRequired DatabaseOptional'
 ###   in /etc/pacman.conf
@@ -174,12 +188,14 @@ export pacman="powerpill"
 pacmatic -S pamixer pulseaudio-ctl qbittorrent deluge laptop-mode-tools pdftk
 sudo systemctl enable laptop-mode
 
-# start network daemon
-sudo systemctl enable NetworkManager
-sudo systemctl start NetworkManager
+# tool to manipulate pdf filies
+pacmatic -S pdftk-bin
+
+# rust mode in emacs
+pacmatic -S emacs-rust-mode
 
 ####################
-# misc
+# configurations
 ####################
 
 # make laptop respond properly to lid
@@ -207,6 +223,11 @@ sudo pacman-key -r 962DDE58
 sudo pacman-key -f 962DDE58
 sudo pacman-key --lsign-key 962DDE58
 pacmatic -S infinality-bundle
+### copy the fonts directory form a windows partition onto /usr/share/fonts/WindowsFonts
+sudo chmod 0755 /usr/share/fonts/WindowsFonts/*
+fc-cache
+sudo fc-presets set
+### choose 'ms' option
 
 # widget and themes
 cd /tmp
@@ -217,9 +238,6 @@ pacmatic -S moka-icon-theme-git
 ### manually enable themes via lxappearance
 ### manually set gtk theme for qt via qtconfig-qt4
 ### maybe set greeter theme via lightdm-gtk-greeter-settings
-
-# tool to manipulate pdf filies
-pacmatic -S pdftk-bin
 
 # google chrome and talk plugin
 pacmatic -S google-chrome google-talkplugin
@@ -253,17 +271,25 @@ pacmatic -S ntfs-3g-fuse
 ### for ntfs drive management, set both default_options_ntfs and allowed_options_ntfs in
 ###   /etc/udevil/udevil/udevil.conf simply (ONLY) to 'permissions'
 
-# dropbox
-pacmatic -S dropbox
-
 ### manually configure /boot/loader/loader.conf (on UEFI systems) as needed
 
 # remove default tab completion rules for 'mt'
 sudo mv /usr/share/zsh/functions/Completion/Unix/_mt \
   /usr/share/zsh/functions/Completion/Unix/_mt~
 
-# kingsoft - replacing MSOffice/LibreOffice
-pacmapic -S wps-office
+# mount windows partition
+### add to /etc/fstab: UUID=?/media/win ntfs rw,relatime,fmask=0644,dmask=0755,permissions 0 2
+### insert UUID appropriately
+### if the windows filesystem is different, change ntfs appropriately and remove permissions
+
+# save session in xmonad
+#cd /tmp
+#git clone https://github.com/zaxtax/xmonad-sessions.git
+#cd xmonad-sessions
+### get some haskell packages?
+#mkdir -p ~/.xmonad/lib
+#cp ViewDoc.hs ~/.xmonad/lib
+#ghc --make saveDocument
 
 # printing
 sudo groupadd printadmin
@@ -283,6 +309,21 @@ pacmatic -S iscan iscan-data
 ###   and add line 'net scanner_ip' to /etc/sane.d/epkowa.conf
 ### view ArchWiki page SANE for scanner help
 
+####################
+# miscellaneous
+####################
+
+# session management - does not currently work
+# cd /tmp
+# git clone https://github.com/zaxtax/xmonad-sessions.git
+# cd xmonad-sessions/
+# cp ViewDoc.hs ~/.xmonad/lib
+# ghc --make saveDocument
+# mv saveDocument /home/user/bin
+
+# dropbox
+pacmatic -S dropbox
+
 # virtual machine + permissions to use USB devices
 pacmatic -S virtualbox
 sudo gpasswd -a perlinm vboxusers
@@ -296,7 +337,6 @@ pacmatic -S python-markdown python2-markdown ruby-sass graphviz
 
 # deft dependencies
 pacmatic -S scons gnuplot haskell-hunit mlocate
-### note: deft still does not build via scons
 
 # todo:
 # poppling/crackling sound when pulseaudio starts

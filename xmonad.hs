@@ -56,7 +56,7 @@ myManageHook = composeAll . concat $
     roleName = stringProperty "WM_WINDOW_ROLE"
     floats = ["Xfce4-appfinder","Xfce4-panel","Nm-connection-editor",
               "Nm-openconnect-auth-dialog"," ","Wicd-client.py","Python2",
-              "Thunar","Arandr","Wrapper-1.0","XTerm"]
+              "Thunar","Arandr","Wrapper-1.0","XTerm","Desmume","Nds","Gvbam","Vba"]
     ignores = ["Xfce4-notifyd"]
     sinks = ["gimp-image-window"]
 
@@ -238,7 +238,6 @@ myKeys = \conf -> mkKeymap conf $
      ("M4-\\", spawn (script ++ "print")),
      ("M4-M1-\\", spawn (script ++ "print -s")),
      ---------- misc ----------
-     ("M1-,", spawn (script ++ "bg-slides")),
      ("M1-;", spawn (script ++ "touchpad-toggle")),
      ("M4-/", windows copyToAll),
      ("M4-S-/", killAllOtherCopies),
@@ -252,7 +251,8 @@ myKeys = \conf -> mkKeymap conf $
 myMouseBindings (XConfig {}) = fromList $
   [
     ((mod1Mask, button1), (\w -> XMonad.focus w >> mouseMoveWindow w)),
-    ((mod1Mask, button3), (\w -> XMonad.focus w >> Flex.mouseResizeWindow w))
+    ((mod1Mask, button3), (\w -> XMonad.focus w >> Flex.mouseResizeWindow w)),
+    ((mod1Mask .|. shiftMask, button1), (\w -> XMonad.focus w >> Flex.mouseResizeWindow w))
   ]
 
 ---------------------------------------------------------------------------------

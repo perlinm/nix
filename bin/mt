@@ -5,9 +5,11 @@ import subprocess as sp
 
 script_dir = '/home/perlinm/scripts/'
 
-uuids = { 'mnt': '011C4E7770900B3F',
+uuids = { 'mnt': '60EA6E1F23DA97B3',
+          'mnt2': '224B2CC2434D746C',
           'ext': '1C8C943C2BF73916',
-          'usb': '3163BA3F6AE980FE'}
+          'usb': '3163BA3F6AE980FE',
+          'win': 'E89CDD5B9CDD253A'}
 
 def device_mountpoint(device_id):
     if device_id.split('.')[-1] == 'iso':
@@ -24,7 +26,7 @@ if len(sys.argv) == 1:
     sys.argv.append('mnt')
 
 if len(sys.argv) == 2 and sys.argv[1] in uuids.keys():
-    call_list = ['udevil','mount','-o','permissions',
+    call_list = ['udevil','mount',
                  '/dev/disk/by-uuid/'+uuids[sys.argv[1]],'/media/'+sys.argv[1]]
     print(' '.join(call_list))
     sp.call(call_list)
@@ -54,7 +56,7 @@ else:
     if len(sys.argv) > 2:
         mount_args = sys.argv[2:]
 
-    call_list = ['udevil','mount'] + mount_args + [device,mountpoint]
+    call_list = ['udevil','mount','-t','ntfs'] + mount_args + [device,mountpoint]
     print(' '.join(call_list))
     sp.call(call_list)
     exit()

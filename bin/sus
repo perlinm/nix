@@ -1,14 +1,12 @@
 #!/usr/bin/zsh
 
+# do something like: while true; do sleep 15m; if [ -n "`pidof python3`" ]; then break; fi; done; sus
+
 if [ $1 ]; then
   sleep $1
   if ! [ $? -eq 0 ]; then
     exit 0
   fi
-fi
-
-if [ `pidof skype` ]; then
-  killall skype
 fi
 
 systemctl suspend

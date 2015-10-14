@@ -1,6 +1,5 @@
 #!/usr/bin/env sh
 
-texlean ~/Workspace ~/.emacs.d ~/github-code
 mt
 back
 ut
