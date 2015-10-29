@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-import sys, os, shutil, subprocess
+import sys, os, shutil, subprocess, shutil
 
 trash_dir = os.path.expanduser('/home/perlinm/.trash')
 old_ext = '.old'
 
 def backup(item):
   if not os.path.exists(item+old_ext):
-    os.rename(item,item+old_ext)
+    shutil.move(item,item+old_ext)
   else:
     backup(item+old_ext)
 
@@ -18,7 +18,7 @@ for item in sys.argv[1:]:
   try:
     while os.path.exists(item_dest):
       backup(item_dest)
-    os.rename(item_path,item_dest)
+    shutil.move(item_path,item_dest)
   except PermissionError:
     print("invoke with sudo (permission error)")
   except Exception as ex:

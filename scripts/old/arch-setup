@@ -194,6 +194,9 @@ pacmatic -S pdftk-bin
 # rust mode in emacs
 pacmatic -S emacs-rust-mode
 
+# cargo: rust project manager
+pacmatic -S cargo
+
 ####################
 # configurations
 ####################
