@@ -124,7 +124,7 @@ pacman -S v4l2ucp
 pacman -S firefox icedtea-web flashplugin
 
 # misc.
-pacman -S feh geeqie vlc mplayer smplayer gimp inkscape lxappearance wine evince skype scrot
+pacman -S feh geeqie vlc mplayer smplayer gimp inkscape lxappearance wine evince skype scrot cmake
 
 # office suite and dictionary
 pacman -S libreoffice-fresh aspell-en

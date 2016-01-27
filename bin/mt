@@ -51,12 +51,12 @@ elif sys.argv[1] == '-u':
     exit()
 
 else:
-    device,mountpoint = device_mountpoint(sys.argv[-1])
+    device,mountpoint = device_mountpoint(sys.argv[1])
     mount_args = []
     if len(sys.argv) > 2:
         mount_args = sys.argv[2:]
 
-    call_list = ['udevil','mount','-t','ntfs'] + mount_args + [device,mountpoint]
+    call_list = ['udevil','mount'] + mount_args + [device,mountpoint]
     print(' '.join(call_list))
     sp.call(call_list)
     exit()
