@@ -48,17 +48,17 @@ myFinder = "xfce4-appfinder"
 
 myManageHook = composeAll . concat $
   [
-    [ (className =? f) --> doCenterFloat | f <- floats ],
-    [ (className =? i) --> doIgnore | i <- ignores ],
-    [ (roleName =? s) --> (ask >>= doF . W.sink) | s <- sinks ]
+    [ (className =? f) --> doCenterFloat | f <- floatClass ],
+    [ (className =? i) --> doIgnore | i <- ignoreClass ],
+    [ (roleName =? f) --> doCenterFloat | f <- floatRole ]
   ]
   where
     roleName = stringProperty "WM_WINDOW_ROLE"
-    floats = ["Xfce4-appfinder","Xfce4-panel","Nm-connection-editor",
-              "Nm-openconnect-auth-dialog"," ","Wicd-client.py","Python2",
-              "Thunar","Arandr","Wrapper-1.0","XTerm","Desmume","Nds","Gvbam","Vba"]
-    ignores = ["Xfce4-notifyd"]
-    sinks = ["gimp-image-window"]
+    floatClass = ["Xfce4-appfinder","Xfce4-panel","Nm-connection-editor",
+                  "Nm-openconnect-auth-dialog"," ","Wicd-client.py","Python2",
+                  "Thunar","Arandr","Wrapper-1.0","XTerm","Desmume","Nds","Gvbam","Vba"]
+    ignoreClass = ["Xfce4-notifyd"]
+    floatRole = ["pop-up"]
 
 ---------------------------------------------------------------------------------
 -- scratchpads
@@ -133,7 +133,7 @@ myPlacement = withGaps (16,16,16,16) (fixed (0.5,0.5))
 
 -- define number row, arrow keys, and modification keys
 numRow = ["`"] ++ (Prelude.map show [1..9]) ++ ["0","-"]
-arrows = [["<L>","<R>","<U>","<D>"],["n","i","u","e"],["r","s","g","d"]]
+arrows = [["<L>","<R>","<U>","<D>"],["n","i","u","e"],["r","s","p","v"]]
 modKeys = ["","C-","S-","M1-"]
 
 -- define window actions in each direction performed by modification keys
@@ -186,7 +186,7 @@ myKeys = \conf -> mkKeymap conf $
      ("M4-S-c", sendMessage (IncMasterN (-1))),
      ("M4-M1-x", sendMessage MirrorExpand),
      ("M4-M1-c", sendMessage MirrorShrink),
-     ("M4-v", sendMessage ToggleStruts),
+     ("M4-b", sendMessage ToggleStruts),
      ---------- window management ----------
      --("M1-<Tab>", windows W.focusUp),
      --("M1-S-<Tab>", windows W.focusDown),
