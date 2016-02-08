@@ -1,7 +1,7 @@
 import Control.Monad
 import Data.Map
-import System.IO
 import System.Exit
+import System.IO
 import XMonad
 import XMonad.Actions.CycleWS
 import XMonad.Actions.CopyWindow
@@ -48,17 +48,21 @@ myFinder = "xfce4-appfinder"
 
 myManageHook = composeAll . concat $
   [
-    [ (className =? f) --> doCenterFloat | f <- floatClass ],
+    -- [ (roleName =? f) --> doCenterFloat | f <- floatRole ],
+    [ isDialog --> doF W.shiftMaster <+> doF W.swapDown ],
+    [ (title =? i) --> sink | i <- sinkTitle ],
     [ (className =? i) --> doIgnore | i <- ignoreClass ],
-    [ (roleName =? f) --> doCenterFloat | f <- floatRole ]
+    [ (className =? f) --> doCenterFloat | f <- floatClass ]
   ]
   where
     roleName = stringProperty "WM_WINDOW_ROLE"
+    sink = ask >>= doF . W.sink
+    -- floatRole = ["pop-up"]
+    sinkTitle = ["Hangouts"]
+    ignoreClass = ["Xfce4-notifyd"]
     floatClass = ["Xfce4-appfinder","Xfce4-panel","Nm-connection-editor",
                   "Nm-openconnect-auth-dialog"," ","Wicd-client.py","Python2",
                   "Thunar","Arandr","Wrapper-1.0","XTerm","Desmume","Nds","Gvbam","Vba"]
-    ignoreClass = ["Xfce4-notifyd"]
-    floatRole = ["pop-up"]
 
 ---------------------------------------------------------------------------------
 -- scratchpads
