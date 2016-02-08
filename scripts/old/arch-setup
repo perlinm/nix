@@ -140,7 +140,8 @@ pacman -S intel-ucode
 ### manually add 'initrd /intel-ucode.img' as the first initrd in /etc/loader/entries/*.conf
 
 # display manager and theme
-pacman -S lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings numix-themes
+pacman -S lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings
+pacman -S numix-themes gtk-endine-murrine
 systemctl enable lightdm
 ### manually launch 'lightdm-gtk-greeter-settings' to configure
 ### background image cannot be in /home
@@ -234,9 +235,6 @@ sudo fc-presets set
 
 # widget and themes
 cd /tmp
-git clone https://github.com/moka-project/orchis-gtk-theme.git
-sudo cp -r orchis-gtk-theme/Orchis /usr/share/themes
-pacmatic -S gtk-engine-murrine
 pacmatic -S moka-icon-theme-git
 ### manually enable themes via lxappearance
 ### manually set gtk theme for qt via qtconfig-qt4
