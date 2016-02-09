@@ -4,7 +4,8 @@ import sys, os, fnmatch, subprocess
 tags = [ '*.aux', '*.log', '*.tex.backup', '*_region_.tex',
          '*.synctex.gz', '*.blg','*.bbl', '*.nav', '*.dvi', '*.lof',
          '*.toc', '*.lop', '*.el', '#*#', '.#*', '*~', '*.swp', '*.pyc',
-         '*.cpt', '*.bcf', '*.run.xml', '*.emacs.d/auto-save-list*' ]
+         '*.cpt', '*.bcf', '*.run.xml', '*.emacs.d/auto-save-list*',
+         '*.fdb_latexmk', '*.fls' ]
 
 emptyFileTags = [ '*.out', '*.snm' ]
 
