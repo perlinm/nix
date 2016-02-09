@@ -20,11 +20,4 @@ elif [ $1 = set ]; then
   xbacklight -set $2
 elif [ $1 = med ]; then
   xbacklight -set $med
-elif [ $1 = toggle ]; then
-  current=$(printf "%.0f" $(xbacklight))
-  if [ $current -ge $med ]; then
-    $0 dim
-  else
-    $0 max
-  fi
 fi
