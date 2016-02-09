@@ -198,6 +198,9 @@ pacmatic -S emacs-rust-mode
 # cargo: rust project manager
 pacmatic -S cargo
 
+# tool to build latex projects
+pacmatic -S latex-mk
+
 ####################
 # configurations
 ####################
