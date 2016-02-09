@@ -48,21 +48,24 @@ myFinder = "xfce4-appfinder"
 
 myManageHook = composeAll . concat $
   [
-    -- [ (roleName =? f) --> doCenterFloat | f <- floatRole ],
-    [ isDialog --> doF W.shiftMaster <+> doF W.swapDown ],
-    [ (title =? i) --> sink | i <- sinkTitle ],
-    [ (className =? i) --> doIgnore | i <- ignoreClass ],
-    [ (className =? f) --> doCenterFloat | f <- floatClass ]
+    [ isDialog--> doF W.shiftMaster <+> doF W.swapDown ],
+    [ (roleName =? r) --> doCenterFloat | r <- floatRole ],
+    -- [ (title =? t) --> sink | t <- sinkTitle ],
+    [ (roleName =? r) --> sink | r <- sinkRole ],
+    [ (className =? c) --> doIgnore | c <- ignoreClass ],
+    [ (className =? c) --> doCenterFloat | c <- floatClass ]
   ]
   where
     roleName = stringProperty "WM_WINDOW_ROLE"
-    sink = ask >>= doF . W.sink
-    -- floatRole = ["pop-up"]
-    sinkTitle = ["Hangouts"]
+    sink = (ask >>= doF . W.sink) <+> doF W.swapDown
+    floatRole = ["browser"]
+    -- sinkTitle = ["Hangouts"]
+    sinkRole = ["pop-up"]
     ignoreClass = ["Xfce4-notifyd"]
     floatClass = ["Xfce4-appfinder","Xfce4-panel","Nm-connection-editor",
                   "Nm-openconnect-auth-dialog"," ","Wicd-client.py","Python2",
-                  "Thunar","Arandr","Wrapper-1.0","XTerm","Desmume","Nds","Gvbam","Vba"]
+                  "Thunar","Arandr","Wrapper-1.0","XTerm",
+                  "Desmume","Nds","Gvbam","Vba"]
 
 ---------------------------------------------------------------------------------
 -- scratchpads
