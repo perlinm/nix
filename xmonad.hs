@@ -4,8 +4,8 @@ import System.Exit
 import System.IO
 import XMonad
 import XMonad.Actions.CycleWS
+import XMonad.Actions.ConstrainedResize as CR
 import XMonad.Actions.CopyWindow
-import XMonad.Actions.FlexibleResize as Flex
 import XMonad.Actions.NoBorders
 import XMonad.Actions.WorkspaceNames
 import XMonad.Config.Xfce
@@ -130,8 +130,16 @@ latex = renamed [Replace "latex"] $ ResizableTall 1 (1/50) (39/100) []
 chat = renamed [Replace "chat"] $ ResizableTall 1 (1/50) (73/100) []
 skype = renamed [Replace "skype"] $ ResizableTall 1 (1/50) (64/100) []
 full = renamed [Replace "full"] $ Full
+
+(|+|) :: (LayoutClass l a, LayoutClass r a) =>
+         (l a, Int) -> r a -> (Choose l r a, Int)
+(a,n) |+| b = (a ||| b, n+1)
+countedLayouts = (normal,1) |+| latex |+| chat |+| skype
+layouts = fst countedLayouts
+layoutCount = snd countedLayouts
+
 myLayoutHook = smartBorders $ avoidStruts $ windowNavigation $ smartSpacing 3 $
-               toggleLayouts full ( normal ||| latex ||| chat ||| skype )
+               toggleLayouts full layouts
 
 myPlacement = withGaps (16,16,16,16) (fixed (0.5,0.5))
 
@@ -184,7 +192,7 @@ myKeys = \conf -> mkKeymap conf $
      ("M1-z", toggleWS' ["NSP"]),
      ---------- layout management ----------
      ("M4-<Space>", sendMessage NextLayout),
-     --("M4-S-<Space>", sendMessage PrevLayout),
+     ("M4-S-<Space>", do { replicateM_ (layoutCount-1) $ sendMessage NextLayout}),
      ("M4-M1-<Space>", setLayout $ layoutHook conf),
      ("M4-z", sendMessage (Toggle "full")),
      ("M4-x", sendMessage Shrink),
@@ -195,14 +203,12 @@ myKeys = \conf -> mkKeymap conf $
      ("M4-M1-c", sendMessage MirrorShrink),
      ("M4-b", sendMessage ToggleStruts),
      ---------- window management ----------
-     --("M1-<Tab>", windows W.focusUp),
-     --("M1-S-<Tab>", windows W.focusDown),
      ("M4-w", windows W.focusUp),
      ("M4-f", windows W.focusDown),
      ("M4-S-w", windows W.swapUp),
      ("M4-S-f", windows W.swapDown),
      ("M4-q", windows W.focusMaster),
-     ("M4-a", windows W.swapMaster),
+     ("M4-a", windows W.shiftMaster),
      ("M4-t", withFocused $ windows . W.sink),
      ("M4-<Esc>", kill),
      ---------- spawning ----------
@@ -240,7 +246,6 @@ myKeys = \conf -> mkKeymap conf $
      ("M1-S-<U>", spawn (script ++ "light max")),
      ("M1-S-<D>", spawn (script ++ "light dim")),
      ("M1-S-/", spawn (script ++ "light med")),
-     --("M5-/", spawn (script ++ "light toggle")),
      ---------- screenshots ----------
      ("M4-\\", spawn (script ++ "print")),
      ("M4-M1-\\", spawn (script ++ "print -s")),
@@ -273,7 +278,7 @@ main = do
         focusedBorderColor = myFocusedBorderColor,
         focusFollowsMouse = myFocusFollowsMouse,
         modMask = mod4Mask,
-        XMonad.keys =  myKeys,
+        XMonad.keys = myKeys,
         XMonad.workspaces = myWorkspaces,
         layoutHook = myLayoutHook,
         manageHook = namedScratchpadManageHook myScratchPads
