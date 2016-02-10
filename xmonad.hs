@@ -1,5 +1,6 @@
 import Control.Monad
-import Data.Map
+import Data.Map as M
+import Data.Monoid
 import System.Exit
 import System.IO
 import XMonad
@@ -37,7 +38,7 @@ myFocusFollowsMouse = True
 myWorkspaces = Prelude.map show [0..10] ++ ["NSP"]
 
 home = "/home/perlinm/"
-script = home ++ "scripts/"
+scriptDir = home ++ "scripts/"
 
 myTerminal = "xfce4-terminal"
 myRun = "bashrun"
@@ -75,47 +76,41 @@ calcName = "calc"
 altTermName = "alt-term"
 htopName = "htop"
 mixerName = "mixer"
-myScratchPads = [ NS termName spawnTerm findTerm manageTerm,
-                  NS calcName spawnCalc findCalc manageCalc,
-                  NS altTermName spawnAltTerm findAltTerm manageAltTerm,
-                  NS htopName spawnHtop findHtop manageHtop,
-                  NS mixerName spawnMixer findMixer manageMixer ]
+myScratchPads = [ padTemplate termName termHook,
+                  padTemplate calcName calcHook,
+                  padTemplate altTermName manageAltTerm,
+                  padTemplate htopName htopHook,
+                  NS mixerName mixerCommand mixerID mixerHook ]
   where
-    spawnTerm = script ++ "pads " ++ termName
-    findTerm = title =? ("pad-" ++ termName)
-    manageTerm = customFloating $ W.RationalRect l t w h
+    padTemplate name padHook =
+        NS name (scriptDir ++ "pads " ++ name) (title =? ("pad-" ++ name)) padHook
+    termHook = customFloating $ W.RationalRect l t w h
       where
         h = 1/2
         w = 0.45
         t = (1-h)*9/10
         l = (1/2-w)/2
-    spawnAltTerm = script ++ "pads " ++ altTermName
-    findAltTerm = title =? ("pad-" ++ altTermName)
     manageAltTerm = customFloating $ W.RationalRect l t w h
       where
         h = 1/2
         w = 0.45
         t = (1-h)*9/10
         l = 1/2+(1/2-w)/2
-    spawnCalc = script ++ "pads " ++ calcName
-    findCalc = title =? ("pad-" ++ calcName)
-    manageCalc = customFloating $ W.RationalRect l t w h
+    calcHook = customFloating $ W.RationalRect l t w h
       where
         h = 2/3
         w = 2/5
         t = 1/25
         l = 1-w
-    spawnHtop = script ++ "pads " ++ htopName
-    findHtop = title =? ("pad-" ++ htopName)
-    manageHtop = customFloating $ W.RationalRect l t w h
+    htopHook = customFloating $ W.RationalRect l t w h
       where
         h = 4/5
         w = 1/2
         t = (1-h)/2
         l = (1-w)/2
-    spawnMixer = "pavucontrol"
-    findMixer = className =? "Pavucontrol"
-    manageMixer = customFloating $ W.RationalRect l t w h
+    mixerCommand = "pavucontrol"
+    mixerID = className =? "Pavucontrol"
+    mixerHook = customFloating $ W.RationalRect l t w h
       where
         h = 4/5
         w = 1/2
@@ -171,8 +166,6 @@ dirControlsSet = join [ zip dirs modActions | dirs <- arrows ]
 dirControls = join [ [ (dir,mod,fun) | let dir = fst set, (mod,fun) <- snd set ]
                      | set <- dirControlsSet ]
 
-
-
 -- note: check output of 'xmodmap' for modifier key map (i.e. M1, M4, etc.)
 
 myKeys = \conf -> mkKeymap conf $
@@ -191,25 +184,27 @@ myKeys = \conf -> mkKeymap conf $
     [
      ("M1-z", toggleWS' ["NSP"]),
      ---------- layout management ----------
-     ("M4-<Space>", sendMessage NextLayout),
-     ("M4-S-<Space>", do { replicateM_ (layoutCount-1) $ sendMessage NextLayout}),
+     ("M4-<Space>", nextLayout),
+     ("M4-S-<Space>", prevLayout),
      ("M4-M1-<Space>", setLayout $ layoutHook conf),
-     ("M4-z", sendMessage (Toggle "full")),
+     ("M4-z", sendMessage $ Toggle "full"),
      ("M4-x", sendMessage Shrink),
      ("M4-c", sendMessage Expand),
-     ("M4-S-x", sendMessage (IncMasterN 1)),
-     ("M4-S-c", sendMessage (IncMasterN (-1))),
+     ("M4-S-x", sendMessage $ IncMasterN 1),
+     ("M4-S-c", sendMessage $ IncMasterN (-1)),
      ("M4-M1-x", sendMessage MirrorExpand),
      ("M4-M1-c", sendMessage MirrorShrink),
      ("M4-b", sendMessage ToggleStruts),
      ---------- window management ----------
-     ("M4-w", windows W.focusUp),
-     ("M4-f", windows W.focusDown),
-     ("M4-S-w", windows W.swapUp),
-     ("M4-S-f", windows W.swapDown),
-     ("M4-q", windows W.focusMaster),
-     ("M4-a", windows W.shiftMaster),
-     ("M4-t", withFocused $ windows . W.sink),
+     ("M1-<Tab>", windows focusUp >> windows shiftMaster),
+     ("M1-S-<Tab>", windows focusDown >> windows shiftMaster),
+     ("M4-w", windows focusUp),
+     ("M4-f", windows focusDown),
+     ("M4-S-w", windows swapUp),
+     ("M4-S-f", windows swapDown),
+     ("M4-q", windows focusMaster),
+     ("M4-a", windows shiftMaster),
+     ("M4-t", withFocused $ windows . sink),
      ("M4-<Esc>", kill),
      ---------- spawning ----------
      ("M4-<Tab>", spawn $ terminal conf),
@@ -221,51 +216,76 @@ myKeys = \conf -> mkKeymap conf $
      ("M1-<F4>", namedScratchpadAction myScratchPads htopName),
      ("M1-<F5>", namedScratchpadAction myScratchPads mixerName),
      ---------- media keys ----------
-     ("<XF86AudioMute>", spawn (script ++ "volume toggle")),
-     ("<XF86AudioLowerVolume>", spawn (script ++ "volume dec")),
-     ("<XF86AudioRaiseVolume>", spawn (script ++ "volume inc")),
-     ("<XF86MonBrightnessDown>", spawn (script ++ "light dec")),
-     ("<XF86MonBrightnessUp>", spawn (script ++ "light inc")),
+     ("<XF86AudioMute>", runScript "volume toggle"),
+     ("<XF86AudioLowerVolume>", runScript "volume dec"),
+     ("<XF86AudioRaiseVolume>", runScript "volume inc"),
+     ("<XF86MonBrightnessDown>", runScript "light dec"),
+     ("<XF86MonBrightnessUp>", runScript "light inc"),
      ("<XF86Display>", spawn "arandr"),
      ("<XF86Search>", spawn myRun),
      ---------- testing media keys ----------
-     ("<XF86AudioMicMute>", spawn (script ++ "volume toggle")),
-     ("<XF86Tools>", spawn (script ++ "volume toggle")),
-     ("<XF86LaunchA>", spawn (script ++ "volume toggle")),
-     ("<XF86MyComputer>", spawn (script ++ "volume toggle")),
+     ("<XF86AudioMicMute>", runScript "volume toggle"),
+     ("<XF86Tools>", runScript "volume toggle"),
+     ("<XF86LaunchA>", runScript "volume toggle"),
+     ("<XF86MyComputer>", runScript "volume toggle"),
      ---------- volume ----------
-     ("C-/", spawn (script ++ "volume toggle")),
-     ("C-<D>", spawn (script ++ "volume dec")),
-     ("C-<U>", spawn (script ++ "volume inc")),
-     ("C-S-<D>", spawn (script ++ "volume min")),
-     ("C-S-<U>", spawn (script ++ "volume max")),
-     ("C-S-/", spawn (script ++ "volume med")),
+     ("C-/", runScript "volume toggle"),
+     ("C-<D>", runScript "volume dec"),
+     ("C-<U>", runScript "volume inc"),
+     ("C-S-<D>", runScript "volume min"),
+     ("C-S-<U>", runScript "volume max"),
+     ("C-S-/", runScript "volume med"),
      ---------- backlight ----------
-     ("M1-<D>", spawn (script ++ "light dec")),
-     ("M1-<U>", spawn (script ++ "light inc")),
-     ("M1-S-<U>", spawn (script ++ "light max")),
-     ("M1-S-<D>", spawn (script ++ "light dim")),
-     ("M1-S-/", spawn (script ++ "light med")),
+     ("M1-<D>", runScript "light dec"),
+     ("M1-<U>", runScript "light inc"),
+     ("M1-S-<U>", runScript "light max"),
+     ("M1-S-<D>", runScript "light dim"),
+     ("M1-S-/", runScript "light med"),
      ---------- screenshots ----------
-     ("M4-\\", spawn (script ++ "print")),
-     ("M4-M1-\\", spawn (script ++ "print -s")),
+     ("M4-\\", runScript "print"),
+     ("M4-M1-\\", runScript "print -s"),
      ---------- misc ----------
-     ("M1-;", spawn (script ++ "touchpad-toggle")),
+     ("M1-;", runScript "touchpad-toggle"),
      ("M4-/", windows copyToAll),
      ("M4-S-/", killAllOtherCopies),
      ---------- quit ----------
-     ("C-M4-<Backspace>", io (exitWith ExitSuccess))
+     ("C-M4-<Backspace>", io $ exitWith ExitSuccess)
     ]
+    where nextLayout = sendMessage NextLayout
+          prevLayout = do { replicateM_ (layoutCount-1) $ sendMessage NextLayout}
+          runScript s = spawn $ scriptDir ++ s
 
 ---------------------------------------------------------------------------------
 -- cursor actions
 
 myMouseBindings (XConfig {}) = fromList $
   [
-    ((mod1Mask, button1), (\w -> XMonad.focus w >> mouseMoveWindow w)),
-    ((mod1Mask, button3), (\w -> XMonad.focus w >> Flex.mouseResizeWindow w)),
-    ((mod1Mask .|. shiftMask, button1), (\w -> XMonad.focus w >> Flex.mouseResizeWindow w))
+   ((mod1Mask, button1), move),
+   ((mod1Mask, button3), resize False),
+   ((mod1Mask .|. controlMask, button3), resize True),
+   ((mod1Mask .|. shiftMask, button1), resize False),
+   ((mod1Mask .|. shiftMask .|. controlMask, button1), resize True)
   ]
+    where
+      move = raiseFloating mouseMoveWindow
+      resize b = raiseFloating $ \w -> CR.mouseResizeWindow w b
+      raiseFloating f = \w -> withWindowSet $ \s -> do
+                          XMonad.focus w >> (if M.member w $ floating s
+                                             then f w >> windows W.shiftMaster
+                                             else f w)
+
+---------------------------------------------------------------------------------
+-- bring floating window to the front when clicked
+-- note: only works on unfocused windows (i.e. it does not work properly)
+
+floatClickFocusHandler :: Event -> X All
+floatClickFocusHandler ButtonEvent { ev_window = w, ev_event_type = t }
+    | t == buttonPress = do withWindowSet $ \ws -> do
+                              if M.member w $ floating ws
+                              then (XMonad.focus w >> windows shiftMaster)
+                              else return ()
+                            return $ All True
+floatClickFocusHandler _ = return $ All True
 
 ---------------------------------------------------------------------------------
 -- run XMonad
@@ -283,10 +303,13 @@ main = do
         layoutHook = myLayoutHook,
         manageHook = namedScratchpadManageHook myScratchPads
                      <+> placeHook myPlacement
-                     <+> myManageHook <+> manageDocks
+                     <+> myManageHook
+                     <+> manageDocks
                      <+> fullscreenManageHook
                      <+> manageHook defaultConfig,
         mouseBindings = myMouseBindings,
         startupHook = ewmhDesktopsStartup >> setWMName "LG3D",
-        handleEventHook = ewmhDesktopsEventHook <+> FS.fullscreenEventHook
+        handleEventHook = ewmhDesktopsEventHook
+                          <+> FS.fullscreenEventHook
+                          <+> floatClickFocusHandler
     }
