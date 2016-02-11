@@ -156,6 +156,9 @@ pacman -S bashrun xterm
 sudo systemctl enable NetworkManager
 sudo systemctl start NetworkManager
 
+# prevent system lag when copying large files between different partitions
+sudo bash -c 'echo "never" > /sys/kernel/mm/transparent_hugepage/enabled'
+
 ####################
 # AUR
 ####################
