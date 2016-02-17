@@ -192,6 +192,9 @@ export pacman_program="pacaur"
 pacmatic -S pamixer pulseaudio-ctl qbittorrent deluge laptop-mode-tools pdftk
 sudo systemctl enable laptop-mode
 
+# to disable autosuspend for USB devices, edit /etc/laptop-mode/conf.d/runtime-pm.conf
+# and set CONTROL_RUNTIME_AUTOSUSPEND=0
+
 # tool to manipulate pdf filies
 pacmatic -S pdftk-bin
 
@@ -336,15 +339,14 @@ pacmatic -S virtualbox
 sudo gpasswd -a perlinm vboxusers
 ### must run 'modprobe vboxdrv' before running virtualbox
 
-# for using r packages in python3
-pacmatic -S python-rpy2
-
 # fac dependencies
 pacmatic -S python-markdown python2-markdown ruby-sass graphviz
 
 # deft dependencies
 pacmatic -S scons gnuplot haskell-hunit mlocate
 
+# for using r packages in python3
+pacmatic -S python-rpy2
+
 # todo:
-# poppling/crackling sound when pulseaudio starts
 # deft dependencies
