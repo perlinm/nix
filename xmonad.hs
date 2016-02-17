@@ -1,3 +1,12 @@
+{-- todo:
+
+sink Hangouts by window title (instead of role)
+floating window management - get raise on click to work properly
+sort out border color bug(?)
+sort/comment imported modules - i.e. what is each module used for?
+
+--}
+
 import Control.Monad
 import Data.Map as M
 import Data.Monoid
@@ -37,36 +46,32 @@ myFocusFollowsMouse = True
 
 myWorkspaces = Prelude.map show [0..10] ++ ["NSP"]
 
-home = "/home/perlinm/"
-scriptDir = home ++ "scripts/"
+scriptDir = "~/scripts/"
 
 myTerminal = "xfce4-terminal"
 myRun = "bashrun"
-myFinder = "xfce4-appfinder"
 
 ---------------------------------------------------------------------------------
 -- window rules
 
 myManageHook = composeAll . concat $
   [
-    [ isDialog--> doF W.shiftMaster <+> doF W.swapDown ],
-    [ (roleName =? r) --> doCenterFloat | r <- floatRole ],
-    -- [ (title =? t) --> sink | t <- sinkTitle ],
-    [ (roleName =? r) --> sink | r <- sinkRole ],
-    [ (className =? c) --> doIgnore | c <- ignoreClass ],
-    [ (className =? c) --> doCenterFloat | c <- floatClass ]
+    [ (title =? t) --> doCenterFloat | t <- floatTitles ],
+    [ (title =? t) --> sink | t <- sinkTitles ],
+    [ (roleName =? r) --> sink | r <- sinkRoles ],
+    [ (className =? c) --> doIgnore | c <- ignoreClasses ],
+    [ (className =? c) --> doCenterFloat | c <- floatClasses ]
   ]
   where
     roleName = stringProperty "WM_WINDOW_ROLE"
     sink = (ask >>= doF . W.sink) <+> doF W.swapDown
-    floatRole = ["browser"]
-    -- sinkTitle = ["Hangouts"]
-    sinkRole = ["pop-up"]
-    ignoreClass = ["Xfce4-notifyd"]
-    floatClass = ["Xfce4-appfinder","Xfce4-panel","Nm-connection-editor",
-                  "Nm-openconnect-auth-dialog"," ","Wicd-client.py","Python2",
-                  "Thunar","Arandr","Wrapper-1.0","XTerm",
-                  "Desmume","Nds","Gvbam","Vba"]
+    floatTitles = ["bashrun"]
+    sinkTitles = ["Hangouts"]
+    sinkRoles = ["pop-up","app"] -- pop-up is included as a fix for Hangouts
+    ignoreClasses = ["Xfce4-notifyd"]
+    floatClasses = ["Xfce4-appfinder","Xfce4-panel","Nm-connection-editor",
+                    "Nm-openconnect-auth-dialog"," ","Wicd-client.py","Python2",
+                    "Thunar","Arandr","Wrapper-1.0","google-chrome"]
 
 ---------------------------------------------------------------------------------
 -- scratchpads
@@ -77,8 +82,8 @@ altTermName = "alt-term"
 htopName = "htop"
 mixerName = "mixer"
 myScratchPads = [ padTemplate termName termHook,
+                  padTemplate altTermName altTermHook,
                   padTemplate calcName calcHook,
-                  padTemplate altTermName manageAltTerm,
                   padTemplate htopName htopHook,
                   NS mixerName mixerCommand mixerID mixerHook ]
   where
@@ -90,7 +95,7 @@ myScratchPads = [ padTemplate termName termHook,
         w = 0.45
         t = (1-h)*9/10
         l = (1/2-w)/2
-    manageAltTerm = customFloating $ W.RationalRect l t w h
+    altTermHook = customFloating $ W.RationalRect l t w h
       where
         h = 1/2
         w = 0.45
@@ -209,7 +214,6 @@ myKeys = \conf -> mkKeymap conf $
      ---------- spawning ----------
      ("M4-<Tab>", spawn $ terminal conf),
      ("M1-`", spawn myRun),
-     ("M1-C-`", spawn myFinder),
      ("M1-<F1>", namedScratchpadAction myScratchPads termName),
      ("M1-<F2>", namedScratchpadAction myScratchPads altTermName),
      ("M1-<F3>", namedScratchpadAction myScratchPads calcName),
@@ -248,7 +252,6 @@ myKeys = \conf -> mkKeymap conf $
      ("M1-;", runScript "touchpad-toggle"),
      ("M4-/", windows copyToAll),
      ("M4-S-/", killAllOtherCopies),
-     ---------- quit ----------
      ("C-M4-<Backspace>", io $ exitWith ExitSuccess)
     ]
     where nextLayout = sendMessage NextLayout
