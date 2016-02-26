@@ -57,7 +57,6 @@ myRun = "bashrun"
 myManageHook = composeAll . concat $
   [
     [ (title =? t) --> doCenterFloat | t <- floatTitles ],
-    [ (title =? t) --> sink | t <- sinkTitles ],
     [ (roleName =? r) --> sink | r <- sinkRoles ],
     [ (className =? c) --> doIgnore | c <- ignoreClasses ],
     [ (className =? c) --> doCenterFloat | c <- floatClasses ]
@@ -66,7 +65,6 @@ myManageHook = composeAll . concat $
     roleName = stringProperty "WM_WINDOW_ROLE"
     sink = (ask >>= doF . W.sink) <+> doF W.swapDown
     floatTitles = ["bashrun"]
-    sinkTitles = ["Hangouts"]
     sinkRoles = ["pop-up","app"] -- pop-up is included as a fix for Hangouts
     ignoreClasses = ["Xfce4-notifyd"]
     floatClasses = ["Xfce4-appfinder","Xfce4-panel","Nm-connection-editor",
