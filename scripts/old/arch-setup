@@ -38,7 +38,7 @@ pacman-key --init
 pacman-key --populate archlinux
 
 # basic console tools
-pacman -S sudo vim wget rsync openssh git htop udevil keychain time acpi ntfs-3g mosh
+pacman -S sudo linux-tools vim wget rsync openssh git htop udevil keychain time acpi ntfs-3g mosh
 
 # keyboard configuration
 localectl set-x11-keymap us,us pc105 colemak, shift:both_capslock,caps:backspace
