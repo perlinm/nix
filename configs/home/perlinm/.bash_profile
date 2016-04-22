@@ -1,1 +1,5 @@
-/home/perlinm/.bash_profile
+#
+# ~/.bash_profile
+#
+
+[[ -f ~/.bashrc ]] && . ~/.bashrc

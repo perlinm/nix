@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 import sys, os, shutil, subprocess, shutil
 
-trash_dir = os.path.expanduser('/home/perlinm/.trash')
-old_ext = '.old'
+trash_dir = os.path.expanduser("~/.trash")
+old_ext = ".old"
 
 def backup(item):
   if not os.path.exists(item+old_ext):

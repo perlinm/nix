@@ -1,1 +1,16 @@
-/home/perlinm/.zsh_alias
+alias sudo='sudo '
+alias pm='pacmatic'
+alias ls='exa'
+alias -g NN='2>/dev/null'
+
+alias -g py='python'
+alias -g py2='python2'
+alias -g py3='python3'
+alias wi='wicd-curses'
+
+alias xclip='xclip -selection c'
+alias lid='sudo lid-switch'
+alias fl='sudo fdisk -l'
+
+alias tiem='time'
+alias okulra='okular'
