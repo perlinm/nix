@@ -1,0 +1,78 @@
+%%% symbols, notations, etc.
+\usepackage{physics,braket,bm,commath,amssymb} % physics and math packages
+\renewcommand{\t}{\text} % text in math mode
+\newcommand{\f}[2]{\dfrac{#1}{#2}} % shorthand for fractions
+\newcommand{\p}[1]{\left(#1\right)} % parenthesis
+\renewcommand{\sp}[1]{\left[#1\right]} % square parenthesis
+\renewcommand{\set}[1]{\left\{#1\right\}} % curly parenthesis
+\renewcommand{\v}{\bm} % bold vectors
+\newcommand{\uv}[1]{\hat{\v{#1}}} % unit vectors
+\newcommand{\av}{\vec} % arrow vectors
+\renewcommand{\del}{\nabla} % del operator
+\renewcommand{\d}{\partial} % partial d
+\renewcommand{\c}{\cdot} % inner product
+\newcommand{\w}{\wedge} % wedge product
+\newcommand{\bk}{\Braket} % shorthand for braket notation
+\let\vepsilon\epsilon % remap normal epsilon to vepsilon
+\let\vphi\phi % remap normal phi to vphi
+\newcommand{\eps}{\varepsilon} % prettier epsilon
+\renewcommand{\phi}{\varphi} % prettier phi
+\renewcommand{\l}{\ell} % prettier l
+\newcommand{\m}[1]{\begin{pmatrix}#1\end{pmatrix}} % matrix
+\newcommand{\vm}[1]{\begin{vmatrix}#1\end{vmatrix}} % determinant
+
+%%% figures
+\usepackage{graphicx,grffile,float,subcaption} % floats, etc.
+\usepackage{multirow} % multirow entries in tables
+\usepackage{footnote} % footnotes in floats
+\usepackage[font=small,labelfont=bf]{caption} % caption text options
+
+%%% sections
+\usepackage{sectsty,titlesec} % section title options
+\sectionfont{\large} % section title font size
+\subsectionfont{\normalsize} % subsection title font size
+%%% place inside document to modify spacing around section titles
+\titlespacing{\section}{0pt}{6pt}{0pt} % section title placement
+\titlespacing{\subsection}{5mm}{6pt}{0pt} % subsection title placement
+
+%%% bibliography
+\usepackage[sort&compress,numbers]{natbib} % bibliography options
+\bibliographystyle{apsrev4-1}
+\setlength{\bibsep}{0.0pt} % no spacing between bibliography entries
+\usepackage{doi} % dereference DOI links
+\usepackage[english]{babel} % allow editing bibliography title
+\addto\captionsenglish{ % set bibliography title
+  \renewcommand\refname{\normalsize\bf References}}
+
+%%% one column header for two column document
+\newcommand{\head}[1]{
+\twocolumn[\begin{@twocolumnfalse}
+\vspace{-5mm}
+\begin{center} #1 \end{center}
+\end{@twocolumnfalse}]}
+
+%%% collaboration and editing
+\usepackage{color,soul} % text color and other editing options
+% \ul{underline}, \st{strikethrough}, and \hl{highlight}
+\usepackage[draft]{fixme} % in text notes
+\fxsetup{layout=footnote}
+\newcommand{\nt}{\fxnote}
+\newcommand{\re}[1]{{\bf \color{red} #1}}
+\newcommand{\bl}[1]{{\bf \color{blue} #1}}
+
+%%% importing code from files
+\usepackage{listings}
+
+%%% indented paragraph
+\newenvironment{indpar}
+{\begin{list}{}
+	{\setlength{\leftmargin}{5mm}\setlength{\rightmargin}{5mm}}
+ 	\item[]
+}
+{\end{list}}
+
+%%% cyrillic script
+\usepackage[utf8]{inputenc}
+\usepackage[russian,english]{babel}
+\usepackage[T2A,OT1]{fontenc}
+\renewcommand{\cyr}[1]{{\fontencoding{T2A}\selectfont \em{#1}}}

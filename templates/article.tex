@@ -1,0 +1,28 @@
+\documentclass[10pt]{article}
+
+%%% standard header
+\usepackage[margin=1in]{geometry} % one inch margins
+\usepackage{fancyhdr} % easier header and footer management
+\pagestyle{fancyplain} % page formatting style
+\usepackage{hyperref} % for linking references
+\setlength{\parindent}{0cm} % don't indent new paragraphs...
+\parskip 6pt % ... place a space between paragraphs instead
+\usepackage[inline]{enumitem} % include for \setlist{}, use below
+%\setlist{nolistsep} % more compact spacing between environments
+\setlist[itemize]{leftmargin=*} % nice margins for itemize ...
+\setlist[enumerate]{leftmargin=*} % ... and enumerate environments
+\frenchspacing % add a single space after a period
+\usepackage{lastpage} % for referencing last page
+\cfoot{\thepage~of \pageref{LastPage}} % "x of y" page labeling
+
+\renewcommand{\headrulewidth}{0.5pt} % horizontal line in header
+\lhead{Michael A. Perlin}
+
+\begin{document}
+\begin{center}
+  \large \bf TITLE
+\end{center}
+
+TEXT
+
+\end{document}
