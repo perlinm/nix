@@ -1,0 +1,1 @@
+/home/perlinm/.colemak.vim
