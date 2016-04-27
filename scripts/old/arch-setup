@@ -83,7 +83,8 @@ pacman -S jre8-openjdk
 pacman -S texlive-most
 
 # emacs and auctex
-pacman -S emacs emacs-python-mode emacs-haskell-mode auctex
+pacaurcman -S emacs emacs-python-mode emacs-haskell-mode auctex
+# manually in emacs: M-x list-packages; select use-package with x to install
 
 # rust programming language
 pacman -S rust
