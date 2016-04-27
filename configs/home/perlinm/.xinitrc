@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-if [ $DESKTOP_SESSION == xmonad ] || [ $DESKTOP_SESSION == i3 ]; then
+if [ $DESKTOP_SESSION == xmonad ]; then
 
   # panel
   xfce4-panel &
@@ -18,6 +18,7 @@ if [ $DESKTOP_SESSION == xmonad ] || [ $DESKTOP_SESSION == i3 ]; then
   # start some services
   nm-applet &
   volnoti &
+  emacs --daemon &
 
 fi
 
