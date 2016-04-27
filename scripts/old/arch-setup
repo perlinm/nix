@@ -64,8 +64,10 @@ localectl set-locale LANG=en_US.UTF-8 LC_TIME=en_GB.UTF-8
 # console utilities
 ####################
 
-# valgrind (for debugging c/c++)
-pacman -S valgrind
+# C/C++ debugging and caching
+pacman -S valgrind ccache
+ln -s `which ccache` /usr/local/bin/gcc
+ln -s `which ccache` /usr/local/bin/g++
 
 # python packages
 pacman -S python python2 python-numpy python2-numpy python-matplotlib python2-matplotlib \

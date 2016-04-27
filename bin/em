@@ -1,9 +1,3 @@
-#!/usr/bin/zsh
+#!/usr/bin/env sh
 
-em=/usr/bin/emacsclient
-
-if [ -z "$(pidof emacs)" ]; then
-  emacs --daemon
-fi
-
-$em -c -n $*
+emacsclient -c "$@" || (emacs --daemon && emacsclient -c "$@")
