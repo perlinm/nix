@@ -53,10 +53,9 @@
 ;; Config options
 
 ;; aesthetics
-(add-to-list 'default-frame-alist '(background-color . "black")) ;; black background
 (set-frame-parameter (selected-frame) 'alpha '(75 75)) ;; background transparency
 (add-to-list 'default-frame-alist '(alpha 75 75)) ;; background transparency
-(add-to-list 'default-frame-alist '(font . "Monospace-11")) ;; set font
+(add-to-list 'default-frame-alist '(foreground-color . "grey85")) ;; font color
 
 ;; emacs window/client modifications
 (global-linum-mode t) ;; display line numbers
