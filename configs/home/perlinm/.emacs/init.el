@@ -35,7 +35,7 @@
   :config
   (global-company-mode)
   (setq company-tooltip-align-annotations t)
-  (global-set-key (kbd "<C-tab>") #'company-indent-or-complete-common)
+  (global-set-key (kbd "<C-tab>") 'company-indent-or-complete-common)
   :ensure t)
 (use-package company-ycmd
   :config
@@ -161,18 +161,11 @@
 ;; syntax highlighting in auctex
 (custom-set-variables
  '(TeX-insert-braces nil)
- '(column-number-mode t)
-;; '(custom-enabled-themes (quote (tsdh-dark)))
  '(custom-safe-themes (quote ("843a82ff3b91bec5430f9acdd11de03fc0f7874b15c1b6fbb965116b4c7bf830" "b90d367096824d5b69b59e606c6260be55d378b58e0d03ff8866e0b3d0da1c1b" "c3b86220873ba8ec54e0988673b87ea7d11301799eca74ccf7e84cce286ec9cd" "fa14373656d9c9e86f15dcced71f42b0cd99ea13e12a66cf9eb2625097c75d02" default)))
- '(font-latex-math-environments (quote ("display" "displaymath" "equation" "eqnarray" "gather" "multline" "align" "alignat" "xalignat" "dmath")))
- '(inhibit-startup-screen t)
- '(show-paren-mode t)
- '(tool-bar-mode nil))
+ '(font-latex-math-environments (quote ("display" "displaymath" "equation" "eqnarray" "gather" "multline" "align" "alignat" "xalignat" "dmath"))))
 
 ;; don't let amsmath automatically label new environments
-(eval-after-load "latex"
-  '(progn
-     (defun LaTeX-label (env))))
+(eval-after-load "latex" '(progn (defun LaTeX-label (env))))
 
 ;; -------------------------------------------------------------------------------------
 ;; File modes
