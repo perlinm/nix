@@ -281,9 +281,10 @@ pacmatic -S gecko-mediaplayer
 # give user NTFS mounting permissions
 sudo gpasswd -a perlinm disk
 pacmatic -S ntfs-3g-fuse
-### for ntfs drive management, set allowed_options_ntfs to the same as default_options_ntfs
-###   in /etc/udevil/udevil/udevil.conf, and add ro option to both;
-### to allow users to mount the windows partition, add to the same file:
+### for ntfs drive management, add "dmask=0022" to default_options_ntfs in
+###   in /etc/udevil/udevil/udevil.conf, copy default_options_ntfs to allowed_options_ntfs,
+###   and add "ro" to the former list
+### to allow users to mount an ntfs windows partition, add to the same file:
 ###   allowed_internal_devices_ntfs = /dev/sda*
 
 ### manually configure /boot/loader/loader.conf (on UEFI systems) as needed
