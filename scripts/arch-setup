@@ -281,8 +281,8 @@ pacmatic -S gecko-mediaplayer
 # give user NTFS mounting permissions
 sudo gpasswd -a perlinm disk
 pacmatic -S ntfs-3g-fuse
-### for ntfs drive management, set both default_options_ntfs and allowed_options_ntfs in
-###   /etc/udevil/udevil/udevil.conf simply (ONLY) to 'permissions'
+### for ntfs drive management, set allowed_options_ntfs to the same as default_options_ntfs
+###   in /etc/udevil/udevil/udevil.conf, and add ro option to both
 
 ### manually configure /boot/loader/loader.conf (on UEFI systems) as needed
 

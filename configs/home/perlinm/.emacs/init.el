@@ -60,6 +60,8 @@
 ;; emacs window/client modifications
 (global-linum-mode t) ;; display line numbers
 (setq linum-format "%d ") ;; pad line number with a space
+(setq line-number-mode t) ;; show line number at cursor
+(setq column-number-mode t) ;; show column number at cursor
 (tool-bar-mode -1) ;; disable tool bar
 (menu-bar-mode -1) ;; disable menu bar
 (scroll-bar-mode -1) ;; disable scroll bar

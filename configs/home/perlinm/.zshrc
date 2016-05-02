@@ -18,7 +18,7 @@ export SAVEHIST=10000
 export EDITOR=vim
 export VISUAL=vim
 export BROWSER=/usr/bin/google-chrome-stable
-export XDG_CONFIG_HOME=/home/perlinm/.config
+export XDG_CONFIG_HOME=$HOME/.config
 export ZLS_COLORS=$LS_COLORS
 export ALTERNATE_EDITOR=""
 export TERM=xterm
@@ -30,7 +30,7 @@ setopt extendedglob
 # Command completion
 autoload -U colors && colors
 autoload -U compinit && compinit
-#autoload -U autocomplete
+autoload -U autocomplete
 zstyle -e ':completion:*:default' list-colors \
   'reply=("${PREFIX:+=(#bi)($PREFIX:t)(?)*==00=00}:${(s.:.)LS_COLORS}")'
 zstyle ':completion:*' menu select
