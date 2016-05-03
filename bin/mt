@@ -27,9 +27,17 @@ if len(sys.argv) == 1:
 if sys.argv[1] in uuids.keys():
     mount_options = sys.argv[2:]
     call_list = ['udevil','mount'] + mount_options + \
-                 ['/dev/disk/by-uuid/'+uuids[sys.argv[1]],'/media/'+sys.argv[1]]
+                ['/dev/disk/by-uuid/'+uuids[sys.argv[1]],'/media/'+sys.argv[1]]
     print(' '.join(call_list))
-    sp.call(call_list)
+    exitcode = sp.call(call_list)
+    if exitcode != 0:
+        if exitcode == 14: # mount failed; operation not permitted
+            print("\nRetrying mount with read-only option...")
+            call_list += ["-o","ro"]
+            print(' '.join(call_list))
+            sp.check_call(call_list)
+        else:
+            exit(exitcode)
     exit()
 
 elif sys.argv[1] == '-u':
