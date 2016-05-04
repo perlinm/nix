@@ -44,6 +44,9 @@ pacman -S sudo linux-tools vim wget rsync openssh sshfs git htop udevil keychain
 localectl set-x11-keymap us,us pc105 colemak, shift:both_capslock,caps:backspace
 loadkeys colemak
 kbdrate -d 200 -r 60
+# (after copying over kbdrate.service file)
+systemctl enable kbdrate.service
+systemctl start kbdrate.service
 
 # shell interpreter
 pacman -S zsh zsh-lovers
@@ -311,10 +314,11 @@ sudo mv /usr/share/zsh/functions/Completion/Unix/_mt \
 sudo groupadd printadmin
 sudo gpasswd -a perlinm lp
 sudo gpasswd -a perlinm printadmin
-### manually append 'printadmin' to line 'SystemGroup sys root' in /etc/cups/cups-files.conf
-### go to 'http://localhost:631/' in browser to configure cups
+### manually append '"rintadmin" to line "SystemGroup sys root" in /etc/cups/cups-files.conf
+### go to "localhost:631" in browser to configure cups
+### see "man lp" or "localhost:631" for command-line pinting tools; cupsenable/cupsdisable
 ### set default printer via 'lpoptions -d printer_name'
-### view ArchWiki page CUPS for printer help
+### view ArchWiki page CUPS for additional help
 
 # scanning
 sudo gpasswd -a perlinm scanner
