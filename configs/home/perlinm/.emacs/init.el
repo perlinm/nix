@@ -128,6 +128,7 @@
 (add-hook 'LaTeX-mode-hook 'flyspell-mode)
 (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
 (add-hook 'LaTeX-mode-hook (lambda () (set-fill-column 70)))
+(add-hook 'bibtex-mode-hook (lambda () (set-fill-column 70)))
 
 ; enable auto-fill mode; nice for text formatting
 (add-hook 'LaTeX-mode-hook 'auto-fill-mode)
