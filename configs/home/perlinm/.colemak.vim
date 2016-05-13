@@ -1,8 +1,8 @@
 " Redesigned mapping for the Colemak layout for Vim 7.0
-" 2008-04-21 Shai Coleman, http://colemak.com/ . Public domain. 
+" 2008-04-21 Shai Coleman, http://colemak.com/ . Public domain.
 "
 " * Use ":source colemak.vim" (without quotes) to load this file. Adjust path to colemak.vim if needed.
-" * Add the line: "source colemak.vim" (without quotes) in your .vimrc file to automatically load this file. 
+" * Add the line: "source colemak.vim" (without quotes) in your .vimrc file to automatically load this file.
 "   It is recommended to load colemak.vim after all other Vim scripts.
 
 " recommended commands for running under Linux console
@@ -15,15 +15,15 @@
 "  qwfpg jlUy;[]\         u        |       k          qwert yuiop[]\
 "  arstd hNEIo'         n   i      |     h   l        asdfg HJKL;'
 "  zxcvb km,./            e        |       j          zxcvb nm,./
-" 
-" (nv  )     n =Left       ,     i =Right   ,    u =Up    ,     e =Down      
-" (nv  )     N =Left*5     ,     I =Right*5 ,    U =Up*5  ,     E =Down*5    
-" (  ic)  <M-n>=Left       ,  <M-i>=Right   , <M-u>=Up    ,  <M-e>=Down      
-" (  ic)  <M-N>=Left*5     ,  <M-I>=Right*5 , <M-U>=Up*5  ,  <M-E>=Down*5    
+"
+" (nv  )     n =Left       ,     i =Right   ,    u =Up    ,     e =Down
+" (nv  )     N =Left*5     ,     I =Right*5 ,    U =Up*5  ,     E =Down*5
+" (  ic)  <M-n>=Left       ,  <M-i>=Right   , <M-u>=Up    ,  <M-e>=Down
+" (  ic)  <M-N>=Left*5     ,  <M-I>=Right*5 , <M-U>=Up*5  ,  <M-E>=Down*5
 " (nv  )    l =Left 1 word ,     y =Right 1 word
 " (nv  ) <C-l>=Left 1 WORD ,  <C-y>=Right 1 WORD
-" (nv  )    L =Home        ,     Y =End                   
-" (nv  )    j =PageUp      ,     h =PageDown              
+" (nv  )    L =Home        ,     Y =End
+" (nv  )    j =PageUp      ,     h =PageDown
 " (nv  ) <C-j>=File start  ,  <C-h>=File end
 " (nv  )    - =First line  ,     _ =Last line,  <count>-=Goto line #
 " (nvi )         <Tab>=Escape  (also stops search highlight in normal mode)
@@ -307,16 +307,16 @@ nnoremap gU U|xnoremap gU U|
 nnoremap gQ Q|xnoremap gQ Q|
 nnoremap gK K|xnoremap gK K|
 " extra alias
-nnoremap gh K|xnoremap gh K| 
+nnoremap gh K|xnoremap gh K|
 
 " Window handling: <C-w> is now <C-r>
 nnoremap <C-r> <C-w>|xnoremap <C-r> <C-w>|
 " <C-r><C-r> opens a new window
 nnoremap <C-r><C-r> <C-w>n|xnoremap <C-r><C-r> <C-w>n|
-nnoremap <C-r>n <C-w>h|xnoremap <C-r>n <C-w>h| 
-nnoremap <C-r>u <C-w>k|xnoremap <C-r>u <C-w>k| 
-nnoremap <C-r>e <C-w>j|xnoremap <C-r>e <C-w>j| 
-nnoremap <C-r>i <C-w>l|xnoremap <C-r>i <C-w>l| 
+nnoremap <C-r>n <C-w>h|xnoremap <C-r>n <C-w>h|
+nnoremap <C-r>u <C-w>k|xnoremap <C-r>u <C-w>k|
+nnoremap <C-r>e <C-w>j|xnoremap <C-r>e <C-w>j|
+nnoremap <C-r>i <C-w>l|xnoremap <C-r>i <C-w>l|
 
 nnoremap <Space> i<Space><Esc><Right>|
 xnoremap <silent> <Space> :<C-u>let b:tmp_var=&sw\|set sw=1\|normal! gv><CR>:<C-u>let &sw=b:tmp_var\|normal! gv<CR>

@@ -2,7 +2,7 @@
 # Download pacman ranked mirror list
 
 # Country codes: AU AT BY BE BR BG CA CL CN CO CZ DK EE FI FR DE GR HU IN IE IL
-# IT JP KZ KR LV LU MK NL NC NZ NO PL PT RO RU RS SG SK ZA ES LK SE CH TW TR 
+# IT JP KZ KR LV LU MK NL NC NZ NO PL PT RO RU RS SG SK ZA ES LK SE CH TW TR
 # UA GB US UZ VN
 country='US'
 url="https://www.archlinux.org/mirrorlist/?country=DE&protocol=http&ip_version=4&use_mirror_status=on"

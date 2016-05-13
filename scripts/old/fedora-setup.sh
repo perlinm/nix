@@ -82,7 +82,7 @@ sudo dnf install @xfce @kde
 # torrent clients
 sudo dnf install delude qbittorrent
 
-# office suite, etc. 
+# office suite, etc.
 sudo dnf install libreoffice evince
 
 # dictionary

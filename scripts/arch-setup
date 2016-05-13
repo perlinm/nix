@@ -220,7 +220,7 @@ pacmatic -S latex-mk
 # make laptop respond properly to lid
 ### manually uncomment 'HandleLidSwitch' in /etc/systemd/logind.conf
 ### manually add file /etc/sudoers.d/lid-swidch with line
-###   'ALL ALL=NOPASSWD:/home/perlinm/bin/lid-switch' 
+###   'ALL ALL=NOPASSWD:/home/perlinm/bin/lid-switch'
 
 # configure git
 git config --global user.name "Michael A. Perlin"
