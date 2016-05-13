@@ -121,13 +121,13 @@
 ;; -------------------------------------------------------------------------------------
 ;; TeX options
 
-;; hooks
+;; general latex hooks
 (setq TeX-auto-save t)
 (setq TeX-parse-self t)
 (add-hook 'LaTeX-mode-hook 'visual-line-mode)
 (add-hook 'LaTeX-mode-hook 'flyspell-mode)
 (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
-(add-hook 'LaTeX-mode-hook (setq bidi-paragraph-direction nil)) ;; for bidirectional text
+(add-hook 'LaTeX-mode-hook (lambda () (set-fill-column 70)))
 
 ; enable auto-fill mode; nice for text formatting
 (add-hook 'LaTeX-mode-hook 'auto-fill-mode)
@@ -140,7 +140,7 @@
     '("latexmk" "latexmk -pdf %s" TeX-run-TeX nil t
       :help "Run latexmk on file")
     TeX-command-list)))
-(add-hook 'TeX-mode-hook '(lambda () (setq TeX-command-default "latexmk")))
+(add-hook 'LaTeX-mode-hook '(lambda () (setq TeX-command-default "latexmk")))
 
 ;; compile latex documents to pdf when not using latexmk
 (setq TeX-PDF-mode t)
@@ -166,7 +166,7 @@
  '(custom-safe-themes (quote ("843a82ff3b91bec5430f9acdd11de03fc0f7874b15c1b6fbb965116b4c7bf830" "b90d367096824d5b69b59e606c6260be55d378b58e0d03ff8866e0b3d0da1c1b" "c3b86220873ba8ec54e0988673b87ea7d11301799eca74ccf7e84cce286ec9cd" "fa14373656d9c9e86f15dcced71f42b0cd99ea13e12a66cf9eb2625097c75d02" default)))
  '(font-latex-math-environments (quote ("display" "displaymath" "equation" "eqnarray" "gather" "multline" "align" "alignat" "xalignat" "dmath"))))
 
-;; don't let amsmath automatically label new environments
+;; suppress automatic labelling of new environments
 (eval-after-load "latex" '(progn (defun LaTeX-label (env))))
 
 ;; -------------------------------------------------------------------------------------
