@@ -25,8 +25,13 @@
 (use-package helm
   :config
   (helm-mode t)
-  (global-set-key (kbd "M-x") 'helm-M-x)
   (helm-autoresize-mode 1)
+  (global-set-key (kbd "M-x") 'helm-M-x)
+  (global-set-key (kbd "C-x C-f") 'helm-find-files)
+  :ensure t)
+(use-package helm-ls-git
+  :config
+  (global-set-key (kbd "C-x C-d") 'helm-browse-project)
   :ensure t)
 
 (use-package tex-site
@@ -276,3 +281,9 @@
 (defun my-minibuffer-setup-hook ()
   (my-keys-minor-mode 1))
 (add-hook 'minibuffer-setup-hook 'my-minibuffer-setup-hook)
+
+;; set some helm keybindings
+(define-key helm-find-files-map (kbd "M-n") 'helm-find-files-up-one-level)
+(define-key helm-find-files-map (kbd "M-i") 'helm-execute-persistent-action)
+(define-key helm-find-files-map (kbd "M-u") 'helm-previous-line)
+(define-key helm-find-files-map (kbd "M-e") 'helm-next-line)
