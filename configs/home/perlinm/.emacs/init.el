@@ -21,10 +21,12 @@
   :config
   (linum-relative-global-mode t)
   :ensure t)
+
 (use-package helm
   :config
   (helm-mode t)
   (global-set-key (kbd "M-x") 'helm-M-x)
+  (helm-autoresize-mode 1)
   :ensure t)
 
 (use-package tex-site
