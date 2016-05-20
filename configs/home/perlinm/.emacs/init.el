@@ -219,6 +219,7 @@
 (cua-mode t) ;; use standard copy/paste commands
 (global-unset-key (kbd "C-x C-q")) ;; unset key binding for read-only mode
 
+;; define custom key bindings map
 (defvar my-keys-minor-mode-map (make-keymap) "my-keys-minor-mode keymap.")
 
 (define-key my-keys-minor-mode-map (kbd "M-n") 'backward-char)
@@ -244,7 +245,6 @@
 
 (define-key my-keys-minor-mode-map (kbd "C-x i") 'next-buffer)
 (define-key my-keys-minor-mode-map (kbd "C-x n") 'previous-buffer)
-(define-key my-keys-minor-mode-map (kbd "C-x e") 'only-current-buffer)
 
 (define-key my-keys-minor-mode-map (kbd "M-r") 'comment-or-uncomment-region-or-line)
 
@@ -252,13 +252,18 @@
                                                      (interactive) (revert-buffer t t t)
                                                      (message "buffer reverted")))
 
+;; define minor mode which enables my custom key bindings
 (define-minor-mode my-keys-minor-mode
   "A minor mode so that my key settings override annoying major modes."
   t " my-keys" 'my-keys-minor-mode-map)
 
+;; enable minor mode with custom key bindings
 (my-keys-minor-mode 1)
 
-(defun my-minibuffer-setup-hook ()
-  (my-keys-minor-mode 0))
+  ;; unset conflicting flyspell keybinding
+(eval-after-load "flyspell" '(define-key flyspell-mode-map (kbd "M-C-i") nil))
 
+;; make custom key bindings work in the minibuffer
+(defun my-minibuffer-setup-hook ()
+  (my-keys-minor-mode 1))
 (add-hook 'minibuffer-setup-hook 'my-minibuffer-setup-hook)
