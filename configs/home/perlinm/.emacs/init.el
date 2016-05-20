@@ -228,26 +228,29 @@
 
 (define-key my-keys-minor-mode-map (kbd "M-C-n") 'left-word)
 (define-key my-keys-minor-mode-map (kbd "M-C-i") 'right-word)
+(define-key my-keys-minor-mode-map (kbd "M-C-u") 'backward-paragraph)
+(define-key my-keys-minor-mode-map (kbd "M-C-e") 'forward-paragraph)
 
 (define-key my-keys-minor-mode-map (kbd "M-l") 'move-beginning-of-line)
 (define-key my-keys-minor-mode-map (kbd "M-y") 'move-end-of-line)
 
-(define-key my-keys-minor-mode-map (kbd "C-u") 'backward-paragraph)
-(define-key my-keys-minor-mode-map (kbd "C-e") 'forward-paragraph)
-
-(define-key my-keys-minor-mode-map (kbd "C-l") 'scroll-down-command)
-(define-key my-keys-minor-mode-map (kbd "C-y") 'scroll-up-command)
-
-(define-key my-keys-minor-mode-map (kbd "M-C-l") 'beginning-of-buffer)
-(define-key my-keys-minor-mode-map (kbd "M-C-y") 'end-of-buffer)
+(define-key my-keys-minor-mode-map (kbd "C-u") 'scroll-down-command)
+(define-key my-keys-minor-mode-map (kbd "C-e") 'scroll-up-command)
+(define-key my-keys-minor-mode-map (kbd "C-l") 'beginning-of-buffer)
+(define-key my-keys-minor-mode-map (kbd "C-y") 'end-of-buffer)
 
 (define-key my-keys-minor-mode-map (kbd "M-m") 'recenter)
+(define-key my-keys-minor-mode-map (kbd "M-C-m") 'recenter)
 
 (define-key my-keys-minor-mode-map (kbd "C-x i") 'next-buffer)
 (define-key my-keys-minor-mode-map (kbd "C-x n") 'previous-buffer)
 (define-key my-keys-minor-mode-map (kbd "C-x e") 'only-current-buffer)
 
 (define-key my-keys-minor-mode-map (kbd "M-r") 'comment-or-uncomment-region-or-line)
+
+(define-key my-keys-minor-mode-map (kbd "C-f C-f") (lambda ()
+                                                     (interactive) (revert-buffer t t t)
+                                                     (message "buffer reverted")))
 
 (define-minor-mode my-keys-minor-mode
   "A minor mode so that my key settings override annoying major modes."
