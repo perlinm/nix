@@ -17,6 +17,10 @@
   (recentf-mode 1)
   (setq recentf-max-menu-items 25)
   :ensure t)
+(use-package linum-relative
+  :config
+  (linum-relative-global-mode t)
+  :ensure t)
 (use-package helm
   :config
   (helm-mode t)
@@ -63,8 +67,6 @@
 (add-to-list 'default-frame-alist '(foreground-color . "grey85")) ;; font color
 
 ;; emacs window/client modifications
-(global-linum-mode t) ;; display line numbers
-(setq linum-format "%d ") ;; pad line number with a space
 (setq line-number-mode t) ;; show line number at cursor
 (setq column-number-mode t) ;; show column number at cursor
 (tool-bar-mode -1) ;; disable tool bar
