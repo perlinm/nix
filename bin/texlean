@@ -5,9 +5,9 @@ tags = [ "*.aux", "*.log", "*.tex.backup", "*_region_.tex",
          "*.synctex.gz", "*.blg","*.bbl", "*.nav", "*.dvi", "*.lof",
          "*.toc", "*.lop", "#*#", ".#*", "*~", "*.swp", "*.pyc",
          "*.cpt", "*.bcf", "*.run.xml", "*.emacs.d/auto-save-list*",
-         "*.fdb_latexmk", "*.fls" ]
+         "*.fdb_latexmk", "*.fls", "*.end", "*.out", "*.snm" ]
 
-emptyFileTags = [ "*.out", "*.snm" ]
+emptyFileTags = []
 
 excludes = [ "/deft/", "/.trash/", "/ltpda" ]
 
