@@ -283,15 +283,32 @@
 (add-hook 'minibuffer-setup-hook 'my-minibuffer-setup-hook)
 
 ;; set some helm keybindings
+
+(define-key helm-map (kbd "M-n") 'helm-previous-source)
+(define-key helm-map (kbd "M-i") 'helm-next-source)
+(define-key helm-map (kbd "M-u") 'helm-previous-line)
+(define-key helm-map (kbd "M-e") 'helm-next-line)
+(define-key helm-map (kbd "C-u") 'helm-previous-page)
+(define-key helm-map (kbd "C-e") 'helm-next-page)
+
 (define-key helm-find-files-map (kbd "M-n") 'helm-find-files-up-one-level)
 (define-key helm-find-files-map (kbd "M-i") 'helm-execute-persistent-action)
 (define-key helm-find-files-map (kbd "M-u") 'helm-previous-line)
 (define-key helm-find-files-map (kbd "M-e") 'helm-next-line)
-(define-key helm-buffer-map (kbd "M-n") 'helm-previous-source)
-(define-key helm-buffer-map (kbd "M-i") 'helm-next-source)
-(define-key helm-buffer-map (kbd "M-u") 'helm-previous-line)
-(define-key helm-buffer-map (kbd "M-e") 'helm-next-line)
+(define-key helm-find-files-map (kbd "C-u") 'helm-previous-page)
+(define-key helm-find-files-map (kbd "C-e") 'helm-next-next)
+(define-key helm-find-files-map (kbd "M-/") 'helm-execute-persistent-action)
+
 (define-key helm-ls-git-map (kbd "M-n") 'helm-previous-source)
 (define-key helm-ls-git-map (kbd "M-i") 'helm-next-source)
 (define-key helm-ls-git-map (kbd "M-u") 'helm-previous-line)
 (define-key helm-ls-git-map (kbd "M-e") 'helm-next-line)
+(define-key helm-ls-git-map (kbd "C-u") 'helm-previous-page)
+(define-key helm-ls-git-map (kbd "C-e") 'helm-next-page)
+
+(define-key helm-buffer-map (kbd "M-n") 'helm-previous-source)
+(define-key helm-buffer-map (kbd "M-i") 'helm-next-source)
+(define-key helm-buffer-map (kbd "M-u") 'helm-previous-line)
+(define-key helm-buffer-map (kbd "M-e") 'helm-next-line)
+(define-key helm-buffer-map (kbd "C-u") 'helm-previous-page)
+(define-key helm-buffer-map (kbd "C-e") 'helm-next-next)
