@@ -9,7 +9,7 @@ tags = [ "*.aux", "*.log", "*.tex.backup", "*_region_.tex",
 
 emptyFileTags = []
 
-excludes = [ "/deft/", "/.trash/", "/ltpda", "/media/mnt" ]
+excludes = [ "/deft/", "/.trash/", "/ltpda" ]
 
 bannedDirs = [ "/home/perlinm" ]
 
