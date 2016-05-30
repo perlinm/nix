@@ -17,6 +17,7 @@ import XMonad.Actions.CycleWS
 import XMonad.Actions.ConstrainedResize as CR
 import XMonad.Actions.CopyWindow
 import XMonad.Actions.NoBorders
+import XMonad.Actions.Navigation2D
 import XMonad.Actions.WorkspaceNames
 import XMonad.Config.Xfce
 import XMonad.Hooks.EwmhDesktops
@@ -146,7 +147,7 @@ myPlacement = withGaps (16,16,16,16) (fixed (0.5,0.5))
 
 -- define number row, arrow keys, and modification keys
 numRow = ["`"] ++ (Prelude.map show [1..9]) ++ ["0","-"]
-arrows = [["<L>","<R>","<U>","<D>"],["n","i","u","e"],["r","s","p","v"]]
+arrows = [["n","i","u","e"],["r","s","p","v"]]
 modKeys = ["","C-","S-","M1-"]
 
 -- define window actions in each direction performed by modification keys
@@ -185,6 +186,14 @@ myKeys = \conf -> mkKeymap conf $
     [ ("M4-" ++ mod ++ dir, func) | (dir,mod,func) <- dirControls ]
     ++
     [
+     ("M4-<L>", windowGo L False),
+     ("M4-<R>", windowGo R False),
+     ("M4-<U>", windowGo U False),
+     ("M4-<D>", windowGo D False),
+     ("M4-S-<L>", windowSwap L False),
+     ("M4-S-<R>", windowSwap R False),
+     ("M4-S-<U>", windowSwap U False),
+     ("M4-S-<D>", windowSwap D False),
      ("M1-z", toggleWS' ["NSP"]),
      ---------- layout management ----------
      ("M4-<Space>", nextLayout),
@@ -292,7 +301,7 @@ floatClickFocusHandler _ = return $ All True
 -- run XMonad
 
 main = do
-  xmonad $ xfceConfig {
+  xmonad $ withNavigation2DConfig defaultNavigation2DConfig $ xfceConfig {
         terminal = myTerminal,
         borderWidth = myBorderWidth,
         normalBorderColor = myNormalBorderColor,
