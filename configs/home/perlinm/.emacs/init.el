@@ -20,6 +20,7 @@
 (use-package linum-relative
   :config
   (linum-relative-global-mode t)
+  (setq linum-relative-current-symbol "")
   :ensure t)
 
 (use-package helm
