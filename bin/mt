@@ -4,7 +4,7 @@ import subprocess as sp
 
 script_dir = '~/scripts/'
 
-uuids = { 'mnt': '60EA6E1F23DA97B3',
+uuids = { 'mnt': '57D5353E125E1A27',
           'mnt2': '224B2CC2434D746C',
           'ext': '1C8C943C2BF73916',
           'usb': '3163BA3F6AE980FE',
