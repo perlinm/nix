@@ -4,11 +4,9 @@ import subprocess as sp
 
 script_dir = '~/scripts/'
 
-uuids = { 'mnt': '57D5353E125E1A27',
-          'mnt2': '224B2CC2434D746C',
-          'ext': '1C8C943C2BF73916',
-          'usb': '3163BA3F6AE980FE',
-          'win': 'E89CDD5B9CDD253A'}
+labels = { 'mnt': 'map-usb',
+           'ext': 'map-ext',
+           'win': 'win10'}
 
 def device_mountpoint(device_id):
     if device_id.split('.')[-1] == 'iso':
@@ -24,10 +22,10 @@ def device_mountpoint(device_id):
 if len(sys.argv) == 1:
     sys.argv.append('mnt')
 
-if sys.argv[1] in uuids.keys():
+if sys.argv[1] in labels.keys():
     mount_options = sys.argv[2:]
     call_list = ['udevil','mount'] + mount_options + \
-                ['/dev/disk/by-uuid/'+uuids[sys.argv[1]],'/media/'+sys.argv[1]]
+                ['/dev/disk/by-label/'+labels[sys.argv[1]],'/media/'+sys.argv[1]]
     print(' '.join(call_list))
     exitcode = sp.call(call_list)
     if exitcode != 0:
@@ -48,7 +46,7 @@ elif sys.argv[1] == '-u':
     if len(sys.argv) == 2:
         sys.argv.append('mnt')
 
-    if sys.argv[2] in uuids.keys():
+    if sys.argv[2] in labels.keys():
         mountpoint = '/media/'+sys.argv[2]
     else:
         device,mountpoint = device_mountpoint(sys.argv[2])
