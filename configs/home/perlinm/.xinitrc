@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-if [ $DESKTOP_SESSION == xmonad ]; then
+if [ $DESKTOP_SESSION == xmonad ] || [ $DESKTOP_SESSION == bspwm ]; then
 
   # panel
   xfce4-panel &
@@ -19,6 +19,13 @@ if [ $DESKTOP_SESSION == xmonad ]; then
   nm-applet &
   volnoti &
   emacs --daemon &
+
+fi
+
+if [ $DESKTOP_SESSION == bspwm ]; then
+
+  # hotkey daemon for bspwm
+  sxhkd &
 
 fi
 
