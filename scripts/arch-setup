@@ -24,7 +24,6 @@ pacman -Syy
 pacman -S linux linux-lts
 
 # color pacman output and enable multilib repo
-cp /etc/pacman.conf /etc/pacman.conf~
 #-- manually uncomment line 'Color' and enable the multilib repo in /etc/pacman.conf --#
 pacman -Syy
 
@@ -69,15 +68,16 @@ localectl set-locale LANG=en_US.UTF-8 LC_TIME=en_GB.UTF-8
 
 # C/C++ debugging and caching
 pacman -S valgrind ccache
-ln -s `which ccache` /usr/local/bin/gcc
-ln -s `which ccache` /usr/local/bin/g++
+ln -sf `which ccache` /usr/local/bin/gcc
+ln -sf `which ccache` /usr/local/bin/g++
 
 # python packages
 pacman -S python python2 python-numpy python2-numpy python-matplotlib python2-matplotlib \
   python-sympy python2-sympy python-scipy python2-scipy ipython ipython2
 
 # haskell packages
-pacman -S ghc cabal-install haddock happy alex
+pacman -S ghc cabal-install happy alex
+### possibly inquire into haddock
 
 # java packages
 pacman -S jre8-openjdk
@@ -86,11 +86,11 @@ pacman -S jre8-openjdk
 pacman -S texlive-most
 
 # emacs and auctex
-pacaurcman -S emacs emacs-python-mode emacs-haskell-mode auctex
+pacman -S emacs emacs-python-mode emacs-haskell-mode auctex
 # manually in emacs: M-x list-packages; select use-package with x to install
 
 # rust programming language
-pacman -S rust
+pacman -S rust cargo
 
 ####################
 # graphic utilities
@@ -109,7 +109,7 @@ pacman -S xfce4 xfce4-goodies
 pacman -S xmonad xmonad-contrib xcompmgr
 
 # basic X utilities
-pacman -S xdotool xclip
+pacman -S xdotool xclip xorg-xclipboard
 
 # nested X environment to run within X
 pacman -S xorg-server-xephyr
@@ -135,15 +135,12 @@ pacman -S feh geeqie vlc mplayer smplayer gimp inkscape lxappearance wine evince
 # office suite and dictionary
 pacman -S libreoffice-fresh aspell-en
 
-# kingsoft - replacing MSOffice/LibreOffice
-pacmapic -S wps-office
-
 # network printer utilities
 pacman -S cups hplip
 
 # intel microcode
 pacman -S intel-ucode
-### manually add 'initrd /intel-ucode.img' as the first initrd in /etc/loader/entries/*.conf
+### re-generate grub: grub-mkconfig -o /boot/grub/grub.cfg
 
 # display manager and theme
 pacman -S lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings
@@ -183,7 +180,7 @@ tar xvzf cower.tar.gz && cd cower
 makepkg -sri
 cd ..
 wget http://aur.archlinux.org/cgit/aur.git/snapshot/pacaur.tar.gz
-tar xvzf pacaur && cd pacaur
+tar xvzf pacaur.tar.gz && cd pacaur
 makepkg -sri
 pacaur -S powerpill
 
@@ -195,20 +192,14 @@ export pacman_program="pacaur"
 ###   in /etc/pacman.conf
 
 # misc. AUR packages
-pacmatic -S pamixer pulseaudio-ctl qbittorrent deluge laptop-mode-tools pdftk
-sudo systemctl enable laptop-mode exa-git
+pacmatic -S pamixer pulseaudio-ctl qbittorrent deluge laptop-mode-tools wps-office exa-git
+sudo systemctl enable laptop-mode
 
 # to disable autosuspend for USB devices, edit /etc/laptop-mode/conf.d/runtime-pm.conf
 # and set CONTROL_RUNTIME_AUTOSUSPEND=0
 
 # tool to manipulate pdf filies
 pacmatic -S pdftk-bin
-
-# rust mode in emacs
-pacmatic -S emacs-rust-mode
-
-# cargo: rust project manager
-pacmatic -S cargo
 
 # tool to build latex projects
 pacmatic -S latex-mk
@@ -249,7 +240,6 @@ sudo fc-presets set
 ### choose 'ms' option
 
 # widget and themes
-cd /tmp
 pacmatic -S moka-icon-theme-git
 ### manually enable themes via lxappearance
 ### manually set gtk theme for qt via qtconfig-qt4
@@ -297,24 +287,15 @@ sudo mv /usr/share/zsh/functions/Completion/Unix/_mt \
   /usr/share/zsh/functions/Completion/Unix/_mt~
 
 # mount windows partition
-### add to /etc/fstab: UUID=?/media/win ntfs rw,relatime,fmask=0644,dmask=0755,permissions 0 2
+### add to /etc/fstab: UUID=? /media/win ntfs rw,relatime,fmask=0644,dmask=0755,permissions 0 2
 ### insert UUID appropriately
 ### if the windows filesystem is different, change ntfs appropriately and remove permissions
-
-# save session in xmonad
-#cd /tmp
-#git clone https://github.com/zaxtax/xmonad-sessions.git
-#cd xmonad-sessions
-### get some haskell packages?
-#mkdir -p ~/.xmonad/lib
-#cp ViewDoc.hs ~/.xmonad/lib
-#ghc --make saveDocument
 
 # printing
 sudo groupadd printadmin
 sudo gpasswd -a perlinm lp
 sudo gpasswd -a perlinm printadmin
-### manually append '"rintadmin" to line "SystemGroup sys root" in /etc/cups/cups-files.conf
+### manually append "printadmin" to line "SystemGroup sys root" in /etc/cups/cups-files.conf
 ### go to "localhost:631" in browser to configure cups
 ### see "man lp" or "localhost:631" for command-line pinting tools; cupsenable/cupsdisable
 ### set default printer via 'lpoptions -d printer_name'
@@ -337,6 +318,7 @@ pacmatic -S iscan iscan-data
 # cd /tmp
 # git clone https://github.com/zaxtax/xmonad-sessions.git
 # cd xmonad-sessions/
+# mkdir -p ~/.xmonad/lib
 # cp ViewDoc.hs ~/.xmonad/lib
 # ghc --make saveDocument
 # mv saveDocument /home/user/bin
@@ -348,6 +330,10 @@ pacmatic -S dropbox
 pacmatic -S virtualbox
 sudo gpasswd -a perlinm vboxusers
 ### must run 'modprobe vboxdrv' before running virtualbox
+### if vboxdrv module does not exist, check installation of linux-[lts-]headers
+
+# grub themes
+pacmatic -S burgaur-git burg-themes
 
 # fac dependencies
 pacmatic -S python-markdown python2-markdown ruby-sass graphviz
@@ -359,4 +345,5 @@ pacmatic -S scons gnuplot haskell-hunit mlocate
 pacmatic -S python-rpy2
 
 # todo:
-# deft dependencies
+# verify fac dependencies
+# fix/verify deft dependencies
