@@ -69,6 +69,9 @@
 ;; -------------------------------------------------------------------------------------
 ;; Config options
 
+;; mouse usage
+(xterm-mouse-mode t)
+
 ;; aesthetics
 (set-frame-parameter (selected-frame) 'alpha '(75 75)) ;; background transparency
 (add-to-list 'default-frame-alist '(alpha 75 75)) ;; background transparency
