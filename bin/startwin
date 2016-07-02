@@ -1,0 +1,1 @@
+sudo burg-reboot 1 && reboot
