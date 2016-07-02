@@ -42,6 +42,7 @@ pacman -S sudo linux-tools vim wget rsync openssh sshfs git htop udevil keychain
 # keyboard configuration
 localectl set-x11-keymap us,us pc105 colemak, shift:both_capslock,caps:backspace
 loadkeys colemak
+echo "KEYMAP=colemak" > /etc/vconsole.conf
 kbdrate -d 200 -r 60
 # (after copying over kbdrate.service file)
 systemctl enable kbdrate.service
@@ -323,6 +324,7 @@ pacmatic -S iscan iscan-data
 # ghc --make saveDocument
 # mv saveDocument /home/user/bin
 
+
 # dropbox
 pacmatic -S dropbox
 
@@ -332,8 +334,16 @@ sudo gpasswd -a perlinm vboxusers
 ### must run 'modprobe vboxdrv' before running virtualbox
 ### if vboxdrv module does not exist, check installation of linux-[lts-]headers
 
-# grub themes
-pacmatic -S burgaur-git burg-themes
+# edit grub options
+pacaur -S grub-customizer
+### to use grub-reboot requires "GRUB_DEFAULT=saved" in /etc/default/grub
+
+# burg: grub replacement
+pacmatic -S burg-themes
+### must install burg bootloader; use grub-customizer to do so
+
+### for hidden grub menu, set 'GRUB_FORCE_HIDDEN_MENU="true"' in /etc/default/[grub/burg]
+###   and copy over /etc/[grub/burg].d/31_hold_shift
 
 # fac dependencies
 pacmatic -S python-markdown python2-markdown ruby-sass graphviz
