@@ -1,13 +1,13 @@
 #!/usr/bin/env zsh
 
 label=map-usb
+mount_point=$(lsblk -o label,mountpoint | grep $label | awk '{print $2}')
 
-if [ -z "$(lsblk -o label | grep $label)" ]; then
+if ! [ $mount_point ]; then
   echo "backup drive not mounted"
   exit 1
 fi
 
-mount_point=$(lsblk -o mountpoint,label | grep $label | awk '{print $1}')
 rsync --recursive --update --copy-links --perms --group --verbose --partial --progress \
       $* /home/perlinm/Workspace $mount_point \
       --exclude="*/.config/google-chrome/*" \
