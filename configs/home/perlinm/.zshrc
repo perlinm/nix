@@ -36,7 +36,7 @@ zstyle -e ':completion:*:default' list-colors \
 zstyle ':completion:*' menu select
 
 # Autocorrection
-setopt correctall
+setopt correct
 
 # Prompt
 _lineup=$'\e[1A'
