@@ -148,8 +148,8 @@ pacman -S lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings
 pacman -S numix-themes gtk-endine-murrine
 systemctl enable lightdm
 ### manually launch 'lightdm-gtk-greeter-settings' to configure
-### background image cannot be in /home
-### if background image not set correctly, try different themes
+### for autologin, add user to autologin group:
+###   sudo groupadd -r autologin && sudo gpasswd -a perlinm autologin
 
 # launcher
 pacman -S bashrun xterm

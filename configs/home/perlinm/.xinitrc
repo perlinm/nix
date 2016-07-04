@@ -20,6 +20,9 @@ if [ $DESKTOP_SESSION == xmonad ] || [ $DESKTOP_SESSION == bspwm ]; then
   volnoti &
   emacs --daemon &
 
+  # background
+  feh --bg-fill /usr/share/backgrounds/background.jpg
+
 fi
 
 if [ $DESKTOP_SESSION == bspwm ]; then
