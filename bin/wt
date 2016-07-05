@@ -9,6 +9,8 @@ if len(sys.argv) < 3:
 sleep_time = sys.argv[1]
 process_tags = sys.argv[2:]
 
+preview_mode = sleep_time == "p"
+
 # collect process IDs of the tasks we are waiting for
 wait_command = " ".join(sys.argv)
 processes,errors = subprocess.Popen(["ps","aux"],stdout=subprocess.PIPE).communicate()
@@ -17,7 +19,10 @@ pids = []
 for line in processes:
     for tag in process_tags:
         if tag in line and not wait_command in line:
-            pids.append(line.split()[1])
+            if preview_mode: print(line)
+            else: pids.append(line.split()[1])
+
+if preview_mode: exit()
 
 while len(pids) > 0:
     # sleep for the specified time
