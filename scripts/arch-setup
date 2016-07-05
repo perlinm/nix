@@ -205,6 +205,9 @@ pacmatic -S pdftk-bin
 # tool to build latex projects
 pacmatic -S latex-mk
 
+# ycmd (command completion) tool for emacs
+pacmatic -S vim-youcompleteme-git
+
 ####################
 # configurations
 ####################
