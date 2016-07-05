@@ -17,7 +17,7 @@ if [ $DESKTOP_SESSION == xmonad ] || [ $DESKTOP_SESSION == bspwm ]; then
 
   # start some services
   nm-applet &
-  volnoti &
+  volnoti -t 1 &
   emacs --daemon &
 
   # background
