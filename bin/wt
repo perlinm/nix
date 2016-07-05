@@ -1,0 +1,35 @@
+#!/usr/bin/env python3
+
+import os, sys, subprocess
+
+if len(sys.argv) < 3:
+    print("usage: " + os.path.basename(sys.argv[0]) + " wait_time process(es)...")
+    exit(1)
+
+# define waiting function
+sleep_time = sys.argv[1]
+def wait(): subprocess.check_call(["sleep",sleep_time])
+
+# remove pids which are no longer in use
+def remove_finished(pids):
+    for pid in pids:
+        if not os.path.isdir("/proc/"+pid):
+            pids.remove(pid)
+    return pids
+
+# collect process IDs of the tasks we are waiting for
+wait_command = " ".join(sys.argv)
+processes,errors = subprocess.Popen(["ps","aux"],stdout=subprocess.PIPE).communicate()
+processes = processes.decode().split("\n")
+tags = sys.argv[2:]
+pids = []
+for line in processes:
+    for tag in tags:
+        if tag in line and not wait_command in line:
+            pids.append(line.split()[1])
+
+if len(pids) == 0: exit(0)
+
+while len(pids) > 0:
+    wait()
+    pids = remove_finished(pids)
