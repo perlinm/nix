@@ -1,5 +1,1 @@
-#!/usr/bin/env sh
-
-mt
-back
-ut
+mt; back; ut
