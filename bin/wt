@@ -6,10 +6,10 @@ if len(sys.argv) < 3:
     print("usage: " + os.path.basename(sys.argv[0]) + " wait_time process(es)...")
     exit(1)
 
-sleep_time = sys.argv[1]
+sleep_interval = sys.argv[1]
 process_tags = sys.argv[2:]
 
-preview_mode = sleep_time == "p"
+preview_mode = sleep_interval == "p"
 
 # collect process IDs of the tasks we are waiting for
 wait_command = " ".join(sys.argv)
@@ -25,8 +25,8 @@ for line in processes:
 if preview_mode: exit()
 
 while len(pids) > 0:
-    # sleep for the specified time
-    subprocess.check_call(["sleep",sleep_time])
+    # sleep for the specified time interval
+    subprocess.check_call(["sleep",sleep_interval])
     # remove pids which have completed
     for pid in pids:
         if not os.path.isdir("/proc/"+pid):
