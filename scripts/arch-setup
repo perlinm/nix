@@ -356,8 +356,14 @@ pacaur -S intel-mkl
 ### makepkg -i
 ### sudo pacman -U intel-mkl-*.pkg.tar.gz
 
+# fac: a build system
+mkdir -p ~/src && cd ~/src
+git clone https://github.com/droundy/fac.git
+cd ~/src/fac && ./build/linux.sh
+./fac
+
 # fac dependencies
-pacmatic -S python-markdown python2-markdown ruby-sass graphviz
+pacmatic -S python-markdown python2-markdown
 
 # deft dependencies
 pacmatic -S scons gnuplot haskell-hunit mlocate
@@ -366,5 +372,4 @@ pacmatic -S scons gnuplot haskell-hunit mlocate
 pacmatic -S python-rpy2
 
 # todo:
-# verify fac dependencies
 # fix/verify deft dependencies
