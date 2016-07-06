@@ -1,66 +1,69 @@
 #!/usr/bin/env python3
+
 import os, sys
 import subprocess as sp
 
-script_dir = '~/scripts/'
+# identify known devices
+labels = { "mnt": "map-usb",
+           "ext": "map-ext",
+           "win": "win10" }
+default_device = "mnt"
 
-labels = { 'mnt': 'map-usb',
-           'ext': 'map-ext',
-           'win': 'win10'}
+# define commands and directories
+mount_cmd = "udevil mount"
+unmount_cmd = "udevil umount"
+media_dir = "/media/"
+label_dir = "/dev/disk/by-label/"
+unmount_flag = "-u"
 
+# function to return the divice path and mountpoint
 def device_mountpoint(device_id):
-    if device_id.split('.')[-1] == 'iso':
-        return device_id,'/media/iso'
+    if device_id in labels.keys():
+        return label_dir + labels[device_id], media_dir + device_id
 
+    elif os.path.isfile(device_id):
+        file_extension = device_id.split(".")[-1]
+        return os.path.abspath(device_id), media_dir + file_extension
     else:
-        if len(device_id) == 1:
-            device_id += '1'
-        device = '/dev/sd'+device_id
-        mountpoint = '/media/'+device_id
-        return device,mountpoint
+        # if partition number is not specified, default to the first partition
+        if not device_id[-1].isdigit(): device_id += "1"
+        return "/dev/sd" + device_id, media_dir + device_id
 
+# determine whether we're mounting or unmounting a drive
+if unmount_flag not in sys.argv[:2]:
+    mount = True
+else:
+    mount = False
+    sys.argv.remove(unmount_flag)
+
+# if no device is specified, use the default device
 if len(sys.argv) == 1:
-    sys.argv.append('mnt')
+    sys.argv.append(default_device)
 
-if sys.argv[1] in labels.keys():
+if mount:
+
     mount_options = sys.argv[2:]
-    call_list = ['udevil','mount'] + mount_options + \
-                ['/dev/disk/by-label/'+labels[sys.argv[1]],'/media/'+sys.argv[1]]
-    print(' '.join(call_list))
+    device, mountpoint = device_mountpoint(sys.argv[1])
+    call_list = mount_cmd.split() + mount_options + [ device, mountpoint ]
+    print(" ".join(call_list))
     exitcode = sp.call(call_list)
+
     if exitcode != 0:
         if exitcode == 14: # mount failed; operation not permitted
             print("\nRetrying mount with read-only option...")
-            call_list += ["-o","ro"]
-            print(' '.join(call_list))
+            call_list += "-o ro".split()
+            print(" ".join(call_list))
             sp.check_call(call_list)
-        else:
-            exit(exitcode)
-    exit()
-
-elif sys.argv[1] == '-u':
-    if len(sys.argv) > 3:
-        print('Select one drive to unmount')
-        exit()
-
-    if len(sys.argv) == 2:
-        sys.argv.append('mnt')
-
-    if sys.argv[2] in labels.keys():
-        mountpoint = '/media/'+sys.argv[2]
     else:
-        device,mountpoint = device_mountpoint(sys.argv[2])
-
-    call_list = ['udevil','umount',mountpoint]
-    print(' '.join(call_list))
-    sp.call(call_list)
-    exit()
+        exit(exitcode)
 
 else:
-    device,mountpoint = device_mountpoint(sys.argv[1])
-    mount_args = sys.argv[2:]
 
-    call_list = ['udevil','mount'] + mount_args + [device,mountpoint]
-    print(' '.join(call_list))
+    if len(sys.argv) > 2:
+        print("Select one drive to unmount")
+        exit(1)
+
+    device, _ = device_mountpoint(sys.argv[1])
+    call_list = unmount_cmd.split() + [ device ]
+    print(" ".join(call_list))
     sp.call(call_list)
-    exit()
