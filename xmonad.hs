@@ -1,6 +1,5 @@
 {-- todo:
 
-sink Hangouts by window title (instead of role)
 floating window management - get raise on click to work properly
 sort out border color bug(?)
 sort/comment imported modules - i.e. what is each module used for?
