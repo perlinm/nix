@@ -11,6 +11,7 @@ alias wi='wicd-curses'
 alias xclip='xclip -selection c'
 alias lid='sudo lid-switch'
 alias fl='sudo fdisk -l'
+alias startwin='sudo startwin'
 
 alias tiem='time'
 alias okulra='okular'
