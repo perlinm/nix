@@ -134,10 +134,9 @@ if (( ${+terminfo[smkx]} )) && (( ${+terminfo[rmkx]} )); then
     zle -N zle-line-finish
 fi
 
-# put rsa key on keychain, so I don't need to type a password all the time
-if [[ -n $DISPLAY ]]; then
-  keychain ~/.ssh/id_rsa &> /dev/null
-  . ~/.keychain/`hostname`-sh 2> /dev/null
-  . ~/.keychain/`hostname`-sh-gpg 2> /dev/null
+# start keyring daemon
+if [[ -n "$DESKTOP_SESSION" ]]; then
+  eval $(gnome-keyring-daemon --start)
+  export SSH_AUTH_SOCK
 fi
 

@@ -2,6 +2,10 @@
 
 if [ $DESKTOP_SESSION == xmonad ] || [ $DESKTOP_SESSION == bspwm ]; then
 
+  # start keyring daemon
+  eval $(/usr/bin/gnome-keyring-daemon --start)
+  export SSH_AUTH_SOCK
+
   # panel
   xfce4-panel &
 
@@ -20,6 +24,7 @@ if [ $DESKTOP_SESSION == xmonad ] || [ $DESKTOP_SESSION == bspwm ]; then
   #wicd-client -t &
   volnoti -t 1 &
   emacs --daemon &
+  pidgin &
 
   # background
   feh --bg-fill /usr/share/backgrounds/background.jpg
