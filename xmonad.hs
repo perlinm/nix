@@ -58,19 +58,19 @@ myRun = "bashrun"
 myManageHook = composeAll . concat $
   [
     [ (title =? t) --> doCenterFloat | t <- floatTitles ],
-    [ (roleName =? r) --> sink | r <- sinkRoles ],
-    [ (className =? c) --> doIgnore | c <- ignoreClasses ],
-    [ (className =? c) --> doCenterFloat | c <- floatClasses ]
+    [ (roleName =? r) --> doSink | r <- sinkRoles ],
+    [ (className =? c) --> doCenterFloat | c <- floatClasses ],
+    [ (className =? c) --> doIgnore | c <- ignoreClasses ]
   ]
   where
     roleName = stringProperty "WM_WINDOW_ROLE"
-    sink = (ask >>= doF . W.sink) <+> doF W.swapDown
+    doSink = (ask >>= doF . W.sink) <+> doF W.swapDown
     floatTitles = ["bashrun"]
-    sinkRoles = ["pop-up","app"] -- pop-up is included as a fix for Hangouts
-    ignoreClasses = ["Xfce4-notifyd"]
+    sinkRoles = ["app","buddy_list","conversation"]
     floatClasses = ["Xfce4-appfinder","Xfce4-panel","Nm-connection-editor",
                     "Nm-openconnect-auth-dialog"," ","Wicd-client.py","Python2",
-                    "Thunar","Arandr","Wrapper-1.0","google-chrome"]
+                    "Thunar","Arandr","Wrapper-1.0","google-chrome","Pidgin"]
+    ignoreClasses = ["Xfce4-notifyd"]
 
 ---------------------------------------------------------------------------------
 -- scratchpads
