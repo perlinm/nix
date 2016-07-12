@@ -63,7 +63,7 @@ myManageHook = composeAll . concat $
   ]
   where
     roleName = stringProperty "WM_WINDOW_ROLE"
-    doSink = (ask >>= doF . W.sink) <+> doF W.swapDown
+    doSink = (ask >>= doF . W.sink)
     floatTitles = ["bashrun"]
     sinkRoles = ["app","buddy_list","conversation"]
     floatClasses = ["Xfce4-appfinder","Xfce4-panel","Nm-connection-editor",
