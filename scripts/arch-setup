@@ -328,7 +328,7 @@ pacmatic -S iscan iscan-data
 # mv saveDocument /home/user/bin
 
 # chat client
-pacmatic -S pidgin pidgin-extprefs pidgin-gnome-keyring purple-facebook
+pacmatic -S pidgin pidgin-extprefs pidgin-gnome-keyring purple-hangouts-hg purple-facebook
 
 # dropbox
 pacmatic -S dropbox
