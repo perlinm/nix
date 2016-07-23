@@ -13,4 +13,5 @@ rsync --recursive --update --copy-links --perms --group --verbose --partial --pr
       --exclude="*/.config/google-chrome/*" \
       --exclude="*/mox/data/*" \
       --exclude="*/mox/scripts/outputs/*" \
-      --exclude="*/puc/bimodal/results/*"
+      --exclude="*/puc/bimodal/results/*" \
+      --exclude="*/qcdg/data/*"
