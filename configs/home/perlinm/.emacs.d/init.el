@@ -136,6 +136,9 @@
                              (blink-matching-open))))
     (when matching-text (message matching-text))))
 
+;; follow symlinks by default
+(setq vc-follow-symlinks t)
+
 ;; -------------------------------------------------------------------------------------
 ;; TeX options
 
