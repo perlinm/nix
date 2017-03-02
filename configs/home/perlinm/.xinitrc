@@ -24,7 +24,8 @@ if [ $DESKTOP_SESSION == xmonad ] || [ $DESKTOP_SESSION == bspwm ]; then
   #wicd-client -t &
   volnoti -t 1 &
   emacs --daemon &
-  pidgin &
+  #pidgin &
+  #xflux -z 80302 &
 
   # background
   feh --bg-fill /usr/share/backgrounds/background.jpg

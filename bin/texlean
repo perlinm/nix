@@ -31,7 +31,7 @@ def rem(root,item):
 
 def clean(dir):
   if os.path.abspath(dir) in bannedDirs:
-    print "Directory banned from cleaning:",dir
+    print "directory blacklisted for cleaning:",dir
     exit(-1)
   for root, dirs, files in os.walk(dir):
     for tag in tags:

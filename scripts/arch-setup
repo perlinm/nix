@@ -17,8 +17,9 @@ echo "/swapfile none swap defaults 0 0" >> /etc/fstab
 # sort mirrors
 cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist~
 pacman -S reflector
-reflector --verbose --country 'United States' -l 200 -p http --sort rate > /etc/pacman.d/mirrorlist
+reflector --verbose --country 'United States' -l 200 -p http --sort rate > ~/mirrorlist
 pacman -Syy
+# to rank mirrors in a mirror list: rankmirrors -n 0 FILE
 
 # install linux lernels
 pacman -S linux linux-lts
@@ -193,7 +194,7 @@ export pacman_program="pacaur"
 ###   in /etc/pacman.conf
 
 # misc. AUR packages
-pacmatic -S pamixer pulseaudio-ctl qbittorrent deluge laptop-mode-tools wps-office exa-git
+pacmatic -S pamixer pulseaudio-ctl qbittorrent deluge laptop-mode-tools wps-office exa-git ripgrep
 sudo systemctl enable laptop-mode
 
 # to disable autosuspend for USB devices, edit /etc/laptop-mode/conf.d/runtime-pm.conf
@@ -229,6 +230,14 @@ sudo touch /etc/systemd/system/getty@tty1.service.d/noclear.conf
 
 # fonts
 pacmatic -S ttf-ms-fonts ttf-oxygen ttf-droid ttf-liberation ttf-ubuntu-font-family
+
+### instead of infinality-bundle
+pacmatic -S freetype2 fontconfig cairo
+pacmatic -S fonts-meta-base fonts-meta-extended-lt
+ln -s /etc/fonts/conf.avail/11-lcdfilter-default.conf /etc/fonts/conf.d
+ln -s /etc/fonts/conf.avail/10-sub-pixel-rgb.conf /etc/fonts/conf.d
+
+### WARNING: DO NOT USE INFINALITY-BUNDLE UNLESS IT HAS BEEN UPDATED!
 ### manually add the following text after the multilib repo in /etc/pacman.conf:
 # [infinality-bundle]\nServer = http://bohoomil.com/repo/$arch
 pacmatic -Sy
@@ -327,8 +336,14 @@ pacmatic -S iscan iscan-data
 # ghc --make saveDocument
 # mv saveDocument /home/user/bin
 
-# chat client
+# pidgin (chat client)
 pacmatic -S pidgin pidgin-extprefs pidgin-gnome-keyring purple-hangouts-hg purple-facebook
+
+# pidgin plugin to suppress name change announcements
+cd ~/src
+git clone git clone https://github.com/EionRobb/pidgin-ignore-nickchange.git
+cd pidgin-ignore-nickchange && make
+ln -sf ~/src/pidgin-ignore-nickchange/nickchange.so ~/.purple/plugins/
 
 # dropbox
 pacmatic -S dropbox

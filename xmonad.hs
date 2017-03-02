@@ -68,7 +68,7 @@ myManageHook = composeAll . concat $
     sinkRoles = ["app","conversation"]
     floatClasses = ["Xfce4-appfinder","Xfce4-panel","Nm-connection-editor",
                     "Nm-openconnect-auth-dialog"," ","Wicd-client.py","Python2",
-                    "Thunar","Arandr","Wrapper-1.0","google-chrome","Pidgin"]
+                    "Thunar","Arandr","Wrapper-1.0","Google-chrome","Pidgin"]
     ignoreClasses = ["Xfce4-notifyd"]
 
 ---------------------------------------------------------------------------------
@@ -86,7 +86,7 @@ myScratchPads = [ padTemplate termName termHook,
                   NS mixerName mixerCommand mixerID mixerHook ]
   where
     padTemplate name padHook =
-        NS name (scriptDir ++ "pads " ++ name) (title =? ("pad-" ++ name)) padHook
+        NS name (scriptDir ++ "pads.zsh " ++ name) (title =? ("pad-" ++ name)) padHook
     termHook = customFloating $ W.RationalRect l t w h
       where
         h = 1/2
@@ -218,36 +218,38 @@ myKeys = \conf -> mkKeymap conf $
      ("M1-<F4>", namedScratchpadAction myScratchPads htopName),
      ("M1-<F5>", namedScratchpadAction myScratchPads mixerName),
      ---------- media keys ----------
-     ("<XF86AudioMute>", runScript "volume toggle"),
-     ("<XF86AudioLowerVolume>", runScript "volume dec"),
-     ("<XF86AudioRaiseVolume>", runScript "volume inc"),
-     ("<XF86MonBrightnessDown>", runScript "light dec"),
-     ("<XF86MonBrightnessUp>", runScript "light inc"),
+     ("<XF86AudioMute>", runScript "volume.sh toggle"),
+     ("<XF86AudioLowerVolume>", runScript "volume.sh dec"),
+     ("<XF86AudioRaiseVolume>", runScript "volume.sh inc"),
+     ("<XF86MonBrightnessDown>", runScript "light.sh dec"),
+     ("<XF86MonBrightnessUp>", runScript "light.sh inc"),
      ("<XF86Display>", spawn "arandr"),
      ("<XF86Search>", spawn myRun),
      ---------- testing media keys ----------
-     ("<XF86AudioMicMute>", runScript "volume toggle"),
-     ("<XF86Tools>", runScript "volume toggle"),
-     ("<XF86LaunchA>", runScript "volume toggle"),
-     ("<XF86MyComputer>", runScript "volume toggle"),
+     ("<XF86AudioMicMute>", runScript "volume.sh toggle"),
+     ("<XF86Tools>", runScript "volume.sh toggle"),
+     ("<XF86LaunchA>", runScript "volume.sh toggle"),
+     ("<XF86MyComputer>", runScript "volume.sh toggle"),
      ---------- volume ----------
-     ("C-/", runScript "volume toggle"),
-     ("C-<D>", runScript "volume dec"),
-     ("C-<U>", runScript "volume inc"),
-     ("C-S-<D>", runScript "volume min"),
-     ("C-S-<U>", runScript "volume max"),
-     ("C-S-/", runScript "volume med"),
-     ---------- backlight ----------
-     ("M1-<D>", runScript "light dec"),
-     ("M1-<U>", runScript "light inc"),
-     ("M1-S-<U>", runScript "light max"),
-     ("M1-S-<D>", runScript "light dim"),
-     ("M1-S-/", runScript "light med"),
+     ("C-/", runScript "volume.sh toggle"),
+     ("C-<D>", runScript "volume.sh dec"),
+     ("C-<U>", runScript "volume.sh inc"),
+     ("C-S-<D>", runScript "volume.sh min"),
+     ("C-S-<U>", runScript "volume.sh max"),
+     ("C-S-/", runScript "volume.sh med"),
+     ---------- backlight.sh ----------
+     ("M1-S-<U>", runScript "light.sh max"),
+     ("M5-S-<U>", runScript "light.sh max"),
+     ("M1-S-<D>", runScript "light.sh dim"),
+     ("M5-S-<D>", runScript "light.sh dim"),
+     ("M1-S-/", runScript "light.sh med"),
+     ("M5-S-/", runScript "light.sh med"),
      ---------- screenshots ----------
-     ("M4-\\", runScript "print"),
-     ("M4-M1-\\", runScript "print -s"),
+     ("M4-\\", runScript "print.sh"),
+     ("M4-M1-\\", runScript "print.sh -s"),
      ---------- misc ----------
-     ("M1-;", runScript "touchpad-toggle"),
+     ("M5-[", runScript "touchpad-toggle"),
+     ("M5-]", runSudoScript "restart-touchpad"),
      ("M4-/", windows copyToAll),
      ("M4-S-/", killAllOtherCopies),
      ("C-M4-<Backspace>", io $ exitWith ExitSuccess)
@@ -255,6 +257,7 @@ myKeys = \conf -> mkKeymap conf $
     where nextLayout = sendMessage NextLayout
           prevLayout = do { replicateM_ (layoutCount-1) $ sendMessage NextLayout}
           runScript s = spawn $ scriptDir ++ s
+          runSudoScript s = spawn $ "sudo " ++ scriptDir ++ s
 
 ---------------------------------------------------------------------------------
 -- cursor actions
@@ -263,9 +266,7 @@ myMouseBindings (XConfig {}) = fromList $
   [
    ((mod1Mask, button1), move),
    ((mod1Mask, button3), resize False),
-   ((mod1Mask .|. controlMask, button3), resize True),
-   ((mod1Mask .|. shiftMask, button1), resize False),
-   ((mod1Mask .|. shiftMask .|. controlMask, button1), resize True)
+   ((mod1Mask .|. shiftMask, button3), resize True)
   ]
     where
       move = raiseFloating mouseMoveWindow

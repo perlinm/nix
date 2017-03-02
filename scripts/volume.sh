@@ -1,4 +1,4 @@
-#!/usr/bin/zsh
+#!/usr/bin/env sh
 
 delta=5
 medium=50

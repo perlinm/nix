@@ -1,5 +1,5 @@
 %%% symbols, notations, etc.
-\usepackage{physics,braket,bm,commath,amssymb} % physics and math packages
+\usepackage{physics,braket,bm,amssymb} % physics and math
 \renewcommand{\t}{\text} % text in math mode
 \newcommand{\f}[2]{\dfrac{#1}{#2}} % shorthand for fractions
 \newcommand{\p}[1]{\left(#1\right)} % parenthesis
@@ -8,7 +8,7 @@
 \renewcommand{\v}{\bm} % bold vectors
 \newcommand{\uv}[1]{\hat{\v{#1}}} % unit vectors
 \newcommand{\av}{\vec} % arrow vectors
-\renewcommand{\del}{\nabla} % del operator
+\renewcommand{\del}{\v\nabla} % del operator
 \renewcommand{\d}{\partial} % partial d
 \renewcommand{\c}{\cdot} % inner product
 \newcommand{\w}{\wedge} % wedge product
@@ -18,14 +18,6 @@
 \newcommand{\eps}{\varepsilon} % prettier epsilon
 \renewcommand{\phi}{\varphi} % prettier phi
 \renewcommand{\l}{\ell} % prettier l
-\newcommand{\m}[1]{\begin{pmatrix}#1\end{pmatrix}} % matrix
-\newcommand{\vm}[1]{\begin{vmatrix}#1\end{vmatrix}} % determinant
-
-%%% figures
-\usepackage{graphicx,grffile,float,subcaption} % floats, etc.
-\usepackage{multirow} % multirow entries in tables
-\usepackage{footnote} % footnotes in floats
-\usepackage[font=small,labelfont=bf]{caption} % caption text options
 
 %%% sections
 \usepackage{sectsty,titlesec} % section title options
@@ -34,6 +26,12 @@
 %%% place inside document to modify spacing around section titles
 \titlespacing{\section}{0pt}{6pt}{0pt} % section title placement
 \titlespacing{\subsection}{5mm}{6pt}{0pt} % subsection title placement
+
+%%% figures
+\usepackage{graphicx,grffile,float,subcaption} % floats, etc.
+\usepackage{multirow} % multirow entries in tables
+\usepackage{footnote} % footnotes in floats
+\usepackage[font=small,labelfont=bf]{caption} % caption text options
 
 %%% bibliography
 \usepackage[sort&compress,numbers]{natbib} % bibliography options

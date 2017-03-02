@@ -34,6 +34,8 @@ autoload -U autocomplete
 zstyle -e ':completion:*:default' list-colors \
   'reply=("${PREFIX:+=(#bi)($PREFIX:t)(?)*==00=00}:${(s.:.)LS_COLORS}")'
 zstyle ':completion:*' menu select
+bindkey "^I" expand-or-complete-prefix # complete from the middle of a word
+compdef mt=ls # use same completion rules for mt as for ls
 
 # Autocorrection
 setopt correct

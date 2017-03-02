@@ -2,7 +2,7 @@
 ;; Package declaration and configuration
 (require 'package)
 (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/") t)
-(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/") t)
+;;(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/") t)
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
 (package-refresh-contents)
 (package-initialize)
@@ -46,25 +46,24 @@
 (use-package markdown-mode
   :ensure t)
 
-(use-package f
-  :ensure t)
-(use-package company
-  :config
-  (global-company-mode)
-  (setq company-tooltip-align-annotations t)
-  (global-set-key (kbd "<C-tab>") 'company-indent-or-complete-common)
-  :ensure t)
-(use-package company-ycmd
-  :config
-  (company-ycmd-setup)
-  :ensure t)
-(use-package ycmd
-  :config
-  (add-hook 'after-init-hook #'global-ycmd-mode)
-  (set-variable 'ycmd-server-command
-                '("python2" "/usr/share/vim/vimfiles/third_party/ycmd/ycmd"))
-  (set-variable 'ycmd-global-config "~/.ycmd_settings.json")
- :ensure t)
+;; (use-package f
+;;   :ensure t)
+;; (use-package company
+;;   :config
+;;   (global-company-mode)
+;;   (setq company-tooltip-align-annotations t)
+;;   (global-set-key (kbd "<C-tab>") 'company-indent-or-complete-common)
+;;   :ensure t)
+;; (use-package company-ycmd
+;;   :config
+;;   (company-ycmd-setup)
+;;   :ensure t)
+;; (use-package ycmd
+;;   :config
+;;   (add-hook 'after-init-hook #'global-ycmd-mode)
+;;   (set-variable 'ycmd-server-command
+;;                 '("python2" "/usr/share/vim/vimfiles/third_party/ycmd/ycmd"))
+;;  :ensure t)
 
 ;; -------------------------------------------------------------------------------------
 ;; Config options
@@ -75,6 +74,7 @@
 ;; aesthetics
 (set-frame-parameter (selected-frame) 'alpha '(75 75)) ;; background transparency
 (add-to-list 'default-frame-alist '(alpha 75 75)) ;; background transparency
+(add-to-list 'default-frame-alist '(font . "Consolas-11")) ;; font
 (add-to-list 'default-frame-alist '(foreground-color . "grey85")) ;; font color
 
 ;; emacs window/client modifications
@@ -171,7 +171,7 @@
 (setq TeX-view-program-selection
  '((output-pdf "PDF Viewer")))
 (setq TeX-view-program-list
- '(("PDF Viewer" "okular %o#src:%n%b")))
+ '(("PDF Viewer" "okular %o")))
 
 ;; run emacs in server mode to use emacsclient with Okular
 (add-hook 'LaTeX-mode-hook 'server-start)
@@ -256,13 +256,12 @@
 (define-key my-keys-minor-mode-map (kbd "M-l") 'move-beginning-of-line)
 (define-key my-keys-minor-mode-map (kbd "M-y") 'move-end-of-line)
 
-(define-key my-keys-minor-mode-map (kbd "C-u") 'scroll-down-command)
-(define-key my-keys-minor-mode-map (kbd "C-e") 'scroll-up-command)
-(define-key my-keys-minor-mode-map (kbd "C-l") 'beginning-of-buffer)
-(define-key my-keys-minor-mode-map (kbd "C-y") 'end-of-buffer)
+(define-key my-keys-minor-mode-map (kbd "M-;") 'scroll-down-command)
+(define-key my-keys-minor-mode-map (kbd "M-o") 'scroll-up-command)
+(define-key my-keys-minor-mode-map (kbd "M-C-;") 'beginning-of-buffer)
+(define-key my-keys-minor-mode-map (kbd "M-C-o") 'end-of-buffer)
 
 (define-key my-keys-minor-mode-map (kbd "M-m") 'recenter)
-(define-key my-keys-minor-mode-map (kbd "M-C-m") 'recenter)
 
 (define-key my-keys-minor-mode-map (kbd "C-x i") 'next-buffer)
 (define-key my-keys-minor-mode-map (kbd "C-x n") 'previous-buffer)
@@ -295,27 +294,27 @@
 (define-key helm-map (kbd "M-i") 'helm-next-source)
 (define-key helm-map (kbd "M-u") 'helm-previous-line)
 (define-key helm-map (kbd "M-e") 'helm-next-line)
-(define-key helm-map (kbd "C-u") 'helm-previous-page)
-(define-key helm-map (kbd "C-e") 'helm-next-page)
+(define-key helm-map (kbd "M-;") 'helm-previous-page)
+(define-key helm-map (kbd "M-o") 'helm-next-page)
 
 (define-key helm-find-files-map (kbd "M-n") 'helm-find-files-up-one-level)
 (define-key helm-find-files-map (kbd "M-i") 'helm-execute-persistent-action)
 (define-key helm-find-files-map (kbd "M-u") 'helm-previous-line)
 (define-key helm-find-files-map (kbd "M-e") 'helm-next-line)
-(define-key helm-find-files-map (kbd "C-u") 'helm-previous-page)
-(define-key helm-find-files-map (kbd "C-e") 'helm-next-next)
+(define-key helm-find-files-map (kbd "M-;") 'helm-previous-page)
+(define-key helm-find-files-map (kbd "M-o") 'helm-next-next)
 (define-key helm-find-files-map (kbd "M-/") 'helm-execute-persistent-action)
 
 (define-key helm-ls-git-map (kbd "M-n") 'helm-previous-source)
 (define-key helm-ls-git-map (kbd "M-i") 'helm-next-source)
 (define-key helm-ls-git-map (kbd "M-u") 'helm-previous-line)
 (define-key helm-ls-git-map (kbd "M-e") 'helm-next-line)
-(define-key helm-ls-git-map (kbd "C-u") 'helm-previous-page)
-(define-key helm-ls-git-map (kbd "C-e") 'helm-next-page)
+(define-key helm-ls-git-map (kbd "M-;") 'helm-previous-page)
+(define-key helm-ls-git-map (kbd "M-o") 'helm-next-page)
 
 (define-key helm-buffer-map (kbd "M-n") 'helm-previous-source)
 (define-key helm-buffer-map (kbd "M-i") 'helm-next-source)
 (define-key helm-buffer-map (kbd "M-u") 'helm-previous-line)
 (define-key helm-buffer-map (kbd "M-e") 'helm-next-line)
-(define-key helm-buffer-map (kbd "C-u") 'helm-previous-page)
-(define-key helm-buffer-map (kbd "C-e") 'helm-next-next)
+(define-key helm-buffer-map (kbd "M-;") 'helm-previous-page)
+(define-key helm-buffer-map (kbd "M-o") 'helm-next-next)

@@ -6,14 +6,14 @@ fig_x = 15
 fig_y = 10
 font_size = 12
 lineWidth = 1
-rcParams['font.size'] = font_size
-rcParams['axes.titlesize'] = font_size
-rcParams['legend.fontsize'] = font_size
-rcParams['legend.numpoints'] = 1
-rcParams['xtick.labelsize'] = font_size
-rcParams['ytick.labelsize'] = font_size
-rcParams['lines.linewidth'] = lineWidth
-rcParams['axes.color_cycle'] = ['k','b','g','r','c','m','y']
+rcParams["font.size"] = font_size
+rcParams["axes.titlesize"] = font_size
+rcParams["legend.fontsize"] = font_size
+rcParams["legend.numpoints"] = 1
+rcParams["xtick.labelsize"] = font_size
+rcParams["ytick.labelsize"] = font_size
+rcParams["lines.linewidth"] = lineWidth
+rcParams["axes.color_cycle"] = ["k","b","g","r","c","m","y"]
 
 # figure template
 def new_fig():
@@ -26,15 +26,18 @@ def new_fig():
     ax.xaxis.set_major_formatter(fmt)
     return fig, ax
 
-# make fure of desired size
+# make figure of desired size
 def make_fig():
   figure(figsize=(fig_x,fig_y))
-if not 'font_size' in globals():
+if not "font_size" in globals():
 	font_size = 7
 
-# set fonts
-rc('text',usetex=True)
-rc('font',**{'family':'serif','serif':['Computer Modern']})
-params = {'font.size': font_size,
-          'legend.fontsize': font_size}
+# set fonts and use latex packages
+font = {"family" : "serif",
+        "serif":["Computer Modern"],
+        "size" : font_size}
+rc("font",**font)
+params = {"legend.fontsize": font_size,
+          "text.usetex" : True,
+          "text.latex.preamble" : r"\usepackage{amsmath}"}
 rcParams.update(params)

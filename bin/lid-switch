@@ -43,4 +43,3 @@ else
   echo "lid action:" $new_action
 
 fi
-

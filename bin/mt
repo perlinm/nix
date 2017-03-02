@@ -15,6 +15,7 @@ unmount_cmd = "udevil umount"
 media_dir = "/media/"
 label_dir = "/dev/disk/by-label/"
 unmount_flag = "-u"
+proc_file = "/proc/mounts"
 
 # function to return the divice path and mountpoint
 def device_mountpoint(device_id):
@@ -24,6 +25,10 @@ def device_mountpoint(device_id):
     elif os.path.isfile(device_id):
         file_extension = device_id.split(".")[-1]
         return os.path.abspath(device_id), media_dir + file_extension
+
+    elif os.path.abspath(device_id) in open(proc_file,"r").read():
+        return os.path.abspath(device_id), os.path.abspath(device_id)
+
     else:
         # if partition number is not specified, default to the first partition
         if not device_id[-1].isdigit(): device_id += "1"
