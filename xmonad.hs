@@ -239,17 +239,14 @@ myKeys = \conf -> mkKeymap conf $
      ("C-S-/", runScript "volume.sh med"),
      ---------- backlight.sh ----------
      ("M1-S-<U>", runScript "light.sh max"),
-     ("M5-S-<U>", runScript "light.sh max"),
      ("M1-S-<D>", runScript "light.sh dim"),
-     ("M5-S-<D>", runScript "light.sh dim"),
      ("M1-S-/", runScript "light.sh med"),
-     ("M5-S-/", runScript "light.sh med"),
      ---------- screenshots ----------
      ("M4-\\", runScript "print.sh"),
      ("M4-M1-\\", runScript "print.sh -s"),
      ---------- misc ----------
-     ("M5-[", runScript "touchpad-toggle"),
-     ("M5-]", runSudoScript "restart-touchpad"),
+     ("M1-[", runScript "touchpad-toggle"),
+     ("M1-]", runSudoScript "restart-touchpad"),
      ("M4-/", windows copyToAll),
      ("M4-S-/", killAllOtherCopies),
      ("C-M4-<Backspace>", io $ exitWith ExitSuccess)
