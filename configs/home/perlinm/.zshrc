@@ -1,6 +1,6 @@
 # add entries to path
 NEW_PATH=$PATH
-my_path=(/usr/bin /usr/local/bin /usr/local/sbin $HOME/bin)
+my_path=(/usr/bin /usr/local/bin /usr/local/sbin $HOME/.cargo/bin $HOME/bin)
 for p in $my_path; do
   if ! [ $(echo $PATH | grep $p) ]; then
     NEW_PATH=$NEW_PATH:$p
@@ -49,7 +49,7 @@ RPROMPT=%{${_lineup}%}"[%{$fg[yellow]%}%*%{$reset_color%}]"%{${_linedown}%}
 SPROMPT='Correct '%R' to '%r' ? ([y]es/[N]o/[e]dit/[a]bort)'
 
 # use aliases
-. ~/.zsh_alias
+. ~/.aliases
 
 # emacs-like copy/paste commands
 x-copy-region-as-kill() {

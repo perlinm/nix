@@ -15,6 +15,8 @@ alias startwin='sudo startwin'
 alias v='sudo vpn'
 
 alias tiem='time'
-alias okulra='okular'
 
 alias lpw='watch lpq'
+
+alias okulra='okular'
+alias pdf='qpdfview'

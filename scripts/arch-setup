@@ -336,6 +336,12 @@ pacmatic -S iscan iscan-data
 # ghc --make saveDocument
 # mv saveDocument /home/user/bin
 
+# switching keyboard layouts
+pacmatic -S xkb-switch-git
+
+# qpdfview
+pacmatic -S qpdfview
+
 # pidgin (chat client)
 pacmatic -S pidgin pidgin-extprefs pidgin-gnome-keyring purple-hangouts-hg purple-facebook
 

@@ -167,14 +167,11 @@
 ;; compile latex documents to pdf when not using latexmk
 (setq TeX-PDF-mode t)
 
-;; use okular as the pdf viewer
+;; use qpdfview as the pdf viewer
 (setq TeX-view-program-selection
  '((output-pdf "PDF Viewer")))
 (setq TeX-view-program-list
- '(("PDF Viewer" "okular %o")))
-
-;; run emacs in server mode to use emacsclient with Okular
-(add-hook 'LaTeX-mode-hook 'server-start)
+ '(("PDF Viewer" "qpdfview %o")))
 
 ;; display errors properly when editing a multi-file tex project using auctex
 (defadvice TeX-parse-reset (after make-master-file-default () activate)
