@@ -245,7 +245,8 @@ myKeys = \conf -> mkKeymap conf $
      ("M4-\\", runScript "print.sh"),
      ("M4-M1-\\", runScript "print.sh -s"),
      ---------- misc ----------
-     ("M1-[", runScript "touchpad-toggle"),
+     ("M4-k", runScript "layout-toggle.sh"),
+     ("M1-[", runScript "touchpad-toggle.sh"),
      ("M1-]", runSudoScript "restart-touchpad"),
      ("M4-/", windows copyToAll),
      ("M4-S-/", killAllOtherCopies),

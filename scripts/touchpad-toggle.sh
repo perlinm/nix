@@ -2,7 +2,6 @@
 
 idle_time=0.5 # seconds
 
-
 state=`synclient -l | grep TouchpadOff | sed 's/^.*= //'`
 if [ $state -eq 1 ]
 then
