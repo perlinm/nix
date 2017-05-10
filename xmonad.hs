@@ -66,9 +66,9 @@ myManageHook = composeAll . concat $
     doSink = (ask >>= doF . W.sink) <+> doF W.swapUp
     floatTitles = ["bashrun"]
     sinkRoles = ["app","conversation"]
-    floatClasses = ["Xfce4-appfinder","Xfce4-panel","Nm-connection-editor",
+    floatClasses = ["Xfce4-appfinder", "Nm-connection-editor",
                     "Nm-openconnect-auth-dialog"," ","Wicd-client.py","Python2",
-                    "Thunar","Arandr","Wrapper-1.0","Google-chrome","Pidgin"]
+                    "Thunar","Arandr","Wrapper-1.0","Pidgin"]
     ignoreClasses = ["Xfce4-notifyd"]
 
 ---------------------------------------------------------------------------------
@@ -242,8 +242,8 @@ myKeys = \conf -> mkKeymap conf $
      ("M1-S-<D>", runScript "light.sh dim"),
      ("M1-S-/", runScript "light.sh med"),
      ---------- screenshots ----------
-     ("M4-\\", runScript "print.sh"),
-     ("M4-M1-\\", runScript "print.sh -s"),
+     ("M4-\\", runScript "print-screen.sh"),
+     ("M4-M1-\\", runScript "print-screen.sh -s"),
      ---------- misc ----------
      ("M4-k", runScript "layout-toggle.sh"),
      ("M1-[", runScript "touchpad-toggle.sh"),

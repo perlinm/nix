@@ -28,7 +28,14 @@
 \titlespacing{\subsection}{5mm}{6pt}{0pt} % subsection title placement
 
 %%% figures
-\usepackage{graphicx,grffile,float,subcaption} % floats, etc.
+\usepackage{hyperref} % for linking references
+\usepackage{graphicx} % for figures
+\usepackage{grffile} % help latex properly identify figure extensions
+\graphicspath{{./figures/}} % set path for all graphics
+\usepackage[caption=false]{subfig} % subfigures
+\newcommand{\sref}[1]{\protect\subref{#1}} % for referencing subfigures
+\usepackage{float} % for [H] placement option
+\usepackage[caption=false]{subfig} % for subfigures
 \usepackage{multirow} % multirow entries in tables
 \usepackage{footnote} % footnotes in floats
 \usepackage[font=small,labelfont=bf]{caption} % caption text options

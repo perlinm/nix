@@ -15,4 +15,7 @@ rsync --recursive --update --copy-links --group --verbose --partial --progress \
       --exclude="*/mox/scripts/outputs/*" \
       --exclude="*/puc/bimodal/results/*" \
       --exclude="*/qcdg/data/*" \
-      --exclude="*/bin/vpn"
+      --exclude="*/bin/vpn" \
+      --exclude="*/hopfield-neural-network/data/*" \
+      --exclude="*/hopfield-neural-network/jobs/*" \
+      --exclude="*/hopfield-neural-network/rc-data/*"

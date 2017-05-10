@@ -139,6 +139,11 @@
 ;; follow symlinks by default
 (setq vc-follow-symlinks t)
 
+;; fuzzy whitespace matching
+(setq isearch-lax-whitespace t)
+(setq isearch-regexp-lax-whitespace t)
+(setq search-whitespace-regexp "[ \t\r\n]+")
+
 ;; -------------------------------------------------------------------------------------
 ;; TeX options
 
@@ -181,9 +186,33 @@
 
 ;; syntax highlighting in auctex
 (custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(LaTeX-indent-environment-list
+   (quote
+    (("verbatim" current-indentation)
+     ("verbatim*" current-indentation)
+     ("tabular" LaTeX-indent-tabular)
+     ("tabular*" LaTeX-indent-tabular)
+     ("align")
+     ("align*")
+     ("array" LaTeX-indent-tabular)
+     ("eqnarray" LaTeX-indent-tabular)
+     ("eqnarray*" LaTeX-indent-tabular)
+     ("displaymath")
+     ("equation")
+     ("equation*")
+     ("picture")
+     ("tabbing"))))
  '(TeX-insert-braces nil)
- '(custom-safe-themes (quote ("843a82ff3b91bec5430f9acdd11de03fc0f7874b15c1b6fbb965116b4c7bf830" "b90d367096824d5b69b59e606c6260be55d378b58e0d03ff8866e0b3d0da1c1b" "c3b86220873ba8ec54e0988673b87ea7d11301799eca74ccf7e84cce286ec9cd" "fa14373656d9c9e86f15dcced71f42b0cd99ea13e12a66cf9eb2625097c75d02" default)))
- '(font-latex-math-environments (quote ("display" "displaymath" "equation" "eqnarray" "gather" "multline" "align" "alignat" "xalignat" "dmath"))))
+ '(custom-safe-themes
+   (quote
+    ("843a82ff3b91bec5430f9acdd11de03fc0f7874b15c1b6fbb965116b4c7bf830" "b90d367096824d5b69b59e606c6260be55d378b58e0d03ff8866e0b3d0da1c1b" "c3b86220873ba8ec54e0988673b87ea7d11301799eca74ccf7e84cce286ec9cd" "fa14373656d9c9e86f15dcced71f42b0cd99ea13e12a66cf9eb2625097c75d02" default)))
+ '(font-latex-math-environments
+   (quote
+    ("display" "displaymath" "equation" "eqnarray" "gather" "multline" "align" "alignat" "xalignat" "dmath"))))
 
 ;; suppress automatic labelling of new environments
 (eval-after-load "latex" '(progn (defun LaTeX-label (env))))
@@ -236,6 +265,9 @@
 
 (cua-mode t) ;; use standard copy/paste commands
 (global-unset-key (kbd "C-x C-q")) ;; unset key binding for read-only mode
+(global-set-key (kbd "M-x") #'helm-M-x)
+(global-set-key (kbd "C-x r b") #'helm-filtered-bookmarks)
+(global-set-key (kbd "C-x C-f") #'helm-find-files)
 
 ;; define custom key bindings map
 (defvar my-keys-minor-mode-map (make-keymap) "my-keys-minor-mode keymap.")
@@ -287,20 +319,20 @@
 
 ;; set some helm keybindings
 
+(define-key helm-find-files-map (kbd "M-n") 'helm-find-files-up-one-level)
+(define-key helm-find-files-map (kbd "M-i") 'helm-execute-persistent-action)
+(define-key helm-find-files-map (kbd "M-u") 'helm-previous-line)
+(define-key helm-find-files-map (kbd "M-e") 'helm-next-line)
+(define-key helm-find-files-map (kbd "M-;") 'helm-previous-page)
+(define-key helm-find-files-map (kbd "M-o") 'helm-next-page)
+(define-key helm-find-files-map (kbd "M-/") 'helm-execute-persistent-action)
+
 (define-key helm-map (kbd "M-n") 'helm-previous-source)
 (define-key helm-map (kbd "M-i") 'helm-next-source)
 (define-key helm-map (kbd "M-u") 'helm-previous-line)
 (define-key helm-map (kbd "M-e") 'helm-next-line)
 (define-key helm-map (kbd "M-;") 'helm-previous-page)
 (define-key helm-map (kbd "M-o") 'helm-next-page)
-
-(define-key helm-find-files-map (kbd "M-n") 'helm-find-files-up-one-level)
-(define-key helm-find-files-map (kbd "M-i") 'helm-execute-persistent-action)
-(define-key helm-find-files-map (kbd "M-u") 'helm-previous-line)
-(define-key helm-find-files-map (kbd "M-e") 'helm-next-line)
-(define-key helm-find-files-map (kbd "M-;") 'helm-previous-page)
-(define-key helm-find-files-map (kbd "M-o") 'helm-next-next)
-(define-key helm-find-files-map (kbd "M-/") 'helm-execute-persistent-action)
 
 (define-key helm-ls-git-map (kbd "M-n") 'helm-previous-source)
 (define-key helm-ls-git-map (kbd "M-i") 'helm-next-source)
@@ -315,3 +347,11 @@
 (define-key helm-buffer-map (kbd "M-e") 'helm-next-line)
 (define-key helm-buffer-map (kbd "M-;") 'helm-previous-page)
 (define-key helm-buffer-map (kbd "M-o") 'helm-next-next)
+
+
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )

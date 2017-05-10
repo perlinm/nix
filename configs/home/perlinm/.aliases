@@ -12,11 +12,10 @@ alias xclip='xclip -selection c'
 alias l='sudo lid-switch'
 alias fl='sudo fdisk -l'
 alias startwin='sudo startwin'
-alias v='sudo vpn'
 
 alias tiem='time'
-
-alias lpw='watch lpq'
-
 alias okulra='okular'
 alias pdf='qpdfview'
+
+alias lpw='watch lpq'
+alias v='sudo vpn'

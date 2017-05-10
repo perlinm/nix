@@ -2,11 +2,19 @@
 \usepackage{beamerthemelined}
 \usepackage{pstricks}
 
+% \setbeamertemplate{footline}[frame number]
 \setbeamertemplate{navigation symbols}{}
 \setbeamertemplate{caption}[numbered]
 \usepackage{caption}
 \captionsetup{textfont={small,bf,color=BlueViolet}}
 \captionsetup{labelformat=empty}
+
+\usepackage{xpatch}
+\xpatchcmd{\itemize}
+  {\def\makelabel}
+  {\setlength{\itemsep}{2em}\def\makelabel}
+  {}
+  {}
 
 \title[short]{long}
 \author[short]{long}

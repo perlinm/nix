@@ -44,8 +44,7 @@ setopt correct
 _lineup=$'\e[1A'
 _linedown=$'\e[1B'
 autoload -U promptinit && promptinit
-PROMPT=$(print "%{$fg[green]%}%~:\n$ %{$reset_color%}")
-RPROMPT=%{${_lineup}%}"[%{$fg[yellow]%}%*%{$reset_color%}]"%{${_linedown}%}
+PROMPT=$(print "[%{$fg[yellow]%}%*%{$reset_color%}]%{$fg[green]%}%~:\n$ %{$reset_color%}")
 SPROMPT='Correct '%R' to '%r' ? ([y]es/[N]o/[e]dit/[a]bort)'
 
 # use aliases
