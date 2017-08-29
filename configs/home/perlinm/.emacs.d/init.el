@@ -241,6 +241,10 @@
 (add-to-list 'auto-mode-alist '("SConstruct" . python-mode))
 (add-to-list 'auto-mode-alist '("\\.sage\\'" . python-mode))
 
+;; "Emacs speaks statistics" -- mode for R language
+;; (setq load-path (cons "/usr/share/emacs/site-lisp/ess" load-path))
+(require 'ess-site)
+
 ;; -------------------------------------------------------------------------------------
 ;; Miscellaneous functions and commands
 
@@ -327,6 +331,14 @@
 (define-key helm-find-files-map (kbd "M-o") 'helm-next-page)
 (define-key helm-find-files-map (kbd "M-/") 'helm-execute-persistent-action)
 
+(define-key helm-read-file-map (kbd "M-n") 'helm-find-files-up-one-level)
+(define-key helm-read-file-map (kbd "M-i") 'helm-execute-persistent-action)
+(define-key helm-read-file-map (kbd "M-u") 'helm-previous-line)
+(define-key helm-read-file-map (kbd "M-e") 'helm-next-line)
+(define-key helm-read-file-map (kbd "M-;") 'helm-previous-page)
+(define-key helm-read-file-map (kbd "M-o") 'helm-next-page)
+(define-key helm-read-file-map (kbd "M-/") 'helm-execute-persistent-action)
+
 (define-key helm-map (kbd "M-n") 'helm-previous-source)
 (define-key helm-map (kbd "M-i") 'helm-next-source)
 (define-key helm-map (kbd "M-u") 'helm-previous-line)
@@ -347,7 +359,6 @@
 (define-key helm-buffer-map (kbd "M-e") 'helm-next-line)
 (define-key helm-buffer-map (kbd "M-;") 'helm-previous-page)
 (define-key helm-buffer-map (kbd "M-o") 'helm-next-next)
-
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

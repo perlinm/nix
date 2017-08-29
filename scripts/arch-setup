@@ -200,8 +200,8 @@ sudo systemctl enable laptop-mode
 # to disable autosuspend for USB devices, edit /etc/laptop-mode/conf.d/runtime-pm.conf
 # and set CONTROL_RUNTIME_AUTOSUSPEND=0
 
-# tool to manipulate pdf filies
-pacmatic -S pdftk-bin
+# tools to manipulate pdf filies
+pacmatic -S pdftk-bin pdfshuffler
 
 # tool to build latex projects
 pacmatic -S latex-mk

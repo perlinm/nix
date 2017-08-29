@@ -26,6 +26,19 @@ def new_fig():
     ax.xaxis.set_major_formatter(fmt)
     return fig, ax
 
+# using scientific notation for plot axes
+from matplotlib import ticker
+fmt = ticker.ScalarFormatter(useMathText=True)
+fmt.set_powerlimits((0,0))
+plt.gca().yaxis.set_major_formatter(fmt)
+
+# setting colorbar limits (with pcolormesh) and scientific notation
+cb = colorbar()
+clim(0,1) # range from 0 to 1
+cb.formatter.set_powerlimits((-2, 3))
+cb.update_ticks()
+
+
 # make figure of desired size
 def make_fig():
   figure(figsize=(fig_x,fig_y))
@@ -41,3 +54,9 @@ params = {"legend.fontsize": font_size,
           "text.usetex" : True,
           "text.latex.preamble" : r"\usepackage{amsmath}"}
 rcParams.update(params)
+
+# rasterizing figure, but not the text
+gca().set_rasterization_zorder(1) # rasterized anything with zorder < 1
+# plot(stuff, zorder = 0)
+# xlabel(words, zorder = 1)
+# savefig(things, rasterized = True, dpi = fig_dpi)

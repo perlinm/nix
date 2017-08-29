@@ -263,6 +263,7 @@ myKeys = \conf -> mkKeymap conf $
 myMouseBindings (XConfig {}) = fromList $
   [
    ((mod1Mask, button1), move),
+   ((mod1Mask .|. shiftMask, button1), resize False),
    ((mod1Mask, button3), resize False),
    ((mod1Mask .|. shiftMask, button3), resize True)
   ]
@@ -308,8 +309,9 @@ main = do
                      <+> fullscreenManageHook
                      <+> manageHook defaultConfig,
         mouseBindings = myMouseBindings,
-        startupHook = ewmhDesktopsStartup >> setWMName "LG3D",
+        startupHook = docksStartupHook <+> ewmhDesktopsStartup >> setWMName "LG3D",
         handleEventHook = ewmhDesktopsEventHook
                           <+> FS.fullscreenEventHook
                           <+> floatClickFocusHandler
+                          <+> docksEventHook
     }
