@@ -1,13 +1,14 @@
 #!/usr/bin/env zsh
 
-if [ $DESKTOP_SESSION == xmonad ] || [ $DESKTOP_SESSION == bspwm ]; then
+if [ $DESKTOP_SESSION == xmonad ]; then
 
   # start keyring daemon
   eval $(/usr/bin/gnome-keyring-daemon --start)
   export SSH_AUTH_SOCK
 
-  # panel
+  # panel and power management
   xfce4-panel &
+  xfce4-power-manager &
 
   # window compositing
   xcompmgr &
@@ -17,25 +18,15 @@ if [ $DESKTOP_SESSION == xmonad ] || [ $DESKTOP_SESSION == bspwm ]; then
   xmodmap ~/.Xmodmap
   xset r 66
   xset r rate 200 60
-  #syndaemon -R -k -i 0.5 &
 
   # start some services
   nm-applet &
-  #wicd-client -t &
   volnoti -t 1 &
   emacs --daemon &
-  #pidgin &
   #xflux -z 80302 &
 
   # background
   feh --bg-fill /usr/share/backgrounds/background.jpg
-
-fi
-
-if [ $DESKTOP_SESSION == bspwm ]; then
-
-  # hotkey daemon for bspwm
-  sxhkd &
 
 fi
 

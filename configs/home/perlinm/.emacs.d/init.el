@@ -45,25 +45,8 @@
   :ensure t)
 (use-package markdown-mode
   :ensure t)
-
-;; (use-package f
-;;   :ensure t)
-;; (use-package company
-;;   :config
-;;   (global-company-mode)
-;;   (setq company-tooltip-align-annotations t)
-;;   (global-set-key (kbd "<C-tab>") 'company-indent-or-complete-common)
-;;   :ensure t)
-;; (use-package company-ycmd
-;;   :config
-;;   (company-ycmd-setup)
-;;   :ensure t)
-;; (use-package ycmd
-;;   :config
-;;   (add-hook 'after-init-hook #'global-ycmd-mode)
-;;   (set-variable 'ycmd-server-command
-;;                 '("python2" "/usr/share/vim/vimfiles/third_party/ycmd/ycmd"))
-;;  :ensure t)
+(use-package multiple-cursors
+  :ensure t)
 
 ;; -------------------------------------------------------------------------------------
 ;; Config options
@@ -75,7 +58,7 @@
 (set-frame-parameter (selected-frame) 'alpha '(75 75)) ;; background transparency
 (add-to-list 'default-frame-alist '(alpha 75 75)) ;; background transparency
 (add-to-list 'default-frame-alist '(font . "Consolas-11")) ;; font
-(add-to-list 'default-frame-alist '(foreground-color . "grey85")) ;; font color
+(add-to-list 'default-frame-alist '(foreground-color . "grey90")) ;; font color
 
 ;; emacs window/client modifications
 (setq line-number-mode t) ;; show line number at cursor
@@ -144,6 +127,9 @@
 (setq isearch-regexp-lax-whitespace t)
 (setq search-whitespace-regexp "[ \t\r\n]+")
 
+;; enable visual line mode always by default
+(global-visual-line-mode t)
+
 ;; -------------------------------------------------------------------------------------
 ;; TeX options
 
@@ -155,11 +141,9 @@
 (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
 (add-hook 'LaTeX-mode-hook (lambda () (set-fill-column 70)))
 (add-hook 'bibtex-mode-hook (lambda () (set-fill-column 70)))
-
-; enable auto-fill mode; nice for text formatting
 (add-hook 'LaTeX-mode-hook 'auto-fill-mode)
 (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
-(setq reftex-plug-into-AUCTeX t)
+(setq reftex-plug-into-AUCTeX t) ;; make reftex work with auctex
 
 ;; compile documents via latexmk
 (add-hook 'LaTeX-mode-hook (lambda ()
@@ -212,7 +196,10 @@
     ("843a82ff3b91bec5430f9acdd11de03fc0f7874b15c1b6fbb965116b4c7bf830" "b90d367096824d5b69b59e606c6260be55d378b58e0d03ff8866e0b3d0da1c1b" "c3b86220873ba8ec54e0988673b87ea7d11301799eca74ccf7e84cce286ec9cd" "fa14373656d9c9e86f15dcced71f42b0cd99ea13e12a66cf9eb2625097c75d02" default)))
  '(font-latex-math-environments
    (quote
-    ("display" "displaymath" "equation" "eqnarray" "gather" "multline" "align" "alignat" "xalignat" "dmath"))))
+    ("display" "displaymath" "equation" "eqnarray" "gather" "multline" "align" "alignat" "xalignat" "dmath")))
+ '(package-selected-packages
+   (quote
+    (auctex-latexmk use-package markdown-mode linum-relative helm-ls-git haskell-mode f company-ycmd color-theme cargo auctex))))
 
 ;; suppress automatic labelling of new environments
 (eval-after-load "latex" '(progn (defun LaTeX-label (env))))
@@ -243,18 +230,17 @@
 
 ;; "Emacs speaks statistics" -- mode for R language
 ;; (setq load-path (cons "/usr/share/emacs/site-lisp/ess" load-path))
-(require 'ess-site)
+;;(require 'ess-site)
 
 ;; -------------------------------------------------------------------------------------
 ;; Miscellaneous functions and commands
 
-;; kill all buffers other than the current one
 (defun only-current-buffer ()
+    "Kill all buffers other than the one which is currently active."
   (interactive)
     (mapc 'kill-buffer (cdr (buffer-list (current-buffer)))))
 (put 'upcase-region 'disabled nil)
 
-;; exactly what it counds like
 (defun comment-or-uncomment-region-or-line ()
     "Comments or uncomments the region or the current line if there's no active region."
     (interactive)
@@ -264,11 +250,62 @@
             (setq beg (line-beginning-position) end (line-end-position)))
         (comment-or-uncomment-region beg end)))
 
+(defun my--back-to-indentation ()
+  "Move to indentation respecting `visual-line-mode'."
+  (if visual-line-mode
+      (cl-letf (((symbol-function 'beginning-of-line) (lambda (arg) (beginning-of-visual-line arg))))
+        (back-to-indentation))
+    (back-to-indentation)))
+
+(defun my--move-beginning-of-line (&optional arg)
+  "Move to beginning of line respecting `visual-line-mode'."
+  (cond
+   ((eq major-mode 'org-mode)
+    (org-beginning-of-line arg))
+   (visual-line-mode
+    (beginning-of-visual-line arg))
+   (t (move-beginning-of-line arg))))
+
+(defun my--move-end-of-line (&optional arg)
+  "Move to end of line respecting `visual-line-mode'."
+  (cond
+   ((eq major-mode 'org-mode)
+    (org-end-of-line arg))
+   (visual-line-mode
+    (end-of-visual-line arg))
+   (t (move-end-of-line arg))))
+
+(defun smarter-move-beginning-of-line (arg)
+  "Move point back to indentation of beginning of line.
+
+Move point to the first non-whitespace character on this line.
+If point is already there, move to the beginning of the line.
+Effectively toggle between the first non-whitespace character and
+the beginning of the line.
+
+If ARG is not nil or 1, move forward ARG - 1 lines first.  If
+point reaches the beginning or end of the buffer, stop there."
+  (interactive "^p")
+  (setq arg (or arg 1))
+
+  ;; Move lines first
+  (when (/= arg 1)
+    (let ((line-move-visual nil))
+      (forward-line (1- arg))))
+
+  (let ((orig-point (point)))
+    (my--back-to-indentation)
+    (when (= orig-point (point))
+      (my--move-beginning-of-line 1))))
+
 ;; -------------------------------------------------------------------------------------
 ;; Key bindings
 
 (cua-mode t) ;; use standard copy/paste commands
+(setq mouse-yank-at-point t) ;; paste at cursor position
 (global-unset-key (kbd "C-x C-q")) ;; unset key binding for read-only mode
+
+;; use helm commands
 (global-set-key (kbd "M-x") #'helm-M-x)
 (global-set-key (kbd "C-x r b") #'helm-filtered-bookmarks)
 (global-set-key (kbd "C-x C-f") #'helm-find-files)
@@ -286,7 +323,7 @@
 (define-key my-keys-minor-mode-map (kbd "M-C-u") 'backward-paragraph)
 (define-key my-keys-minor-mode-map (kbd "M-C-e") 'forward-paragraph)
 
-(define-key my-keys-minor-mode-map (kbd "M-l") 'move-beginning-of-line)
+(define-key my-keys-minor-mode-map (kbd "M-l") 'smarter-move-beginning-of-line)
 (define-key my-keys-minor-mode-map (kbd "M-y") 'move-end-of-line)
 
 (define-key my-keys-minor-mode-map (kbd "M-;") 'scroll-down-command)
@@ -301,13 +338,17 @@
 
 (define-key my-keys-minor-mode-map (kbd "M-r") 'comment-or-uncomment-region-or-line)
 
+(define-key my-keys-minor-mode-map (kbd "M-C-q") 'set-rectangular-region-anchor)
+(global-unset-key (kbd "C-<down-mouse-1>"))
+(define-key my-keys-minor-mode-map (kbd "C-<mouse-1>") 'mc/add-cursor-on-click)
+
 (define-key my-keys-minor-mode-map (kbd "C-f C-f") (lambda ()
                                                      (interactive) (revert-buffer t t t)
                                                      (message "buffer reverted")))
 
 ;; define minor mode which enables my custom key bindings
 (define-minor-mode my-keys-minor-mode
-  "A minor mode so that my key settings override annoying major modes."
+  "Set a minor mode, so that my key settings override those of major modes."
   t " my-keys" 'my-keys-minor-mode-map)
 
 ;; enable minor mode with custom key bindings
@@ -321,7 +362,7 @@
   (my-keys-minor-mode 1))
 (add-hook 'minibuffer-setup-hook 'my-minibuffer-setup-hook)
 
-;; set some helm keybindings
+;; set some keybindings for helm
 
 (define-key helm-find-files-map (kbd "M-n") 'helm-find-files-up-one-level)
 (define-key helm-find-files-map (kbd "M-i") 'helm-execute-persistent-action)

@@ -1,15 +1,13 @@
 #!/usr/bin/env sh
 
-idle_time=0.5 # seconds
+device="Synaptics TM3072-002"
 
-state=`synclient -l | grep TouchpadOff | sed 's/^.*= //'`
+state=`xinput list-props "$device" | grep "Device Enabled" | awk '{print $4}'`
 if [ $state -eq 1 ]
 then
-  notify-send -t 1 "touchpad on"
-  synclient TouchpadOff=0
-  syndaemon -d -K -i $idle_time
-else
   notify-send -t 1 "touchpad off"
-  synclient TouchpadOff=1
-  killall syndaemon 2>/dev/null
+  xinput --disable "$device"
+else
+  notify-send -t 1 "touchpad on"
+  xinput --enable "$device"
 fi

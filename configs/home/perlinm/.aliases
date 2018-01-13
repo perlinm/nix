@@ -14,8 +14,9 @@ alias fl='sudo fdisk -l'
 alias startwin='sudo startwin'
 
 alias tiem='time'
-alias okulra='okular'
 alias pdf='qpdfview'
 
 alias lpw='watch lpq'
 alias v='sudo vpn'
+
+alias fire='firefox'

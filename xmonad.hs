@@ -247,7 +247,6 @@ myKeys = \conf -> mkKeymap conf $
      ---------- misc ----------
      ("M4-k", runScript "layout-toggle.sh"),
      ("M1-[", runScript "touchpad-toggle.sh"),
-     ("M1-]", runSudoScript "restart-touchpad"),
      ("M4-/", windows copyToAll),
      ("M4-S-/", killAllOtherCopies),
      ("C-M4-<Backspace>", io $ exitWith ExitSuccess)

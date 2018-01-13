@@ -50,7 +50,7 @@ systemctl enable kbdrate.service
 systemctl start kbdrate.service
 
 # shell interpreter
-pacman -S zsh zsh-lovers
+pacman -S zsh
 
 # user
 useradd -m -G wheel,power -s /usr/bin/zsh perlinm
@@ -75,24 +75,29 @@ ln -sf `which ccache` /usr/local/bin/g++
 
 # python packages
 pacman -S python python2 python-numpy python2-numpy python-matplotlib python2-matplotlib \
-  python-sympy python2-sympy python-scipy python2-scipy ipython ipython2
+  python-sympy python2-sympy python-scipy python2-scipy ipython ipython2 \
+  python-qutip
 
 # haskell packages
 pacman -S ghc cabal-install happy alex
 ### possibly inquire into haddock
 
 # java packages
-pacman -S jre8-openjdk
+pacman -S jre9-openjdk
 
 # latex packages
 pacman -S texlive-most
 
 # emacs and auctex
 pacman -S emacs emacs-python-mode emacs-haskell-mode auctex
-# manually in emacs: M-x list-packages; select use-package with x to install
+# perform manually in emacs: M-x list-packages, select use-package with x to install
 
 # rust programming language
 pacman -S rust cargo
+# choose rustup option
+
+# misc.
+pacman -S exa vim-systemd
 
 ####################
 # graphic utilities
@@ -100,6 +105,7 @@ pacman -S rust cargo
 
 # xorg
 pacman -S xorg xorg-drivers xorg-apps
+# if not all xorg-drivers, at least xf86-video-intel might be necessary for xbacklight
 
 # kde5
 pacman -S plasma-meta kde-applications
@@ -132,7 +138,7 @@ pacman -S v4l2ucp
 pacman -S firefox icedtea-web flashplugin
 
 # misc.
-pacman -S feh geeqie vlc mplayer smplayer gimp inkscape lxappearance wine evince skype scrot cmake
+pacman -S feh geeqie vlc mplayer smplayer gimp inkscape lxappearance wine evince scrot cmake
 
 # office suite and dictionary
 pacman -S libreoffice-fresh aspell-en
@@ -146,7 +152,7 @@ pacman -S intel-ucode
 
 # display manager and theme
 pacman -S lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings
-pacman -S numix-themes gtk-endine-murrine
+pacman -S numix-gtk-theme gtk-engine-murrine
 systemctl enable lightdm
 ### manually launch 'lightdm-gtk-greeter-settings' to configure
 ### for autologin, add user to autologin group:
@@ -170,7 +176,7 @@ sudo bash -c 'echo "never" > /sys/kernel/mm/transparent_hugepage/enabled'
 
 ### log in as perlinm
 
-# auto retrieve pgp keys
+# auto retrieve gpg keys
 cp /usr/share/gnupg/gpg-conf.skel ~/.gnupg/gpg.conf
 echo '\nkeyserver-options auto-key-retrieve' >> ~/.gnupg/gpg.conf
 
@@ -194,8 +200,8 @@ export pacman_program="pacaur"
 ###   in /etc/pacman.conf
 
 # misc. AUR packages
-pacmatic -S pamixer pulseaudio-ctl qbittorrent deluge laptop-mode-tools wps-office exa-git ripgrep
-sudo systemctl enable laptop-mode
+pacmatic -S pamixer pulseaudio-ctl qbittorrent deluge laptop-mode-tools wps-office ripgrep
+sudo systemctl enable laptop-mode qpdfview
 
 # to disable autosuspend for USB devices, edit /etc/laptop-mode/conf.d/runtime-pm.conf
 # and set CONTROL_RUNTIME_AUTOSUSPEND=0
@@ -229,7 +235,7 @@ sudo touch /etc/systemd/system/getty@tty1.service.d/noclear.conf
 ### manually write '[Service]\nTTYVTDisallocate=no' to the above file
 
 # fonts
-pacmatic -S ttf-ms-fonts ttf-oxygen ttf-droid ttf-liberation ttf-ubuntu-font-family
+pacmatic -S ttf-google-fonts-typewolf ttf-ms-fonts ttf-oxygen ttf-droid ttf-liberation ttf-ubuntu-font-family consolas-font
 
 ### instead of infinality-bundle
 pacmatic -S freetype2 fontconfig cairo
@@ -253,7 +259,7 @@ sudo fc-presets set
 ### choose 'ms' option
 
 # widget and themes
-pacmatic -S moka-icon-theme-git
+pacmatic -S moka-icon-theme
 ### manually enable themes via lxappearance
 ### manually set gtk theme for qt via qtconfig-qt4
 ### maybe set greeter theme via lightdm-gtk-greeter-settings
@@ -261,17 +267,16 @@ pacmatic -S moka-icon-theme-git
 # google chrome and talk plugin
 pacmatic -S google-chrome google-talkplugin
 
-# firefox browser sound plugins
-pacmatic -S gstramer0.10-plugins
+# firefox browser sound plugins - if necessary
+# pacmatic -S gstramer0.10-plugins
 ### if there are sound problems, change 'media.gstreamer.enabled' to 'false' in about:config
-### if youtube does not work in fixefor, use flash instead of html5
+### if youtube does not work in firefox, use flash instead of html5
 
 # equivalent of quicktime for linux
 pacmatic -S gecko-mediaplayer
 
-### configure touch pad via /etc/X11/xorg.conf.d/99-synaptics.conf
-###   particularly paying attention to option "AreaTopEdge" (see man synaptics)
-###   use evtest to check vertical coordinate values on touchpad
+### configure touchpad via /etc/X11/xorg.conf.d/99-touchpad.conf
+### see man libinput.4
 
 ### manually set cursor theme via lxappearance
 ### set cursor theme at greeter by writing '[Icon Theme]\nInherits=cursor_name'
@@ -337,10 +342,10 @@ pacmatic -S iscan iscan-data
 # mv saveDocument /home/user/bin
 
 # switching keyboard layouts
-pacmatic -S xkb-switch-git
+pacmatic -S xkb-switch
 
-# qpdfview
-pacmatic -S qpdfview
+# volume notification
+pacmatic -S volnoti
 
 # pidgin (chat client)
 pacmatic -S pidgin pidgin-extprefs pidgin-gnome-keyring purple-hangouts-hg purple-facebook
@@ -363,13 +368,8 @@ sudo gpasswd -a perlinm vboxusers
 # edit grub options
 pacaur -S grub-customizer
 ### to use grub-reboot requires "GRUB_DEFAULT=saved" in /etc/default/grub
-
-# burg: grub replacement
-pacmatic -S burg-themes
-### must install burg bootloader; use grub-customizer to do so
-
-### for hidden grub menu, set 'GRUB_FORCE_HIDDEN_MENU="true"' in /etc/default/[grub/burg]
-###   and copy over /etc/[grub/burg].d/31_hold_shift
+### for hidden grub menu, set 'GRUB_FORCE_HIDDEN_MENU="true"' in /etc/default/grub
+###   and copy over /etc/grub.d/31_hold_shift
 
 # optimized multi-threaded mathematical routines
 pacaur -S intel-mkl
@@ -387,7 +387,7 @@ cd ~/src/fac && ./build/linux.sh
 ./fac
 
 # fac dependencies
-pacmatic -S python-markdown python2-markdown
+pacmatic -S python-markdown
 
 # deft dependencies
 pacmatic -S scons gnuplot haskell-hunit mlocate

@@ -20,15 +20,5 @@ elif [ $1 = on ]; then
 elif [ $1 = off ]; then
   pamixer --mute
 elif [ $1 = toggle ]; then
-  if [ `pamixer --get-mute` = true ]; then
-    $0 on
-  else
-    $0 off
-  fi
-fi
-
-if [ `pamixer --get-mute` = false ]; then
-  volnoti-show `pamixer --get-volume`
-else
-  volnoti-show -m
+  pamixer --toggle-mute
 fi
