@@ -14,13 +14,11 @@
 \newcommand{\w}{\wedge} % wedge product
 \newcommand{\bk}{\Braket} % shorthand for braket notation
 
-%%% sections
-\usepackage{sectsty,titlesec} % section title options
-\sectionfont{\large} % section title font size
-\subsectionfont{\normalsize} % subsection title font size
-%%% place inside document to modify spacing around section titles
-\titlespacing{\section}{0pt}{6pt}{0pt} % section title placement
-\titlespacing{\subsection}{5mm}{6pt}{0pt} % subsection title placement
+%% enumeration / lists
+\usepackage[inline]{enumitem} % in-line lists and \setlist{} (below)
+%\setlist{nolistsep} % more compact spacing between environments
+\setlist[itemize]{leftmargin=*} % nice margins for itemize ...
+\setlist[enumerate]{leftmargin=*} % ... and enumerate environments
 
 %%% figures
 \usepackage{hyperref} % for linking references
@@ -44,24 +42,47 @@
 \addto\captionsenglish{ % set bibliography title
   \renewcommand\refname{\normalsize\bf References}}
 
+%%% sections
+\usepackage{sectsty,titlesec} % section title options
+\sectionfont{\large} % section title font size
+\subsectionfont{\normalsize} % subsection title font size
+%%% place inside document to modify spacing around section titles
+\titlespacing{\section}{0pt}{6pt}{0pt} % section title placement
+\titlespacing{\subsection}{5mm}{6pt}{0pt} % subsection title placement
+
+% letters instead of numbers for marking footnotes
+\renewcommand*{\thefootnote}{\alph{footnote}}
+
+%%% collaboration and editing
+\usepackage{color,soul} % text color and other editing options
+% \ul{underline}, \st{strikethrough}, and \hl{highlight}
+
+% color definitions
+\usepackage{xcolor}
+\definecolor{lightblue}{RGB}{31,119,180}
+\definecolor{orange}{RGB}{255,127,14}
+\definecolor{green}{RGB}{44,160,44}
+
+% proper coloring inside math environment
+\makeatletter
+\def\mathcolor#1#{\@mathcolor{#1}}
+\def\@mathcolor#1#2#3{
+  \protect\leavevmode
+  \begingroup
+    \color#1{#2}#3
+  \endgroup
+}
+\makeatother
+
+%%% importing code from files
+\usepackage{listings}
+
 %%% one column header for two column document
 \newcommand{\head}[1]{
 \twocolumn[\begin{@twocolumnfalse}
 \vspace{-5mm}
 \begin{center} #1 \end{center}
 \end{@twocolumnfalse}]}
-
-%%% collaboration and editing
-\usepackage{color,soul} % text color and other editing options
-% \ul{underline}, \st{strikethrough}, and \hl{highlight}
-\usepackage[draft]{fixme} % in text notes
-\fxsetup{layout=footnote}
-\newcommand{\nt}{\fxnote}
-\newcommand{\re}[1]{{\bf \color{red} #1}}
-\newcommand{\bl}[1]{{\bf \color{blue} #1}}
-
-%%% importing code from files
-\usepackage{listings}
 
 %%% indented paragraph
 \newenvironment{indpar}

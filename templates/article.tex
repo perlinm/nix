@@ -1,21 +1,28 @@
-\documentclass[10pt]{article}
+\documentclass[aps,notitlepage,nofootinbib,11pt]{revtex4-1}
 
-%%% standard header
-\usepackage[margin=1in]{geometry} % one inch margins
-\usepackage{fancyhdr} % easier header and footer management
-\pagestyle{fancyplain} % page formatting style
-\usepackage{hyperref} % for linking references
+% linking references
+\usepackage{hyperref}
+\hypersetup{
+  breaklinks=true,
+  colorlinks=true,
+  linkcolor=blue,
+  filecolor=magenta,
+  urlcolor=cyan,
+}
+
+%%% paragraph indentation and spacing
 \setlength{\parindent}{0cm} % don't indent new paragraphs...
 \parskip 6pt % ... place a space between paragraphs instead
-\usepackage[inline]{enumitem} % include for \setlist{}, use below
-%\setlist{nolistsep} % more compact spacing between environments
-\setlist[itemize]{leftmargin=*} % nice margins for itemize ...
-\setlist[enumerate]{leftmargin=*} % ... and enumerate environments
-\usepackage{lastpage} % for referencing last page
-\cfoot{\thepage~of \pageref{LastPage}} % "x of y" page labeling
+\frenchspacing % only one space after periods
 
+%%% header / footer
+\usepackage{fancyhdr} % easier header and footer management
+\pagestyle{fancy} % page formatting style
+\fancyhf{}
 \renewcommand{\headrulewidth}{0.5pt} % horizontal line in header
 \lhead{Michael A. Perlin}
+\usepackage{lastpage} % for referencing last page
+\cfoot{\thepage~of \pageref{LastPage}} % "x of y" page labeling
 
 \begin{document}
 \begin{center}

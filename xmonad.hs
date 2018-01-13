@@ -15,7 +15,6 @@ import XMonad
 import XMonad.Actions.CycleWS
 import XMonad.Actions.ConstrainedResize as CR
 import XMonad.Actions.CopyWindow
-import XMonad.Actions.NoBorders
 import XMonad.Actions.Navigation2D
 import XMonad.Actions.WorkspaceNames
 import XMonad.Config.Xfce
@@ -54,22 +53,23 @@ myRun = "bashrun"
 ---------------------------------------------------------------------------------
 -- window rules
 
-myManageHook = composeAll . concat $
+myManageHook = composeOne . concat $
   [
-    [ (title =? t) --> doCenterFloat | t <- floatTitles ],
-    [ (roleName =? r) --> doSink | r <- sinkRoles ],
-    [ (className =? c) --> doCenterFloat | c <- floatClasses ],
-    [ (className =? c) --> doIgnore | c <- ignoreClasses ]
+    [ (roleName =? r) -?> doSink | r <- sinkRoles ],
+    [ (title =? t) -?> doCenterFloat | t <- floatTitles ],
+    [ (className =? c) -?> doCenterFloat | c <- floatClasses ],
+    [ (className =? c) -?> doIgnore | c <- ignoreClasses ]
   ]
   where
     roleName = stringProperty "WM_WINDOW_ROLE"
     doSink = (ask >>= doF . W.sink) <+> doF W.swapUp
-    floatTitles = ["bashrun"]
-    sinkRoles = ["app","conversation"]
-    floatClasses = ["Xfce4-appfinder", "Nm-connection-editor",
-                    "Nm-openconnect-auth-dialog"," ","Wicd-client.py","Python2",
-                    "Thunar","Arandr","Wrapper-1.0","Pidgin"]
-    ignoreClasses = ["Xfce4-notifyd"]
+    sinkRoles = [ "app", "conversation" ]
+    floatTitles = [ "bashrun" ]
+    floatClasses = [ "Xfce4-power-manager-settings", "Xfce4-appfinder",
+                     "Nm-connection-editor", "Nm-openconnect-auth-dialog",
+                     " ", "Wicd-client.py", "Python2", "matplotlib",
+                     "Thunar", "Arandr", "Wrapper-1.0", "Xfce4-panel" ]
+    ignoreClasses = [ "Xfce4-notifyd" ]
 
 ---------------------------------------------------------------------------------
 -- scratchpads
@@ -224,12 +224,12 @@ myKeys = \conf -> mkKeymap conf $
      ("<XF86MonBrightnessDown>", runScript "light.sh dec"),
      ("<XF86MonBrightnessUp>", runScript "light.sh inc"),
      ("<XF86Display>", spawn "arandr"),
-     ("<XF86Search>", spawn myRun),
+     ("<XF86Search>", spawn "xfce4-appfinder"),
      ---------- testing media keys ----------
-     ("<XF86AudioMicMute>", runScript "volume.sh toggle"),
-     ("<XF86Tools>", runScript "volume.sh toggle"),
-     ("<XF86LaunchA>", runScript "volume.sh toggle"),
-     ("<XF86MyComputer>", runScript "volume.sh toggle"),
+     ("<XF86AudioMicMute>", spawn "pactl set-source-mute 1 toggle"),
+     -- ("<XF86Tools>", runScript "volume.sh toggle"),
+     -- ("<XF86LaunchA>", runScript "volume.sh toggle"),
+     -- ("<XF86MyComputer>", runScript "volume.sh toggle"),
      ---------- volume ----------
      ("C-/", runScript "volume.sh toggle"),
      ("C-<D>", runScript "volume.sh dec"),
