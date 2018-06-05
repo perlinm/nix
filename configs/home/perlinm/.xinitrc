@@ -23,7 +23,7 @@ if [ $DESKTOP_SESSION == xmonad ]; then
   nm-applet &
   volnoti -t 1 &
   emacs --daemon &
-  #xflux -z 80302 &
+  fluxgui &
 
   # background
   feh --bg-fill /usr/share/backgrounds/background.jpg

@@ -141,7 +141,6 @@
 (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
 (add-hook 'LaTeX-mode-hook (lambda () (set-fill-column 70)))
 (add-hook 'bibtex-mode-hook (lambda () (set-fill-column 70)))
-(add-hook 'LaTeX-mode-hook 'auto-fill-mode)
 (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
 (setq reftex-plug-into-AUCTeX t) ;; make reftex work with auctex
 
@@ -167,6 +166,9 @@
   (push (concat (substring (buffer-name) 1 (- (length (buffer-name)) 8))
                 "." TeX-default-extension) TeX-error-file)
   (push nil TeX-error-offset))
+
+;; suppress automatic labelling of new environments
+(eval-after-load "latex" '(progn (defun LaTeX-label (env))))
 
 ;; syntax highlighting in auctex
 (custom-set-variables
@@ -201,8 +203,23 @@
    (quote
     (auctex-latexmk use-package markdown-mode linum-relative helm-ls-git haskell-mode f company-ycmd color-theme cargo auctex))))
 
-;; suppress automatic labelling of new environments
-(eval-after-load "latex" '(progn (defun LaTeX-label (env))))
+;; only change sectioninig color, not font
+(setq font-latex-fontify-sectioning 'color)
+
+;; avoid larger fonts in latex
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(font-latex-sectioning-0-face ((t (:inherit font-latex-sectioning-1-face))))
+ '(font-latex-sectioning-1-face ((t (:inherit font-latex-sectioning-2-face))))
+ '(font-latex-sectioning-2-face ((t (:inherit font-latex-sectioning-3-face))))
+ '(font-latex-sectioning-3-face ((t (:inherit font-latex-sectioning-4-face))))
+ '(font-latex-sectioning-4-face ((t (:inherit font-latex-sectioning-5-face))))
+ '(font-latex-slide-title-face ((t (:inherit (variable-pitch font-lock-type-face) :weight bold :height 1.0))))
+ '(variable-pitch ((t nil))))
+
 
 ;; -------------------------------------------------------------------------------------
 ;; File modes
@@ -400,10 +417,3 @@ point reaches the beginning or end of the buffer, stop there."
 (define-key helm-buffer-map (kbd "M-e") 'helm-next-line)
 (define-key helm-buffer-map (kbd "M-;") 'helm-previous-page)
 (define-key helm-buffer-map (kbd "M-o") 'helm-next-next)
-
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )

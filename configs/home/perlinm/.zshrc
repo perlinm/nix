@@ -9,7 +9,7 @@ done
 export PATH=$NEW_PATH
 
 # make pacmatic call pacaur -> powerpill -> pacman
-export pacman_program="pacaur"
+export pacman_program="yay"
 
 # other options
 export HISTFILE=~/.zhist

@@ -5,6 +5,7 @@
 \newcommand{\p}[1]{\left(#1\right)} % parenthesis
 \renewcommand{\sp}[1]{\left[#1\right]} % square parenthesis
 \renewcommand{\set}[1]{\left\{#1\right\}} % curly parenthesis
+\newcommand{\bk}{\Braket} % shorthand for braket notation
 \renewcommand{\v}{\bm} % bold vectors
 \newcommand{\uv}[1]{\hat{\v{#1}}} % unit vectors
 \newcommand{\av}{\vec} % arrow vectors
@@ -12,26 +13,21 @@
 \renewcommand{\d}{\partial} % partial d
 \renewcommand{\c}{\cdot} % inner product
 \newcommand{\w}{\wedge} % wedge product
-\newcommand{\bk}{\Braket} % shorthand for braket notation
 
-%% enumeration / lists
-\usepackage[inline]{enumitem} % in-line lists and \setlist{} (below)
-%\setlist{nolistsep} % more compact spacing between environments
-\setlist[itemize]{leftmargin=*} % nice margins for itemize ...
-\setlist[enumerate]{leftmargin=*} % ... and enumerate environments
+
 
 %%% figures
-\usepackage{hyperref} % for linking references
 \usepackage{graphicx} % for figures
+\usepackage{float} % for [H] placement option
 \usepackage{grffile} % help latex properly identify figure extensions
 \graphicspath{{./figures/}} % set path for all graphics
-\usepackage[caption=false]{subfig} % subfigures
+\usepackage[caption=false]{subfig} % subfigures (via \subfloat[]{})
 \newcommand{\sref}[1]{\protect\subref{#1}} % for referencing subfigures
-\usepackage{float} % for [H] placement option
-\usepackage[caption=false]{subfig} % for subfigures
 \usepackage{multirow} % multirow entries in tables
 \usepackage{footnote} % footnotes in floats
 \usepackage[font=small,labelfont=bf]{caption} % caption text options
+
+
 
 %%% bibliography
 \usepackage[sort&compress,numbers]{natbib} % bibliography options
@@ -42,20 +38,60 @@
 \addto\captionsenglish{ % set bibliography title
   \renewcommand\refname{\normalsize\bf References}}
 
-%%% sections
-\usepackage{sectsty,titlesec} % section title options
-\sectionfont{\large} % section title font size
-\subsectionfont{\normalsize} % subsection title font size
-%%% place inside document to modify spacing around section titles
-\titlespacing{\section}{0pt}{6pt}{0pt} % section title placement
-\titlespacing{\subsection}{5mm}{6pt}{0pt} % subsection title placement
 
+%%% miscellaneous markup
+% normalem included to prevent underlining titles in the bibliography
+\usepackage[normalem]{ulem} % for strikeout text
+\usepackage{color,soul} % text color and other editing options
+% \ul{underline}, \st{strikethrough}, and \hl{highlight}
+
+
+%% enumeration / lists
+\usepackage[inline]{enumitem} % in-line lists and \setlist{} (below)
+\setlist{nolistsep} % more compact spacing between environments
+\setlist[itemize]{leftmargin=*} % nice margins for itemize ...
+\setlist[enumerate]{leftmargin=*} % ... and enumerate environments
+
+
+%%% for diagrams
+\usepackage{tikz}
+\tikzset{
+  baseline = (current bounding box.center)
+}
+\usepackage{tikz-feynman}
+\tikzfeynmanset{
+  compat = 1.1.0,
+  every diagram = {small}
+}
+\newcommand{\shrink}[1]{\scalebox{0.8}{#1}} % for smaller diagrams
+
+
+%%% footnote fixes; after \begin{document}
+\count\footins = 1000 % allows for longer footnotes
+\setlength{\footnotesep}{12pt} % fix line separation in footnotes
 % letters instead of numbers for marking footnotes
 \renewcommand*{\thefootnote}{\alph{footnote}}
 
-%%% collaboration and editing
-\usepackage{color,soul} % text color and other editing options
-% \ul{underline}, \st{strikethrough}, and \hl{highlight}
+% modify indentation of footnotes
+\makeatletter
+\renewcommand<>\beamer@framefootnotetext[1]{%
+  \global\setbox\beamer@footins\vbox{%
+    \hsize\framewidth
+    \textwidth\hsize
+    \columnwidth\hsize
+    \unvbox\beamer@footins
+    \reset@font\footnotesize
+    \@parboxrestore
+    \protected@edef\@currentlabel
+         {\csname p@footnote\endcsname\@thefnmark}%
+    \color@begingroup
+      \uncover#2{\@makefntext{%
+        \rule\z@\footnotesep\ignorespaces\parbox[t]{.9\textwidth}{#1\@finalstrut\strutbox}\vskip1sp}}%
+    \color@endgroup}%
+}
+\makeatother
+
+
 
 % color definitions
 \usepackage{xcolor}
@@ -74,8 +110,12 @@
 }
 \makeatother
 
+
+
 %%% importing code from files
 \usepackage{listings}
+
+
 
 %%% one column header for two column document
 \newcommand{\head}[1]{
@@ -83,6 +123,8 @@
 \vspace{-5mm}
 \begin{center} #1 \end{center}
 \end{@twocolumnfalse}]}
+
+
 
 %%% indented paragraph
 \newenvironment{indpar}
@@ -92,8 +134,32 @@
 }
 {\end{list}}
 
+
+
 %%% cyrillic script
 \usepackage[utf8]{inputenc}
 \usepackage[russian,english]{babel}
 \usepackage[T2A,OT1]{fontenc}
 \renewcommand{\cyr}[1]{{\fontencoding{T2A}\selectfont \em{#1}}}
+
+
+
+% energy level diagram:
+\begin{tikzpicture}[
+  scale=0.5,
+  level/.style={thick},
+  virtual/.style={thick,densely dashed},
+  trans/.style={thick,<->,shorten >=2pt,shorten <=2pt,>=stealth}
+  ]
+  % draw the energy levels
+  \draw[level] (2cm,-2em) -- (0cm,-2em) node[left] {$\ket{a}$};
+  \draw[level] (2cm,11em) -- (4cm,11em) node[midway,above] {$\ket{b}$};
+  \draw[level] (4cm,-11em) -- (6cm,-11em) node[right] {$\ket{c}$};
+  % draw the virtual levels
+  \draw[virtual] (2cm,8em) -- (4cm,8em) node[midway,above] {$\Delta_1$};
+  \draw[virtual] (4cm,-8em) -- (6cm,-8em) node[midway,below] {$\Delta_2$};
+  \draw[virtual] (2cm,-5em) -- (0cm,-5em) node[midway,above] {$\Delta_3$};
+  % draw the transitions
+  \draw[trans] (1cm,-2em) -- (2.5cm,8em) node[midway,left] {$\Omega_1$};
+  \draw[trans] (3.5cm,8em) -- (5cm,-8em) node[midway,right] {$\Omega_2$};
+\end{tikzpicture}

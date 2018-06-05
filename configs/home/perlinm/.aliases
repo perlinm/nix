@@ -17,6 +17,5 @@ alias tiem='time'
 alias pdf='qpdfview'
 
 alias lpw='watch lpq'
-alias v='sudo vpn'
 
 alias fire='firefox'

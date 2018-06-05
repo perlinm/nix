@@ -1,24 +1,46 @@
-\documentclass[xcolor=dvipsnames]{beamer}
-\usepackage{beamerthemelined}
-\usepackage{pstricks}
+\documentclass[aspectratio=43]{beamer}
 
-% \setbeamertemplate{footline}[frame number]
 \setbeamertemplate{navigation symbols}{}
+\addtobeamertemplate{navigation symbols}{}{%
+    \usebeamerfont{footline}%
+    \usebeamercolor[fg]{footline}%
+    \hspace{1em}%
+    \insertframenumber/\inserttotalframenumber
+}
 \setbeamertemplate{caption}[numbered]
+
+%%% set beamer theme
+\usepackage{beamerthemelined}%
+\setbeamertemplate{headline}[text line]%
+{%
+  \vbox{%
+    \vskip3pt%
+    \vskip1.5pt%
+    \insertvrule{0.4pt}{beamerstructure!50!averagebackgroundcolor}%
+    \vskip1.5pt%
+    \tinyline{\color{beamerstructure}\insertsubsection\hfill}
+    \insertvrule{4pt}{beamerstructure!50!averagebackgroundcolor}%
+  }%
+}
+% \setbeamertemplate{footline}{} % clear footer
+
+%%% figure / table caption options
 \usepackage{caption}
 \captionsetup{textfont={small,bf,color=BlueViolet}}
 \captionsetup{labelformat=empty}
 
-\usepackage{xpatch}
-\xpatchcmd{\itemize}
-  {\def\makelabel}
-  {\setlength{\itemsep}{2em}\def\makelabel}
-  {}
-  {}
+%%% bibliography
+% normally cite with \footfullcite{-ref-}
+% inside column environment, cite with
+% \footnote[frame]{\fullcite{-ref-}}
+% bibtex backend necessary for using a style
+\usepackage[backend=bibtex,style=nature,isbn=false,url=false]{biblatex}
+\addbibresource{\jobname.bib}
 
-\title[short]{long}
-\author[short]{long}
-\institute[short]{\bf long}
+
+\title[short]{long}%
+\author[short]{long}%
+\institute[short]{\bf long}%
 \date{date}
 
 \begin{document}

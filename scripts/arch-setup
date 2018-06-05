@@ -15,8 +15,8 @@ swapon /swapfile
 echo "/swapfile none swap defaults 0 0" >> /etc/fstab
 
 # sort mirrors
-cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist~
 pacman -S reflector
+cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist~
 reflector --verbose --country 'United States' -l 200 -p http --sort rate > ~/mirrorlist
 pacman -Syy
 # to rank mirrors in a mirror list: rankmirrors -n 0 FILE
@@ -211,6 +211,11 @@ pacmatic -S pdftk-bin pdfshuffler
 
 # tool to build latex projects
 pacmatic -S latex-mk
+
+# reference management software
+pacmatic -S zotero
+### manually install addons:
+###   FireTray, ZotFile, zutilo, zotero-better-bibtex, zotero-shortdoi
 
 # ycmd (command completion) tool for emacs
 pacmatic -S vim-youcompleteme-git
