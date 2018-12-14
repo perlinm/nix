@@ -1,1 +1,1 @@
-sudo burg-set-default 1 && reboot
+sudo setwin && reboot

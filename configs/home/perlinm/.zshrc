@@ -8,7 +8,7 @@ for p in $my_path; do
 done
 export PATH=$NEW_PATH
 
-# make pacmatic call pacaur -> powerpill -> pacman
+# make pacmatic call yay
 export pacman_program="yay"
 
 # other options
