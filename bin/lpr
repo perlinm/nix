@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+/usr/bin/lpr -o fit-to-page "$*"
