@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-device="Synaptics TM3072-002"
+device="ELAN1300:00 04F3:3057 Touchpad"
 
 state=`xinput list-props "$device" | grep "Device Enabled" | awk '{print $4}'`
 if [ $state -eq 1 ]
