@@ -49,6 +49,7 @@ scriptDir = "~/scripts/"
 
 myTerminal = "xfce4-terminal"
 myRun = "bashrun"
+myLock = "xtrlock"
 
 ---------------------------------------------------------------------------------
 -- window rules
@@ -67,8 +68,9 @@ myManageHook = composeOne . concat $
     floatTitles = [ "bashrun" ]
     floatClasses = [ "Xfce4-power-manager-settings", "Xfce4-appfinder",
                      "Nm-connection-editor", "Nm-openconnect-auth-dialog",
-                     " ", "Wicd-client.py", "Python2", "matplotlib",
-                     "Thunar", "Arandr", "Wrapper-1.0", "Xfce4-panel" ]
+                     "", " ", "Wicd-client.py", "Python2", "matplotlib",
+                     "Thunar", "Arandr", "Wrapper-1.0", "Xfce4-panel",
+                     "MATLAB R2018b - academic use" ]
     ignoreClasses = [ "Xfce4-notifyd" ]
 
 ---------------------------------------------------------------------------------
@@ -124,15 +126,13 @@ myScratchPads = [ padTemplate termName termHook,
 -- layout definitions
 
 normal = renamed [Replace "normal"] $ ResizableTall 1 (1/50) (1/2) []
-latex = renamed [Replace "latex"] $ ResizableTall 1 (1/50) (39/100) []
-chat = renamed [Replace "chat"] $ ResizableTall 1 (1/50) (73/100) []
-skype = renamed [Replace "skype"] $ ResizableTall 1 (1/50) (64/100) []
+latex = renamed [Replace "latex"] $ ResizableTall 1 (1/50) (37/100) []
 full = renamed [Replace "full"] $ Full
 
 (|+|) :: (LayoutClass l a, LayoutClass r a) =>
          (l a, Int) -> r a -> (Choose l r a, Int)
 (a,n) |+| b = (a ||| b, n+1)
-countedLayouts = (normal,1) |+| latex |+| chat |+| skype
+countedLayouts = (normal,1) |+| latex
 layouts = fst countedLayouts
 layoutCount = snd countedLayouts
 
@@ -212,6 +212,7 @@ myKeys = \conf -> mkKeymap conf $
      ---------- spawning ----------
      ("M4-<Tab>", spawn $ terminal conf),
      ("M1-`", spawn myRun),
+     ("M1-C-`", spawn "xfce4-appfinder"),
      ("M1-<F1>", namedScratchpadAction myScratchPads termName),
      ("M1-<F2>", namedScratchpadAction myScratchPads altTermName),
      ("M1-<F3>", namedScratchpadAction myScratchPads calcName),
@@ -221,15 +222,16 @@ myKeys = \conf -> mkKeymap conf $
      ("<XF86AudioMute>", runScript "volume.sh toggle"),
      ("<XF86AudioLowerVolume>", runScript "volume.sh dec"),
      ("<XF86AudioRaiseVolume>", runScript "volume.sh inc"),
+     ("S-<XF86AudioMute>", runScript "volume.sh mic toggle"),
+     ("S-<XF86AudioLowerVolume>", runScript "volume.sh mic dec"),
+     ("S-<XF86AudioRaiseVolume>", runScript "volume.sh mic inc"),
      ("<XF86MonBrightnessDown>", runScript "light.sh dec"),
      ("<XF86MonBrightnessUp>", runScript "light.sh inc"),
-     ("<XF86Display>", spawn "arandr"),
-     ("<XF86Search>", spawn "xfce4-appfinder"),
-     ---------- testing media keys ----------
-     ("<XF86AudioMicMute>", spawn "pactl set-source-mute 1 toggle"),
-     -- ("<XF86Tools>", runScript "volume.sh toggle"),
-     -- ("<XF86LaunchA>", runScript "volume.sh toggle"),
-     -- ("<XF86MyComputer>", runScript "volume.sh toggle"),
+     ("<XF86TouchpadToggle>", runScript "touchpad-toggle.sh"),
+     ---------- testing media keys (do not currently work) ----------
+     ("M4-<F8>", spawn "arandr"),
+     -- ("<XF86Display>", spawn "arandr"),
+     -- ("<XF86Search>", spawn "xfce4-appfinder"),
      ---------- volume ----------
      ("C-/", runScript "volume.sh toggle"),
      ("C-<D>", runScript "volume.sh dec"),
@@ -237,16 +239,20 @@ myKeys = \conf -> mkKeymap conf $
      ("C-S-<D>", runScript "volume.sh min"),
      ("C-S-<U>", runScript "volume.sh max"),
      ("C-S-/", runScript "volume.sh med"),
-     ---------- backlight.sh ----------
-     ("M1-S-<U>", runScript "light.sh max"),
-     ("M1-S-<D>", runScript "light.sh dim"),
-     ("M1-S-/", runScript "light.sh med"),
+     ---------- backlights ----------
+     ("M1-C-<U>", runScript "light.sh max"),
+     ("M1-C-<D>", runScript "light.sh dim"),
+     ("M1-C-/", runScript "light.sh med"),
+     ("M1-S-<U>", runScript "kbd_light.sh up"),
+     ("M1-S-<D>", runScript "kbd_light.sh off"),
+     ("M1-S-/", runScript "kbd_light.sh 1"),
      ---------- screenshots ----------
      ("M4-\\", runScript "print-screen.sh"),
-     ("M4-M1-\\", runScript "print-screen.sh -s"),
+     ("M4-S-\\", runScript "print-screen.sh -s"),
      ---------- misc ----------
+     ("C-q", runScript "null.sh"),
+     ("M4-<F1>", spawn myLock),
      ("M4-k", runScript "layout-toggle.sh"),
-     ("M1-[", runScript "touchpad-toggle.sh"),
      ("M4-/", windows copyToAll),
      ("M4-S-/", killAllOtherCopies),
      ("C-M4-<Backspace>", io $ exitWith ExitSuccess)
