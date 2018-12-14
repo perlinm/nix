@@ -93,8 +93,9 @@ pacman -S emacs emacs-python-mode emacs-haskell-mode auctex
 # perform manually in emacs: M-x list-packages, select use-package with x to install
 
 # rust programming language
-pacman -S rust cargo
-# choose rustup option
+pacman -S rustup cargo
+rustup install stable
+rustup default stable
 
 # misc.
 pacman -S exa vim-systemd
@@ -180,28 +181,28 @@ sudo bash -c 'echo "never" > /sys/kernel/mm/transparent_hugepage/enabled'
 cp /usr/share/gnupg/gpg-conf.skel ~/.gnupg/gpg.conf
 echo '\nkeyserver-options auto-key-retrieve' >> ~/.gnupg/gpg.conf
 
-# pacmatic, pacaur, and powerpill
+# pacmatic, yay, and powerpill
 pacman -S pacmatic
 cd /tmp
 wget http://aur.archlinux.org/cgit/aur.git/snapshot/cower.tar.gz
 tar xvzf cower.tar.gz && cd cower
 makepkg -sri
 cd ..
-wget http://aur.archlinux.org/cgit/aur.git/snapshot/pacaur.tar.gz
-tar xvzf pacaur.tar.gz && cd pacaur
+wget http://aur.archlinux.org/cgit/aur.git/snapshot/yay.tar.gz
+tar xvzf yay.tar.gz && cd yay
 makepkg -sri
-pacaur -S powerpill
+yay -S powerpill
 
-### make sure that the following line is in ~/.zshrc
+### make sure that the following line is in ~/.zshrc to make pacmatic call yay
 export pacman_program="pacaur"
-### append 'pacmanbin=powerpill' to /etc/xdg/pacaur/config
 
 ### manually change SigLevel line to 'SigLevel = PackageRequired DatabaseOptional'
 ###   in /etc/pacman.conf
 
 # misc. AUR packages
-pacmatic -S pamixer pulseaudio-ctl qbittorrent deluge laptop-mode-tools wps-office ripgrep
-sudo systemctl enable laptop-mode qpdfview
+pacmatic -S pamixer pulseaudio-ctl qbittorrent deluge wps-office ripgrep qpdfview
+pacmatic -S laptop-mode-tools
+sudo systemctl enable laptop-mode
 
 # to disable autosuspend for USB devices, edit /etc/laptop-mode/conf.d/runtime-pm.conf
 # and set CONTROL_RUNTIME_AUTOSUSPEND=0
@@ -242,26 +243,11 @@ sudo touch /etc/systemd/system/getty@tty1.service.d/noclear.conf
 # fonts
 pacmatic -S ttf-google-fonts-typewolf ttf-ms-fonts ttf-oxygen ttf-droid ttf-liberation ttf-ubuntu-font-family consolas-font
 
-### instead of infinality-bundle
+### pretty fonts!
 pacmatic -S freetype2 fontconfig cairo
 pacmatic -S fonts-meta-base fonts-meta-extended-lt
 ln -s /etc/fonts/conf.avail/11-lcdfilter-default.conf /etc/fonts/conf.d
 ln -s /etc/fonts/conf.avail/10-sub-pixel-rgb.conf /etc/fonts/conf.d
-
-### WARNING: DO NOT USE INFINALITY-BUNDLE UNLESS IT HAS BEEN UPDATED!
-### manually add the following text after the multilib repo in /etc/pacman.conf:
-# [infinality-bundle]\nServer = http://bohoomil.com/repo/$arch
-pacmatic -Sy
-### on another tty: sudo dirmngr
-sudo pacman-key -r 962DDE58
-sudo pacman-key -f 962DDE58
-sudo pacman-key --lsign-key 962DDE58
-pacmatic -S infinality-bundle
-### copy the fonts directory form a windows partition onto /usr/share/fonts/WindowsFonts
-sudo chmod 0755 /usr/share/fonts/WindowsFonts/*
-fc-cache
-sudo fc-presets set
-### choose 'ms' option
 
 # widget and themes
 pacmatic -S moka-icon-theme
