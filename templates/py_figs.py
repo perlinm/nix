@@ -15,6 +15,10 @@ rcParams["ytick.labelsize"] = font_size
 rcParams["lines.linewidth"] = lineWidth
 rcParams["axes.color_cycle"] = ["k","b","g","r","c","m","y"]
 
+color_cycle = plt.rcParams["axes.prop_cycle"].by_key()["color"]
+def hex_to_rgb(color):
+    return tuple( int(color[1+2*jj:1+2*jj+1],16)/16 for jj in range(3) )
+
 # figure template
 def new_fig():
     fig = figure(figsize=(fig_x/2.54,fig_y/2.54))
@@ -46,13 +50,12 @@ if not "font_size" in globals():
 	font_size = 7
 
 # set fonts and use latex packages
-font = {"family" : "serif",
-        "serif":["Computer Modern"],
-        "size" : font_size}
+font = { "family" : "serif",
+         "serif" : ["Computer Modern"] }
 rc("font",**font)
-params = {"legend.fontsize": font_size,
-          "text.usetex" : True,
-          "text.latex.preamble" : r"\usepackage{amsmath}"}
+params = { "text.usetex" : True,
+           "text.latex.preamble" : r"\usepackage{amsmath}",
+           "font.size" : font_size }
 rcParams.update(params)
 
 # rasterizing figure, but not the text
