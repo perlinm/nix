@@ -48,6 +48,8 @@
 (use-package multiple-cursors
   :ensure t)
 
+(use-package bind-key)
+
 ;; -------------------------------------------------------------------------------------
 ;; Config options
 
@@ -57,7 +59,7 @@
 ;; aesthetics
 (set-frame-parameter (selected-frame) 'alpha '(75 75)) ;; background transparency
 (add-to-list 'default-frame-alist '(alpha 75 75)) ;; background transparency
-(add-to-list 'default-frame-alist '(font . "Consolas-11")) ;; font
+(add-to-list 'default-frame-alist '(font . "Consolas-13")) ;; font
 (add-to-list 'default-frame-alist '(foreground-color . "grey90")) ;; font color
 
 ;; emacs window/client modifications
@@ -65,7 +67,7 @@
 (setq column-number-mode t) ;; show column number at cursor
 (tool-bar-mode -1) ;; disable tool bar
 (menu-bar-mode -1) ;; disable menu bar
-(scroll-bar-mode -1) ;; disable scroll bar
+(scroll-bar-mode 1) ;; disable scroll bar
 (setq inhibit-startup-message t) ;; inhibit startup messages
 (global-auto-revert-mode) ;; refresh buffers when files are modified
 (setq x-select-enable-clipboard t) ;; make emacs cooperate with system clipboard
@@ -139,9 +141,9 @@
 (add-hook 'LaTeX-mode-hook 'visual-line-mode)
 (add-hook 'LaTeX-mode-hook 'flyspell-mode)
 (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
+(add-hook 'LaTeX-mode-hook 'turn-on-reftex)
 (add-hook 'LaTeX-mode-hook (lambda () (set-fill-column 70)))
 (add-hook 'bibtex-mode-hook (lambda () (set-fill-column 70)))
-(add-hook 'LaTeX-mode-hook 'turn-on-reftex)
 (setq reftex-plug-into-AUCTeX t) ;; make reftex work with auctex
 
 ;; compile documents via latexmk
@@ -180,13 +182,13 @@
    (quote
     (("verbatim" current-indentation)
      ("verbatim*" current-indentation)
-     ("tabular" LaTeX-indent-tabular)
-     ("tabular*" LaTeX-indent-tabular)
+     ("tabular")
+     ("tabular*")
      ("align")
      ("align*")
-     ("array" LaTeX-indent-tabular)
-     ("eqnarray" LaTeX-indent-tabular)
-     ("eqnarray*" LaTeX-indent-tabular)
+     ("array")
+     ("eqnarray")
+     ("eqnarray*")
      ("displaymath")
      ("equation")
      ("equation*")
@@ -201,7 +203,7 @@
     ("display" "displaymath" "equation" "eqnarray" "gather" "multline" "align" "alignat" "xalignat" "dmath")))
  '(package-selected-packages
    (quote
-    (auctex-latexmk use-package markdown-mode linum-relative helm-ls-git haskell-mode f company-ycmd color-theme cargo auctex))))
+    (ein auctex-latexmk use-package markdown-mode linum-relative helm-ls-git haskell-mode f company-ycmd color-theme cargo auctex))))
 
 ;; only change sectioninig color, not font
 (setq font-latex-fontify-sectioning 'color)
@@ -318,7 +320,7 @@ point reaches the beginning or end of the buffer, stop there."
 ;; -------------------------------------------------------------------------------------
 ;; Key bindings
 
-(cua-mode t) ;; use standard copy/paste commands
+(cua-mode t) ;; use "standard" copy/paste commands
 (setq mouse-yank-at-point t) ;; paste at cursor position
 (global-unset-key (kbd "C-x C-q")) ;; unset key binding for read-only mode
 
@@ -327,93 +329,55 @@ point reaches the beginning or end of the buffer, stop there."
 (global-set-key (kbd "C-x r b") #'helm-filtered-bookmarks)
 (global-set-key (kbd "C-x C-f") #'helm-find-files)
 
-;; define custom key bindings map
-(defvar my-keys-minor-mode-map (make-keymap) "my-keys-minor-mode keymap.")
+;; custom key bindings for cursor navigation
 
-(define-key my-keys-minor-mode-map (kbd "M-n") 'backward-char)
-(define-key my-keys-minor-mode-map (kbd "M-i") 'forward-char)
-(define-key my-keys-minor-mode-map (kbd "M-u") 'previous-line)
-(define-key my-keys-minor-mode-map (kbd "M-e") 'next-line)
+(bind-key* "M-n" 'backward-char)
+(bind-key* "M-i" 'forward-char)
+(bind-key* "M-u" 'previous-line)
+(bind-key* "M-e" 'next-line)
 
-(define-key my-keys-minor-mode-map (kbd "M-C-n") 'left-word)
-(define-key my-keys-minor-mode-map (kbd "M-C-i") 'right-word)
-(define-key my-keys-minor-mode-map (kbd "M-C-u") 'backward-paragraph)
-(define-key my-keys-minor-mode-map (kbd "M-C-e") 'forward-paragraph)
+(bind-key* "M-C-n" 'left-word)
+(bind-key* "M-C-i" 'right-word)
+(bind-key* "M-C-u" 'backward-paragraph)
+(bind-key* "M-C-e" 'forward-paragraph)
 
-(define-key my-keys-minor-mode-map (kbd "M-l") 'smarter-move-beginning-of-line)
-(define-key my-keys-minor-mode-map (kbd "M-y") 'move-end-of-line)
+(bind-key* "M-l" 'smarter-move-beginning-of-line)
+(bind-key* "M-y" 'move-end-of-line)
+(bind-key* "M-C-l" 'beginning-of-buffer)
+(bind-key* "M-C-y" 'end-of-buffer)
 
-(define-key my-keys-minor-mode-map (kbd "M-;") 'scroll-down-command)
-(define-key my-keys-minor-mode-map (kbd "M-o") 'scroll-up-command)
-(define-key my-keys-minor-mode-map (kbd "M-C-;") 'beginning-of-buffer)
-(define-key my-keys-minor-mode-map (kbd "M-C-o") 'end-of-buffer)
+(bind-key* "M-;" 'scroll-down)
+(bind-key* "M-o" 'scroll-up)
 
-(define-key my-keys-minor-mode-map (kbd "M-m") 'recenter)
+(bind-key* "M-m" 'recenter)
 
-(define-key my-keys-minor-mode-map (kbd "C-x i") 'next-buffer)
-(define-key my-keys-minor-mode-map (kbd "C-x n") 'previous-buffer)
+(bind-key* "C-x i" 'next-buffer)
+(bind-key* "C-x n" 'previous-buffer)
 
-(define-key my-keys-minor-mode-map (kbd "M-r") 'comment-or-uncomment-region-or-line)
+(bind-key* "M-r" 'comment-or-uncomment-region-or-line)
 
-(define-key my-keys-minor-mode-map (kbd "M-C-q") 'set-rectangular-region-anchor)
+(global-unset-key (kbd "M-C-o"))
+(global-unset-key (kbd "M-C-;"))
+
+;; for making multiple cursors
+(bind-key* "M-C-q" 'set-rectangular-region-anchor)
 (global-unset-key (kbd "C-<down-mouse-1>"))
-(define-key my-keys-minor-mode-map (kbd "C-<mouse-1>") 'mc/add-cursor-on-click)
+(bind-key* "C-<mouse-1>" 'mc/add-cursor-on-click)
 
-(define-key my-keys-minor-mode-map (kbd "C-f C-f") (lambda ()
-                                                     (interactive) (revert-buffer t t t)
-                                                     (message "buffer reverted")))
-
-;; define minor mode which enables my custom key bindings
-(define-minor-mode my-keys-minor-mode
-  "Set a minor mode, so that my key settings override those of major modes."
-  t " my-keys" 'my-keys-minor-mode-map)
-
-;; enable minor mode with custom key bindings
-(my-keys-minor-mode 1)
-
-  ;; unset conflicting flyspell keybinding
-(eval-after-load "flyspell" '(define-key flyspell-mode-map (kbd "M-C-i") nil))
-
-;; make custom key bindings work in the minibuffer
-(defun my-minibuffer-setup-hook ()
-  (my-keys-minor-mode 1))
-(add-hook 'minibuffer-setup-hook 'my-minibuffer-setup-hook)
+;; reload buffer
+(bind-key* "C-f C-f" (lambda ()
+                       (interactive) (revert-buffer t t t)
+                       (message "buffer reverted")))
 
 ;; set some keybindings for helm
-
-(define-key helm-find-files-map (kbd "M-n") 'helm-find-files-up-one-level)
-(define-key helm-find-files-map (kbd "M-i") 'helm-execute-persistent-action)
-(define-key helm-find-files-map (kbd "M-u") 'helm-previous-line)
-(define-key helm-find-files-map (kbd "M-e") 'helm-next-line)
-(define-key helm-find-files-map (kbd "M-;") 'helm-previous-page)
-(define-key helm-find-files-map (kbd "M-o") 'helm-next-page)
 (define-key helm-find-files-map (kbd "M-/") 'helm-execute-persistent-action)
-
-(define-key helm-read-file-map (kbd "M-n") 'helm-find-files-up-one-level)
-(define-key helm-read-file-map (kbd "M-i") 'helm-execute-persistent-action)
-(define-key helm-read-file-map (kbd "M-u") 'helm-previous-line)
-(define-key helm-read-file-map (kbd "M-e") 'helm-next-line)
-(define-key helm-read-file-map (kbd "M-;") 'helm-previous-page)
-(define-key helm-read-file-map (kbd "M-o") 'helm-next-page)
 (define-key helm-read-file-map (kbd "M-/") 'helm-execute-persistent-action)
 
-(define-key helm-map (kbd "M-n") 'helm-previous-source)
-(define-key helm-map (kbd "M-i") 'helm-next-source)
-(define-key helm-map (kbd "M-u") 'helm-previous-line)
-(define-key helm-map (kbd "M-e") 'helm-next-line)
-(define-key helm-map (kbd "M-;") 'helm-previous-page)
-(define-key helm-map (kbd "M-o") 'helm-next-page)
-
-(define-key helm-ls-git-map (kbd "M-n") 'helm-previous-source)
-(define-key helm-ls-git-map (kbd "M-i") 'helm-next-source)
-(define-key helm-ls-git-map (kbd "M-u") 'helm-previous-line)
-(define-key helm-ls-git-map (kbd "M-e") 'helm-next-line)
-(define-key helm-ls-git-map (kbd "M-;") 'helm-previous-page)
-(define-key helm-ls-git-map (kbd "M-o") 'helm-next-page)
-
-(define-key helm-buffer-map (kbd "M-n") 'helm-previous-source)
-(define-key helm-buffer-map (kbd "M-i") 'helm-next-source)
-(define-key helm-buffer-map (kbd "M-u") 'helm-previous-line)
-(define-key helm-buffer-map (kbd "M-e") 'helm-next-line)
-(define-key helm-buffer-map (kbd "M-;") 'helm-previous-page)
-(define-key helm-buffer-map (kbd "M-o") 'helm-next-next)
+;; add custom keybindings for emacs ipython notebook
+(defun my-ein-hook ()
+  (define-key ein:notebook-mode-map (kbd "C-c C-u") 'ein:worksheet-goto-prev-input)
+  (define-key ein:notebook-mode-map (kbd "C-c C-e") 'ein:worksheet-goto-next-input)
+  (define-key ein:notebook-mode-map (kbd "C-c C-k") 'ein:worksheet-toggle-output)
+  (define-key ein:notebook-mode-map (kbd "C-c q") 'ein:worksheet-kill-cell)
+  (setq ein:completion-backend ein:use-none-backend) )
+(add-hook 'ein:notebooklist-first-open-hook 'my-ein-hook)

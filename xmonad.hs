@@ -68,7 +68,7 @@ myManageHook = composeOne . concat $
     floatTitles = [ "bashrun" ]
     floatClasses = [ "Xfce4-power-manager-settings", "Xfce4-appfinder",
                      "Nm-connection-editor", "Nm-openconnect-auth-dialog",
-                     "", " ", "Wicd-client.py", "Python2", "matplotlib",
+                     "", " ", "Wicd-client.py", "Python2", "Matplotlib",
                      "Thunar", "Arandr", "Wrapper-1.0", "Xfce4-panel",
                      "MATLAB R2018b - academic use" ]
     ignoreClasses = [ "Xfce4-notifyd" ]

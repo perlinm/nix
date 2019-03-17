@@ -66,11 +66,12 @@
 \newcommand{\shrink}[1]{\scalebox{0.8}{#1}} % for smaller diagrams
 
 
-%%% footnote fixes; after \begin{document}
-\count\footins = 1000 % allows for longer footnotes
+%%% footnote fixes
 \setlength{\footnotesep}{12pt} % fix line separation in footnotes
 % letters instead of numbers for marking footnotes
 \renewcommand*{\thefootnote}{\alph{footnote}}
+% place after \begin{document}
+\count\footins = 1000 % allows for longer footnotes
 
 % modify indentation of footnotes
 \makeatletter
