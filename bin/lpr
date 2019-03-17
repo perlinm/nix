@@ -1,2 +1,6 @@
 #!/usr/bin/env bash
-/usr/bin/lpr -o fit-to-page "$*"
+
+for file in $*; do
+  file_path=$(echo $file | sed 's/^file:\/\///') # remove "file://" from file names
+  /usr/bin/lpr -o fit-to-page "$file_path"
+done
