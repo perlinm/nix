@@ -68,7 +68,7 @@ myManageHook = composeOne . concat $
     floatTitles = [ "bashrun" ]
     floatClasses = [ "Xfce4-power-manager-settings", "Xfce4-appfinder",
                      "Nm-connection-editor", "Nm-openconnect-auth-dialog",
-                     "", " ", "Wicd-client.py", "Python2", "Matplotlib",
+                     "", " ", "Wicd-client.py", "Python2", "matplotlib",
                      "Thunar", "Arandr", "Wrapper-1.0", "Xfce4-panel",
                      "MATLAB R2018b - academic use" ]
     ignoreClasses = [ "Xfce4-notifyd" ]
@@ -251,7 +251,7 @@ myKeys = \conf -> mkKeymap conf $
      ("M4-S-\\", runScript "print-screen.sh -s"),
      ---------- misc ----------
      ("C-q", runScript "null.sh"),
-     ("M4-<F1>", spawn myLock),
+     ("C-<Esc>", spawn myLock),
      ("M4-k", runScript "layout-toggle.sh"),
      ("M4-/", windows copyToAll),
      ("M4-S-/", killAllOtherCopies),

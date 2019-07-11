@@ -2,7 +2,7 @@
 import matplotlib as mp
 
 # set fonts and use latex packages
-params = { "font.family" : "sans-serif",
+params = { "font.family" : "serif",
            "font.serif" : "Computer Modern",
            "text.usetex" : True,
            "text.latex.preamble" : r"\usepackage{amsmath}",
@@ -42,6 +42,8 @@ from matplotlib import ticker
 fmt = ticker.ScalarFormatter(useMathText=True)
 fmt.set_powerlimits((0,0))
 plt.gca().yaxis.set_major_formatter(fmt)
+
+plt.gca().ticklabel_format(axis = "x", style = "scientific", scilimits = (0,100))
 
 
 # setting colorbar limits (with pcolormesh) and scientific notation

@@ -362,6 +362,10 @@ pacaur -S grub-customizer
 ### for hidden grub menu, set 'GRUB_FORCE_HIDDEN_MENU="true"' in /etc/default/grub
 ###   and copy over /etc/grub.d/31_hold_shift
 
+# for bluetooth stuff; append following two lines to /etc/pulse/default.pa
+### Automatically switch to newly-connected devices
+load-module module-switch-on-connect
+
 # optimized multi-threaded mathematical routines
 pacaur -S intel-mkl
 ### if the above does not work, perform the following:

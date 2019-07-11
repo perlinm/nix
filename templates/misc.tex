@@ -7,13 +7,24 @@
 \renewcommand{\set}[1]{\left\{#1\right\}} % curly parenthesis
 \newcommand{\bk}{\Braket} % shorthand for braket notation
 \renewcommand{\v}{\bm} % bold vectors
-\newcommand{\uv}[1]{\hat{\v{#1}}} % unit vectors
+\newcommand{\uv}[1]{\bm{\hat{#1}}} % unit vectors
 \newcommand{\av}{\vec} % arrow vectors
 \newcommand{\del}{\nabla} % del operator
 \renewcommand{\d}{\partial} % partial d
 \renewcommand{\c}{\cdot} % inner product
 \newcommand{\w}{\wedge} % wedge product
 
+
+%%% "double-hat" on symbols
+\usepackage{amsmath,accents}
+\newlength{\dhatheight}
+\newcommand{\hatt}[1]{%
+  \settoheight{\dhatheight}{\ensuremath{\hat{#1}}}%
+  \addtolength{\dhatheight}{-0.35ex}%
+  {\Hat{\vphantom{\rule{1pt}{\dhatheight}}%
+      \smash{\Hat{#1}}}}
+}
+\newcommand{\uv}[1]{\bm{{\hat{#1}}}} % unit vectors
 
 
 %%% figures
