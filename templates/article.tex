@@ -18,13 +18,18 @@
 \usepackage{lastpage} % for referencing last page
 \cfoot{\thepage~of \pageref{LastPage}} % "x of y" page labeling
 
-\begin{document}
+\usepackage[yyyymmdd]{datetime} % set date format
+\renewcommand{\dateseparator}{.} % separate dates by a dot
 
-\title{TITLE}
-\author{Michael A. Perlin}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\thispagestyle{fancy}
+
+\title{TITLE}%
+\author{Michael A. Perlin}%
+\date{\today}
 
 \maketitle
-\thispagestyle{fancy}
 
 TEXT
 

@@ -3,7 +3,7 @@ NEW_PATH=$PATH
 my_path=(/usr/bin /usr/local/bin /usr/local/sbin $HOME/.cargo/bin $HOME/bin)
 for p in $my_path; do
   if ! [ $(echo $PATH | grep $p) ]; then
-    NEW_PATH=$NEW_PATH:$p
+    NEW_PATH=$p:$NEW_PATH
   fi
 done
 export PATH=$NEW_PATH
@@ -135,9 +135,8 @@ if (( ${+terminfo[smkx]} )) && (( ${+terminfo[rmkx]} )); then
     zle -N zle-line-finish
 fi
 
-# start keyring daemon
-if [[ -n "$DESKTOP_SESSION" ]]; then
-  eval $(gnome-keyring-daemon --start)
-  export SSH_AUTH_SOCK
-fi
-
+# fuzzy tab completion
+zstyle ':completion:*' matcher-list '' \
+  'm:{a-z\-}={A-Z\_}' \
+  'r:[^[:alpha:]]||[[:alpha:]]=** r:|=* m:{a-z\-}={A-Z\_}' \
+  'r:|?=** m:{a-z\-}={A-Z\_}'

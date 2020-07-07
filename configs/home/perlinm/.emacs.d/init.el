@@ -50,6 +50,8 @@
 
 (use-package bind-key)
 
+(load-theme 'tango-dark)
+
 ;; -------------------------------------------------------------------------------------
 ;; Config options
 
@@ -154,6 +156,9 @@
     TeX-command-list)))
 (add-hook 'LaTeX-mode-hook '(lambda () (setq TeX-command-default "latexmk")))
 
+;; query for master file
+(setq-default TeX-master nil)
+
 ;; compile latex documents to pdf when not using latexmk
 (setq TeX-PDF-mode t)
 
@@ -193,7 +198,8 @@
      ("equation")
      ("equation*")
      ("picture")
-     ("tabbing"))))
+     ("tabbing")
+     ("tikzpicture"))))
  '(TeX-insert-braces nil)
  '(custom-safe-themes
    (quote
@@ -261,7 +267,7 @@
 (put 'upcase-region 'disabled nil)
 
 (defun comment-or-uncomment-region-or-line ()
-    "Comments or uncomments the region or the current line if there's no active region."
+    "Comments or uncomments the region, or the current line if there's no active region."
     (interactive)
     (let (beg end)
         (if (region-active-p)

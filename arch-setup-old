@@ -204,6 +204,8 @@ pacmatic -S pamixer pulseaudio-ctl qbittorrent deluge wps-office ripgrep qpdfvie
 pacmatic -S laptop-mode-tools
 sudo systemctl enable laptop-mode
 
+pacmatic -S bitwarden bitwarden-cli
+
 # to disable autosuspend for USB devices, edit /etc/laptop-mode/conf.d/runtime-pm.conf
 # and set CONTROL_RUNTIME_AUTOSUSPEND=0
 
@@ -221,13 +223,16 @@ pacmatic -S zotero
 # ycmd (command completion) tool for emacs
 pacmatic -S vim-youcompleteme-git
 
+# audio compatibility package
+pacmatic -S ffmpeg-compat-57
+
 ####################
 # configurations
 ####################
 
 # make laptop respond properly to lid
 ### manually uncomment 'HandleLidSwitch' in /etc/systemd/logind.conf
-### manually add file /etc/sudoers.d/lid-swidch with line
+### manually add file /etc/sudoers.d/lid-switch with line
 ###   'ALL ALL=NOPASSWD:/home/perlinm/bin/lid-switch'
 
 # configure git

@@ -18,10 +18,14 @@ if [ $DESKTOP_SESSION == xmonad ]; then
   xmodmap ~/.Xmodmap
   xset r 66
   xset r rate 200 60
+  numlockx off &
+  setxkbmap -option 'numpad:microsoft'
 
   # start some services
+  #wicd-client --tray &
+  #volnoti -t 1 &
   nm-applet &
-  volnoti -t 1 &
+  /usr/lib/xfce4/notifyd/xfce4-notifyd &
   emacs --daemon &
   fluxgui &
 
@@ -39,3 +43,9 @@ for p in $my_path; do
   fi
 done
 export PATH=$NEW_PATH
+
+# start keyring daemon
+if [[ -n "$DESKTOP_SESSION" ]]; then
+  eval $(gnome-keyring-daemon --start)
+  export SSH_AUTH_SOCK
+fi

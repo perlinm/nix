@@ -6,13 +6,49 @@
 \renewcommand{\sp}[1]{\left[#1\right]} % square parenthesis
 \renewcommand{\set}[1]{\left\{#1\right\}} % curly parenthesis
 \newcommand{\bk}{\Braket} % shorthand for braket notation
+\renewcommand{\d}{\text{d}} % for infinitesimals
 \renewcommand{\v}{\bm} % bold vectors
 \newcommand{\uv}[1]{\bm{\hat{#1}}} % unit vectors
 \newcommand{\av}{\vec} % arrow vectors
-\newcommand{\del}{\nabla} % del operator
-\renewcommand{\d}{\partial} % partial d
 \renewcommand{\c}{\cdot} % inner product
+\newcommand{\del}{\nabla} % del operator
 \newcommand{\w}{\wedge} % wedge product
+
+\usepackage{dsfont} % for identity operator
+\newcommand{\1}{\mathds{1}}
+
+%%% figures
+\usepackage{graphicx} % for figures
+\usepackage{float} % for [H] placement option
+\usepackage{grffile} % help latex properly identify figure extensions
+\graphicspath{{./figures/}} % set path for all graphics
+\usepackage[caption=false]{subfig} % subfigures (via \subfloat[]{})
+\newcommand{\sref}[1]{\protect\subref{#1}} % for referencing subfigures
+\usepackage{multirow} % multirow entries in tables
+\usepackage{footnote} % footnotes in floats
+\usepackage[font=small,labelfont=bf]{caption} % caption text options
+
+
+%% enumeration / lists
+\usepackage[inline]{enumitem} % in-line lists and \setlist{} (below)
+\setlist[enumerate,1]{label={(\roman*)}} % default in-line numbering
+\setlist{nolistsep} % more compact spacing between environments
+\setlist[itemize]{leftmargin=*} % nice margins for itemize ...
+\setlist[enumerate]{leftmargin=*} % ... and enumerate environments
+
+
+%%% miscellaneous markup
+% normalem included to prevent underlining titles in the bibliography
+\usepackage[normalem]{ulem} % for strikeout text
+\usepackage{color,soul} % text color and other editing options
+% \ul{underline}, \st{strikethrough}, and \hl{highlight}
+
+
+% color definitions
+\usepackage{xcolor}
+\definecolor{lightblue}{RGB}{31,119,180}
+\definecolor{orange}{RGB}{255,127,14}
+\definecolor{green}{RGB}{44,160,44}
 
 
 %%% "double-hat" on symbols
@@ -27,44 +63,77 @@
 \newcommand{\uv}[1]{\bm{{\hat{#1}}}} % unit vectors
 
 
-%%% figures
-\usepackage{graphicx} % for figures
-\usepackage{float} % for [H] placement option
-\usepackage{grffile} % help latex properly identify figure extensions
-\graphicspath{{./figures/}} % set path for all graphics
-\usepackage[caption=false]{subfig} % subfigures (via \subfloat[]{})
-\newcommand{\sref}[1]{\protect\subref{#1}} % for referencing subfigures
-\usepackage{multirow} % multirow entries in tables
-\usepackage{footnote} % footnotes in floats
-\usepackage[font=small,labelfont=bf]{caption} % caption text options
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% tensor network drawing tools
+%%% taken in part from arxiv.org/abs/1603.03039
+
+\usepackage{xcolor}
+\definecolor{tensorblue}{rgb}{0.8,0.8,1}
+\definecolor{tensorred}{rgb}{1,0.5,0.5}
+\definecolor{tensorpurp}{rgb}{1,0.5,1}
+
+\usepackage{tikz}
+% \usetikzlibrary{external}
+% \tikzexternalize
+% \tikzsetexternalprefix{./tikz/}
+
+\newcommand{\diagram}[2][0.5]{
+  ~\begin{tikzpicture}
+    [scale=#1, every node/.style = {sloped,allow upside down},
+    baseline = {([yshift=+0ex]current bounding box.center)},
+    rounded corners=2pt]
+    #2
+  \end{tikzpicture}~}
+
+\tikzset{tens/.style={fill=tensorblue}}
+\tikzset{diag/.style={fill=green!50!black!50}}
+\tikzset{isom/.style={fill=orange!30}}
+\tikzset{proj/.style={fill=tensorred}}
+
+\tikzset{tengrey/.style={fill=black!20}}
+\tikzset{tenpurp/.style={fill=tensorpurp}}
+
+\usetikzlibrary{calc}
+\newcommand{\wire}[4][]{
+  \draw[#1] (#3,#2) -- (#4,#2)
+}
+\newcommand{\vwire}[4][]{
+  \draw[#1] (#2,#3) -- (#2,#4)
+}
+\newcommand{\dwire}[5][]{
+  \draw[#1] (#4,#2) -- (#5,#3)
+}
+\newcommand{\rect}[6][tens]{
+  \draw[#1] (#4,#2) rectangle (#5,#3);
+  \draw ($ (#4,#2) !.5! (#5,#3) $) node {$#6$}
+}
+\renewcommand{\circ}[4][tens]{
+  \draw[#1] (#3,#2) circle (0.5) node {$#4$};
+}
+
+\newcommand{\Circ}[5][tens]{
+  \draw[#1] (#3,#2) circle (#4) node {$#5$};
+}
+
+\renewcommand{\dot}[2]{
+  \node at (#2,#1) [circle,fill,inner sep=1.5pt]{};
+}
+\renewcommand{\cross}[3][.25]{
+  \draw (#3,#2) circle (#1) node {};
+  \draw ($ (#3,#2) - (#1,0) $) -- ($ (#3,#2) + (#1,0) $) node{};
+  \draw ($ (#3,#2) - (0,#1) $) -- ($ (#3,#2) + (0,#1) $) node{};
+}
+\newcommand{\cnot}[3]{
+  \dot{#2}{#1};
+  \vwire{#1}{#2}{#3};
+  \cross{#3}{#1};
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 
-%%% bibliography
-\usepackage[sort&compress,numbers]{natbib} % bibliography options
-\bibliographystyle{apsrev4-1}
-\setlength{\bibsep}{0.0pt} % no spacing between bibliography entries
-\usepackage{doi} % dereference DOI links
-\usepackage[english]{babel} % allow editing bibliography title
-\addto\captionsenglish{ % set bibliography title
-  \renewcommand\refname{\normalsize\bf References}}
-
-
-%%% miscellaneous markup
-% normalem included to prevent underlining titles in the bibliography
-\usepackage[normalem]{ulem} % for strikeout text
-\usepackage{color,soul} % text color and other editing options
-% \ul{underline}, \st{strikethrough}, and \hl{highlight}
-
-
-%% enumeration / lists
-\usepackage[inline]{enumitem} % in-line lists and \setlist{} (below)
-\setlist{nolistsep} % more compact spacing between environments
-\setlist[itemize]{leftmargin=*} % nice margins for itemize ...
-\setlist[enumerate]{leftmargin=*} % ... and enumerate environments
-
-
-%%% for diagrams
+%%% for scattering diagrams
 \usepackage{tikz}
 \tikzset{
   baseline = (current bounding box.center)
@@ -103,14 +172,6 @@
 }
 \makeatother
 
-
-
-% color definitions
-\usepackage{xcolor}
-\definecolor{lightblue}{RGB}{31,119,180}
-\definecolor{orange}{RGB}{255,127,14}
-\definecolor{green}{RGB}{44,160,44}
-
 % proper coloring inside math environment
 \makeatletter
 \def\mathcolor#1#{\@mathcolor{#1}}
@@ -122,6 +183,16 @@
 }
 \makeatother
 
+
+
+%%% bibliography
+\usepackage[sort&compress,numbers]{natbib} % bibliography options
+\bibliographystyle{apsrev4-1}
+\setlength{\bibsep}{0.0pt} % no spacing between bibliography entries
+\usepackage{doi} % dereference DOI links
+\usepackage[english]{babel} % allow editing bibliography title
+\addto\captionsenglish{ % set bibliography title
+  \renewcommand\refname{\normalsize\bf References}}
 
 
 %%% importing code from files

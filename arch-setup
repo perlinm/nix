@@ -1,0 +1,50 @@
+# starting point: base manjaro system (20.0.3)
+
+# make and enable swapfile
+fallocate -l 8GB /swapfile
+chmod 0600 /swapfile
+mkswap /swapfile
+swapon /swapfile
+bach -c 'echo "/swapfile none swap defaults 0 0" >> /etc/fstab'
+
+# locale and keyboard stuff
+localectl set-x11-keymap us,us pc105 colemak, shift:both_capslock,caps:backspace
+xset r rate 200 60
+kbdrate -d 200 -r 60
+echo "KEYMAP=colemak" > /etc/vconsole.conf
+locale-gen
+localectl set-locale LANG=en_US.UTF-8 LC_TIME=en_GB.UTF-8
+
+# packages (regular repo)
+yay exa udevil time acpi linux-tools sshfs mosh
+xclip xdotool xclip xorg-xclipboard
+meld rust valgrind ccache
+ipython python-numpy python-scipy python-matplotlib python-sympy python-tensorflow tensorboard
+texlive-most
+emacs emacs-python-mode emacs-haskell-mode
+xfce4 xfce4-goodies xmonad xmonad-contrib xcompmgr
+arandr xorg-xbacklight gnome-keyring
+feh geeqie gimp inkscape lxappearance wine scrot qbittorrent evince bashrun xterm
+libreoffice-fresh aspell-en
+moka-icon-theme
+grub-customizer
+
+# packages (AUR)
+python-qutip zotero
+
+# manually set themes in lxappearance
+# manually run in emacs: M-x list-packages, install 'use-package'
+# manually add $HOME/bin to path in ~/.config/bashrun/rc, then run 'bashrun --restart'
+
+# make laptop respond properly to lid:
+# manually uncomment 'HandleLidSwitch' in /etc/systemd/logind.conf
+echo "ALL ALL=NOPASSWD:/home/perlinm/bin/lid-switch" > /etc/sudoers.d/lid-switch
+
+# fac build system
+mkdir -p ~/src && cd ~/src
+git clone git://github.com/droundy/fac.git
+cp fac && cargo build --release && cp target/release/fac .
+./fac fac
+
+# prevent system lag when copying large files between different partitions
+echo "never" > /sys/kernel/mm/transparent_hugepage/enabled

@@ -38,12 +38,7 @@ rcParams["axes.color_cycle"] = ["k","b","g","r","c","m","y"]
 
 
 # using scientific notation for plot axes
-from matplotlib import ticker
-fmt = ticker.ScalarFormatter(useMathText=True)
-fmt.set_powerlimits((0,0))
-plt.gca().yaxis.set_major_formatter(fmt)
-
-plt.gca().ticklabel_format(axis = "x", style = "scientific", scilimits = (0,100))
+plt.ticklabel_format(axis = "both", style = "sci", scilimits = (-2,2))
 
 
 # setting colorbar limits (with pcolormesh) and scientific notation

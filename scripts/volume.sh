@@ -39,7 +39,8 @@ fi
 
 if [ $device = source ]; then
   if [ $cmd = toggle ] || [ $cmd = on ] || [ $cmd = off ]; then
-    mute=`pactl list sources | grep Mute | tail -n 1 | awk '{print $2}'`
+    default_source=$(pactl info | grep 'Default Source' | awk '{print $3}')
+    mute=$(pactl list sources | grep -A 10 $default_source | grep Mute | awk '{print $2}')
     if [ $mute = yes ]; then
       notify-send -t 1 "mic off"
     elif [ $mute = no ]; then
