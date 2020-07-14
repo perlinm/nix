@@ -35,8 +35,9 @@ else
       exit 1
     fi
 
-    cat $file | sed "s/$handle$action/$handle$new_action/" > ~/.TMPLID
-    sudo mv ~/.TMPLID $file
+    num=$RANDOM
+    cat $file | sed "s/$handle$action/$handle$new_action/" > /tmp/tmplid_$num
+    sudo mv /tmp/tmplid_$num $file
     sudo systemctl restart $daemon
   fi
 

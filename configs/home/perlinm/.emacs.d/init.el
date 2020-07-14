@@ -7,48 +7,48 @@
 (package-refresh-contents)
 (package-initialize)
 
-(use-package color-theme
+(leaf color-theme
   :config
   (color-theme-initialize)
   (color-theme-hober)
   :ensure t)
-(use-package recentf
+(leaf recentf
   :config
   (recentf-mode 1)
   (setq recentf-max-menu-items 25)
   :ensure t)
-(use-package linum-relative
+(leaf linum-relative
   :config
   (linum-relative-global-mode t)
   (setq linum-relative-current-symbol "")
   :ensure t)
 
-(use-package helm
+(leaf helm
   :config
   (helm-mode t)
   (helm-autoresize-mode 1)
   (global-set-key (kbd "M-x") 'helm-M-x)
   (global-set-key (kbd "C-x C-f") 'helm-find-files)
   :ensure t)
-(use-package helm-ls-git
+(leaf helm-ls-git
   :config
   (global-set-key (kbd "C-x C-d") 'helm-browse-project)
   :ensure t)
 
-(use-package tex-site
+(leaf tex-site
   :ensure auctex)
-(use-package haskell-mode
+(leaf haskell-mode
   :ensure t)
-(use-package rust-mode
+(leaf rust-mode
   :ensure t)
-(use-package cargo
+(leaf cargo
   :ensure t)
-(use-package markdown-mode
+(leaf markdown-mode
   :ensure t)
-(use-package multiple-cursors
+(leaf multiple-cursors
   :ensure t)
 
-(use-package bind-key)
+(leaf leaf-key)
 
 (load-theme 'tango-dark)
 
@@ -209,7 +209,7 @@
     ("display" "displaymath" "equation" "eqnarray" "gather" "multline" "align" "alignat" "xalignat" "dmath")))
  '(package-selected-packages
    (quote
-    (ein auctex-latexmk use-package markdown-mode linum-relative helm-ls-git haskell-mode f company-ycmd color-theme cargo auctex))))
+    (leaf ein auctex-latexmk markdown-mode linum-relative helm-ls-git haskell-mode f company-ycmd color-theme cargo auctex))))
 
 ;; only change sectioninig color, not font
 (setq font-latex-fontify-sectioning 'color)
@@ -337,41 +337,41 @@ point reaches the beginning or end of the buffer, stop there."
 
 ;; custom key bindings for cursor navigation
 
-(bind-key* "M-n" 'backward-char)
-(bind-key* "M-i" 'forward-char)
-(bind-key* "M-u" 'previous-line)
-(bind-key* "M-e" 'next-line)
+(leaf-key* "M-n" 'backward-char)
+(leaf-key* "M-i" 'forward-char)
+(leaf-key* "M-u" 'previous-line)
+(leaf-key* "M-e" 'next-line)
 
-(bind-key* "M-C-n" 'left-word)
-(bind-key* "M-C-i" 'right-word)
-(bind-key* "M-C-u" 'backward-paragraph)
-(bind-key* "M-C-e" 'forward-paragraph)
+(leaf-key* "M-C-n" 'left-word)
+(leaf-key* "M-C-i" 'right-word)
+(leaf-key* "M-C-u" 'backward-paragraph)
+(leaf-key* "M-C-e" 'forward-paragraph)
 
-(bind-key* "M-l" 'smarter-move-beginning-of-line)
-(bind-key* "M-y" 'move-end-of-line)
-(bind-key* "M-C-l" 'beginning-of-buffer)
-(bind-key* "M-C-y" 'end-of-buffer)
+(leaf-key* "M-l" 'smarter-move-beginning-of-line)
+(leaf-key* "M-y" 'move-end-of-line)
+(leaf-key* "M-C-l" 'beginning-of-buffer)
+(leaf-key* "M-C-y" 'end-of-buffer)
 
-(bind-key* "M-;" 'scroll-down)
-(bind-key* "M-o" 'scroll-up)
+(leaf-key* "M-;" 'scroll-down)
+(leaf-key* "M-o" 'scroll-up)
 
-(bind-key* "M-m" 'recenter)
+(leaf-key* "M-m" 'recenter)
 
-(bind-key* "C-x i" 'next-buffer)
-(bind-key* "C-x n" 'previous-buffer)
+(leaf-key* "C-x i" 'next-buffer)
+(leaf-key* "C-x n" 'previous-buffer)
 
-(bind-key* "M-r" 'comment-or-uncomment-region-or-line)
+(leaf-key* "M-r" 'comment-or-uncomment-region-or-line)
 
 (global-unset-key (kbd "M-C-o"))
 (global-unset-key (kbd "M-C-;"))
 
 ;; for making multiple cursors
-(bind-key* "M-C-q" 'set-rectangular-region-anchor)
+(leaf-key* "M-C-q" 'set-rectangular-region-anchor)
 (global-unset-key (kbd "C-<down-mouse-1>"))
-(bind-key* "C-<mouse-1>" 'mc/add-cursor-on-click)
+(leaf-key* "C-<mouse-1>" 'mc/add-cursor-on-click)
 
 ;; reload buffer
-(bind-key* "C-f C-f" (lambda ()
+(leaf-key* "C-f C-f" (lambda ()
                        (interactive) (revert-buffer t t t)
                        (message "buffer reverted")))
 

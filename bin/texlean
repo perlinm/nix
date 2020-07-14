@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 import sys, os, fnmatch, subprocess
 
 tags = [ "*.aux", "*.log", "*.tex.backup", "*_region_.tex",
@@ -26,12 +26,12 @@ def rem(root,item):
       if exclude in path:
         remove = False
   if remove:
-    print path
+    print(path)
     subprocess.call(["rem",path])
 
 def clean(dir):
   if os.path.abspath(dir) in bannedDirs:
-    print "directory blacklisted for cleaning:",dir
+    print("directory blacklisted for cleaning:",dir)
     exit(-1)
   for root, dirs, files in os.walk(dir):
     for tag in tags:

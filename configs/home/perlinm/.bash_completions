@@ -1,0 +1,10 @@
+_pdf()
+{
+    # init bash-completion's stuff
+    _init_completion || return
+
+    # fill COMPREPLY using bash-completion's routine
+    _filedir '@(pdf)'
+}
+complete -F _pdf pdf
+complete -F _pdf qpdfview
