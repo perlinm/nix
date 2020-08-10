@@ -48,6 +48,9 @@
 (leaf multiple-cursors
   :ensure t)
 
+(leaf adaptive-wrap
+  :ensure t)
+
 (leaf leaf-key)
 
 (load-theme 'tango-dark)
@@ -133,6 +136,13 @@
 
 ;; enable visual line mode always by default
 (global-visual-line-mode t)
+
+;; enable adaptive line wrapping together with visual-line-mode
+(when (fboundp 'adaptive-wrap-prefix-mode)
+  (defun my-activate-adaptive-wrap-prefix-mode ()
+    "Toggle `visual-line-mode' and `adaptive-wrap-prefix-mode' simultaneously."
+    (adaptive-wrap-prefix-mode (if visual-line-mode 1 -1)))
+  (add-hook 'visual-line-mode-hook 'my-activate-adaptive-wrap-prefix-mode))
 
 ;; -------------------------------------------------------------------------------------
 ;; TeX options
@@ -226,8 +236,38 @@
  '(font-latex-sectioning-3-face ((t (:inherit font-latex-sectioning-4-face))))
  '(font-latex-sectioning-4-face ((t (:inherit font-latex-sectioning-5-face))))
  '(font-latex-slide-title-face ((t (:inherit (variable-pitch font-lock-type-face) :weight bold :height 1.0))))
+ '(font-latex-verbatim-face ((t (:inherit nil :foreground "burlywood"))))
  '(variable-pitch ((t nil))))
 
+;; fill paragraph with one sentence per line
+;; taken from https://abizjak.github.io/emacs/2016/03/06/latex-fill-paragraph.html
+(defun ales/fill-paragraph (&optional P)
+  "When called with prefix argument call `fill-paragraph'.
+Otherwise split the current paragraph into one sentence per line."
+  (interactive "P")
+  (if (not P)
+      (save-excursion
+        (let ((fill-column 12345678)) ;; relies on dynamic binding
+          (fill-paragraph) ;; this will not work correctly if the paragraph is
+                           ;; longer than 12345678 characters (in which case the
+                           ;; file must be at least 12MB long. This is unlikely.)
+          (let ((end (save-excursion
+                       (forward-paragraph 1)
+                       (backward-sentence)
+                       (point-marker))))  ;; remember where to stop
+            (beginning-of-line)
+            (while (progn (forward-sentence)
+                          (<= (point) (marker-position end)))
+              (just-one-space) ;; leaves only one space, point is after it
+              (delete-char -1) ;; delete the space
+              (newline)        ;; and insert a newline
+              (LaTeX-indent-line) ;; I only use this in combination with late, so this makes sense
+              ))))
+    ;; otherwise do ordinary fill paragraph
+    (fill-paragraph P)))
+(defun my-latex-hook ()
+  (define-key LaTeX-mode-map (kbd "M-q") 'ales/fill-paragraph) )
+(add-hook 'LaTeX-mode-hook 'my-latex-hook)
 
 ;; -------------------------------------------------------------------------------------
 ;; File modes
@@ -362,6 +402,7 @@ point reaches the beginning or end of the buffer, stop there."
 
 (leaf-key* "M-r" 'comment-or-uncomment-region-or-line)
 
+;; unset conflicting key bindings
 (global-unset-key (kbd "M-C-o"))
 (global-unset-key (kbd "M-C-;"))
 
