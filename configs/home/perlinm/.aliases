@@ -24,3 +24,9 @@ export MATLAB_LOG_DIR=/home/perlinm/Workspace/MATLAB/logs
 
 alias fire='firefox'
 alias homm='wine ~/.wine/drive_c/homm3c/Heroes\ of\ Might\ and\ Magic\ III\ -\ Complete\ Portable.exe'
+
+export NO_AT_BRIDGE=1
+
+alias python='/home/perlinm/.pyenv/shims/python'
+alias pip='/home/perlinm/.pyenv/shims/pip'
+alias jupyter='$(pyenv which jupyter)'

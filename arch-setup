@@ -12,8 +12,9 @@ localectl set-x11-keymap us,us pc105 colemak, shift:both_capslock,caps:backspace
 xset r rate 200 60
 kbdrate -d 200 -r 60
 echo "KEYMAP=colemak" > /etc/vconsole.conf
+# manually uncomment en_US.UTF-8 and en_GB.UTF-8 in /etc/locale.gen
 locale-gen
-localectl set-locale LANG=en_US.UTF-8 LC_TIME=en_GB.UTF-8
+localectl set-locale LANG=en_US.UTF-8 LC_TIME=en_GB.UTF-8 LC_MEASUREMENT=en_GB.UTF-8
 
 # packages (regular repo)
 vim yay exa udevil time acpi linux-tools sshfs mosh
@@ -28,24 +29,34 @@ feh geeqie gimp inkscape lxappearance wine scrot qbittorrent evince bashrun xter
 libreoffice-fresh aspell-en
 moka-icon-theme consolas-font
 grub-customizer
+manjaro-printer
+manjaro-settings-manager
+pdftk java-commons-lang
 
 # packages (AUR)
-python-qutip zotero
+python-qutip zotero xkb-switch
+
+# misc. python
+pip install pip-search wigner py3nj
 
 # manually uncomment 'Color' from /etc/pacman.conf
 # manually set themes in lxappearance
-# manually run in emacs: M-x list-packages, install 'leaf'
 
+# manually run in emacs: M-x list-packages, install 'leaf'
+# manually run in emacs: M-x customize-face RET font-latex-verbatim-face RET
+#                        uncheck option under "inherit" and apply
 # manually add $HOME/bin to path in ~/.config/bashrun/rc, then run 'bashrun --restart'
 # load aliases and autocompletions: '. ~/.aliases; . ~/.bash_completions' in ~/.config/bashrun/rc
-
 # manually install zotero addons:
 #   FireTray, ZotFile, zutilo, zotero-better-bibtex, zotero-shortdoi
-
 
 # make laptop respond properly to lid:
 # manually uncomment 'HandleLidSwitch' in /etc/systemd/logind.conf
 echo "ALL ALL=NOPASSWD:/home/perlinm/bin/lid-switch" > /etc/sudoers.d/lid-switch
+# edit screensaver etc. at xfce4-settings-manager and xfce4-power-manager-settings
+
+# possibly install for Realtek wifi cards: rtw88-dkms-git
+# note: may require linux-headers (which in turn may require knowing the kernel version)
 
 # fac build system
 mkdir -p ~/src && cd ~/src

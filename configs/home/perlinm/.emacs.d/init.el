@@ -83,6 +83,7 @@
 	(add-hook hook (lambda () (flyspell-mode 1))))
 (dolist (hook '(change-log-mode-hook log-edit-mode-hook))
 	(add-hook hook (lambda () (flyspell-mode -1))))
+(add-hook 'text-mode-hook 'electric-indent-mode)
 
 ;; cursor options
 (blink-cursor-mode 0)
@@ -422,9 +423,8 @@ point reaches the beginning or end of the buffer, stop there."
 
 ;; add custom keybindings for emacs ipython notebook
 (defun my-ein-hook ()
-  (define-key ein:notebook-mode-map (kbd "C-c C-u") 'ein:worksheet-goto-prev-input)
-  (define-key ein:notebook-mode-map (kbd "C-c C-e") 'ein:worksheet-goto-next-input)
-  (define-key ein:notebook-mode-map (kbd "C-c C-k") 'ein:worksheet-toggle-output)
-  (define-key ein:notebook-mode-map (kbd "C-c q") 'ein:worksheet-kill-cell)
-  (setq ein:completion-backend ein:use-none-backend) )
-(add-hook 'ein:notebooklist-first-open-hook 'my-ein-hook)
+  (define-key ein:notebook-mode-map (kbd "C-c C-u") 'ein:worksheet-goto-prev-input-km)
+  (define-key ein:notebook-mode-map (kbd "C-c C-e") 'ein:worksheet-goto-next-input-km)
+  (define-key ein:notebook-mode-map (kbd "C-c C-k") 'ein:worksheet-toggle-output-km)
+  (define-key ein:notebook-mode-map (kbd "C-c q") 'ein:worksheet-kill-cell-km) )
+(add-hook 'ein:notebook-mode-hook 'my-ein-hook)

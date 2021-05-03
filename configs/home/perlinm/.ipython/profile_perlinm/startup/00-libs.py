@@ -1,16 +1,15 @@
 import os
-os.environ["QT_LOGGING_RULES"] = "qt5ct.debug=false"
-
-import pylab as pl
-import numpy as np
-import sympy as sym
-import qutip as qt
-import tensorflow as tf
-
 import itertools as it
 
-from pylab import *
+import numpy as np
+import matplotlib.pyplot as plt
+
+import scipy, scipy.optimize
+
+import sympy as sym
 sym.init_printing()
+
+import qutip as qt
 
 up = qt.basis(2,0)
 dn = qt.basis(2,1)
@@ -27,7 +26,7 @@ Z = qt.sigmaz()
 X = qt.sigmax()
 Y = qt.sigmay()
 
-H = (Z+X)/sqrt(2)
+H = (Z+X)/np.sqrt(2)
 S = Z.sqrtm()
 T = S.sqrtm()
 
@@ -38,6 +37,6 @@ sp = qt.sigmap()
 sm = qt.sigmam()
 
 ts = qt.tensor
-pi = pl.pi
-e = pl.e
+pi = np.pi
+e = np.e
 i = 1j

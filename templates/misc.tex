@@ -36,6 +36,9 @@
 \setlist[itemize]{leftmargin=*} % nice margins for itemize ...
 \setlist[enumerate]{leftmargin=*} % ... and enumerate environments
 
+% page number footer
+\usepackage{lastpage} % for referencing last page
+\cfoot{\thepage~of \pageref{LastPage}} % "x of y" page labeling
 
 %%% miscellaneous markup
 % normalem included to prevent underlining titles in the bibliography
@@ -199,7 +202,6 @@
 \usepackage{listings}
 
 
-
 %%% one column header for two column document
 \newcommand{\head}[1]{
 \twocolumn[\begin{@twocolumnfalse}
@@ -226,23 +228,22 @@
 \renewcommand{\cyr}[1]{{\fontencoding{T2A}\selectfont \em{#1}}}
 
 
+%%% for uncovering under/over braces (in beamer)
+\newcommand<>{\uubrace}[2]{%
+  \onslide#3 \underbrace{ \onslide<1->%
+  #1%
+  \onslide#3 }_{#2} \onslide<1->%
+}
+\newcommand<>{\uobrace}[2]{%
+  \onslide#3 \overbrace{ \onslide<1->%
+  #1%
+  \onslide#3 }^{#2} \onslide<1->%
+}
 
-% energy level diagram:
-\begin{tikzpicture}[
-  scale=0.5,
-  level/.style={thick},
-  virtual/.style={thick,densely dashed},
-  trans/.style={thick,<->,shorten >=2pt,shorten <=2pt,>=stealth}
-  ]
-  % draw the energy levels
-  \draw[level] (2cm,-2em) -- (0cm,-2em) node[left] {$\ket{a}$};
-  \draw[level] (2cm,11em) -- (4cm,11em) node[midway,above] {$\ket{b}$};
-  \draw[level] (4cm,-11em) -- (6cm,-11em) node[right] {$\ket{c}$};
-  % draw the virtual levels
-  \draw[virtual] (2cm,8em) -- (4cm,8em) node[midway,above] {$\Delta_1$};
-  \draw[virtual] (4cm,-8em) -- (6cm,-8em) node[midway,below] {$\Delta_2$};
-  \draw[virtual] (2cm,-5em) -- (0cm,-5em) node[midway,above] {$\Delta_3$};
-  % draw the transitions
-  \draw[trans] (1cm,-2em) -- (2.5cm,8em) node[midway,left] {$\Omega_1$};
-  \draw[trans] (3.5cm,8em) -- (5cm,-8em) node[midway,right] {$\Omega_2$};
-\end{tikzpicture}
+% for "not approximately equal" symbol
+\usepackage{accsupp}
+\providecommand*{\napprox}{%
+  \BeginAccSupp{method=hex,unicode,ActualText=2249}%
+  \not\approx
+  \EndAccSupp{}%
+}

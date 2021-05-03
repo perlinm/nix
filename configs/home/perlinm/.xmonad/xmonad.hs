@@ -66,11 +66,12 @@ myManageHook = composeOne . concat $
     doSink = (ask >>= doF . W.sink) <+> doF W.swapUp
     sinkRoles = [ "app", "conversation" ]
     floatTitles = [ "bashrun" ]
-    floatClasses = [ "Xfce4-power-manager-settings", "Xfce4-appfinder",
+    floatClasses = [ "Xfce4-taskmanager", "Xfce4-power-manager-settings",
+                     "Xfce4-appfinder", "Xfce4-panel",
                      "Nm-connection-editor", "Nm-openconnect-auth-dialog",
-                     "", " ", "Wicd-client.py", "Python2", "matplotlib",
-                     "Thunar", "Arandr", "Wrapper-1.0", "Xfce4-panel",
-                     "MATLAB R2018b - academic use" ]
+                     "", " ", "Wicd-client.py", "Python2",
+                     "matplotlib", "Matplotlib",
+                     "Thunar", "Arandr", "Wrapper-1.0" ]
     ignoreClasses = [ "Xfce4-notifyd" ]
 
 ---------------------------------------------------------------------------------

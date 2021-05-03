@@ -3,3 +3,5 @@
 	email = mika.perlin@gmail.com
 [core]
 	editor = vim
+[pull]
+	ff = only
