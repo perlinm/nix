@@ -23,6 +23,7 @@ export ZLS_COLORS=$LS_COLORS
 export ALTERNATE_EDITOR=""
 export TERM=xterm
 
+setopt histappend
 setopt hist_ignore_all_dups
 setopt hist_ignore_space
 setopt extendedglob
