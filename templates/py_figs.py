@@ -1,5 +1,5 @@
 # dependency
-import matplotlib as mp
+import matplotlib.pyplot as plt
 
 # set fonts and use latex packages
 params = { "font.family" : "serif",
@@ -7,13 +7,19 @@ params = { "font.family" : "serif",
            "text.usetex" : True,
            "text.latex.preamble" : r"\usepackage{amsmath}",
            "font.size" : font_size }
-rcParams.update(params)
+plt.rcParams.update(params)
 
 
 # default color cycle and conversion between hex and RGB color values
 color_cycle = plt.rcParams["axes.prop_cycle"].by_key()["color"]
 def hex_to_rgb(color):
     return tuple( int(color[1+2*jj:1+2*jj+1],16)/16 for jj in range(3) )
+
+
+# color-blind-friendly color cycle, "New Tableau 10"
+colors = [ "#4E79A7", "#F28E2B", "#E15759", "#76B7B2", "#59A14E",
+           "#EDC949", "#B07AA2", "#FF9DA7", "#9C755F", "#BAB0AC" ]
+plt.rcParams['axes.prop_cycle'] = plt.cycler(color = colors)
 
 
 # rasterizing figure, but not the text
