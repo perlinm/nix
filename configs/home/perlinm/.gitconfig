@@ -5,3 +5,5 @@
 	editor = vim
 [pull]
 	ff = only
+[init]
+	defaultBranch = main

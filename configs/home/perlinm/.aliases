@@ -14,19 +14,20 @@ alias l='sudo lid-switch'
 alias v='sudo vpn'
 alias setwin='sudo setwin'
 
-alias tiem='time'
+alias fire='firefox'
 
+# watch printing queue
 alias lpw='watch -n 0.5 lpq'
 
+# matlab stuff
 export TF_CPP_MIN_LOG_LEVEL=2
 export QT_LOGGING_RULES="qt5ct.debug=false"
 export MATLAB_LOG_DIR=/home/perlinm/Workspace/MATLAB/logs
 
-alias fire='firefox'
-alias homm='wine ~/.wine/drive_c/homm3c/Heroes\ of\ Might\ and\ Magic\ III\ -\ Complete\ Portable.exe'
+# python stuff
+alias ipy="ipython --InteractiveShellApp.extensions 'autoreload' --InteractiveShellApp.exec_lines '%autoreload 2'"
+alias jupyter="$(pyenv which jupyter)"
 
-export NO_AT_BRIDGE=1
-
-alias python='/home/perlinm/.pyenv/shims/python'
-alias pip='/home/perlinm/.pyenv/shims/pip'
-alias jupyter='$(pyenv which jupyter)'
+# super.tech stuff
+alias pygrep='/home/perlinm/super.tech/SuperstaQ/dev_tools/pygrep.sh'
+alias ss='cd /home/perlinm/super.tech/SuperstaQ'
