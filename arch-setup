@@ -20,8 +20,8 @@ localectl set-locale LANG=en_US.UTF-8 LC_TIME=en_GB.UTF-8 LC_MEASUREMENT=en_GB.U
 vim yay exa udevil time acpi linux-tools sshfs mosh
 xclip xdotool xclip xorg-xclipboard
 meld rust valgrind ccache
-ipython python-numpy python-scipy python-matplotlib python-sympy python-tensorflow tensorboard
-texlive-most
+pyenv ipython python-numpy python-scipy python-matplotlib python-sympy python-tensorflow tensorboard
+texlive-most biber
 emacs emacs-python-mode emacs-haskell-mode
 xfce4 xfce4-goodies xmonad xmonad-contrib xcompmgr
 arandr xorg-xbacklight gnome-keyring
@@ -34,7 +34,7 @@ manjaro-settings-manager
 pdftk java-commons-lang
 
 # packages (AUR)
-python-qutip zotero xkb-switch
+pyenv-virtualenv python-qutip zotero xkb-switch
 
 # misc. python
 pip install pip-search wigner py3nj
