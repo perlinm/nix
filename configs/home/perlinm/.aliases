@@ -25,7 +25,7 @@ export MATLAB_LOG_DIR=/home/perlinm/Workspace/MATLAB/logs
 
 # python stuff
 alias ipy="ipython --InteractiveShellApp.extensions 'autoreload' --InteractiveShellApp.exec_lines '%autoreload 2'"
-alias jupyter="$(pyenv which jupyter)"
+alias jupyter='$(pyenv which jupyter)'
 pyenv-init () {
   if ! [[ "$(pyenv root)" =~ $PATH ]]; then
     eval "$(pyenv init --path)"
