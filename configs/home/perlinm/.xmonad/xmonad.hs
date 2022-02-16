@@ -28,6 +28,7 @@ import XMonad.Layout.NoBorders
 import XMonad.Layout.Renamed
 import XMonad.Layout.ResizableTile
 import XMonad.Layout.Spacing
+import XMonad.Layout.ThreeColumns
 import XMonad.Layout.ToggleLayouts
 import XMonad.Layout.WindowNavigation
 import XMonad.StackSet as W
@@ -126,15 +127,16 @@ myScratchPads = [ padTemplate termName termHook,
 ---------------------------------------------------------------------------------
 -- layout definitions
 
-normal = renamed [Replace "normal"] $ ResizableTall 1 (1/50) (1/2) []
-code = renamed [Replace "code"] $ ResizableTall 1 (1/50) (51/100) []
-latex = renamed [Replace "latex"] $ ResizableTall 1 (1/50) (37/100) []
+normal = renamed [Replace "normal"] $ ResizableTall 1 (1/100) (1/2) []
+code = renamed [Replace "code"] $ ResizableTall 1 (1/100) (51/100) []
+latex = renamed [Replace "latex"] $ ResizableTall 1 (1/100) (37/100) []
 full = renamed [Replace "full"] $ Full
+grid = renamed [Replace "grid" ] $ ThreeCol 1 (1/100) (1/3)
 
 (|+|) :: (LayoutClass l a, LayoutClass r a) =>
          (l a, Int) -> r a -> (Choose l r a, Int)
 (a,n) |+| b = (a ||| b, n+1)
-countedLayouts = (normal,1) |+| code |+| latex
+countedLayouts = (normal,1) |+| code |+| latex |+| grid
 layouts = fst countedLayouts
 layoutCount = snd countedLayouts
 

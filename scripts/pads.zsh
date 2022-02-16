@@ -18,7 +18,7 @@ shell(){
 if [ $arg = term ] || [ $arg = alt-term ]; then
   shell
 elif [ $arg = calc ]; then
-  shell "ipython3 --profile=perlinm --no-banner"
+  shell "ipython --profile=perlinm --no-banner"
 else
   shell $arg
 fi

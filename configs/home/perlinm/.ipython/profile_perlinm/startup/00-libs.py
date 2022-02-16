@@ -1,4 +1,6 @@
 import os
+
+import functools as ft
 import itertools as it
 
 import numpy as np
@@ -9,34 +11,20 @@ import scipy, scipy.optimize
 import sympy as sym
 sym.init_printing()
 
-import qutip as qt
+from importlib import abc # necessay in cirq==0.13, fixed in cirq==0.14
+import cirq
 
-up = qt.basis(2,0)
-dn = qt.basis(2,1)
+up = ket_0 = np.array([1,0])
+dn = ket_1 = np.array([0,1])
 
-uu = qt.tensor(up,up)
-ud = qt.tensor(up,dn)
-du = qt.tensor(dn,up)
-dd = qt.tensor(dn,dn)
-ud_S = (ud+du).unit()
-ud_A = (ud-du).unit()
+I = op_I = np.eye(2)
+Z = op_Z = np.outer(ket_0,ket_0) - np.outer(ket_1,ket_1)
+X = op_X = np.outer(ket_0,ket_1) + np.outer(ket_1,ket_0)
+Y = op_Y = -1j * op_Z @ op_X
 
-I = qt.qeye(2)
-Z = qt.sigmaz()
-X = qt.sigmax()
-Y = qt.sigmay()
-
-H = (Z+X)/np.sqrt(2)
-S = Z.sqrtm()
-T = S.sqrtm()
-
-sz = Z/2
-sx = X/2
-sy = Y/2
-sp = qt.sigmap()
-sm = qt.sigmam()
-
-ts = qt.tensor
-pi = np.pi
-e = np.e
-i = 1j
+uu = np.kron(up,up)
+ud = np.kron(up,dn)
+du = np.kron(dn,up)
+dd = np.kron(dn,dn)
+ud_S = (ud+du) / np.sqrt(2)
+ud_A = (ud-du) / np.sqrt(2)

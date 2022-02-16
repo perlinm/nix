@@ -7,11 +7,6 @@
 (package-refresh-contents)
 (package-initialize)
 
-(leaf color-theme
-  :config
-  (color-theme-initialize)
-  (color-theme-hober)
-  :ensure t)
 (leaf recentf
   :config
   (recentf-mode 1)
@@ -53,7 +48,19 @@
 
 (leaf leaf-key)
 
-(load-theme 'tango-dark)
+(leaf color-theme-modern
+  :ensure t)
+(load-theme 'hober t t)
+(enable-theme 'hober)
+
+;; clean up litter such as "#*", ".#*", and "*~" files
+(leaf no-littering
+  :ensure t)
+(require 'no-littering)
+(setq auto-save-file-name-transforms
+      `((".*" ,(no-littering-expand-var-file-name "auto-save/") t)))
+(add-to-list 'recentf-exclude no-littering-var-directory)
+(add-to-list 'recentf-exclude no-littering-etc-directory)
 
 ;; -------------------------------------------------------------------------------------
 ;; Config options
@@ -66,6 +73,14 @@
 (add-to-list 'default-frame-alist '(alpha 75 75)) ;; background transparency
 (add-to-list 'default-frame-alist '(font . "Consolas-13")) ;; font
 (add-to-list 'default-frame-alist '(foreground-color . "grey90")) ;; font color
+
+;; highlight parentheses
+(show-paren-mode 1)
+(setq show-paren-delay 0)
+(require 'paren)
+(set-face-background 'show-paren-match "#333333")
+(set-face-foreground 'show-paren-match "#ffffff")
+(set-face-attribute 'show-paren-match nil :weight 'black)
 
 ;; emacs window/client modifications
 (setq line-number-mode t) ;; show line number at cursor
@@ -100,19 +115,16 @@
 (setq-default sh-basic-offset 2)
 (setq-default sh-indentation 2)
 
+;; disable electric indent mode for ordinarly text
+(defun remove-electric-indent-mode ()
+  (electric-indent-local-mode -1))
+(add-hook 'text-mode-hook 'remove-electric-indent-mode)
+
 ;; scrolling settings
 (setq scroll-step 1)
 (setq scroll-conservatively 10000)
 (setq auto-window-vscroll nil)
 (setq mouse-wheel-progressive-speed nil)
-
-;; highlight parentheses
-(show-paren-mode 1)
-(setq show-paren-delay 0)
-(require 'paren)
-(set-face-background 'show-paren-match-face "#333333")
-(set-face-foreground 'show-paren-match-face "#ffffff")
-(set-face-attribute 'show-paren-match-face nil :weight 'black)
 
 ;; show offscreen parenthesis in minibuffer
 (defadvice show-paren-function
@@ -195,8 +207,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(LaTeX-indent-environment-list
-   (quote
-    (("verbatim" current-indentation)
+   '(("verbatim" current-indentation)
      ("verbatim*" current-indentation)
      ("tabular")
      ("tabular*")
@@ -210,17 +221,14 @@
      ("equation*")
      ("picture")
      ("tabbing")
-     ("tikzpicture"))))
+     ("tikzpicture")))
  '(TeX-insert-braces nil)
  '(custom-safe-themes
-   (quote
-    ("843a82ff3b91bec5430f9acdd11de03fc0f7874b15c1b6fbb965116b4c7bf830" "b90d367096824d5b69b59e606c6260be55d378b58e0d03ff8866e0b3d0da1c1b" "c3b86220873ba8ec54e0988673b87ea7d11301799eca74ccf7e84cce286ec9cd" "fa14373656d9c9e86f15dcced71f42b0cd99ea13e12a66cf9eb2625097c75d02" default)))
+   '("45482e7ddf47ab1f30fe05f75e5f2d2118635f5797687e88571842ff6f18b4d5" "7de92d9e450585f9f435f2d9b265f34218cb235541c3d0d42c154bbbfe44d4dd" "57db540d6a8cc20d2e2f20bd63dc3af4eb9e4bbfa7252a0ee877c99b577996c4" "9ac11c78f208abf58e5b313a33147cbf209ad9dc9cb169bf82464b043b45ad7a" "20ad8133a73088c0ce4f26d106c3e70cae4e10c7e613c9b9e17a962eb194a24f" "10551f0a24d0ac97a109f02178e9e34b448ee12a52357911cf3362a6b249cae6" "843a82ff3b91bec5430f9acdd11de03fc0f7874b15c1b6fbb965116b4c7bf830" "b90d367096824d5b69b59e606c6260be55d378b58e0d03ff8866e0b3d0da1c1b" "c3b86220873ba8ec54e0988673b87ea7d11301799eca74ccf7e84cce286ec9cd" "fa14373656d9c9e86f15dcced71f42b0cd99ea13e12a66cf9eb2625097c75d02" default))
  '(font-latex-math-environments
-   (quote
-    ("display" "displaymath" "equation" "eqnarray" "gather" "multline" "align" "alignat" "xalignat" "dmath")))
+   '("display" "displaymath" "equation" "eqnarray" "gather" "multline" "align" "alignat" "xalignat" "dmath"))
  '(package-selected-packages
-   (quote
-    (leaf ein auctex-latexmk markdown-mode linum-relative helm-ls-git haskell-mode f company-ycmd color-theme cargo auctex))))
+   '(leaf ein auctex-latexmk markdown-mode linum-relative helm-ls-git haskell-mode f company-ycmd color-theme cargo auctex)))
 
 ;; only change sectioninig color, not font
 (setq font-latex-fontify-sectioning 'color)
@@ -369,19 +377,20 @@ point reaches the beginning or end of the buffer, stop there."
 
 (cua-mode t) ;; use "standard" copy/paste commands
 (setq mouse-yank-at-point t) ;; paste at cursor position
-(global-unset-key (kbd "C-x C-q")) ;; unset key binding for read-only mode
 
 ;; use helm commands
-(global-set-key (kbd "M-x") #'helm-M-x)
-(global-set-key (kbd "C-x r b") #'helm-filtered-bookmarks)
-(global-set-key (kbd "C-x C-f") #'helm-find-files)
+(global-set-key (kbd "M-x") 'helm-M-x)
+(global-set-key (kbd "C-x r b") 'helm-filtered-bookmarks)
+(global-set-key (kbd "C-x C-f") 'helm-find-files)
 
 ;; custom key bindings for cursor navigation
 
 (leaf-key* "M-n" 'backward-char)
 (leaf-key* "M-i" 'forward-char)
-(leaf-key* "M-u" 'previous-line)
-(leaf-key* "M-e" 'next-line)
+;; (leaf-key* "M-u" 'helm-previous-line)
+;; (leaf-key* "M-e" 'helm-next-line)
+(global-set-key (kbd "M-u") 'previous-line) ;; leaf-key will helm bindings (undesired)
+(global-set-key (kbd "M-e") 'next-line)
 
 (leaf-key* "M-C-n" 'left-word)
 (leaf-key* "M-C-i" 'right-word)
@@ -403,9 +412,28 @@ point reaches the beginning or end of the buffer, stop there."
 
 (leaf-key* "M-r" 'comment-or-uncomment-region-or-line)
 
-;; unset conflicting key bindings
+;; unset undesired key bindings
+(global-unset-key (kbd "C-x C-q"))
 (global-unset-key (kbd "M-C-o"))
 (global-unset-key (kbd "M-C-;"))
+
+;; set some keybindings for helm
+(setq helm-mode-fuzzy-match t)
+(setq helm-completion-in-region-fuzzy-match t)
+(define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action)
+(define-key helm-map (kbd "M-/") 'helm-select-action)
+(define-key helm-find-files-map (kbd "M-u") 'helm-previous-line)
+(define-key helm-find-files-map (kbd "M-e") 'helm-next-line)
+(define-key helm-read-file-map (kbd "M-u") 'helm-previous-line)
+(define-key helm-read-file-map (kbd "M-e") 'helm-next-line)
+
+;; add custom keybindings for emacs ipython notebook
+(defun my-ein-hook ()
+  (define-key ein:notebook-mode-map (kbd "C-c C-u") 'ein:worksheet-goto-prev-input-km)
+  (define-key ein:notebook-mode-map (kbd "C-c C-e") 'ein:worksheet-goto-next-input-km)
+  (define-key ein:notebook-mode-map (kbd "C-c C-k") 'ein:worksheet-toggle-output-km)
+  (define-key ein:notebook-mode-map (kbd "C-c q") 'ein:worksheet-kill-cell-km) )
+(add-hook 'ein:notebook-mode-hook 'my-ein-hook)
 
 ;; for making multiple cursors
 (leaf-key* "M-C-q" 'set-rectangular-region-anchor)
@@ -416,15 +444,3 @@ point reaches the beginning or end of the buffer, stop there."
 (leaf-key* "C-f C-f" (lambda ()
                        (interactive) (revert-buffer t t t)
                        (message "buffer reverted")))
-
-;; set some keybindings for helm
-(define-key helm-find-files-map (kbd "M-/") 'helm-execute-persistent-action)
-(define-key helm-read-file-map (kbd "M-/") 'helm-execute-persistent-action)
-
-;; add custom keybindings for emacs ipython notebook
-(defun my-ein-hook ()
-  (define-key ein:notebook-mode-map (kbd "C-c C-u") 'ein:worksheet-goto-prev-input-km)
-  (define-key ein:notebook-mode-map (kbd "C-c C-e") 'ein:worksheet-goto-next-input-km)
-  (define-key ein:notebook-mode-map (kbd "C-c C-k") 'ein:worksheet-toggle-output-km)
-  (define-key ein:notebook-mode-map (kbd "C-c q") 'ein:worksheet-kill-cell-km) )
-(add-hook 'ein:notebook-mode-hook 'my-ein-hook)

@@ -37,5 +37,9 @@ pyenv-init () {
 alias pygrep="$HOME/super.tech/SuperstaQ/dev_tools/pygrep.sh"
 ss () {
   pyenv-init
+  alias pytest='python -m pytest'
   cd /home/perlinm/super.tech/SuperstaQ
 }
+
+alias format="python -m black --line-length=100 --color"
+alias flake="python -m flake8 --max-line-length 100"
