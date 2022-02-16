@@ -422,6 +422,8 @@ point reaches the beginning or end of the buffer, stop there."
 (setq helm-completion-in-region-fuzzy-match t)
 (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action)
 (define-key helm-map (kbd "M-/") 'helm-select-action)
+(define-key helm-map (kbd "M-u") 'helm-previous-line)
+(define-key helm-map (kbd "M-e") 'helm-next-line)
 (define-key helm-find-files-map (kbd "M-u") 'helm-previous-line)
 (define-key helm-find-files-map (kbd "M-e") 'helm-next-line)
 (define-key helm-read-file-map (kbd "M-u") 'helm-previous-line)

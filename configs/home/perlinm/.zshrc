@@ -38,6 +38,10 @@ zstyle ':completion:*' menu select
 bindkey "^I" expand-or-complete-prefix # complete from the middle of a word
 compdef mt=ls # use same completion rules for mt as for ls
 
+# change behavior of alt + backspace
+autoload -U select-word-style
+select-word-style bash
+
 # Autocorrection
 setopt correct
 
