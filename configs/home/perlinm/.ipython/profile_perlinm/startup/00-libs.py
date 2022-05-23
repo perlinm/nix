@@ -9,10 +9,11 @@ import matplotlib.pyplot as plt
 import scipy, scipy.optimize
 
 import sympy as sym
-sym.init_printing()
 
-from importlib import abc # necessay in cirq==0.13, fixed in cirq==0.14
 import cirq
+
+sym.init_printing()
+np.set_printoptions(linewidth=200)
 
 up = ket_0 = np.array([1,0])
 dn = ket_1 = np.array([0,1])
@@ -28,3 +29,6 @@ du = np.kron(dn,up)
 dd = np.kron(dn,dn)
 ud_S = (ud+du) / np.sqrt(2)
 ud_A = (ud-du) / np.sqrt(2)
+
+def ts(*args):
+    return ft.reduce(np.kron, args)

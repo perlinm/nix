@@ -389,7 +389,7 @@ point reaches the beginning or end of the buffer, stop there."
 (leaf-key* "M-i" 'forward-char)
 ;; (leaf-key* "M-u" 'helm-previous-line)
 ;; (leaf-key* "M-e" 'helm-next-line)
-(global-set-key (kbd "M-u") 'previous-line) ;; leaf-key will helm bindings (undesired)
+(global-set-key (kbd "M-u") 'previous-line) ;; leaf-key will change helm bindings (undesired)
 (global-set-key (kbd "M-e") 'next-line)
 
 (leaf-key* "M-C-n" 'left-word)
@@ -421,7 +421,8 @@ point reaches the beginning or end of the buffer, stop there."
 (setq helm-mode-fuzzy-match t)
 (setq helm-completion-in-region-fuzzy-match t)
 (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action)
-(define-key helm-map (kbd "M-/") 'helm-select-action)
+(define-key helm-map (kbd "M-/") 'helm-execute-persistent-action)
+;; (define-key helm-map (kbd "M-/") 'helm-select-action)
 (define-key helm-map (kbd "M-u") 'helm-previous-line)
 (define-key helm-map (kbd "M-e") 'helm-next-line)
 (define-key helm-find-files-map (kbd "M-u") 'helm-previous-line)
