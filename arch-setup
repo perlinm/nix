@@ -17,7 +17,7 @@ locale-gen
 localectl set-locale LANG=en_US.UTF-8 LC_TIME=en_GB.UTF-8 LC_MEASUREMENT=en_GB.UTF-8
 
 # packages (regular repo)
-vim yay exa udevil time acpi linux-tools sshfs mosh
+gvim vim-colorschemes yay exa udevil time acpi linux-tools sshfs mosh
 xclip xdotool xclip xorg-xclipboard
 meld rust valgrind ccache
 pyenv ipython python-numpy python-scipy python-matplotlib python-sympy python-tensorflow tensorboard

@@ -62,6 +62,16 @@
 (add-to-list 'recentf-exclude no-littering-var-directory)
 (add-to-list 'recentf-exclude no-littering-etc-directory)
 
+;; language server protocol
+;; (leaf lsp-mode
+;;   :ensure t)
+;; (leaf helm-lsp
+;;   :commands helm-lsp-workspace-symbol
+;;   :ensure t)
+;; (leaf python-mode
+;;   :ensure t)
+;; (add-hook 'python-mode-hook 'lsp)
+
 ;; -------------------------------------------------------------------------------------
 ;; Config options
 
@@ -177,7 +187,7 @@
     '("latexmk" "latexmk -pdf %s" TeX-run-TeX nil t
       :help "Run latexmk on file")
     TeX-command-list)))
-(add-hook 'LaTeX-mode-hook '(lambda () (setq TeX-command-default "latexmk")))
+(add-hook 'LaTeX-mode-hook (lambda () (setq TeX-command-default "latexmk")))
 
 ;; query for master file
 (setq-default TeX-master nil)
@@ -441,9 +451,6 @@ point reaches the beginning or end of the buffer, stop there."
 ;; for making multiple cursors
 (leaf-key* "M-C-q" 'set-rectangular-region-anchor)
 (global-unset-key (kbd "C-<down-mouse-1>"))
-(leaf-key* "C-<mouse-1>" 'mc/add-cursor-on-click)
 
 ;; reload buffer
-(leaf-key* "C-f C-f" (lambda ()
-                       (interactive) (revert-buffer t t t)
-                       (message "buffer reverted")))
+(leaf-key* "C-f C-f" (lambda () (interactive) (revert-buffer t t t) (message "buffer reverted")))
