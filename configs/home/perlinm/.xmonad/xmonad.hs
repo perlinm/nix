@@ -203,8 +203,8 @@ myKeys = \conf -> mkKeymap conf $
      ("M4-M1-c", sendMessage MirrorShrink),
      ("M4-b", sendMessage ToggleStruts),
      ---------- window management ----------
-     ("M1-<Tab>", windows focusUp >> windows shiftMaster),
-     ("M1-S-<Tab>", windows focusDown >> windows shiftMaster),
+     -- ("M1-<Tab>", windows focusUp >> windows shiftMaster),
+     -- ("M1-S-<Tab>", windows focusDown >> windows shiftMaster),
      ("M4-w", windows focusUp),
      ("M4-f", windows focusDown),
      ("M4-S-w", windows swapUp),
@@ -300,7 +300,7 @@ floatClickFocusHandler _ = return $ All True
 -- run XMonad
 
 main = do
-  xmonad $ withNavigation2DConfig defaultNavigation2DConfig $ xfceConfig {
+  xmonad $ withNavigation2DConfig def $ ewmhFullscreen . ewmh $ docks $ xfceConfig {
         terminal = myTerminal,
         borderWidth = myBorderWidth,
         normalBorderColor = myNormalBorderColor,
@@ -315,11 +315,9 @@ main = do
                      <+> myManageHook
                      <+> manageDocks
                      <+> fullscreenManageHook
-                     <+> manageHook defaultConfig,
+                     <+> manageHook def,
         mouseBindings = myMouseBindings,
-        startupHook = docksStartupHook <+> ewmhDesktopsStartup >> setWMName "LG3D",
-        handleEventHook = ewmhDesktopsEventHook
-                          <+> FS.fullscreenEventHook
+        startupHook = setWMName "LG3D",
+        handleEventHook = FS.fullscreenEventHook
                           <+> floatClickFocusHandler
-                          <+> docksEventHook
     }
