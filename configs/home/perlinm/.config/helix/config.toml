@@ -1,0 +1,189 @@
+theme = "onedark_perlinm"
+
+[editor]
+line-number = "relative"
+gutters = ["diagnostics", "line-numbers"]
+mouse = true
+completion-trigger-len = 3
+idle-timeout = 0
+auto-pairs = false
+
+[editor.cursor-shape]
+insert = "bar"
+
+# [editor.statusline]
+# left = ["mode", "spinner"]
+# center = ["selections", "position", "file-name"]
+# right = ["diagnostics", "file-encoding", "file-line-ending", "file-type"]
+
+# [editor.indent-guides]
+# render = true
+# character = "╎"
+
+[keys.normal]
+### unbind old keys
+# q = "no_op"
+w = "no_op"
+f = "no_op"
+p = "no_op"
+# g = "no_op"  # keep default
+j = "no_op"
+l = "no_op"
+u = "no_op"
+y = "no_op"
+a = "no_op"
+r = "no_op"
+s = "no_op"
+t = "no_op"
+d = "no_op"
+h = "no_op"
+n = "no_op"
+e = "no_op"
+i = "no_op"
+o = "no_op"
+z = "no_op"
+x = "no_op"
+c = "no_op"
+v = "no_op"
+b = "no_op"
+k = "no_op"
+# m = "no_op"  # keep default
+### cursor navigation
+k = "align_view_center"
+n = "move_char_left"
+i = "move_char_right"
+u = "move_line_up"
+e = "move_line_down"
+l = "goto_first_nonwhitespace"
+y = "goto_line_end"
+"semicolon" = "half_page_up"
+o = "half_page_down"
+A-n = ["move_prev_word_start", "collapse_selection"]
+A-i = ["move_next_word_end", "collapse_selection"]
+A-u = ["goto_prev_paragraph", "collapse_selection"]
+A-e = ["goto_next_paragraph", "collapse_selection"]
+A-l = "goto_line_start"
+A-y = "goto_line_end_newline"
+### buffer and search
+A-f = ":reload"
+A-F = ":buffer-close"
+"tab" = ":buffer-next"
+"S-tab" = ":buffer-previous"
+C-l = "jump_backward"
+C-y = "jump_forward"
+# C-u = "jumplist_picker"
+"A-/" = "search_selection"
+w = "search_prev"
+f = "search_next"
+c = "copy_selection_on_next_line"
+C = "copy_selection_on_prev_line"
+### text manipulation
+C-z = "undo"
+C-r = "redo"
+A-r = "toggle_comments"
+v = "open_above"
+V = "open_below"
+C-c = "yank_main_selection_to_clipboard"
+C-x = ["yank_main_selection_to_clipboard", "delete_selection"]
+C-v = "paste_clipboard_before"
+C-k = "kill_to_line_end"
+"backspace" = "delete_selection_noyank"
+### mode control
+A-q = ["collapse_selection", "keep_primary_selection"]
+"ret" = "insert_mode"
+"A-ret" = "append_mode"
+t = "insert_mode"
+T = "append_mode"
+s = "select_mode"
+S = "select_regex"
+
+[keys.select]
+### unbind old keys
+# q = "no_op"
+w = "no_op"
+f = "no_op"
+p = "no_op"
+# g = "no_op"  # keep default
+j = "no_op"
+l = "no_op"
+u = "no_op"
+y = "no_op"
+a = "no_op"
+r = "no_op"
+s = "no_op"
+t = "no_op"
+d = "no_op"
+h = "no_op"
+n = "no_op"
+e = "no_op"
+i = "no_op"
+o = "no_op"
+z = "no_op"
+x = "no_op"
+c = "no_op"
+v = "no_op"
+b = "no_op"
+k = "no_op"
+# m = "no_op"  # keep default
+### cursor navigation
+k = "align_view_center"
+n = "extend_char_left"
+i = "extend_char_right"
+u = "extend_line_up"
+e = "extend_line_down"
+l = "goto_first_nonwhitespace"
+y = "goto_line_end"
+"semicolon" = "half_page_up"
+o = "half_page_down"
+A-n = "extend_prev_word_start"
+A-i = "extend_next_word_end"
+A-u = "goto_prev_paragraph"
+A-e = "goto_next_paragraph"
+A-l = "goto_line_start"
+A-y = "goto_line_end_newline"
+### buffer and search
+A-f = ":reload"
+A-F = ":buffer-close"
+"tab" = ":buffer-next"
+"S-tab" = ":buffer-previous"
+C-l = "jump_backward"
+C-y = "jump_forward"
+# C-u = "jumplist_picker"
+"A-/" = "search_selection"
+w = "search_prev"
+f = "search_next"
+c = "copy_selection_on_next_line"
+C = "copy_selection_on_prev_line"
+### text manipulation
+C-z = "undo"
+C-r = "redo"
+A-r = ["toggle_comments", "select_mode"]
+v = "open_above"
+V = "open_below"
+C-c = ["yank_main_selection_to_clipboard", "normal_mode"]
+C-x = ["yank_main_selection_to_clipboard", "delete_selection"]
+C-v = "paste_clipboard_before"
+C-k = "kill_to_line_end"
+"backspace" = "delete_selection_noyank"
+### mode control
+A-q = "normal_mode"
+"ret" = "insert_mode"
+"A-ret" = "append_mode"
+t = "insert_mode"
+T = "append_mode"
+s = "collapse_selection"
+S = "select_regex"
+
+[keys.insert]
+### cursor navigation
+A-k = "align_view_center"
+A-n = "move_char_left"
+A-i = "move_char_right"
+A-u = "move_line_up"
+A-e = "move_line_down"
+A-l = "goto_first_nonwhitespace"
+A-y = "goto_line_end_newline"
+### text manipulation
+### mode control
+C-v = "paste_clipboard_before"
+A-q = "normal_mode"

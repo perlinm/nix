@@ -1,0 +1,4 @@
+[[language]]
+name = "python"
+config = { pylsp = { plugins = { pycodestyle = { enabled = "false" }, mccabe = { enabled = "false" }, pyflakes = { enabled = "false" }, flake8 = { enabled = "false", config = "~/.config/flake8" } }, configurationSources = ["flake8"] } }
+
