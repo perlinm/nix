@@ -128,7 +128,7 @@ myScratchPads = [ padTemplate termName termHook,
 -- layout definitions
 
 normal = renamed [Replace "normal"] $ ResizableTall 1 (1/100) (1/2) []
-code = renamed [Replace "code"] $ ResizableTall 1 (1/100) (51/100) []
+code = renamed [Replace "code"] $ ResizableTall 1 (1/100) (54/100) []
 latex = renamed [Replace "latex"] $ ResizableTall 1 (1/100) (37/100) []
 full = renamed [Replace "full"] $ Full
 grid = renamed [Replace "grid" ] $ ThreeCol 1 (1/100) (1/3)
@@ -149,8 +149,8 @@ myPlacement = withGaps (16,16,16,16) (fixed (0.5,0.5))
 -- key commands
 
 -- define number row, arrow keys, and modification keys
-numRow = ["`"] ++ (Prelude.map show [1..9]) ++ ["0","-"]
-arrows = [["n","i","u","e"],["r","s","p","v"],["<L>","<R>","<U>","<D>"]]
+numRow = (Prelude.map show [1..9]) ++ ["0","-","="]
+arrows = ["r","s","p","t"]  -- left, right, up, down
 modKeys = ["","C-","S-","M1-"]
 
 -- define window actions in each direction performed by modification keys
@@ -167,7 +167,7 @@ modActions = [ zip modKeys dirFuns | dirFuns <- [actLeft,actRight,actUp,actDn] ]
 
 
 -- for each set of arrow keys, pair up arrows with respective modification key and action
-dirControlsSet = join [ zip dirs modActions | dirs <- arrows ]
+dirControlsSet = join [ zip arrows modActions ]
 
 -- collect all appropriate combinations of keys and workspace actions into a single list
 dirControls = join [ [ (dir,mod,fun) | let dir = fst set, (mod,fun) <- snd set ]
@@ -189,22 +189,20 @@ myKeys = \conf -> mkKeymap conf $
     [ ("M4-" ++ mod ++ dir, func) | (dir,mod,func) <- dirControls ]
     ++
     [
-     ("M1-z", toggleWS' ["NSP"]),
+     ("M4-z", toggleWS' ["NSP"]),
      ---------- layout management ----------
      ("M4-<Space>", nextLayout),
      ("M4-S-<Space>", prevLayout),
      ("M4-M1-<Space>", setLayout $ layoutHook conf),
-     ("M4-z", sendMessage $ Toggle "full"),
-     ("M4-x", sendMessage Shrink),
-     ("M4-c", sendMessage Expand),
-     ("M4-S-x", sendMessage $ IncMasterN 1),
-     ("M4-S-c", sendMessage $ IncMasterN (-1)),
-     ("M4-M1-x", sendMessage MirrorExpand),
-     ("M4-M1-c", sendMessage MirrorShrink),
+     ("M4-<Left>", sendMessage Shrink),
+     ("M4-<Right>", sendMessage Expand),
+     ("M4-<Up>", sendMessage MirrorExpand),
+     ("M4-<Down>", sendMessage MirrorShrink),
+     ("M4-x", sendMessage $ Toggle "full"),
+     ("M4-c", sendMessage $ IncMasterN 1),
+     ("M4-v", sendMessage $ IncMasterN (-1)),
      ("M4-b", sendMessage ToggleStruts),
      ---------- window management ----------
-     -- ("M1-<Tab>", windows focusUp >> windows shiftMaster),
-     -- ("M1-S-<Tab>", windows focusDown >> windows shiftMaster),
      ("M4-w", windows focusUp),
      ("M4-f", windows focusDown),
      ("M4-S-w", windows swapUp),
@@ -215,13 +213,13 @@ myKeys = \conf -> mkKeymap conf $
      ("M4-<Esc>", kill),
      ---------- spawning ----------
      ("M4-<Tab>", spawn $ terminal conf),
-     ("M1-`", spawn myRun),
-     ("M1-C-`", spawn "xfce4-appfinder"),
-     ("M1-<F1>", namedScratchpadAction myScratchPads termName),
-     ("M1-<F2>", namedScratchpadAction myScratchPads altTermName),
-     ("M1-<F3>", namedScratchpadAction myScratchPads calcName),
-     ("M1-<F4>", namedScratchpadAction myScratchPads htopName),
-     ("M1-<F5>", namedScratchpadAction myScratchPads mixerName),
+     ("M4-`", spawn myRun),
+     ("M4-S-`", spawn "xfce4-appfinder"),
+     ("M4-<F1>", namedScratchpadAction myScratchPads termName),
+     ("M4-<F2>", namedScratchpadAction myScratchPads altTermName),
+     ("M4-<F3>", namedScratchpadAction myScratchPads calcName),
+     ("M4-<F4>", namedScratchpadAction myScratchPads htopName),
+     ("M4-<F5>", namedScratchpadAction myScratchPads mixerName),
      ---------- media keys ----------
      ("<XF86AudioMute>", runScript "volume.sh toggle"),
      ("<XF86AudioLowerVolume>", runScript "volume.sh dec"),
@@ -244,22 +242,20 @@ myKeys = \conf -> mkKeymap conf $
      ("C-S-<U>", runScript "volume.sh max"),
      ("C-S-/", runScript "volume.sh med"),
      ---------- backlights ----------
-     ("M1-C-<U>", runScript "light.sh max"),
-     ("M1-C-<D>", runScript "light.sh dim"),
-     ("M1-C-/", runScript "light.sh med"),
-     ("M1-S-<U>", runScript "kbd_light.sh up"),
-     ("M1-S-<D>", runScript "kbd_light.sh off"),
-     ("M1-S-/", runScript "kbd_light.sh 1"),
+     ("M4-C-<U>", runScript "light.sh max"),
+     ("M4-C-<D>", runScript "light.sh dim"),
+     ("M4-C-/", runScript "light.sh med"),
+     ("M4-S-<U>", runScript "kbd_light.sh up"),
+     ("M4-S-<D>", runScript "kbd_light.sh off"),
      ---------- screenshots ----------
      ("M4-\\", runScript "print-screen.sh"),
      ("M4-S-\\", runScript "print-screen.sh -s"),
      ---------- misc ----------
-     ("C-q", runScript "null.sh"),
      ("C-<Esc>", spawn myLock),
      ("M4-k", runScript "layout-toggle.sh"),
      ("M4-/", windows copyToAll),
      ("M4-S-/", killAllOtherCopies),
-     ("C-M4-<Backspace>", io $ exitWith ExitSuccess)
+     ("M4-C-<Backspace>", io $ exitWith ExitSuccess)
     ]
     where nextLayout = sendMessage NextLayout
           prevLayout = do { replicateM_ (layoutCount-1) $ sendMessage NextLayout}

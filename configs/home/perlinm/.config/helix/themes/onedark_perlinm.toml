@@ -47,7 +47,7 @@ diagnostic = { modifiers = ["underlined"] }
 "warning" = { fg = "yellow", modifiers = ["bold"] }
 "error" = { fg = "red", modifiers = ["bold"] }
 
-"ui.background" = { bg = "black" }
+"ui.background" = { bg = "transparent" }
 "ui.virtual" = { fg = "faint-gray" }
 "ui.virtual.indent-guide" = { fg = "faint-gray" }
 "ui.virtual.whitespace" = { fg = "light-gray" }
@@ -57,7 +57,7 @@ diagnostic = { modifiers = ["underlined"] }
 "ui.cursor.primary" = { fg = "white", modifiers = ["reversed"] }
 "ui.cursor.match" = { fg = "blue", modifiers = ["underlined"]}
 
-"ui.selection" = { bg = "light-gray" }
+"ui.selection" = { bg = "gray" }
 "ui.selection.primary" = { bg = "gray" }
 "ui.cursorline.primary" = { bg = "light-black" }
 
@@ -89,10 +89,10 @@ purple = "#C678DD"
 green = "#98C379"
 gold = "#D19A66"
 cyan = "#56B6C2"
-white = "#ABB2BF"
+white = "#DDDDDD"
 black = "#282C34"
 light-black = "#2C323C"
 gray = "#3E4452"
 faint-gray = "#3B4048"
-light-gray = "#5C6370"
+light-gray = "#999999"
 linenr = "#4B5263"
