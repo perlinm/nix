@@ -4,6 +4,8 @@ alias ls='exa'
 alias -g NN='2>/dev/null'
 
 alias hx='helix'
+export RUST_BACKTRACE=1
+
 alias -g py='python'
 alias -g py2='python2'
 alias -g py3='python3'

@@ -66,3 +66,6 @@ cd fac && cargo build --release && cp target/release/fac .
 
 # prevent system lag when copying large files between different partitions
 echo "never" > /sys/kernel/mm/transparent_hugepage/enabled
+
+# run ibus to allow ctrl+shift+u keybindings
+ibus-daemon -drxR

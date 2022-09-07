@@ -2,7 +2,7 @@
 	name = Michael A. Perlin
 	email = mika.perlin@gmail.com
 [core]
-	editor = vim
+	editor = helix
 [pull]
 	ff = only
 [init]

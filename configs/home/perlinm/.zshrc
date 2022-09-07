@@ -15,8 +15,8 @@ export pacman_program="yay"
 export HISTFILE=~/.zhist
 export HISTSIZE=10000
 export SAVEHIST=10000
-export EDITOR=vim
-export VISUAL=vim
+export EDITOR=helix
+export VISUAL=helix
 export BROWSER=/usr/bin/firefox
 export XDG_CONFIG_HOME=$HOME/.config
 export ZLS_COLORS=$LS_COLORS
@@ -145,3 +145,6 @@ zstyle ':completion:*' matcher-list '' \
   'm:{a-z\-}={A-Z\_}' \
   'r:[^[:alpha:]]||[[:alpha:]]=** r:|=* m:{a-z\-}={A-Z\_}' \
   'r:|?=** m:{a-z\-}={A-Z\_}'
+
+# starship command prompt
+# eval "$(starship init zsh)"

@@ -149,8 +149,8 @@ myPlacement = withGaps (16,16,16,16) (fixed (0.5,0.5))
 -- key commands
 
 -- define number row, arrow keys, and modification keys
-numRow = (Prelude.map show [1..9]) ++ ["0","-","="]
-arrows = ["r","s","p","t"]  -- left, right, up, down
+numRow = ["`"] ++ (Prelude.map show [1..9]) ++ ["0","-"]
+arrows = [["r","s","p","t"],["n","i","u","e"]]  -- left, right, up, down
 modKeys = ["","C-","S-","M1-"]
 
 -- define window actions in each direction performed by modification keys
@@ -167,7 +167,7 @@ modActions = [ zip modKeys dirFuns | dirFuns <- [actLeft,actRight,actUp,actDn] ]
 
 
 -- for each set of arrow keys, pair up arrows with respective modification key and action
-dirControlsSet = join [ zip arrows modActions ]
+dirControlsSet = join [ zip dirs modActions | dirs <- arrows ]
 
 -- collect all appropriate combinations of keys and workspace actions into a single list
 dirControls = join [ [ (dir,mod,fun) | let dir = fst set, (mod,fun) <- snd set ]
@@ -190,6 +190,7 @@ myKeys = \conf -> mkKeymap conf $
     ++
     [
      ("M4-z", toggleWS' ["NSP"]),
+     ("M4-a", sendMessage $ Toggle "full"),
      ---------- layout management ----------
      ("M4-<Space>", nextLayout),
      ("M4-S-<Space>", prevLayout),
@@ -198,23 +199,23 @@ myKeys = \conf -> mkKeymap conf $
      ("M4-<Right>", sendMessage Expand),
      ("M4-<Up>", sendMessage MirrorExpand),
      ("M4-<Down>", sendMessage MirrorShrink),
-     ("M4-x", sendMessage $ Toggle "full"),
-     ("M4-c", sendMessage $ IncMasterN 1),
-     ("M4-v", sendMessage $ IncMasterN (-1)),
+     ("M4-x", sendMessage $ IncMasterN 1),
+     ("M4-c", sendMessage $ IncMasterN (-1)),
      ("M4-b", sendMessage ToggleStruts),
      ---------- window management ----------
      ("M4-w", windows focusUp),
      ("M4-f", windows focusDown),
+     ("M4-q", windows focusMaster),
      ("M4-S-w", windows swapUp),
      ("M4-S-f", windows swapDown),
-     ("M4-q", windows focusMaster),
-     ("M4-a", windows shiftMaster),
+     ("M4-S-q", windows shiftMaster),
      ("M4-t", withFocused $ windows . sink),
+     ("M4-k", withFocused $ windows . sink),
      ("M4-<Esc>", kill),
      ---------- spawning ----------
-     ("M4-<Tab>", spawn $ terminal conf),
-     ("M4-`", spawn myRun),
-     ("M4-S-`", spawn "xfce4-appfinder"),
+     ("M4-<Enter>", spawn $ terminal conf),
+     ("M4-<Tab>", spawn myRun),
+     ("M4-S-<Tab>", spawn "xfce4-appfinder"),
      ("M4-<F1>", namedScratchpadAction myScratchPads termName),
      ("M4-<F2>", namedScratchpadAction myScratchPads altTermName),
      ("M4-<F3>", namedScratchpadAction myScratchPads calcName),
@@ -252,7 +253,7 @@ myKeys = \conf -> mkKeymap conf $
      ("M4-S-\\", runScript "print-screen.sh -s"),
      ---------- misc ----------
      ("C-<Esc>", spawn myLock),
-     ("M4-k", runScript "layout-toggle.sh"),
+     -- ("M4-k", runScript "layout-toggle.sh"),
      ("M4-/", windows copyToAll),
      ("M4-S-/", killAllOtherCopies),
      ("M4-C-<Backspace>", io $ exitWith ExitSuccess)

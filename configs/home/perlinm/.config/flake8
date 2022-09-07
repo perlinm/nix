@@ -2,7 +2,7 @@
 count = True
 max-complexity = 10
 max-line-length = 100
-show_source = True
+show-source = True
 statistics = True
 
 # with the flake8-import-order plugin:

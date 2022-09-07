@@ -415,7 +415,7 @@ point reaches the beginning or end of the buffer, stop there."
 (leaf-key* "M-;" 'scroll-down)
 (leaf-key* "M-o" 'scroll-up)
 
-(leaf-key* "M-m" 'recenter)
+(leaf-key* "M-k" 'recenter)
 
 (leaf-key* "C-x i" 'next-buffer)
 (leaf-key* "C-x n" 'previous-buffer)

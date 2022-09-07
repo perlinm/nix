@@ -90,7 +90,7 @@ noremap <C-z> :undo<CR>| " undo
 noremap <C-r> :redo<CR>| " redo
 
 " miscellaneous
-noremap m zz| " center line
+noremap k zz| " center line
 nnoremap Q @q| " replay the macro recorded by qq
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
