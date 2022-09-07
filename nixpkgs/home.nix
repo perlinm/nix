@@ -19,10 +19,22 @@
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
-  # Packages to install
-  home.packages = [
-    # pkgs is the set of all packages in the default home.nix implementation
-    pkgs.helix
-  ];
-
+  # git configuration
+  programs.git = {
+    enable = true;
+    userName = "Michael A. Perlin";
+    userEmail = "mika.perlin@gmail.com";
+    extraConfig = {
+      core = { editor = "helix"; };
+      init = { defaultBranch = "main"; };
+      fetch = { prune = "true"; };
+      pull = { ff = "only"; };
+      push = { autoSetupRemote = "true"; };
+    };
+    aliases = {
+      st = "status";
+      br = "branch";
+      co = "checkout";
+    };
+  };
 }
