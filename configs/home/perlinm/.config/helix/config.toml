@@ -11,18 +11,18 @@ auto-pairs = false
 [editor.cursor-shape]
 insert = "bar"
 
-# [editor.statusline]
-# left = ["mode", "spinner"]
-# center = ["selections", "position", "file-name"]
-# right = ["diagnostics", "file-encoding", "file-line-ending", "file-type"]
+[editor.statusline]
+left = ["mode", "spinner"]
+center = ["selections", "position", "file-name"]
+right = ["diagnostics", "file-encoding", "file-line-ending", "file-type"]
 
-# [editor.indent-guides]
-# render = true
-# character = "╎"
+[editor.indent-guides]
+render = true
+character = "╎"
 
 [keys.normal]
 ### unbind old keys
-# q = "no_op"
+# q = "no_op"  # keep default
 w = "no_op"
 f = "no_op"
 p = "no_op"
@@ -65,7 +65,7 @@ A-u = "goto_prev_paragraph"
 A-e = "goto_next_paragraph"
 A-l = "goto_line_start"
 A-y = "goto_line_end_newline"
-"semicolon" = "half_page_up"
+";" = "half_page_up"
 o = "half_page_down"
 "A-down" = "copy_selection_on_next_line"
 "A-up" = "copy_selection_on_prev_line"
@@ -77,7 +77,7 @@ A-f = ":reload"
 C-w = ":buffer-close"
 L = "jump_backward"
 Y = "jump_forward"
-# C-u = "jumplist_picker"
+C-u = "jumplist_picker"
 w = "search_prev"
 f = "search_next"
 "A-/" = "search_selection"
@@ -118,7 +118,7 @@ D = "extend_line_above"
 
 [keys.select]
 ### unbind old keys
-# q = "no_op"
+# q = "no_op"  # keep default
 w = "no_op"
 f = "no_op"
 p = "no_op"
@@ -161,7 +161,7 @@ A-u = "goto_prev_paragraph"
 A-e = "goto_next_paragraph"
 A-l = "goto_line_start"
 A-y = "goto_line_end_newline"
-"semicolon" = "half_page_up"
+";" = "half_page_up"
 o = "half_page_down"
 "A-down" = "copy_selection_on_next_line"
 "A-up" = "copy_selection_on_prev_line"

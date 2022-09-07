@@ -3,7 +3,7 @@ alias pm='yay'
 alias ls='exa'
 alias -g NN='2>/dev/null'
 
-alias hx='helix'
+alias hx='~/.cargo/bin/hx'
 export RUST_BACKTRACE=1
 
 alias -g py='python'
