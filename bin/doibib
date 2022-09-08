@@ -1,5 +1,5 @@
 #!/usr/bin/zsh
 
-for i in $*; do
-  curl -LH "Accept: text/bibliography; style=bibtex" http://dx.doi.org/$i
+for ii in $*; do
+  curl -LH "Accept: text/bibliography; style=bibtex" http://dx.doi.org/$ii
 done

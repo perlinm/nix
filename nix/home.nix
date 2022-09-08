@@ -20,6 +20,10 @@
   home.keyboard.options = [ "shift:both_capslock" "caps:backspace" ];
   home.keyboard.variant = "colemak";
 
+  home.packages = [
+    pkgs.trashy
+  ];
+
   home.sessionPath = [
     "/usr/bin"
     "/usr/local/bin"
@@ -46,6 +50,7 @@
   home.shellAliases = {
     sudo = "sudo ";  # allows using aliases after "sudo"
     pm = "aptitude";
+    rem = "trash";
     fire = "firefox";
     setwin = "sudo setwin";
 
