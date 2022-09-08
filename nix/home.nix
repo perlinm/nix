@@ -21,16 +21,21 @@
   home.keyboard.variant = "colemak";
 
   home.packages = with pkgs; [
-    trashy
-    meld
-    udevil
+    trashy  # trash management, replacing "rm"
+    udevil  # sudo-free mounting
+    htop  # process viewer
+    ripgrep  # faster grep
+    meld  # file comparison
+    vistafonts  # adds consolas font
 
-    vistafonts
-
+    # pdf viewers and editors
     qpdfview
     okular
     foxitreader
     pdftk
+
+    vlc  # for watching videos
+    # shutter  # screenshots
   ];
 
   fonts.fontconfig.enable = lib.mkForce true;
@@ -63,10 +68,9 @@
 
   home.shellAliases = {
     sudo = "sudo ";  # allows using aliases after "sudo"
-    pm = "aptitude";
-    rem = "trash";
-    fire = "firefox";
-    setwin = "sudo setwin";
+    pm = "aptitude";  # package manager
+    rem = "trash";  # trash management, replacing "rm"
+    fire = "firefox";  # web browser
 
     # python aliases
     py = "python";
