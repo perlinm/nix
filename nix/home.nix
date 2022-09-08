@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   home.username = "perlinm";
@@ -20,9 +20,20 @@
   home.keyboard.options = [ "shift:both_capslock" "caps:backspace" ];
   home.keyboard.variant = "colemak";
 
-  home.packages = [
-    pkgs.trashy
+  home.packages = with pkgs; [
+    trashy
+    meld
+    udevil
+
+    vistafonts
+
+    qpdfview
+    okular
+    foxitreader
+    pdftk
   ];
+
+  fonts.fontconfig.enable = lib.mkForce true;
 
   home.sessionPath = [
     "/usr/bin"
@@ -33,13 +44,16 @@
     "$HOME/.pyenv/bin"
     "$HOME/bin"
   ];
+
   home.sessionVariables = {
     EDITOR = "hx";
     VISUAL = "hx";
     BROWSER = "/usr/bin/firefox";
     TERM = "xterm-256color";
 
+    NIX_ALLOW_UNFREE = 1;
     NIX_PATH = "$HOME/.nix-defexpr/channels:/nix/var/nix/profiles/per-user/root/channels$\{NIX_PATH:+:$NIX_PATH\}";
+
     RUST_BACKTRACE = 1;
 
     MATLAB_LOG_DIR = "/home/perlinm/Workspace/MATLAB/logs";
@@ -135,10 +149,10 @@
         'r:[^[:alpha:]]||[[:alpha:]]=** r:|=* m:{a-z\-}={A-Z\_}' \
         'r:|?=** m:{a-z\-}={A-Z\_}'
     '';
-  shellGlobalAliases = {
-      "..." = "../..";
-      "...." = "../../..";
-      NN = "2>/dev/null";
+    shellGlobalAliases = {
+        "..." = "../..";
+        "...." = "../../..";
+        NN = "2>/dev/null";
     };
   };
 
