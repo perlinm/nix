@@ -45,9 +45,6 @@
 
   home.shellAliases = {
     sudo = "sudo ";  # allows using aliases after "sudo"
-    "..." = "../..";
-    "...." = "../../..";
-
     pm = "aptitude";
     fire = "firefox";
     setwin = "sudo setwin";
@@ -134,6 +131,8 @@
         'r:|?=** m:{a-z\-}={A-Z\_}'
     '';
   shellGlobalAliases = {
+      "..." = "../..";
+      "...." = "../../..";
       NN = "2>/dev/null";
     };
   };
@@ -165,7 +164,18 @@
   xdg.configFile."helix/themes/onedark_perlinm.toml".source = ./helix/themes/onedark_perlinm.toml;
   # TODO: symlink helix/themes/runtime to $HOME/.nix-profile/lib/runtime
 
+  home.file.".ssh/config".source = ./ssh/config;
+  home.file.".ssh/id_rsa.gpg".source = ./ssh/id_rsa.gpg;
+  home.file.".ssh/id_rsa.pub".source = ./ssh/id_rsa.pub;
+  home.file.".ssh/fingerprint".source = ./ssh/fingerprint;
+
   # misc. config files
+  home.file.".xinitrc".source = ./xinitrc;
+  home.file.".Xmodmap".source = ./Xmodmap;
+  home.file.".xmonad/xmonad.hs".source = ./xmonad.hs;
+  home.file.".vimrc".source = ./vimrc;
   home.file.".emacs.d/init.el".source = ./emacs-init.el;
+  home.file.".latexmkrc".source = ./latexmkrc;
+  home.file.".ipython/profile_perlinm/startup/00-libs.py".source = ./ipython-startup-libs.py;
   xdg.configFile."flake8".source = ./flake8;
 }
