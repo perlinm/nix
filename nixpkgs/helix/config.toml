@@ -16,10 +16,6 @@ left = ["mode", "spinner"]
 center = ["selections", "position", "file-name"]
 right = ["diagnostics", "file-encoding", "file-line-ending", "file-type"]
 
-[editor.indent-guides]
-render = true
-character = "╎"
-
 [keys.normal]
 ### unbind old keys
 # q = "no_op"  # keep default
