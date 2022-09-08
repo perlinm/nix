@@ -45,8 +45,8 @@
 
   home.shellAliases = {
     sudo = "sudo ";  # allows using aliases after "sudo"
-    ".." = "cd ../";
-    "..." = "cd ../../";
+    "..." = "../..";
+    "...." = "../../..";
 
     pm = "aptitude";
     fire = "firefox";
@@ -165,5 +165,7 @@
   xdg.configFile."helix/themes/onedark_perlinm.toml".source = ./helix/themes/onedark_perlinm.toml;
   # TODO: symlink helix/themes/runtime to $HOME/.nix-profile/lib/runtime
 
-  
+  # misc. config files
+  home.file.".emacs.d/init.el".source = ./emacs-init.el;
+  xdg.configFile."flake8".source = ./flake8;
 }

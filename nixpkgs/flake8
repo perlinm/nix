@@ -4,6 +4,3 @@ max-complexity = 10
 max-line-length = 100
 show-source = True
 statistics = True
-
-# with the flake8-import-order plugin:
-import-order-style = smarkets
