@@ -1,8 +1,0 @@
-#!/usr/bin/zsh
-
-bg_dir=/home/perlinm/Pictures/backgrounds
-
-pic=$(ls $bg_dir/* | shuf -n 1)
-sudo cp $pic /usr/share/backgrounds/background.jpg
-feh --bg-fill $pic
-echo "$pic" >> $bg_dir/.current

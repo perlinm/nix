@@ -2,8 +2,8 @@
 
 cd ~/Pictures/screenshots
 
-for i in $*; do
-  if [ $i = -s ] || [ $i = --select ]; then    
+for ii in $*; do
+  if [ $ii = -s ] || [ $ii = --select ]; then    
     sleep 0.2
   fi
 done
