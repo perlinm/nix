@@ -21,12 +21,24 @@
   home.keyboard.variant = "colemak";
 
   home.packages = with pkgs; [
+    xfce.xfce4-terminal  # terminal emulator
     trashy  # trash management, replacing "rm"
     udevil  # sudo-free mounting
     htop  # process viewer
     ripgrep  # faster grep
     meld  # file comparison
     vistafonts  # adds consolas font
+
+    # text editors
+    helix
+    vim
+    emacs
+
+    # programming languages
+    gcc
+    cargo
+    python3
+    texlive.combined.scheme-full
 
     # pdf viewers and editors
     qpdfview
@@ -200,5 +212,6 @@
   home.file.".emacs.d/init.el".source = ./emacs-init.el;
   home.file.".latexmkrc".source = ./latexmkrc;
   home.file.".ipython/profile_perlinm/startup/00-libs.py".source = ./ipython-startup-libs.py;
+  xdg.configFile."xfce4/terminal/terminalrc".source = ./xfce4-terminalrc;
   xdg.configFile."flake8".source = ./flake8;
 }
