@@ -22,7 +22,7 @@ in
   home.username = "perlinm";
   home.homeDirectory = "/home/perlinm";
 
-  home.keyboard.options = [ "shift:both_capslock" "caps:backspace" ];
+  home.keyboard.options = [ "shift:both_capslock_cancel" "caps:backspace" ];
   home.keyboard.variant = "colemak";
 
   programs = programs;

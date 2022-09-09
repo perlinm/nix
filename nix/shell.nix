@@ -38,10 +38,12 @@
       eval "$(pyenv init --path)"
       eval "$(pyenv virtualenv-init -)"
     '';
-    jupyter = "$(pyenv which jupyter)";
-    pytest = "$(pyenv which pytest)";
-    mypy = "$(pyenv which mypy)";
+    black = "$(pyenv which black)";
     flake8 = "$(pyenv which flake8)";
+    jupyter = "$(pyenv which jupyter)";
+    mypy = "$(pyenv which mypy)";
+    pip = "$(pyenv which pip)";
+    pytest = "$(pyenv which pytest)";
 
     # super.tech
     ss = ''

@@ -10,6 +10,7 @@ let
     mypy
     networkx
     numpy
+    pip
     pylint
     pytest
     scipy

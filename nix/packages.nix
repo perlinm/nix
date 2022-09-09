@@ -16,8 +16,9 @@ let
   languages = with pkgs; [
     gcc
     cargo
-    (import ./python.nix { inherit pkgs; })
+    # (import ./python.nix { inherit pkgs; })
     texlive.combined.scheme-full
+    # mathematica
   ];
   miscellaneous = with pkgs; [
     xfce.xfce4-terminal  # terminal emulator
@@ -26,7 +27,8 @@ let
     qpdfview okular foxitreader pdftk  # pdf viewers and editors
     zotero  # bibliography/reference management system
     cmake  # build system
-    vlc  # watching videos
+    vlc  # for watching videos
+    gparted  # graphical disk partitioning utility
   ];
 in
 consoleUtilities ++ languages ++ miscellaneous
