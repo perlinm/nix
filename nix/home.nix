@@ -1,5 +1,11 @@
 { config, pkgs, lib, ... }:
 
+# TODO:
+# add LSPs
+# figure out python + packages
+# remaining parts of arch-setup
+# window manager
+
 {
   home.username = "perlinm";
   home.homeDirectory = "/home/perlinm";
@@ -48,6 +54,7 @@
     foxitreader
     pdftk
 
+    cmake  # build system
     vlc  # for watching videos
     # shutter  # screenshots
   ];
