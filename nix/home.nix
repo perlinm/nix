@@ -20,6 +20,7 @@
   home.keyboard.options = [ "shift:both_capslock" "caps:backspace" ];
   home.keyboard.variant = "colemak";
 
+  nixpkgs.config.allowUnfree = true;
   home.packages = with pkgs; [
     xfce.xfce4-terminal  # terminal emulator
     trashy  # trash management, replacing "rm"
@@ -27,6 +28,7 @@
     htop  # process viewer
     ripgrep  # faster grep
     meld  # file comparison
+    xclip  # command-line clipboard
     vistafonts  # adds consolas font
 
     # text editors
@@ -34,7 +36,7 @@
     vim
     emacs
 
-    # programming languages
+    # languages
     gcc
     cargo
     python3
@@ -68,9 +70,7 @@
     BROWSER = "/usr/bin/firefox";
     TERM = "xterm-256color";
 
-    NIX_ALLOW_UNFREE = 1;
     NIX_PATH = "$HOME/.nix-defexpr/channels:/nix/var/nix/profiles/per-user/root/channels$\{NIX_PATH:+:$NIX_PATH\}";
-
     RUST_BACKTRACE = 1;
 
     MATLAB_LOG_DIR = "/home/perlinm/Workspace/MATLAB/logs";
@@ -180,11 +180,11 @@
     userName = "Michael A. Perlin";
     userEmail = "mika.perlin@gmail.com";
     extraConfig = {
-      core = { editor = "hx"; };
-      init = { defaultBranch = "main"; };
-      fetch = { prune = "true"; };
-      pull = { ff = "only"; };
-      push = { autoSetupRemote = "true"; };
+      core.editor = "hx";
+      init.defaultBranch = "main";
+      fetch.prune = "true";
+      pull.ff = "only";
+      push.autoSetupRemote = "true";
     };
     aliases = {
       st = "status";
