@@ -1,5 +1,4 @@
 { pkgs }:
-
 let
   consoleUtilities = with pkgs; [
     helix vim emacs  # text editors
@@ -7,7 +6,9 @@ let
     mosh  # better than ssh
     ripgrep  # faster grep
     trashy  # trash management, replacing "rm"
+    tree  # list directories
     udevil  # sudo-free mounting
+    watch  # repeat a command and watch output
     wget  # retrieve files from the web
     xclip  # command-line clipboard
     zip unzip  # zipping/unzipping

@@ -13,14 +13,12 @@ let
     ".latexmkrc".source = ./configs/latexmkrc;
     ".ipython/profile_perlinm/startup/00-libs.py".source = ./configs/ipython-startup-libs.py;
   };
-
   xdg = {
     "helix/config.toml".source = ./configs/helix/config.toml;
     "helix/languages.toml".source = ./configs/helix/languages.toml;
     "helix/themes/onedark_perlinm.toml".source = ./configs/helix/themes/onedark_perlinm.toml;
     # TODO: symlink helix/themes/runtime to $HOME/.nix-profile/lib/runtime
 
-    # misc. config files
     "xfce4/terminal/terminalrc".source = ./configs/xfce4-terminalrc;
     "qpdfview/qpdfview.conf".source = ./configs/qpdfview/qpdfview.conf;
     "qpdfview/shortcuts.conf".source = ./configs/qpdfview/shortcuts.conf;
