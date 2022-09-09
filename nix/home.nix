@@ -27,38 +27,7 @@
   home.keyboard.variant = "colemak";
 
   nixpkgs.config.allowUnfree = true;
-  home.packages = with pkgs; [
-    xfce.xfce4-terminal  # terminal emulator
-    trashy  # trash management, replacing "rm"
-    udevil  # sudo-free mounting
-    htop  # process viewer
-    ripgrep  # faster grep
-    meld  # file comparison
-    xclip  # command-line clipboard
-    vistafonts  # adds consolas font
-
-    # text editors
-    helix
-    vim
-    emacs
-
-    # languages
-    gcc
-    cargo
-    python3
-    texlive.combined.scheme-full
-
-    # pdf viewers and editors
-    qpdfview
-    okular
-    foxitreader
-    pdftk
-
-    zotero  # reference management system
-    cmake  # build system
-    vlc  # for watching videos
-    # shutter  # screenshots
-  ];
+  home.packages = import ./packages.nix { inherit pkgs; };
 
   fonts.fontconfig.enable = lib.mkForce true;
 
