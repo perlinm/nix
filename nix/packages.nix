@@ -16,7 +16,7 @@ let
   languages = with pkgs; [
     gcc
     cargo
-    python3
+    (import ./python.nix { inherit pkgs; })
     texlive.combined.scheme-full
   ];
   miscellaneous = with pkgs; [
