@@ -2,10 +2,10 @@
 
 # TODO:
 # add LSPs
-# figure out python + packages
-# remaining parts of arch-setup
+# python environments: https://github.com/DavHau/mach-nix
 # window manager
 # configure firefox
+# remaining parts of arch-setup
 
 let
   programs = import ./programs.nix;
