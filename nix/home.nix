@@ -213,5 +213,7 @@
   home.file.".latexmkrc".source = ./latexmkrc;
   home.file.".ipython/profile_perlinm/startup/00-libs.py".source = ./ipython-startup-libs.py;
   xdg.configFile."xfce4/terminal/terminalrc".source = ./xfce4-terminalrc;
+  xdg.configFile."qpdfview/qpdfview.conf".source = ./qpdfview/qpdfview.conf;
+  xdg.configFile."qpdfview/shortcuts.conf".source = ./qpdfview/shortcuts.conf;
   xdg.configFile."flake8".source = ./flake8;
 }
