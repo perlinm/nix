@@ -1,40 +1,31 @@
-{ pkgs, ... }:
+{ pkgs }:
 
 let
-  basePackages = with pkgs; [
+  consoleUtilities = with pkgs; [
+    helix vim emacs  # text editors
     htop  # process viewer
+    mosh  # better than ssh
     ripgrep  # faster grep
     trashy  # trash management, replacing "rm"
     udevil  # sudo-free mounting
     wget  # retrieve files from the web
     xclip  # command-line clipboard
     zip unzip  # zipping/unzipping
-
-    # text editors
-    helix
-    vim
-    emacs
-
-    # languages
+  ];
+  languages = with pkgs; [
     gcc
     cargo
     python3
     texlive.combined.scheme-full
-
-    # pdf viewers and editors
-    qpdfview
-    okular
-    foxitreader
-    pdftk
-
+  ];
+  miscellaneous = with pkgs; [
     xfce.xfce4-terminal  # terminal emulator
-    vistafonts  # adds consolas font
-    dejavu_fonts  # variety of fonts
+    vistafonts dejavu_fonts  # fonts, including consolas
     meld  # file comparison tool
+    qpdfview okular foxitreader pdftk  # pdf viewers and editors
     zotero  # bibliography/reference management system
     cmake  # build system
-    vlc  # for watching videos
-    # shutter  # screenshots
+    vlc  # watching videos
   ];
 in
-basePackages
+consoleUtilities ++ languages ++ miscellaneous

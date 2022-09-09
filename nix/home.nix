@@ -28,7 +28,6 @@
 
   nixpkgs.config.allowUnfree = true;
   home.packages = import ./packages.nix { inherit pkgs; };
-
   fonts.fontconfig.enable = lib.mkForce true;
 
   home.sessionPath = [
