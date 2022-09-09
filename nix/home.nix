@@ -54,6 +54,7 @@
     foxitreader
     pdftk
 
+    zotero  # reference management system
     cmake  # build system
     vlc  # for watching videos
     # shutter  # screenshots
@@ -201,26 +202,26 @@
   };
 
   programs.helix.enable = true;
-  xdg.configFile."helix/config.toml".source = ./helix/config.toml;
-  xdg.configFile."helix/languages.toml".source = ./helix/languages.toml;
-  xdg.configFile."helix/themes/onedark_perlinm.toml".source = ./helix/themes/onedark_perlinm.toml;
+  xdg.configFile."helix/config.toml".source = ./configs/helix/config.toml;
+  xdg.configFile."helix/languages.toml".source = ./configs/helix/languages.toml;
+  xdg.configFile."helix/themes/onedark_perlinm.toml".source = ./configs/helix/themes/onedark_perlinm.toml;
   # TODO: symlink helix/themes/runtime to $HOME/.nix-profile/lib/runtime
 
-  home.file.".ssh/config".source = ./ssh/config;
-  home.file.".ssh/id_rsa.gpg".source = ./ssh/id_rsa.gpg;
-  home.file.".ssh/id_rsa.pub".source = ./ssh/id_rsa.pub;
-  home.file.".ssh/fingerprint".source = ./ssh/fingerprint;
+  home.file.".ssh/config".source = ./configs/ssh/config;
+  home.file.".ssh/id_rsa.gpg".source = ./configs/ssh/id_rsa.gpg;
+  home.file.".ssh/id_rsa.pub".source = ./configs/ssh/id_rsa.pub;
+  home.file.".ssh/fingerprint".source = ./configs/ssh/fingerprint;
 
   # misc. config files
-  home.file.".xinitrc".source = ./xinitrc;
-  home.file.".Xmodmap".source = ./Xmodmap;
-  home.file.".xmonad/xmonad.hs".source = ./xmonad.hs;
-  home.file.".vimrc".source = ./vimrc;
-  home.file.".emacs.d/init.el".source = ./emacs-init.el;
-  home.file.".latexmkrc".source = ./latexmkrc;
-  home.file.".ipython/profile_perlinm/startup/00-libs.py".source = ./ipython-startup-libs.py;
-  xdg.configFile."xfce4/terminal/terminalrc".source = ./xfce4-terminalrc;
-  xdg.configFile."qpdfview/qpdfview.conf".source = ./qpdfview/qpdfview.conf;
-  xdg.configFile."qpdfview/shortcuts.conf".source = ./qpdfview/shortcuts.conf;
-  xdg.configFile."flake8".source = ./flake8;
+  home.file.".xinitrc".source = ./configs/xinitrc;
+  home.file.".Xmodmap".source = ./configs/Xmodmap;
+  home.file.".xmonad/xmonad.hs".source = ./configs/xmonad.hs;
+  home.file.".vimrc".source = ./configs/vimrc;
+  home.file.".emacs.d/init.el".source = ./configs/emacs-init.el;
+  home.file.".latexmkrc".source = ./configs/latexmkrc;
+  home.file.".ipython/profile_perlinm/startup/00-libs.py".source = ./configs/ipython-startup-libs.py;
+  xdg.configFile."xfce4/terminal/terminalrc".source = ./configs/xfce4-terminalrc;
+  xdg.configFile."qpdfview/qpdfview.conf".source = ./configs/qpdfview/qpdfview.conf;
+  xdg.configFile."qpdfview/shortcuts.conf".source = ./configs/qpdfview/shortcuts.conf;
+  xdg.configFile."flake8".source = ./configs/flake8;
 }
