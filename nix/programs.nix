@@ -69,7 +69,7 @@
       fetch.prune = "true";
       pull.ff = "only";
       push.autoSetupRemote = "true";
-      pager.branch = "false";
+      core.pager = "less -XF";
     };
     aliases = {
       st = "status";
