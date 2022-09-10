@@ -1,0 +1,25 @@
+add_newline = false
+format = """
+$time\
+$directory\
+$git_branch\
+$git_status\
+$git_state
+$character
+"""
+
+[character]
+success_symbol = '[\$](green)'
+error_symbol = '[\$](bold red)'
+
+[time]
+disabled = false
+format = '\[[$time]($style)\] '
+style = "yellow"
+
+[directory]
+style = "green"
+
+[git_branch]
+style = "purple"
+symbol = ""

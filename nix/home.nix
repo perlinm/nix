@@ -1,3 +1,4 @@
+ # https://github.com/nix-community/home-manager
 { config, pkgs, lib, ... }:
 
 # TODO:

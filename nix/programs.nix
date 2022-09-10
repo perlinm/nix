@@ -46,6 +46,8 @@
         'm:{a-z\-}={A-Z\_}' \
         'r:[^[:alpha:]]||[[:alpha:]]=** r:|=* m:{a-z\-}={A-Z\_}' \
         'r:|?=** m:{a-z\-}={A-Z\_}'
+
+      eval "$(starship init zsh)"
     '';
     shellGlobalAliases = {
         "..." = "../..";
@@ -67,6 +69,7 @@
       fetch.prune = "true";
       pull.ff = "only";
       push.autoSetupRemote = "true";
+      pager.branch = "false";
     };
     aliases = {
       st = "status";

@@ -5,6 +5,7 @@ let
     htop  # process viewer
     mosh  # better than ssh
     ripgrep  # faster grep
+    starship  # customizable shell prompt
     trashy  # trash management, replacing "rm"
     tree  # list directories
     udevil  # sudo-free mounting
