@@ -23,3 +23,6 @@ style = "green"
 [git_branch]
 style = "purple"
 symbol = ""
+
+[git_status]
+untracked = ""
