@@ -11,6 +11,7 @@ let
     udevil  # sudo-free mounting
     watch  # repeat a command and watch output
     wget  # retrieve files from the web
+    woof onionshare onionshare-gui  # secure network file sharing
     xclip  # command-line clipboard
     zip unzip  # zipping/unzipping
   ];
@@ -23,6 +24,7 @@ let
   ];
   miscellaneous = with pkgs; [
     xfce.xfce4-terminal  # terminal emulator
+    xfce.xfce4-panel  # status bar/panel
     vistafonts dejavu_fonts  # fonts, including consolas
     meld  # file comparison tool
     qpdfview okular foxitreader pdftk  # pdf viewers and editors
