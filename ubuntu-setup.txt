@@ -28,7 +28,8 @@ sudo aptitude remove \
   regolith-i3-resize \
   regolith-i3-gnome \
   regolith-i3-session \
-  regolith-i3-workspace-config
+  regolith-i3-workspace-config \
+  regolith-i3-networkmanager
 
 sudo aptitude remove \
   i3xrocks-app-launcher \

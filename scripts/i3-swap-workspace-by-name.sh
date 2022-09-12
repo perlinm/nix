@@ -5,8 +5,10 @@ if ! [ $# -eq 1 ]; then
   exit
 fi
 
-current_workspace=$(i3-msg -t get_workspaces | jq '.[] | select(.focused==true).name' | cut -d "\"" -f2)
-i3-msg "rename workspace to TMP"
-i3-msg "rename workspace $1 to $current_workspace"
-i3-msg "rename workspace TMP to $1"
-i3-msg "workspace $1"
+current_workspace=$(i3-msg -t get_workspaces \
+                    | jq '.[] | select(.focused==true).name' \
+                    | cut -d "\"" -f2)
+i3-msg "rename workspace to TMP; \
+        rename workspace $1 to $current_workspace; \
+        rename workspace TMP to $1; \
+        workspace $1"

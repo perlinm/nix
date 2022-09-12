@@ -2,6 +2,9 @@
 # miscellaneous commands to execute on startup
 ###############################################################################
 
+# network management applet in system tray
+exec --no-startup-id /usr/bin/nm-applet
+
 # start rofication for notifications
 exec --no-startup-id /usr/bin/rofication-daemon
 
