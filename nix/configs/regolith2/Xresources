@@ -1,0 +1,5 @@
+i3-wm.gaps.focus_follows_mouse: true
+i3xrocks.date.format2: %a %d %b %T
+
+regolith.wallpaper.file: ~/Pictures/background.jpg
+regolith.wallpaper.options: zoom

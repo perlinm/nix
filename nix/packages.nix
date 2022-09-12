@@ -3,6 +3,7 @@ let
   consoleUtilities = with pkgs; [
     helix vim emacs  # text editors
     htop  # process viewer
+    jq  # json parsing
     mosh  # better than ssh
     ripgrep  # faster grep
     starship  # customizable shell prompt
@@ -30,8 +31,10 @@ let
     qpdfview okular foxitreader pdftk  # pdf viewers and editors
     zotero  # bibliography/reference management system
     cmake  # build system
-    vlc  # for watching videos
     gparted  # graphical disk partitioning utility
+    vlc  # for watching videos
+    spotify  # music
+    slack  # work chat
   ];
 in
 consoleUtilities ++ languages ++ miscellaneous

@@ -1,0 +1,40 @@
+###############################################################################
+# application launchers
+###############################################################################
+
+# terminal
+bindsym $mod+Tab exec --no-startup-id /usr/bin/x-terminal-emulator
+
+# browser
+bindsym $mod+Return exec --no-startup-id gtk-launch $(xdg-settings get default-web-browser)
+
+# settings
+bindsym $mod+Shift+Return exec --no-startup-id regolith-control-center --class=floating_window
+
+# display settings
+bindsym $mod+d exec --no-startup-id regolith-control-center --class=floating_window display
+
+# bluetooth settings
+bindsym $mod+b exec --no-startup-id regolith-control-center --class=floating_window bluetooth
+
+###############################################################################
+# ilia launchers
+###############################################################################
+
+# load stylesheet
+set_from_resource $ilia.stylesheet ilia.stylesheet
+
+# start rofication for notifications
+exec --no-startup-id /usr/bin/rofication-daemon
+
+# notification viewer
+bindsym $mod+h exec --no-startup-id ilia -p notifications -t $ilia.stylesheet
+
+# application launcher
+bindsym $mod+space exec --no-startup-id ilia -p apps -t $ilia.stylesheet
+
+# navigate windows
+bindsym $mod+Ctrl+space exec --no-startup-id ilia -p windows -t $ilia.stylesheet
+
+# look selector
+bindsym $mod+Ctrl+s exec --no-startup-id regolith-look-selector -t $ilia.stylesheet

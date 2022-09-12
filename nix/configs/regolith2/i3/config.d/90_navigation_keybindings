@@ -1,0 +1,125 @@
+###############################################################################
+# navigation within a workspace
+###############################################################################
+
+focus_wrapping no
+
+# change window focus
+bindsym $mod+q focus left
+bindsym $mod+w focus right
+bindsym $mod+f focus up
+bindsym $mod+s focus down
+bindsym $mod+n focus left
+bindsym $mod+i focus right
+bindsym $mod+u focus up
+bindsym $mod+e focus down
+
+# move window
+bindsym $mod+Shift+q move left
+bindsym $mod+Shift+w move right
+bindsym $mod+Shift+f move up
+bindsym $mod+Shift+s move down
+bindsym $mod+Shift+n move left
+bindsym $mod+Shift+i move right
+bindsym $mod+Shift+u move up
+bindsym $mod+Shift+e move down
+
+# toggle tiling vs. floating
+bindsym $mod+t floating toggle
+bindsym $mod+p focus mode_toggle
+
+# toggle fullscreen
+bindsym $mod+z fullscreen toggle
+
+# toggle window orientation
+bindsym $mod+BackSpace split toggle
+ 
+# use mouse+$mod to drag floating windows
+floating_modifier $mod
+
+# resize window
+bindsym $mod+Left resize shrink width 3 px or 3 ppt
+bindsym $mod+Up resize shrink height 3 px or 3 ppt
+bindsym $mod+Right resize grow width 3 px or 3 ppt
+bindsym $mod+Down resize grow height 3 px or 3 ppt
+
+###############################################################################
+# changing workspaces
+###############################################################################
+
+# move to workspace
+bindsym $mod+grave workspace 0
+bindsym $mod+1 workspace 1
+bindsym $mod+2 workspace 2
+bindsym $mod+3 workspace 3
+bindsym $mod+4 workspace 4
+bindsym $mod+5 workspace 5
+bindsym $mod+6 workspace 6
+bindsym $mod+7 workspace 7
+bindsym $mod+8 workspace 8
+bindsym $mod+9 workspace 9
+bindsym $mod+0 workspace 10
+bindsym $mod+x workspace back_and_forth
+bindsym $mod+a workspace prev_on_output
+bindsym $mod+r workspace next_on_output
+bindsym $mod+l workspace prev_on_output
+bindsym $mod+y workspace next_on_output
+
+# move container to workspace
+bindsym $mod+$alt+grave move container to workspace 0
+bindsym $mod+$alt+1 move container to workspace 1
+bindsym $mod+$alt+2 move container to workspace 2
+bindsym $mod+$alt+3 move container to workspace 3
+bindsym $mod+$alt+4 move container to workspace 4
+bindsym $mod+$alt+5 move container to workspace 5
+bindsym $mod+$alt+6 move container to workspace 6
+bindsym $mod+$alt+7 move container to workspace 7
+bindsym $mod+$alt+8 move container to workspace 8
+bindsym $mod+$alt+9 move container to workspace 9
+bindsym $mod+$alt+0 move container to workspace 10
+bindsym $mod+$alt+x move container to workspace back_and_forth
+bindsym $mod+$alt+a move container to workspace prev_on_output
+bindsym $mod+$alt+r move container to workspace next_on_output
+bindsym $mod+$alt+l move container to workspace prev_on_output
+bindsym $mod+$alt+y move container to workspace next_on_output
+
+# follow container to workspace
+bindsym $mod+Shift+grave move container to workspace 0; workspace 0
+bindsym $mod+Shift+1 move container to workspace 1; workspace 1
+bindsym $mod+Shift+2 move container to workspace 2; workspace 2
+bindsym $mod+Shift+3 move container to workspace 3; workspace 3
+bindsym $mod+Shift+4 move container to workspace 4; workspace 4
+bindsym $mod+Shift+5 move container to workspace 5; workspace 5
+bindsym $mod+Shift+6 move container to workspace 6; workspace 6
+bindsym $mod+Shift+7 move container to workspace 7; workspace 7
+bindsym $mod+Shift+8 move container to workspace 8; workspace 8
+bindsym $mod+Shift+9 move container to workspace 9; workspace 9
+bindsym $mod+Shift+0 move container to workspace 10; workspace 10
+bindsym $mod+Shift+x move container to workspace back_and_forth; workspace back_and_forth
+bindsym $mod+Shift+a move container to workspace prev_on_output; workspace prev_on_output
+bindsym $mod+Shift+r move container to workspace next_on_output; workspace next_on_output
+bindsym $mod+Shift+l move container to workspace prev_on_output; workspace prev_on_output
+bindsym $mod+Shift+y move container to workspace next_on_output; workspace next_on_output
+
+# swap workspace
+bindsym $mod+Ctrl+grave exec --no-startup-id ~/scripts/i3-swap-workspace-by-name.sh 0
+bindsym $mod+Ctrl+1 exec --no-startup-id ~/scripts/i3-swap-workspace-by-name.sh 1
+bindsym $mod+Ctrl+2 exec --no-startup-id ~/scripts/i3-swap-workspace-by-name.sh 2
+bindsym $mod+Ctrl+3 exec --no-startup-id ~/scripts/i3-swap-workspace-by-name.sh 3
+bindsym $mod+Ctrl+4 exec --no-startup-id ~/scripts/i3-swap-workspace-by-name.sh 4
+bindsym $mod+Ctrl+5 exec --no-startup-id ~/scripts/i3-swap-workspace-by-name.sh 5
+bindsym $mod+Ctrl+6 exec --no-startup-id ~/scripts/i3-swap-workspace-by-name.sh 6
+bindsym $mod+Ctrl+7 exec --no-startup-id ~/scripts/i3-swap-workspace-by-name.sh 7
+bindsym $mod+Ctrl+8 exec --no-startup-id ~/scripts/i3-swap-workspace-by-name.sh 8
+bindsym $mod+Ctrl+9 exec --no-startup-id ~/scripts/i3-swap-workspace-by-name.sh 9
+bindsym $mod+Ctrl+0 exec --no-startup-id ~/scripts/i3-swap-workspace-by-name.sh 10
+bindsym $mod+Ctrl+a exec --no-startup-id ~/scripts/i3-move-workspace.py prev
+bindsym $mod+Ctrl+r exec --no-startup-id ~/scripts/i3-move-workspace.py next
+bindsym $mod+Ctrl+l exec --no-startup-id ~/scripts/i3-move-workspace.py prev
+bindsym $mod+Ctrl+y exec --no-startup-id ~/scripts/i3-move-workspace.py next
+
+# move container or workspace to different output
+bindsym $mod+c move container to output next
+bindsym $mod+Shift+c move workspace to output next
+
+mouse_warping none

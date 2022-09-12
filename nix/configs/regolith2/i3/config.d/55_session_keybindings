@@ -1,0 +1,21 @@
+###############################################################################
+# session management
+###############################################################################
+
+# exit app instance
+bindsym $mod+Escape [con_id="__focused__"] kill
+
+# terminate all app instances
+bindsym $mod+Ctrl+Escape [con_id="__focused__"] exec --no-startup-id kill -9 $(xdotool getwindowfocus getwindowpid)
+
+# reload i3 config
+bindsym $mod+Delete reload
+
+# restart i3
+bindsym $mod+Shift+Delete restart
+
+# refresh regolith session
+bindsym $mod+Ctrl+Delete exec --no-startup-id /usr/bin/regolith-look refresh
+
+# lock screen
+bindsym Ctrl+Escape exec dbus-send --type=method_call --dest=org.gnome.ScreenSaver /org/gnome/ScreenSaver org.gnome.ScreenSaver.Lock
