@@ -1,6 +1,7 @@
 { pkgs }:
 let
   consoleUtilities = with pkgs; [
+    cmake  # build system
     helix vim emacs  # text editors
     htop  # process viewer
     jq  # json parsing
@@ -30,7 +31,7 @@ let
     meld  # file comparison tool
     qpdfview okular foxitreader pdftk  # pdf viewers and editors
     zotero  # bibliography/reference management system
-    cmake  # build system
+    inkscape  # vector graphics (SVG) editor
     gparted  # graphical disk partitioning utility
     vlc  # for watching videos
     spotify  # music
