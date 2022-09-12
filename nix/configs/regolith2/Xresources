@@ -4,7 +4,9 @@ regolith.wallpaper.file: ~/Pictures/background.jpg
 regolith.wallpaper.options: zoom
 
 i3-wm.gaps.focus_follows_mouse: true
-i3-wm.binding.inc_gaps: bracketleft
-i3-wm.binding.dec_gaps: bracketright
-i3-wm.binding.inc_gaps_big: Shift+bracketleft
-i3-wm.binding.dec_gaps_big: Shift+bracketright
+i3-wm.gaps.inner.size: 0
+i3-wm.gaps.outer.size: 0
+i3-wm.binding.inc_gaps: bracketright
+i3-wm.binding.dec_gaps: bracketleft
+i3-wm.binding.inc_gaps_big: Shift+bracketright
+i3-wm.binding.dec_gaps_big: Shift+bracketleft

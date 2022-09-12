@@ -30,14 +30,14 @@ label_color=xresource:i3xrocks.label.color
 interval=repeat
 
 [cpu-usage]
-interval=5
+interval=1
 min_width=100%
 
 [battery]
 interval=10
 
 [rofication]
-interval=10
+interval=1
 
 [time]
-interval=xresource:i3xrocks.time.interval 10
+interval=xresource:i3xrocks.time.interval 1
