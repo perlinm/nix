@@ -2,11 +2,24 @@
 # miscellaneous commands to execute on startup
 ###############################################################################
 
+# enable "repeat" for the caps lock
+exec xset r 66
+
+# start an SSH key agent
+exec /usr/bin/gnome-keyring-daemon --start --components=ssh
+
 # network management applet in system tray
 exec --no-startup-id /usr/bin/nm-applet
 
 # start rofication for notifications
 exec --no-startup-id /usr/bin/rofication-daemon
 
-# enable "repeat" for the caps lock
-exec xset r 66
+# enable layouts
+exec --no-startup-id i3-layouts
+
+
+# startup programs
+exec --no-startup-id i3-msg workspace 1
+exec zotero
+exec slack
+exec teams

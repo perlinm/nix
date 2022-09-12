@@ -22,8 +22,9 @@ let
 
     "regolith2/Xresources".source = ./configs/regolith2/Xresources;
     "regolith2/i3/config.d/70_bar".source = ./configs/regolith2/i3/config.d/70_bar;
-    "regolith2/i3/config.d/90_keybindings".source = ./configs/regolith2/i3/config.d/90_keybindings;
-    "regolith2/i3/config.d/99_misc_exec".source = ./configs/regolith2/i3/config.d/99_misc_exec;
+    "regolith2/i3/config.d/80_keybindings".source = ./configs/regolith2/i3/config.d/80_keybindings;
+    "regolith2/i3/config.d/90_rules".source = ./configs/regolith2/i3/config.d/90_rules;
+    "regolith2/i3/config.d/99_startup".source = ./configs/regolith2/i3/config.d/99_startup;
     "regolith2/i3xrocks/conf.d/setup".source = ./configs/regolith2/i3xrocks/conf.d/setup;
 
     "starship.toml".source = ./configs/starship.toml;

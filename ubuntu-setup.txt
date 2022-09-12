@@ -36,4 +36,4 @@ sudo aptitude remove \
   i3xrocks-memory \
   i3xrocks-info
 
-sudo aptitude install xfce4-goodies
+pip3 install --user i3-layouts

@@ -199,8 +199,8 @@ myKeys = \conf -> mkKeymap conf $
      ("M4-<Right>", sendMessage Expand),
      ("M4-<Up>", sendMessage MirrorExpand),
      ("M4-<Down>", sendMessage MirrorShrink),
-     ("M4-x", sendMessage $ IncMasterN 1),
-     ("M4-c", sendMessage $ IncMasterN (-1)),
+     ("M4-M1-<Left>", sendMessage $ IncMasterN 1),
+     ("M4-M1-<Right>", sendMessage $ IncMasterN (-1)),
      ("M4-b", sendMessage ToggleStruts),
      ---------- window management ----------
      ("M4-w", windows focusUp),

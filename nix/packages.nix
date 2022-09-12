@@ -36,6 +36,7 @@ let
     vlc  # for watching videos
     spotify  # music
     slack  # work chat
+    #zoom-us  # work chat
   ];
 in
 consoleUtilities ++ languages ++ miscellaneous
