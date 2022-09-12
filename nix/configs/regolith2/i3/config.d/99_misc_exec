@@ -2,4 +2,8 @@
 # miscellaneous commands to execute on startup
 ###############################################################################
 
+# start rofication for notifications
+exec --no-startup-id /usr/bin/rofication-daemon
+
+# enable "repeat" for the caps lock
 exec xset r 66

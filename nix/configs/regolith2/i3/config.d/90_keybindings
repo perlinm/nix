@@ -123,3 +123,64 @@ bindsym $mod+c move container to output next
 bindsym $mod+Shift+c move workspace to output next
 
 mouse_warping none
+
+###############################################################################
+# session management
+###############################################################################
+
+# exit app instance
+bindsym $mod+Escape [con_id="__focused__"] kill
+
+# terminate all app instances
+bindsym $mod+Ctrl+Escape [con_id="__focused__"] exec --no-startup-id kill -9 $(xdotool getwindowfocus getwindowpid)
+
+# reload i3 config
+bindsym $mod+Delete reload
+
+# restart i3
+bindsym $mod+Shift+Delete restart
+
+# refresh regolith session
+bindsym $mod+Ctrl+Delete exec --no-startup-id /usr/bin/regolith-look refresh
+
+# lock screen
+bindsym Ctrl+Escape exec dbus-send --type=method_call --dest=org.gnome.ScreenSaver /org/gnome/ScreenSaver org.gnome.ScreenSaver.Lock
+
+###############################################################################
+# application launchers
+###############################################################################
+
+# terminal
+bindsym $mod+Tab exec --no-startup-id /usr/bin/x-terminal-emulator
+
+# browser
+bindsym $mod+Return exec --no-startup-id gtk-launch $(xdg-settings get default-web-browser)
+
+# settings
+bindsym $mod+Shift+Return exec --no-startup-id regolith-control-center --class=floating_window
+
+# display settings
+bindsym $mod+d exec --no-startup-id regolith-control-center --class=floating_window display
+
+# bluetooth settings
+bindsym $mod+b exec --no-startup-id regolith-control-center --class=floating_window bluetooth
+
+###############################################################################
+# ilia launchers
+###############################################################################
+
+# load stylesheet
+set_from_resource $ilia.stylesheet ilia.stylesheet
+
+# notification viewer
+bindsym $mod+h exec --no-startup-id ilia -p notifications -t $ilia.stylesheet
+
+# application launcher
+bindsym $mod+space exec --no-startup-id ilia -p apps -t $ilia.stylesheet
+
+# navigate windows
+bindsym $mod+Ctrl+space exec --no-startup-id ilia -p windows -t $ilia.stylesheet
+
+# look selector
+bindsym $mod+Ctrl+s exec --no-startup-id regolith-look-selector -t $ilia.stylesheet
+

@@ -18,12 +18,26 @@
 # signal
 # urgent
 
-# Global properties
-#
-# The top properties below are applied to every block, but can be overridden.
+# Global properties applied to every block
 # Each block command defaults to the script name to avoid boilerplate.
 command=/usr/share/i3xrocks/scripts/$BLOCK_NAME
 separator_block_width=35
 markup=pango
 color=xresource:i3xrocks.value.color
 label_color=xresource:i3xrocks.label.color
+
+[net-traffic]
+interval=repeat
+
+[cpu-usage]
+interval=5
+min_width=100%
+
+[battery]
+interval=10
+
+[rofication]
+interval=10
+
+[time]
+interval=xresource:i3xrocks.time.interval 10
