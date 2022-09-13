@@ -5,6 +5,9 @@
 # enable "repeat" for the caps lock
 exec xset r 66
 
+# remap some keys, such as right alt
+exec xmodmap ~/.Xmodmap
+
 # start an SSH key agent
 exec /usr/bin/gnome-keyring-daemon --start --components=ssh
 
