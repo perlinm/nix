@@ -189,8 +189,8 @@ myKeys = \conf -> mkKeymap conf $
     [ ("M4-" ++ mod ++ dir, func) | (dir,mod,func) <- dirControls ]
     ++
     [
-     ("M4-z", toggleWS' ["NSP"]),
-     ("M4-a", sendMessage $ Toggle "full"),
+     ("M4-x", toggleWS' ["NSP"]),
+     ("M4-z", sendMessage $ Toggle "full"),
      ---------- layout management ----------
      ("M4-<Space>", nextLayout),
      ("M4-S-<Space>", prevLayout),
@@ -199,8 +199,8 @@ myKeys = \conf -> mkKeymap conf $
      ("M4-<Right>", sendMessage Expand),
      ("M4-<Up>", sendMessage MirrorExpand),
      ("M4-<Down>", sendMessage MirrorShrink),
-     ("M4-M1-<Left>", sendMessage $ IncMasterN 1),
-     ("M4-M1-<Right>", sendMessage $ IncMasterN (-1)),
+     ("M4-S-<Left>", sendMessage $ IncMasterN 1),
+     ("M4-S-<Right>", sendMessage $ IncMasterN (-1)),
      ("M4-b", sendMessage ToggleStruts),
      ---------- window management ----------
      ("M4-w", windows focusUp),
@@ -209,13 +209,13 @@ myKeys = \conf -> mkKeymap conf $
      ("M4-S-w", windows swapUp),
      ("M4-S-f", windows swapDown),
      ("M4-S-q", windows shiftMaster),
-     ("M4-t", withFocused $ windows . sink),
-     ("M4-k", withFocused $ windows . sink),
+     ("M4-a", windows shiftMaster),
+     ("M4-c", withFocused $ windows . sink),
      ("M4-<Esc>", kill),
      ---------- spawning ----------
-     ("M4-<Enter>", spawn $ terminal conf),
-     ("M4-<Tab>", spawn myRun),
-     ("M4-S-<Tab>", spawn "xfce4-appfinder"),
+     ("M4-<Tab>", spawn $ terminal conf),
+     ("M4-<Return>", spawn myRun),
+     ("M4-S-<Return>", spawn "xfce4-appfinder"),
      ("M4-<F1>", namedScratchpadAction myScratchPads termName),
      ("M4-<F2>", namedScratchpadAction myScratchPads altTermName),
      ("M4-<F3>", namedScratchpadAction myScratchPads calcName),
