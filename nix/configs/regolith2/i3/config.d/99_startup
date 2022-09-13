@@ -24,12 +24,6 @@ exec --no-startup-id /usr/bin/rofication-daemon
 # start on workspace 1
 exec --no-startup-id i3-msg workspace 1
 
-# teams
-assign [class="^Microsoft\ Teams\ -\ Preview$"] 0
-#exec teams
-
-assign [class="^Slack$"] 11
-#exec slack
-
-assign [class="^Zotero$"] 12
-#exec zotero
+exec teams
+exec slack
+exec zotero

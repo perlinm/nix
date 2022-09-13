@@ -37,3 +37,7 @@ sudo aptitude remove \
   i3xrocks-info
 
 pip3 install --user i3-layouts
+
+mkdir ~/src && mkdir ~/scripts
+git clone git@gitlab.com:aquator/i3-scratchpad.git ~/src/i3-scratchpad
+ln -s ~/src/i3-scratchpad/i3-scratchpad ~/scripts/i3-scratchpad

@@ -1,0 +1,8 @@
+###############################################################################
+# window rules
+###############################################################################
+
+# teams, slack, zotero
+assign [class="^Microsoft\ Teams\ -\ Preview$"] 0
+assign [class="^Slack$"] 11
+assign [class="^Zotero$"] 12

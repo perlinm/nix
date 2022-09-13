@@ -108,23 +108,25 @@ bindsym $mod+Shift+l move container to workspace prev_on_output; workspace prev_
 bindsym $mod+Shift+y move container to workspace next_on_output; workspace next_on_output
 
 # swap workspace
-bindsym $mod+Ctrl+grave exec --no-startup-id ~/scripts/i3-swap-workspace-by-name.sh 0
-bindsym $mod+Ctrl+1 exec --no-startup-id ~/scripts/i3-swap-workspace-by-name.sh 1
-bindsym $mod+Ctrl+2 exec --no-startup-id ~/scripts/i3-swap-workspace-by-name.sh 2
-bindsym $mod+Ctrl+3 exec --no-startup-id ~/scripts/i3-swap-workspace-by-name.sh 3
-bindsym $mod+Ctrl+4 exec --no-startup-id ~/scripts/i3-swap-workspace-by-name.sh 4
-bindsym $mod+Ctrl+5 exec --no-startup-id ~/scripts/i3-swap-workspace-by-name.sh 5
-bindsym $mod+Ctrl+6 exec --no-startup-id ~/scripts/i3-swap-workspace-by-name.sh 6
-bindsym $mod+Ctrl+7 exec --no-startup-id ~/scripts/i3-swap-workspace-by-name.sh 7
-bindsym $mod+Ctrl+8 exec --no-startup-id ~/scripts/i3-swap-workspace-by-name.sh 8
-bindsym $mod+Ctrl+9 exec --no-startup-id ~/scripts/i3-swap-workspace-by-name.sh 9
-bindsym $mod+Ctrl+0 exec --no-startup-id ~/scripts/i3-swap-workspace-by-name.sh 10
-bindsym $mod+Ctrl+minus exec --no-startup-id ~/scripts/i3-swap-workspace-by-name.sh 11
-bindsym $mod+Ctrl+plus exec --no-startup-id ~/scripts/i3-swap-workspace-by-name.sh 12
-bindsym $mod+Ctrl+q exec --no-startup-id ~/scripts/i3-move-workspace.py prev
-bindsym $mod+Ctrl+f exec --no-startup-id ~/scripts/i3-move-workspace.py next
-bindsym $mod+Ctrl+l exec --no-startup-id ~/scripts/i3-move-workspace.py prev
-bindsym $mod+Ctrl+y exec --no-startup-id ~/scripts/i3-move-workspace.py next
+set $swap exec ~/scripts/i3-swap-workspace-by-name.sh
+set $move exec ~/scripts/i3-move-workspace.py
+bindsym $mod+Ctrl+grave $swap 0
+bindsym $mod+Ctrl+1 $swap 1
+bindsym $mod+Ctrl+2 $swap 2
+bindsym $mod+Ctrl+3 $swap 3
+bindsym $mod+Ctrl+4 $swap 4
+bindsym $mod+Ctrl+5 $swap 5
+bindsym $mod+Ctrl+6 $swap 6
+bindsym $mod+Ctrl+7 $swap 7
+bindsym $mod+Ctrl+8 $swap 8
+bindsym $mod+Ctrl+9 $swap 9
+bindsym $mod+Ctrl+0 $swap 10
+bindsym $mod+Ctrl+minus $swap 11
+bindsym $mod+Ctrl+plus $swap 12
+bindsym $mod+Ctrl+q $move prev
+bindsym $mod+Ctrl+f $move next
+bindsym $mod+Ctrl+l $move prev
+bindsym $mod+Ctrl+y $move next
 
 # move container or workspace to different output
 bindsym $mod+c move container to output next
@@ -177,7 +179,10 @@ bindsym $mod+b exec --no-startup-id regolith-control-center --class=floating_win
 # scratchpads
 ###############################################################################
 
-
+set $pad exec /home/perlinm/scripts/i3-scratchpad -t
+bindsym $mod+F1 $pad xfce4-terminal
+bindsym $mod+F2 $pad "xfce4-terminal --command='ipython3 --profile=perlinm --no-banner'"
+bindsym $mod+F3 $pad -d 75%x75% "xfce4-terminal --command=htop"
 
 ###############################################################################
 # ilia launchers

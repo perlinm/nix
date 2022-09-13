@@ -37,6 +37,7 @@ let
     spotify  # music
     slack  # work chat
     #zoom-us  # work chat
+    wmctrl  # command-line window control (used for scratchpads)
   ];
 in
 consoleUtilities ++ languages ++ miscellaneous

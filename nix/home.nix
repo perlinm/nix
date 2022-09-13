@@ -4,7 +4,6 @@
 # TODO:
 # add LSPs
 # python environments: https://github.com/DavHau/mach-nix
-# window manager
 # configure firefox
 # remaining parts of arch-setup
 
