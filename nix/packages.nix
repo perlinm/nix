@@ -25,6 +25,7 @@ let
     # mathematica
   ];
   miscellaneous = with pkgs; [
+    firefox  # web browser
     xfce.xfce4-terminal  # terminal emulator
     xfce.xfce4-panel  # status bar/panel
     vistafonts dejavu_fonts  # fonts, including consolas
@@ -36,7 +37,7 @@ let
     vlc  # for watching videos
     spotify  # music
     slack  # work chat
-    #zoom-us  # work chat
+    # zoom-us  # video conferencing app
     wmctrl  # command-line window control (used for scratchpads)
   ];
 in
