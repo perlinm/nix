@@ -8,5 +8,5 @@ for ii in $*; do
   fi
 done
 
-scrot $* '%Y-%m-%d-%H-%M-%S-$wx$h.png'
+scrot $* --freeze '%Y-%m-%d-%H-%M-%S-$wx$h.png'
 xclip -selection clipboard -t image/png -i `ls -t | head -n 1`
