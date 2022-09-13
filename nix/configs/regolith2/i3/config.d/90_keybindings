@@ -191,14 +191,14 @@ bindsym $mod+F3 $pad -d 75%x75% "xfce4-terminal --command=htop"
 # load stylesheet
 set_from_resource $ilia.stylesheet ilia.stylesheet
 
-# notification viewer
-bindsym $mod+slash exec --no-startup-id ilia -p notifications -t $ilia.stylesheet
+# navigate open windows
+bindsym $mod+space exec --no-startup-id ilia -p windows -t $ilia.stylesheet
 
 # application launcher
-bindsym $mod+space exec --no-startup-id ilia -p apps -t $ilia.stylesheet
+bindsym $mod+$alt+space exec --no-startup-id ilia -p apps -t $ilia.stylesheet
 
-# navigate windows
-bindsym $mod+Ctrl+space exec --no-startup-id ilia -p windows -t $ilia.stylesheet
+# notification viewer
+bindsym $mod+slash exec --no-startup-id ilia -p notifications -t $ilia.stylesheet
 
 # look selector
 bindsym $mod+Ctrl+s exec --no-startup-id regolith-look-selector -t $ilia.stylesheet
