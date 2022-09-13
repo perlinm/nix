@@ -10,7 +10,7 @@
 let
   programs = import ./programs.nix;
   packages = import ./packages.nix { inherit pkgs; };
-  configFiles = import ./configFiles.nix;
+  files = import ./files.nix;
   shell = import ./shell.nix;
 in
 {
@@ -27,8 +27,8 @@ in
 
   programs = programs;
   home.packages = packages;
-  home.file = configFiles.home;
-  xdg.configFile = configFiles.xdg;
+  home.file = files.home;
+  xdg.configFile = files.xdg;
 
   home.sessionPath = shell.sessionPath;
   home.sessionVariables = shell.sessionVariables;

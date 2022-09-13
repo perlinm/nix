@@ -184,6 +184,8 @@ set $script exec /home/perlinm/scripts
 # screenshots
 bindsym Print $script/print-screen.sh
 bindsym Shift+Print $script/print-screen.sh -s
+bindsym $mod+backslash $script/print-screen.sh
+bindsym $mod+Shift+backslash $script/print-screen.sh -s
 
 # volume
 bindsym Ctrl+Up $script/volume.sh inc
