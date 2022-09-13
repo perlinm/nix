@@ -194,11 +194,11 @@ bindsym Ctrl+slash $script/volume.sh toggle
 bindsym Ctrl+Shift+slash $script/volume.sh med
 
 # screen brightness (does not work)
-bindsym Ctrl+Right $script/brightness.sh inc
-bindsym Ctrl+Left $script/brightness.sh dec
-bindsym Ctrl+Shift+Right $script/brightness.sh max
-bindsym Ctrl+Shift+Left $script/brightness.sh min
-bindsym Ctrl+period $script/brightness.sh med
+bindsym $mod+Ctrl+Up $script/brightness.sh inc
+bindsym $mod+Ctrl+Down $script/brightness.sh dec
+bindsym $mod+Ctrl+Shift+Up $script/brightness.sh max
+bindsym $mod+Ctrl+Shift+Down $script/brightness.sh min
+bindsym $mod+Ctrl+slash $script/brightness.sh med
 
 # scratchpads
 bindsym $mod+F1 $script/i3-scratchpad -t xfce4-terminal
