@@ -5,20 +5,20 @@
 focus_wrapping no
 
 # change window focus
-bindsym $mod+a focus left
-bindsym $mod+s focus right
-bindsym $mod+w focus up
-bindsym $mod+r focus down
+bindsym $mod+q focus left
+bindsym $mod+w focus right
+bindsym $mod+f focus up
+bindsym $mod+s focus down
 bindsym $mod+n focus left
 bindsym $mod+i focus right
 bindsym $mod+u focus up
 bindsym $mod+e focus down
 
 # move window
-bindsym $mod+Shift+a move left
-bindsym $mod+Shift+s move right
-bindsym $mod+Shift+w move up
-bindsym $mod+Shift+r move down
+bindsym $mod+Shift+q move left
+bindsym $mod+Shift+w move right
+bindsym $mod+Shift+f move up
+bindsym $mod+Shift+s move down
 bindsym $mod+Shift+n move left
 bindsym $mod+Shift+i move right
 bindsym $mod+Shift+u move up
@@ -62,8 +62,8 @@ bindsym $mod+0 workspace 10
 bindsym $mod+minus workspace 11
 bindsym $mod+plus workspace 12
 bindsym $mod+x workspace back_and_forth
-bindsym $mod+q workspace prev_on_output
-bindsym $mod+f workspace next_on_output
+bindsym $mod+a workspace prev_on_output
+bindsym $mod+r workspace next_on_output
 bindsym $mod+l workspace prev_on_output
 bindsym $mod+y workspace next_on_output
 
@@ -82,8 +82,8 @@ bindsym $mod+$alt+0 move container to workspace 10
 bindsym $mod+$alt+minus move container to workspace 11
 bindsym $mod+$alt+plus move container to workspace 12
 bindsym $mod+$alt+x move container to workspace back_and_forth
-bindsym $mod+$alt+q move container to workspace prev_on_output
-bindsym $mod+$alt+f move container to workspace next_on_output
+bindsym $mod+$alt+a move container to workspace prev_on_output
+bindsym $mod+$alt+r move container to workspace next_on_output
 bindsym $mod+$alt+l move container to workspace prev_on_output
 bindsym $mod+$alt+y move container to workspace next_on_output
 
@@ -102,8 +102,8 @@ bindsym $mod+Shift+0 move container to workspace 10; workspace 10
 bindsym $mod+Shift+minus move container to workspace 11; workspace 11
 bindsym $mod+Shift+plus move container to workspace 12; workspace 12
 bindsym $mod+Shift+x move container to workspace back_and_forth; workspace back_and_forth
-bindsym $mod+Shift+q move container to workspace prev_on_output; workspace prev_on_output
-bindsym $mod+Shift+f move container to workspace next_on_output; workspace next_on_output
+bindsym $mod+Shift+a move container to workspace prev_on_output; workspace prev_on_output
+bindsym $mod+Shift+r move container to workspace next_on_output; workspace next_on_output
 bindsym $mod+Shift+l move container to workspace prev_on_output; workspace prev_on_output
 bindsym $mod+Shift+y move container to workspace next_on_output; workspace next_on_output
 
@@ -123,8 +123,8 @@ bindsym $mod+Ctrl+9 $swap 9
 bindsym $mod+Ctrl+0 $swap 10
 bindsym $mod+Ctrl+minus $swap 11
 bindsym $mod+Ctrl+plus $swap 12
-bindsym $mod+Ctrl+q $move prev
-bindsym $mod+Ctrl+f $move next
+bindsym $mod+Ctrl+a $move prev
+bindsym $mod+Ctrl+r $move next
 bindsym $mod+Ctrl+l $move prev
 bindsym $mod+Ctrl+y $move next
 
@@ -176,13 +176,34 @@ bindsym $mod+d exec --no-startup-id regolith-control-center --class=floating_win
 bindsym $mod+b exec --no-startup-id regolith-control-center --class=floating_window bluetooth
 
 ###############################################################################
-# scratchpads
+# personal scripts
 ###############################################################################
 
-set $pad exec /home/perlinm/scripts/i3-scratchpad -t
-bindsym $mod+F1 $pad xfce4-terminal
-bindsym $mod+F2 $pad "xfce4-terminal --command='ipython3 --profile=perlinm --no-banner'"
-bindsym $mod+F3 $pad -d 75%x75% "xfce4-terminal --command=htop"
+set $script exec /home/perlinm/scripts
+
+# screenshots
+bindsym Print $script/print-screen.sh
+bindsym Shift+Print $script/print-screen.sh -s
+
+# volume
+bindsym Ctrl+Up $script/volume.sh inc
+bindsym Ctrl+Down $script/volume.sh dec
+bindsym Ctrl+Shift+Up $script/volume.sh max
+bindsym Ctrl+Shift+Down $script/volume.sh min
+bindsym Ctrl+slash $script/volume.sh toggle
+bindsym Ctrl+Shift+slash $script/volume.sh med
+
+# screen brightness (does not work)
+bindsym Ctrl+Right $script/brightness.sh inc
+bindsym Ctrl+Left $script/brightness.sh dec
+bindsym Ctrl+Shift+Right $script/brightness.sh max
+bindsym Ctrl+Shift+Left $script/brightness.sh min
+bindsym Ctrl+period $script/brightness.sh med
+
+# scratchpads
+bindsym $mod+F1 $script/i3-scratchpad -t xfce4-terminal
+bindsym $mod+F2 $script/i3-scratchpad -t "xfce4-terminal --command='ipython3 --profile=perlinm --no-banner'"
+bindsym $mod+F3 $script/i3-scratchpad -t -d 75%x75% "xfce4-terminal --command=htop"
 
 ###############################################################################
 # ilia launchers

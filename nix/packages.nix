@@ -1,20 +1,24 @@
 { pkgs }:
 let
-  consoleUtilities = with pkgs; [
+  coreUtilities = with pkgs; [
     cmake  # build system
     helix vim emacs  # text editors
     htop  # process viewer
     jq  # json parsing
     mosh  # better than ssh
     ripgrep  # faster grep
+    scrot  # screenshots
     starship  # customizable shell prompt
     trashy  # trash management, replacing "rm"
     tree  # list directories
     udevil  # sudo-free mounting
     watch  # repeat a command and watch output
     wget  # retrieve files from the web
+    wmctrl  # command-line window control (used for scratchpads)
     woof onionshare onionshare-gui  # secure network file sharing
-    xclip  # command-line clipboard
+    xorg.xbacklight  # screen brightness
+    xorg.xprop  # get window properties
+    xclip  # clipboard
     zip unzip  # zipping/unzipping
   ];
   languages = with pkgs; [
@@ -24,7 +28,7 @@ let
     texlive.combined.scheme-full
     # mathematica
   ];
-  miscellaneous = with pkgs; [
+  applications = with pkgs; [
     firefox  # web browser
     xfce.xfce4-terminal  # terminal emulator
     xfce.xfce4-panel  # status bar/panel
@@ -38,7 +42,6 @@ let
     spotify  # music
     slack  # work chat
     # zoom-us  # video conferencing app
-    wmctrl  # command-line window control (used for scratchpads)
   ];
 in
-consoleUtilities ++ languages ++ miscellaneous
+coreUtilities ++ languages ++ applications
