@@ -8,9 +8,6 @@ let
   home-manager-tarball =
     builtins.fetchTarball
       "https://github.com/nix-community/home-manager/archive/release-22.05.tar.gz";
-  unstable-tarball =
-    builtins.fetchTarball
-      "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz";
 in
 {
   # This value determines the NixOS release from which the default
@@ -77,31 +74,14 @@ in
   # enable CUPS to print documents
   services.printing.enable = true;
 
-  # enable unfree packages, and enable installing packages from the unstable channel
-  nixpkgs.config = {
-    allowUnfree = true;
-    packageOverrides = pkgs: {
-      unstable = import unstable-tarball {
-        config = config.nixpkgs.config;
-      };
-    };
-  };
-
   environment.systemPackages = with pkgs; [
     firefox  # web browser
     home-manager  # user environment configuration
     git  # version control system
-    # gnupg pinentry  # encryption and signing
-    unstable.helix vim  # text editors
+    vim  # text editors
     wget  # retrieve files from the web
     zsh  # better than bash
   ];
-
-  # enable GnuPG
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
 
   # make home-manager use global configs and install paths (as opposed to user-specefic ones)
   home-manager.useUserPackages = true;
