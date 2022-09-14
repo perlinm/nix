@@ -5,11 +5,11 @@
 { config, pkgs, ... }:
 
 let
-  home-manager =
+  home-manager-tarball =
     builtins.fetchTarball
       "https://github.com/nix-community/home-manager/archive/release-22.05.tar.gz";
-  unstableTarball =
-    fetchTarball
+  unstable-tarball =
+    builtins.fetchTarball
       "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz";
 in
 {
@@ -27,7 +27,7 @@ in
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
 
-    (import "${home-manager}/nixos")
+    (import "${home-manager-tarball}/nixos")
     ];
 
   # make home-manager use global configs and install paths (as opposed to user-specefic ones)
@@ -38,7 +38,7 @@ in
   nixpkgs.config = {
     allowUnfree = true;
     packageOverrides = pkgs: {
-      unstable = import unstableTarball {
+      unstable = import unstable-tarball {
         config = config.nixpkgs.config;
       };
     };

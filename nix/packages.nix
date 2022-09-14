@@ -1,8 +1,14 @@
 { pkgs }:
 let
+  unstable = import
+    (fetchTarball "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz") {
+      config.allowUnfree = true;
+    };
+in
+let
   coreUtilities = with pkgs; [
     cmake  # build system
-    helix vim emacs  # text editors
+    unstable.helix vim emacs  # text editors
     htop  # process viewer
     jq  # json parsing
     mosh  # better than ssh
