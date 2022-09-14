@@ -51,6 +51,8 @@ in
     # keyboard layout
     layout = "us";
     xkbVariant = "colemak";
+    autoRepeatDelay = 200;  # delay before a key repeats, in milliseconds
+    autoRepeatInterval = 60;  # delay between repeat strokes, in milliseconds
 
     # display (login) and desktop managers
     displayManager.gdm.enable = true;
@@ -79,16 +81,11 @@ in
 
   environment.systemPackages = with pkgs; [
     firefox  # web browser
-    home-manager  # user environment configuration
     git  # version control system
     vim  # text editors
     wget  # retrieve files from the web
     zsh  # better than bash
   ];
-
-  # make home-manager use global configs and install paths (as opposed to user-specefic ones)
-  home-manager.useUserPackages = true;
-  home-manager.useGlobalPkgs = true;
 
   users.users.perlinm = {
     isNormalUser = true;
@@ -96,4 +93,9 @@ in
     extraGroups = [ "wheel" "sudo" "networkmanager" ];
     shell = pkgs.zsh;
   };
+
+  # make home-manager use global configs and install paths (as opposed to user-specefic ones)
+  home-manager.useUserPackages = true;
+  home-manager.useGlobalPkgs = true;
+  home-manager.users.perlinm = import /home/perlinm/.config/nixpkgs/home.nix;
 }
