@@ -15,7 +15,6 @@
     BROWSER = "/usr/bin/firefox";
     TERM = "xterm-256color";
 
-    NIX_PATH = "$HOME/.nix-defexpr/channels:/nix/var/nix/profiles/per-user/root/channels$\{NIX_PATH:+:$NIX_PATH\}";
     RUST_BACKTRACE = 1;
 
     MATLAB_LOG_DIR = "/home/perlinm/Workspace/MATLAB/logs";
