@@ -21,7 +21,7 @@ in
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "22.05"; # Did you read the comment?
 
-  # allow unfree packages
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   imports = [
     # Include the results of the hardware scan.
@@ -30,9 +30,52 @@ in
     (import "${home-manager-tarball}/nixos")
     ];
 
-  # make home-manager use global configs and install paths (as opposed to user-specefic ones)
-  home-manager.useUserPackages = true;
-  home-manager.useGlobalPkgs = true;
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.efi.efiSysMountPoint = "/boot/efi";
+
+  networking.hostName = "map-nix";
+  networking.networkmanager.enable = true;
+
+  # internationalisation properties
+  # WARNING: these are ignored by some desktop environments (e.g. GNOME)
+  time.timeZone = "America/Chicago";
+  i18n.defaultLocale = "en_US.utf8";
+  i18n.extraLocaleSettings.LC_TIME = "en_GB.utf8";
+
+  # X11 services
+  services.xserver = {
+    enable = true;
+    libinput.enable = true;  # touchpad support
+
+    # keyboard layout
+    layout = "us";
+    xkbVariant = "colemak";
+
+    # display (login) and desktop managers
+    displayManager.gdm.enable = true;
+    displayManager.defaultSession = "xfce";
+    desktopManager = {
+      xterm.enable = false;
+      xfce.enable = true;
+    };
+  };
+
+  # sound with pipewire and pulseaudio
+  sound.enable = true;
+  nixpkgs.config.pulseaudio = true;
+  hardware.pulseaudio.enable = false;
+  security.rtkit.enable = true;
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+    jack.enable = true;
+  };
+
+  # enable CUPS to print documents
+  services.printing.enable = true;
 
   # enable unfree packages, and enable installing packages from the unstable channel
   nixpkgs.config = {
@@ -44,93 +87,30 @@ in
     };
   };
 
-  # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.efi.efiSysMountPoint = "/boot/efi";
-
-  # define hostname and enable networking
-  networking.hostName = "map-nix";
-  networking.networkmanager.enable = true;
-
-  # Set your time zone.
-  time.timeZone = "America/Chicago";
-
-  # Select internationalisation properties.
-  # WARNING: these are ignored by some desktop environments (e.g. GNOME)
-  i18n.defaultLocale = "en_US.utf8";
-  i18n.extraLocaleSettings.LC_TIME = "en_GB.utf8";
-
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
-
-  # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
-
-  # Configure keymap in X11
-  services.xserver.layout = "us";
-  services.xserver.xkbVariant = "colemak";
-
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
-
-  # Enable sound with pipewire.
-  sound.enable = true;
-  hardware.pulseaudio.enable = false;
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-    # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
-
-    # use the example session manager (no others are packaged yet so this is enabled by default,
-    # no need to redefine it in your config for now)
-    #media-session.enable = true;
-  };
-
-  # Enable touchpad support (enabled default in most desktopManager).
-  services.xserver.libinput.enable = true;
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.perlinm = {
-    isNormalUser = true;
-    description = "Michael A. Perlin";
-    extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
-      firefox
-    ];
-  };
-
-  # Enable nix-command and flakes.
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
   environment.systemPackages = with pkgs; [
+    firefox  # web browser
+    home-manager  # user environment configuration
     git  # version control system
-    #gnupg pinentry  # encryption and signing tool
-    unstable.helix vim emacs  # text editors
+    # gnupg pinentry  # encryption and signing
+    unstable.helix vim  # text editors
     wget  # retrieve files from the web
+    zsh  # better than bash
   ];
 
   # enable GnuPG
-  #programs.gnupg.agent = {
-  #  enable = true;
-  #  enableSSHSupport = true;
-  #};
+  # programs.gnupg.agent = {
+  #   enable = true;
+  #   enableSSHSupport = true;
+  # };
 
-  # List services that you want to enable:
+  # make home-manager use global configs and install paths (as opposed to user-specefic ones)
+  home-manager.useUserPackages = true;
+  home-manager.useGlobalPkgs = true;
 
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
+  users.users.perlinm = {
+    isNormalUser = true;
+    description = "Michael A. Perlin";
+    extraGroups = [ "wheel" "sudo" "networkmanager" ];
+    shell = pkgs.zsh;
+  };
 }

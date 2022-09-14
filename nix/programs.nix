@@ -4,7 +4,7 @@
 
   bash = {
     enable = true;
-    enableCompletion = true;  # https://rycee.gitlab.io/home-manager/options.html#opt-programs.bash.enableCompletion
+    # enableCompletion = true;  # https://rycee.gitlab.io/home-manager/options.html#opt-programs.bash.enableCompletion
     enableVteIntegration = true;
   };
 

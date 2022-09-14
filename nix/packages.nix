@@ -15,7 +15,7 @@ let
     ripgrep  # faster grep
     scrot  # screenshots
     starship  # customizable shell prompt
-    trashy  # trash management, replacing "rm"
+    unstable.trashy  # trash management, replacing "rm"
     tree  # list directories
     udevil  # sudo-free mounting
     watch  # repeat a command and watch output
