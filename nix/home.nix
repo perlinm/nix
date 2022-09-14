@@ -34,6 +34,12 @@ in
   home.sessionVariables = shell.sessionVariables;
   home.shellAliases = shell.aliases;
 
-  nixpkgs.config.allowUnfree = true;  # allow installing unfree packages
-  fonts.fontconfig.enable = lib.mkForce true;  # let Home Manager manage fonts;  https://github.com/nix-community/home-manager/issues/1118
+  # allow installing unfree packages
+  nixpkgs.config.allowUnfree = true;
+
+  # let Home Manager manage fonts;  https://github.com/nix-community/home-manager/issues/1118
+  fonts.fontconfig.enable = lib.mkForce true;
+
+  # have Home Manager set some helpful environment variables for installed packages.
+  targets.genericLinux.enable = true;
 }
