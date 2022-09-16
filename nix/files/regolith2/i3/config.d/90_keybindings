@@ -130,7 +130,7 @@ bindsym $mod+Ctrl+y $move next
 
 # move container or workspace to different output
 bindsym $mod+c move container to output next
-bindsym $mod+Shift+c move workspace to output next
+bindsym $mod+Ctrl+c move workspace to output next
 
 mouse_warping none
 

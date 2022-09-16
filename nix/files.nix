@@ -1,37 +1,36 @@
 let
   home = {
-    ".ssh/config".source = ./configs/ssh/config;
-    ".ssh/id_rsa.gpg".source = ./configs/ssh/id_rsa.gpg;
-    ".ssh/id_rsa.pub".source = ./configs/ssh/id_rsa.pub;
-    ".ssh/fingerprint".source = ./configs/ssh/fingerprint;
+    ".ssh/config".source = ./files/ssh/config;
+    ".ssh/id_rsa.gpg".source = ./files/ssh/id_rsa.gpg;
+    ".ssh/id_rsa.pub".source = ./files/ssh/id_rsa.pub;
+    ".ssh/fingerprint".source = ./files/ssh/fingerprint;
     
-    ".xinitrc".source = ./configs/xinitrc;
-    ".Xmodmap".source = ./configs/Xmodmap;
-    ".xmonad/xmonad.hs".source = ./configs/xmonad.hs;
-    ".vimrc".source = ./configs/vimrc;
-    ".emacs.d/init.el".source = ./configs/emacs-init.el;
-    ".latexmkrc".source = ./configs/latexmkrc;
-    ".ipython/profile_perlinm/startup/00-libs.py".source = ./configs/ipython-startup-libs.py;
+    ".xinitrc".source = ./files/xinitrc;
+    ".Xmodmap".source = ./files/Xmodmap;
+    ".xmonad/xmonad.hs".source = ./files/xmonad.hs;
+    ".vimrc".source = ./files/vimrc;
+    ".emacs.d/init.el".source = ./files/emacs-init.el;
+    ".latexmkrc".source = ./files/latexmkrc;
+    ".ipython/profile_perlinm/startup/00-libs.py".source = ./files/ipython-startup-libs.py;
   };
   xdg = {
-    "helix/config.toml".source = ./configs/helix/config.toml;
-    "helix/languages.toml".source = ./configs/helix/languages.toml;
-    "helix/themes/onedark_perlinm.toml".source = ./configs/helix/themes/onedark_perlinm.toml;
+    "helix/config.toml".source = ./files/helix/config.toml;
+    "helix/languages.toml".source = ./files/helix/languages.toml;
+    "helix/themes/onedark_perlinm.toml".source = ./files/helix/themes/onedark_perlinm.toml;
     # TODO: symlink helix/themes/runtime to $HOME/.nix-profile/lib/runtime
     # look into home.activation
 
-    "regolith2/Xresources".source = ./configs/regolith2/Xresources;
-    "regolith2/i3/config.d/70_bar".source = ./configs/regolith2/i3/config.d/70_bar;
-    "regolith2/i3/config.d/80_rules".source = ./configs/regolith2/i3/config.d/80_rules;
-    "regolith2/i3/config.d/90_keybindings".source = ./configs/regolith2/i3/config.d/90_keybindings;
-    "regolith2/i3/config.d/99_startup".source = ./configs/regolith2/i3/config.d/99_startup;
-    "regolith2/i3xrocks/conf.d/setup".source = ./configs/regolith2/i3xrocks/conf.d/setup;
+    "regolith2/Xresources".source = ./files/regolith2/Xresources;
+    "regolith2/i3/config.d/70_bar".source = ./files/regolith2/i3/config.d/70_bar;
+    "regolith2/i3/config.d/80_rules".source = ./files/regolith2/i3/config.d/80_rules;
+    "regolith2/i3/config.d/90_keybindings".source = ./files/regolith2/i3/config.d/90_keybindings;
+    "regolith2/i3/config.d/99_startup".source = ./files/regolith2/i3/config.d/99_startup;
+    "regolith2/i3xrocks/conf.d/setup".source = ./files/regolith2/i3xrocks/conf.d/setup;
 
-    "starship.toml".source = ./configs/starship.toml;
-    "xfce4/terminal/terminalrc".source = ./configs/xfce4-terminalrc;
-    "qpdfview/qpdfview.conf".source = ./configs/qpdfview/qpdfview.conf;
-    "qpdfview/shortcuts.conf".source = ./configs/qpdfview/shortcuts.conf;
-    "flake8".source = ./configs/flake8;
+    "starship.toml".source = ./files/starship.toml;
+    "xfce4/terminal/terminalrc".source = ./files/xfce4-terminalrc;
+    "qpdfview/shortcuts.conf".source = ./files/qpdfview-shortcuts.conf;
+    "flake8".source = ./files/flake8;
   };
 in
 {
