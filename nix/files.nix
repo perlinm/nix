@@ -17,8 +17,6 @@ let
     "helix/config.toml".source = ./files/helix/config.toml;
     "helix/languages.toml".source = ./files/helix/languages.toml;
     "helix/themes/onedark_perlinm.toml".source = ./files/helix/themes/onedark_perlinm.toml;
-    # TODO: symlink helix/themes/runtime to $HOME/.nix-profile/lib/runtime
-    # look into home.activation
 
     "regolith2/Xresources".source = ./files/regolith2/Xresources;
     "regolith2/i3/config.d/70_bar".source = ./files/regolith2/i3/config.d/70_bar;

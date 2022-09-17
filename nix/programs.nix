@@ -1,10 +1,11 @@
+{ pkgs }:
 {
   # let Home Manager install and manage itself
   home-manager.enable = true;
 
   bash = {
     enable = true;
-    # enableCompletion = true;  # https://rycee.gitlab.io/home-manager/options.html#opt-programs.bash.enableCompletion
+    enableCompletion = true;  # https://rycee.gitlab.io/home-manager/options.html#opt-programs.bash.enableCompletion
     enableVteIntegration = true;
   };
 
@@ -26,15 +27,15 @@
       #     sha256 = "12y0zg06hqkkz5snzf1gp07fv8ds4fxar99bk6p9i0i3id6y4k7r";
       #   };
       # }
-      # {
-      #   name = "zsh-autosuggestions";
-      #   src = pkgs.fetchFromGitHub {
-      #     owner = "zsh-users";
-      #     repo = "zsh-autosuggestions";
-      #     rev = "v0.7.0";
-      #     sha256 = "1g3pij5qn2j7v7jjac2a63lxd97mcsgw6xq6k5p7835q9fjiid98";
-      #   };
-      # }
+      {
+        name = "zsh-autosuggestions";
+        src = pkgs.fetchFromGitHub {
+          owner = "zsh-users";
+          repo = "zsh-autosuggestions";
+          rev = "v0.7.0";
+          sha256 = "1g3pij5qn2j7v7jjac2a63lxd97mcsgw6xq6k5p7835q9fjiid98";
+        };
+      }
     ];
     initExtra = ''
       # prompts

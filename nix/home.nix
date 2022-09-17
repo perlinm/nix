@@ -8,7 +8,7 @@
 # remaining parts of arch-setup
 
 let
-  programs = import ./programs.nix;
+  programs = import ./programs.nix {inherit pkgs; };
   packages = import ./packages.nix { inherit pkgs; };
   files = import ./files.nix;
   shell = import ./shell.nix;
