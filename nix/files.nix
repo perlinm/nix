@@ -19,10 +19,10 @@ let
     "helix/themes/onedark_perlinm.toml".source = ./files/helix/themes/onedark_perlinm.toml;
 
     "regolith2/Xresources".source = ./files/regolith2/Xresources;
-    "regolith2/i3/config.d/70_bar".source = ./files/regolith2/i3/config.d/70_bar;
-    "regolith2/i3/config.d/80_rules".source = ./files/regolith2/i3/config.d/80_rules;
-    "regolith2/i3/config.d/90_keybindings".source = ./files/regolith2/i3/config.d/90_keybindings;
-    "regolith2/i3/config.d/99_startup".source = ./files/regolith2/i3/config.d/99_startup;
+    "regolith2/i3/config.d/bar".source = ./files/regolith2/i3/config.d/bar;
+    "regolith2/i3/config.d/rules".source = ./files/regolith2/i3/config.d/rules;
+    "regolith2/i3/config.d/keybindings".source = ./files/regolith2/i3/config.d/keybindings;
+    "regolith2/i3/config.d/startup".source = ./files/regolith2/i3/config.d/startup;
     "regolith2/i3xrocks/conf.d/setup".source = ./files/regolith2/i3xrocks/conf.d/setup;
 
     "starship.toml".source = ./files/starship.toml;
