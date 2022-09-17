@@ -59,8 +59,14 @@ in
     displayManager.defaultSession = "xfce";
     desktopManager = {
       xterm.enable = false;
-      xfce.enable = true;
+      xfce = {
+        enable = true;
+        noDesktop = true;
+        enableXfwm = false;
+      };
     };
+    windowManager.i3.enable = true;
+    windowManager.i3.package = pkgs.i3-gaps;
   };
 
   # sound with pipewire and pulseaudio
@@ -82,15 +88,24 @@ in
   environment.systemPackages = with pkgs; [
     firefox  # web browser
     git  # version control system
+    gnome.gnome-keyring  # secret/certificate manager
     vim  # text editors
     wget  # retrieve files from the web
+    xdotool  # simulate keyboard/mouse inputs
+    xorg.xev  # log X events
+    xorg.xmodmap  # modify keymaps
     zsh  # better than bash
   ];
+
+  programs.gnupg.agent = {
+    enable = true;
+    pinentryFlavor = "gtk2";
+  };
 
   users.users.perlinm = {
     isNormalUser = true;
     description = "Michael A. Perlin";
-    extraGroups = [ "wheel" "sudo" "networkmanager" ];
+    extraGroups = [ "wheel" "networkmanager" ];
     shell = pkgs.zsh;
   };
 

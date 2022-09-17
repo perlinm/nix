@@ -42,6 +42,7 @@ let
     spotify  # music
     slack  # work chat
     # zoom-us  # video conferencing app
+    rofi  # application launcher
   ];
 in
 coreUtilities ++ languages ++ applications

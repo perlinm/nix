@@ -179,7 +179,7 @@ bindsym $mod+b exec --no-startup-id regolith-control-center --class=floating_win
 # personal scripts
 ###############################################################################
 
-set $script exec --no-startup-id /home/perlinm/scripts
+set $script exec --no-startup-id ~/scripts
 
 # screenshots
 bindsym Print $script/print-screen.sh

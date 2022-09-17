@@ -3,9 +3,10 @@
 
 # TODO:
 # add LSPs
-# python environments: https://github.com/DavHau/mach-nix
 # configure firefox
+# python environments: https://github.com/DavHau/mach-nix
 # remaining parts of arch-setup
+# credit i3-scriatchpad and add it to the repo
 
 let
   programs = import ./programs.nix {inherit pkgs; };
@@ -29,6 +30,7 @@ in
   home.packages = packages;
   home.file = files.home;
   xdg.configFile = files.xdg;
+  # symlink ~/bin and ~/scripts; look into home.activation
 
   home.sessionPath = shell.sessionPath;
   home.sessionVariables = shell.sessionVariables;
