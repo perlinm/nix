@@ -108,8 +108,8 @@ bindsym $mod+Shift+l move container to workspace prev_on_output; workspace prev_
 bindsym $mod+Shift+y move container to workspace next_on_output; workspace next_on_output
 
 # swap workspace
-set $swap exec ~/scripts/i3-swap-workspace-by-name.sh
-set $move exec ~/scripts/i3-move-workspace.py
+set $swap exec --no-startup-id ~/scripts/i3-swap-workspace-by-name.sh
+set $move exec --no-startup-id ~/scripts/i3-move-workspace.py
 bindsym $mod+Ctrl+grave $swap 0
 bindsym $mod+Ctrl+1 $swap 1
 bindsym $mod+Ctrl+2 $swap 2
@@ -154,7 +154,7 @@ bindsym $mod+Shift+Delete restart
 bindsym $mod+Ctrl+Delete exec --no-startup-id /usr/bin/regolith-look refresh
 
 # lock screen
-bindsym Ctrl+Escape exec dbus-send --type=method_call --dest=org.gnome.ScreenSaver /org/gnome/ScreenSaver org.gnome.ScreenSaver.Lock
+bindsym Ctrl+Escape exec --no-startup-id dbus-send --type=method_call --dest=org.gnome.ScreenSaver /org/gnome/ScreenSaver org.gnome.ScreenSaver.Lock
 
 ###############################################################################
 # application launchers
@@ -179,7 +179,7 @@ bindsym $mod+b exec --no-startup-id regolith-control-center --class=floating_win
 # personal scripts
 ###############################################################################
 
-set $script exec /home/perlinm/scripts
+set $script exec --no-startup-id /home/perlinm/scripts
 
 # screenshots
 bindsym Print $script/print-screen.sh

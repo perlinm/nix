@@ -3,13 +3,13 @@
 ###############################################################################
 
 # enable "repeat" for the caps lock
-exec xset r 66
+exec --no-startup-id xset r 66
 
 # remap some keys, such as right alt
-exec xmodmap ~/.Xmodmap
+exec --no-startup-id xmodmap ~/.Xmodmap
 
 # start an SSH key agent
-exec /usr/bin/gnome-keyring-daemon --start --components=ssh
+exec --no-startup-id /usr/bin/gnome-keyring-daemon --start --components=ssh
 
 # network management applet in system tray
 exec --no-startup-id /usr/bin/nm-applet
