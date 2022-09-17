@@ -7,6 +7,7 @@
 # python environments: https://github.com/DavHau/mach-nix
 # remaining parts of arch-setup
 # credit i3-scriatchpad and add it to the repo
+# use sway??
 
 let
   programs = import ./programs.nix {inherit pkgs; };

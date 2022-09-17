@@ -1,4 +1,4 @@
-#!/usr/bin/zsh
+#!/usr/bin/env zsh
 
 if ! [ $# -eq 1 ]; then
   echo "must provide exactly one argument"

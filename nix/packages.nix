@@ -1,6 +1,6 @@
 { pkgs }:
 let
-  coreUtilities = with pkgs; [
+  core-utilities = with pkgs; [
     cmake  # build system
     helix vim emacs  # text editors
     htop  # process viewer
@@ -15,23 +15,20 @@ let
     watch  # repeat a command and watch output
     wget  # retrieve files from the web
     wmctrl  # command-line window control (used for scratchpads)
-    woof onionshare onionshare-gui  # secure network file sharing
-    xorg.xbacklight  # screen brightness
-    xorg.xprop  # get window properties
+    woof # secure network file sharing
     xclip  # clipboard
     zip unzip  # zipping/unzipping
   ];
   languages = with pkgs; [
     gcc
     cargo
-    # (import ./python.nix { inherit pkgs; })
+    (import ./python.nix { inherit pkgs; })
     texlive.combined.scheme-full
     # mathematica
   ];
   applications = with pkgs; [
     firefox  # web browser
-    xfce.xfce4-terminal  # terminal emulator
-    xfce.xfce4-panel  # status bar/panel
+    rofi  # application launcher
     vistafonts dejavu_fonts  # fonts, including consolas
     meld  # file comparison tool
     qpdfview okular foxitreader pdftk  # pdf viewers and editors
@@ -42,7 +39,6 @@ let
     spotify  # music
     slack  # work chat
     # zoom-us  # video conferencing app
-    rofi  # application launcher
   ];
 in
-coreUtilities ++ languages ++ applications
+core-utilities ++ languages ++ applications

@@ -56,23 +56,24 @@ in
 
     # display (login) and desktop managers
     displayManager.gdm.enable = true;
-    displayManager.defaultSession = "xfce";
-    desktopManager = {
-      xterm.enable = false;
-      xfce = {
-        enable = true;
-        noDesktop = true;
-        enableXfwm = false;
-      };
-    };
+    # displayManager.defaultSession = "xfce+i3";
+    # desktopManager = {
+    #   xterm.enable = false;
+    #   xfce = {
+    #     enable = true;
+    #     noDesktop = true;
+    #     enableXfwm = false;
+    #   };
+    # };
     windowManager.i3.enable = true;
     windowManager.i3.package = pkgs.i3-gaps;
   };
 
   # sound with pipewire and pulseaudio
   sound.enable = true;
-  nixpkgs.config.pulseaudio = true;
   hardware.pulseaudio.enable = false;
+  hardware.pulseaudio.package = pkgs.pulseaudioFull;
+  nixpkgs.config.pulseaudio = true;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -88,13 +89,28 @@ in
   environment.systemPackages = with pkgs; [
     firefox  # web browser
     git  # version control system
-    gnome.gnome-keyring  # secret/certificate manager
+    killall  # kill processes by name
+    pavucontrol  # volume control
     vim  # text editors
     wget  # retrieve files from the web
     xdotool  # simulate keyboard/mouse inputs
+    zsh  # better than bash
+
+    gnome.gnome-keyring  # secret/certificate manager
+
+    xorg.xbacklight  # screen brightness
     xorg.xev  # log X events
     xorg.xmodmap  # modify keymaps
-    zsh  # better than bash
+    xorg.xprop  # get window properties
+
+    xfce.xfce4-terminal  # terminal emulator
+    xfce.xfce4-notifyd  # notification daemon
+    xfce.xfce4-panel  # status bar/panel
+    xfce.xfce4-panel-profiles  # panel profiles
+    xfce.xfce4-i3-workspaces-plugin  # workspace management
+    xfce.xfce4-pulseaudio-plugin  # volume management
+    xfce.xfce4-netload-plugin  # show upload/download speeds
+    xfce.xfce4-cpugraph-plugin  # graph of CPU load
   ];
 
   programs.gnupg.agent = {
@@ -105,7 +121,7 @@ in
   users.users.perlinm = {
     isNormalUser = true;
     description = "Michael A. Perlin";
-    extraGroups = [ "wheel" "networkmanager" ];
+    extraGroups = [ "wheel" "networkmanager" "audio" ];
     shell = pkgs.zsh;
   };
 
