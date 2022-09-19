@@ -18,6 +18,10 @@
 
     RUST_BACKTRACE = 1;
 
+    # make firefox work with wayland
+    MOZ_ENABLE_WAYLAND = 1;
+
+    # to fix matlab isssues
     MATLAB_LOG_DIR = "/home/perlinm/Workspace/MATLAB/logs";
     QT_LOGGING_RULES = "qt5ct.debug=false";
     TF_CPP_MIN_LOG_LEVEL = 2;

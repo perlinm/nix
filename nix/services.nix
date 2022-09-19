@@ -13,18 +13,18 @@
   udiskie.enable = true;
 
   # winow compositor (transparency, fading, etc.)
-  picom = {
-    enable = true;
-    fade = true;
-    fadeDelta = 2;
-    shadow = true;
-    shadowOpacity = 0.75;
-    shadowExclude = [ "class = '^Rofi$'" ];
-  };
+  # picom = {
+  #   enable = true;
+  #   fade = true;
+  #   fadeDelta = 2;
+  #   shadow = true;
+  #   shadowOpacity = 0.75;
+  #   shadowExclude = [ "class = '^Rofi$'" ];
+  # };
 
   # screen locker
-  betterlockscreen = {
-    enable = true;
-    # inactiveInterval = 5;
-  };
+  # betterlockscreen = {
+  #   enable = true;
+  #   # inactiveInterval = 5;
+  # };
 }

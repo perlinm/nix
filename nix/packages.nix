@@ -9,30 +9,32 @@ let
   ];
   console-utilities = with pkgs; [
     cmake  # build system
-    feh  # setting background image
     git  # version control system
     helix vim emacs  # text editors
     htop  # process viewer
     jq  # json parsing
     killall  # kill processes by name
     mosh  # better than ssh
-    picom  # window compositing
     ripgrep  # faster grep
-    scrot  # screenshots
     starship  # customizable shell prompt
     trashy  # trash management, replacing "rm"
     tree  # list directories
     udevil  # sudo-free mounting
     watch  # repeat a command and watch output
     wget  # retrieve files from the web
-    wmctrl  # command-line window control (used for scratchpads)
     woof # secure network file sharing
     xclip  # clipboard
     xdotool  # simulate keyboard/mouse inputs
     zip unzip  # zipping/unzipping
   ];
   desktop-utilities = with pkgs; [
-    notify-desktop  # send notifications from command line
+    # picom  # window compositing
+    # scrot  # screenshots
+    # wmctrl  # command-line window control (used for scratchpads)
+    light  # screen brightness
+    swaybg  # set background image
+    waybar  # status bar
+    # workstyle  # add running applications to workspace names
   ];
   applications = with pkgs; [
     blueberry  # bluetooth tool
@@ -48,8 +50,6 @@ let
     spotify  # music
     vistafonts dejavu_fonts  # fonts, including consolas
     vlc  # for watching videos
-    # waybar  # status bar
-    # workstyle  # add running applications to workspace names
     # zoom-us  # video conferencing app
     zotero  # bibliography/reference management system
   ];

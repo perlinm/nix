@@ -8,6 +8,7 @@ let
   home-manager-tarball =
     builtins.fetchTarball
       "https://github.com/nix-community/home-manager/archive/master.tar.gz";
+  sway-fixes = import ./sway-fixes.nix { inherit pkgs; };
 in
 {
   # This value determines the NixOS release from which the default
@@ -68,7 +69,15 @@ in
     windowManager.i3.package = pkgs.i3-gaps;
   };
 
+  # enable sway window manager
+  programs.sway.enable = true;
+  programs.xwayland.enable = true;
+  programs.sway.wrapperFeatures.gtk = true;
+  xdg.portal = sway-fixes.xdg-portal;
+
   environment.systemPackages = with pkgs; [
+    pulseaudio  # provides pactl for CLI audio control
+
     xorg.xbacklight  # screen brightness
     xorg.xev  # log X events
     xorg.xmodmap  # modify keymaps
@@ -85,9 +94,11 @@ in
 
   # sound and bluetooth control
   sound.enable = true;
-  nixpkgs.config.pulseaudio = true;
-  hardware.pulseaudio.enable = true;
-  hardware.pulseaudio.package = pkgs.pulseaudioFull;
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    pulse.enable = true;
+  };
   hardware.bluetooth.enable = true;
   hardware.bluetooth.package = pkgs.bluezFull;
 
@@ -100,7 +111,7 @@ in
   users.users.perlinm = {
     isNormalUser = true;
     description = "Michael A. Perlin";
-    extraGroups = [ "wheel" "networkmanager" "audio" ];
+    extraGroups = [ "wheel" "networkmanager" "audio" "video" ];
     shell = pkgs.zsh;
   };
 
