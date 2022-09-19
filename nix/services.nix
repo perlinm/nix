@@ -1,6 +1,7 @@
 {
   # cryptographic software suite
   # gnome-keyring.enable = true;
+  # gnome-keyring.components = [ "ssh" ];
   gpg-agent = {
     enable = true;
     enableSshSupport = true;
@@ -9,6 +10,13 @@
 
   # disk automounting
   udiskie.enable = true;
+
+  # winow compositor (transparency, fading, etc.)
+  picom = {
+    enable = true;
+    fade = true;
+    fadeDelta = 2;
+  };
 
   # screen-locker = {
   #   enable = true;

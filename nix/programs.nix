@@ -79,8 +79,6 @@
     };
   };
 
-  rofi = {
-    enable = true;
-    theme = ./files/rofi-theme.rasi;
-  };
+  rofi.enable = true;
+  rofi.theme = ./files/rofi-theme.rasi;
 }
