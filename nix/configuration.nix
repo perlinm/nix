@@ -8,7 +8,6 @@ let
   home-manager-tarball =
     builtins.fetchTarball
       "https://github.com/nix-community/home-manager/archive/master.tar.gz";
-  sway-fixes = import ./sway-fixes.nix { inherit pkgs; };
 in
 {
   # This value determines the NixOS release from which the default
@@ -69,23 +68,10 @@ in
     windowManager.i3.package = pkgs.i3-gaps;
   };
 
-  # enable sway window manager
-  programs.sway.enable = true;
-  programs.sway.wrapperFeatures.gtk = true;
-
-  # some XDG fixes for sway
-  services.dbus.enable = true;
-  xdg.portal = sway-fixes.xdg-portal;
-
   environment.systemPackages = with pkgs; [
     git  # version control system
     vim  # text editors
     wget  # retrieve files from the web
-
-    sway-fixes.dbus-sway-environment
-    sway-fixes.configure-gtk
-    glib dracula-theme  # setting gtk theme in sway
-    gnome3.adwaita-icon-theme  # default gnome cursors
 
     xdotool  # simulate keyboard/mouse inputs
     xorg.xbacklight  # screen brightness
