@@ -8,6 +8,7 @@ let
   home-manager-tarball =
     builtins.fetchTarball
       "https://github.com/nix-community/home-manager/archive/master.tar.gz";
+  sway-fixes = import ./sway-fixes.nix { inherit pkgs; };
 in
 {
   # This value determines the NixOS release from which the default
@@ -18,6 +19,7 @@ in
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "22.05"; # Did you read the comment?
 
+  # system.autoUpgrade.enable = true;
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   imports = [
@@ -67,21 +69,23 @@ in
     windowManager.i3.package = pkgs.i3-gaps;
   };
 
-  # sound and bluetooth control
-  sound.enable = true;
-  nixpkgs.config.pulseaudio = true;
-  hardware.pulseaudio.enable = true;
-  hardware.pulseaudio.package = pkgs.pulseaudioFull;
-  hardware.bluetooth.enable = true;
-  hardware.bluetooth.package = pkgs.bluezFull;
+  # enable sway window manager
+  programs.sway.enable = true;
+  programs.sway.wrapperFeatures.gtk = true;
 
-  # enable CUPS to print documents
-  services.printing.enable = true;
+  # some XDG fixes for sway
+  services.dbus.enable = true;
+  xdg.portal = sway-fixes.xdg-portal;
 
   environment.systemPackages = with pkgs; [
     git  # version control system
     vim  # text editors
     wget  # retrieve files from the web
+
+    sway-fixes.dbus-sway-environment
+    sway-fixes.configure-gtk
+    glib dracula-theme  # setting gtk theme in sway
+    gnome3.adwaita-icon-theme  # default gnome cursors
 
     xdotool  # simulate keyboard/mouse inputs
     xorg.xbacklight  # screen brightness
@@ -98,10 +102,25 @@ in
     xfce.xfce4-cpugraph-plugin  # graph of CPU load
   ];
 
+  # cryptographic software suite
   programs.gnupg.agent = {
     enable = true;
+    enableSSHSupport = true;
     pinentryFlavor = "gtk2";
   };
+
+  # sound and bluetooth control
+  sound.enable = true;
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    pulse.enable = true;
+  };
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.package = pkgs.bluezFull;
+
+  # enable CUPS to print documents
+  services.printing.enable = true;
 
   users.users.perlinm = {
     isNormalUser = true;
