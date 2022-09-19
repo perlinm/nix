@@ -1,13 +1,13 @@
 { lib }:
 {
   sessionPath = [
+    "$HOME/bin"
+    "$HOME/.local/bin"
+    "$HOME/.pyenv/bin"
+    "$HOME/.cargo/bin"
     "/usr/bin"
     "/usr/local/bin"
     "/usr/local/sbin"
-    "$HOME/.local/bin"
-    "$HOME/.cargo/bin"
-    "$HOME/.pyenv/bin"
-    "$HOME/bin"
   ];
 
   sessionVariables = {
@@ -25,9 +25,8 @@
 
   aliases = {
     sudo = "sudo ";  # allows using aliases after "sudo"
-    pm = "aptitude";  # package manager
     rem = "trash";  # trash management, replacing "rm"
-    fire = "firefox";  # web browser
+    pm = "aptitude";  # package manager
 
     # python aliases
     py = "python";
