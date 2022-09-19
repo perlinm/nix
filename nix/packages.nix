@@ -2,9 +2,11 @@
 let
   core-utilities = with pkgs; [
     cmake  # build system
+    gnome.gnome-keyring  # secret/certificate manager
     helix vim emacs  # text editors
     htop  # process viewer
     jq  # json parsing
+    killall  # kill processes by name
     mosh  # better than ssh
     ripgrep  # faster grep
     scrot  # screenshots
@@ -20,25 +22,29 @@ let
     zip unzip  # zipping/unzipping
   ];
   languages = with pkgs; [
-    gcc
     cargo
-    (import ./python.nix { inherit pkgs; })
-    texlive.combined.scheme-full
+    gcc
     # mathematica
+    texlive.combined.scheme-full
+    (import ./python.nix { inherit pkgs; })
   ];
   applications = with pkgs; [
+    blueberry  # bluetooth tool
     firefox  # web browser
-    rofi  # application launcher
-    vistafonts dejavu_fonts  # fonts, including consolas
-    meld  # file comparison tool
-    qpdfview okular foxitreader pdftk  # pdf viewers and editors
-    zotero  # bibliography/reference management system
-    inkscape  # vector graphics (SVG) editor
     gparted  # graphical disk partitioning utility
-    vlc  # for watching videos
-    spotify  # music
+    gpick  # color picker
+    inkscape  # vector graphics (SVG) editor
+    lxappearance  # window themes
+    meld  # file comparison tool
+    pavucontrol  # volume control
+    qpdfview okular foxitreader pdftk  # pdf viewers and editors
+    rofi  # application launcher
     slack  # work chat
+    spotify  # music
+    vistafonts dejavu_fonts  # fonts, including consolas
+    vlc  # for watching videos
     # zoom-us  # video conferencing app
+    zotero  # bibliography/reference management system
   ];
 in
 core-utilities ++ languages ++ applications

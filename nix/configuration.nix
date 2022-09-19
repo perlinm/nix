@@ -34,6 +34,9 @@ in
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
 
+  # schedule user processes/threads
+  security.rtkit.enable = true;
+
   networking.hostName = "map-nix";
   networking.networkmanager.enable = true;
 
@@ -46,58 +49,41 @@ in
   # X11 services
   services.xserver = {
     enable = true;
-    libinput.enable = true;  # touchpad support
+
+    # touchpad
+    libinput.enable = true;
+    libinput.touchpad.naturalScrolling = true;
 
     # keyboard layout
     layout = "us";
     xkbVariant = "colemak";
-    autoRepeatDelay = 200;  # delay before a key repeats, in milliseconds
-    autoRepeatInterval = 60;  # delay between repeat strokes, in milliseconds
+    autoRepeatDelay = 200;
+    autoRepeatInterval = 60;
 
-    # display (login) and desktop managers
+    # display (login), desktop, and window managers
     displayManager.gdm.enable = true;
-    # displayManager.defaultSession = "xfce+i3";
-    # desktopManager = {
-    #   xterm.enable = false;
-    #   xfce = {
-    #     enable = true;
-    #     noDesktop = true;
-    #     enableXfwm = false;
-    #   };
-    # };
+    desktopManager.xfce.enable = true;
     windowManager.i3.enable = true;
     windowManager.i3.package = pkgs.i3-gaps;
   };
 
-  # sound with pipewire and pulseaudio
+  # sound and bluetooth control
   sound.enable = true;
-  hardware.pulseaudio.enable = false;
-  hardware.pulseaudio.package = pkgs.pulseaudioFull;
   nixpkgs.config.pulseaudio = true;
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-    jack.enable = true;
-  };
+  hardware.pulseaudio.enable = true;
+  hardware.pulseaudio.package = pkgs.pulseaudioFull;
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.package = pkgs.bluezFull;
 
   # enable CUPS to print documents
   services.printing.enable = true;
 
   environment.systemPackages = with pkgs; [
-    firefox  # web browser
     git  # version control system
-    killall  # kill processes by name
-    pavucontrol  # volume control
     vim  # text editors
     wget  # retrieve files from the web
+
     xdotool  # simulate keyboard/mouse inputs
-    zsh  # better than bash
-
-    gnome.gnome-keyring  # secret/certificate manager
-
     xorg.xbacklight  # screen brightness
     xorg.xev  # log X events
     xorg.xmodmap  # modify keymaps
@@ -108,7 +94,6 @@ in
     xfce.xfce4-panel  # status bar/panel
     xfce.xfce4-panel-profiles  # panel profiles
     xfce.xfce4-i3-workspaces-plugin  # workspace management
-    xfce.xfce4-pulseaudio-plugin  # volume management
     xfce.xfce4-netload-plugin  # show upload/download speeds
     xfce.xfce4-cpugraph-plugin  # graph of CPU load
   ];
