@@ -2,6 +2,7 @@
 let
   core-utilities = with pkgs; [
     cmake  # build system
+    feh  # setting background image
     gnome.gnome-keyring  # secret/certificate manager
     helix vim emacs  # text editors
     htop  # process viewer
@@ -38,7 +39,7 @@ let
     meld  # file comparison tool
     pavucontrol  # volume control
     qpdfview okular foxitreader pdftk  # pdf viewers and editors
-    rofi  # application launcher
+    # rofi  # application launcher
     slack  # work chat
     spotify  # music
     vistafonts dejavu_fonts  # fonts, including consolas

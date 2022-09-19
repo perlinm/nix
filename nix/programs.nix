@@ -78,4 +78,9 @@
       co = "checkout";
     };
   };
+
+  rofi = {
+    enable = true;
+    theme = ./files/rofi-theme.rasi;
+  };
 }

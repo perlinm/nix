@@ -13,7 +13,7 @@ let
   programs = import ./programs.nix {inherit pkgs; };
   packages = import ./packages.nix { inherit pkgs; };
   files = import ./files.nix;
-  shell = import ./shell.nix;
+  shell = import ./shell.nix { inherit lib; };
 in
 {
   # The state version determines some configuration defaults.
@@ -31,11 +31,11 @@ in
   home.packages = packages;
   home.file = files.home;
   xdg.configFile = files.xdg;
-  # symlink ~/bin and ~/scripts; look into home.activation
 
   home.sessionPath = shell.sessionPath;
   home.sessionVariables = shell.sessionVariables;
   home.shellAliases = shell.aliases;
+  home.activation = shell.activation;
 
   # allow installing unfree packages
   nixpkgs.config.allowUnfree = true;

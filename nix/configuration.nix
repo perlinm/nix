@@ -73,6 +73,7 @@ in
     vim  # text editors
     wget  # retrieve files from the web
 
+    picom  # window compositing
     xdotool  # simulate keyboard/mouse inputs
     xorg.xbacklight  # screen brightness
     xorg.xev  # log X events
@@ -97,11 +98,9 @@ in
 
   # sound and bluetooth control
   sound.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    pulse.enable = true;
-  };
+  nixpkgs.config.pulseaudio = true;
+  hardware.pulseaudio.enable = true;
+  hardware.pulseaudio.package = pkgs.pulseaudioFull;
   hardware.bluetooth.enable = true;
   hardware.bluetooth.package = pkgs.bluezFull;
 

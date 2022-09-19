@@ -1,3 +1,5 @@
+{ lib }:
+
 {
   sessionPath = [
     "/usr/bin"
@@ -61,6 +63,13 @@
         echo "systemctl start postgresql.service"
         sudo systemctl start postgresql.service
       fi
+    '';
+  };
+
+  activation = {
+    makeSymbolicLinks = lib.hm.dag.entryAfter ["writeBoundary"] ''
+      $DRY_RUN_CMD ln -sf $VERBOSE_ARG $HOME/git/bin $HOME/bin
+      $DRY_RUN_CMD ln -sf $VERBOSE_ARG $HOME/git/scripts $HOME/scripts
     '';
   };
 }
