@@ -42,11 +42,11 @@ if [ $device = source ]; then
     default_source=$(pactl info | grep 'Default Source' | awk '{print $3}')
     mute=$(pactl list sources | grep -A 10 $default_source | grep Mute | awk '{print $2}')
     if [ $mute = yes ]; then
-      notify-send -t 1 "mic off"
+      notify-desktop -t 1 "mic off"
     elif [ $mute = no ]; then
-      notify-send -t 1 "mic on"
+      notify-desktop -t 1 "mic on"
     else
-      notify-send -t 1 "mic status unknown"
+      notify-desktop -t 1 "mic status unknown"
     fi
   fi
 fi

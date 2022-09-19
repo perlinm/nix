@@ -32,6 +32,7 @@ let
     zip unzip  # zipping/unzipping
   ];
   desktop-utilities = with pkgs; [
+    notify-desktop  # send notifications from command line
   ];
   applications = with pkgs; [
     blueberry  # bluetooth tool
