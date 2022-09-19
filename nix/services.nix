@@ -19,7 +19,7 @@
     fadeDelta = 2;
     shadow = true;
     shadowOpacity = 0.75;
-    shadowExclude = [ "class = '^Rofi$' " ];
+    shadowExclude = [ "class = '^Rofi$'" ];
   };
 
   # screen locker
