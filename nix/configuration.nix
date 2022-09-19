@@ -69,12 +69,8 @@ in
   };
 
   environment.systemPackages = with pkgs; [
-    git  # version control system
-    vim  # text editors
     wget  # retrieve files from the web
 
-    picom  # window compositing
-    xdotool  # simulate keyboard/mouse inputs
     xorg.xbacklight  # screen brightness
     xorg.xev  # log X events
     xorg.xmodmap  # modify keymaps
