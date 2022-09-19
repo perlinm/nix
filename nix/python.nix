@@ -3,6 +3,7 @@
 let 
   my-python-packages = python-packages: with python-packages; [
     black[jupyter]
+    cirq
     flake8
     ipython
     jupyter
@@ -15,6 +16,7 @@ let
     pytest
     scipy
     setuptools
+    sympy
   ];
   python-with-my-packages = pkgs.python3.withPackages my-python-packages;
 in

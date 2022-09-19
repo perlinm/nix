@@ -10,6 +10,7 @@
 # use sway??
 
 let
+  services = import ./services.nix;
   programs = import ./programs.nix {inherit pkgs; };
   packages = import ./packages.nix { inherit pkgs; };
   files = import ./files.nix;
@@ -27,6 +28,7 @@ in
   home.keyboard.options = [ "shift:both_capslock_cancel" "caps:backspace" ];
   home.keyboard.variant = "colemak";
 
+  services = services;
   programs = programs;
   home.packages = packages;
   home.file = files.home;

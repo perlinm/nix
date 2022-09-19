@@ -69,8 +69,6 @@ in
   };
 
   environment.systemPackages = with pkgs; [
-    wget  # retrieve files from the web
-
     xorg.xbacklight  # screen brightness
     xorg.xev  # log X events
     xorg.xmodmap  # modify keymaps
@@ -85,13 +83,6 @@ in
     xfce.xfce4-cpugraph-plugin  # graph of CPU load
   ];
 
-  # cryptographic software suite
-  programs.gnupg.agent = {
-    enable = true;
-    enableSSHSupport = true;
-    pinentryFlavor = "gtk2";
-  };
-
   # sound and bluetooth control
   sound.enable = true;
   nixpkgs.config.pulseaudio = true;
@@ -102,6 +93,9 @@ in
 
   # enable CUPS to print documents
   services.printing.enable = true;
+
+  # interprocess communications manager
+  services.dbus.enable = true;
 
   users.users.perlinm = {
     isNormalUser = true;

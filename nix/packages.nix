@@ -1,10 +1,16 @@
 { pkgs }:
 let
-  core-utilities = with pkgs; [
+  languages = with pkgs; [
+    cargo
+    gcc
+    # mathematica
+    texlive.combined.scheme-full
+    (import ./python.nix { inherit pkgs; })
+  ];
+  console-utilities = with pkgs; [
     cmake  # build system
     feh  # setting background image
     git  # version control system
-    gnome.gnome-keyring  # secret/certificate manager
     helix vim emacs  # text editors
     htop  # process viewer
     jq  # json parsing
@@ -25,12 +31,8 @@ let
     xdotool  # simulate keyboard/mouse inputs
     zip unzip  # zipping/unzipping
   ];
-  languages = with pkgs; [
-    cargo
-    gcc
-    # mathematica
-    texlive.combined.scheme-full
-    (import ./python.nix { inherit pkgs; })
+  desktop-utilities = with pkgs; [
+    betterlockscreen # ... than i3lock
   ];
   applications = with pkgs; [
     blueberry  # bluetooth tool
@@ -52,4 +54,4 @@ let
     zotero  # bibliography/reference management system
   ];
 in
-core-utilities ++ languages ++ applications
+languages ++ console-utilities ++ desktop-utilities ++ applications
