@@ -32,7 +32,6 @@ let
     zip unzip  # zipping/unzipping
   ];
   desktop-utilities = with pkgs; [
-    betterlockscreen # ... than i3lock
   ];
   applications = with pkgs; [
     blueberry  # bluetooth tool

@@ -1,12 +1,13 @@
 {
   # cryptographic software suite
-  # gnome-keyring.enable = true;
-  # gnome-keyring.components = [ "ssh" ];
   gpg-agent = {
     enable = true;
     enableSshSupport = true;
     pinentryFlavor = "gtk2";
   };
+
+  # network / wifi management
+  network-manager-applet.enable = true;
 
   # disk automounting
   udiskie.enable = true;
@@ -16,11 +17,14 @@
     enable = true;
     fade = true;
     fadeDelta = 2;
+    shadow = true;
+    shadowOpacity = 0.75;
+    shadowExclude = [ "class = '^Rofi$' " ];
   };
 
-  # screen-locker = {
-  #   enable = true;
-  #   inactiveInterval = 5;
-  #   lockCmd = "betterlockscreen -l dim";
-  # };
+  # screen locker
+  betterlockscreen = {
+    enable = true;
+    # inactiveInterval = 5;
+  };
 }
