@@ -1,23 +1,17 @@
 #!/usr/bin/env sh
 
-if [ $(pidof xbacklight) ]; then
-  exit 0
+if [ "$#" -ne 1 ]; then
+  exit 1
 fi
 
-med=60
-time=200
-delta=20
-
-if [ $1 = dec ]; then
-  xbacklight -dec $delta -time $time
-elif [ $1 = inc ]; then
-  xbacklight -inc $delta -time $time
-elif [ $1 = dim ]; then
-  xbacklight -set 20
+if [ $1 = inc ]; then
+  brightnessctl set 10%+
+elif [ $1 = dec ]; then
+  brightnessctl set 10%-
 elif [ $1 = max ]; then
-  xbacklight -set 100
-elif [ $1 = set ]; then
-  xbacklight -set $2
-elif [ $1 = med ]; then
-  xbacklight -set $med
+  brightnessctl set 100%
+elif [ $1 = min ]; then
+  brightnessctl set 10%
+elif [ $1 = mid ]; then
+  brightnessctl set 50%
 fi

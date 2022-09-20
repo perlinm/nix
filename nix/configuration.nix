@@ -64,6 +64,8 @@ in
 
     # display (login), desktop, and window managers
     displayManager.gdm.enable = true;
+    displayManager.gdm.wayland = true;
+    displayManager.defaultSession = "sway";
     desktopManager.xfce.enable = true;
     windowManager.i3.enable = true;
     windowManager.i3.package = pkgs.i3-gaps;
@@ -77,13 +79,6 @@ in
 
   environment.systemPackages = with pkgs; [
     pulseaudio  # provides pactl for CLI audio control
-
-    xorg.xbacklight  # screen brightness
-    xorg.xev  # log X events
-    xorg.xmodmap  # modify keymaps
-    xorg.xprop  # get window properties
-
-    xfce.xfce4-terminal  # terminal emulator
     xfce.xfce4-notifyd  # notification daemon
     xfce.xfce4-panel  # status bar/panel
     xfce.xfce4-panel-profiles  # panel profiles

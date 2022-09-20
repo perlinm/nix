@@ -7,7 +7,7 @@
 # python environments: https://github.com/DavHau/mach-nix
 # remaining parts of arch-setup
 # credit i3-scriatchpad and add it to the repo
-# use sway??
+# look into https://looking-glass.io/
 
 let
   services = import ./services.nix;

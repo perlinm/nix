@@ -1,5 +1,9 @@
 #!/usr/bin/env sh
 
+if [ "$#" -lt 1 ]; then
+  exit 1
+fi
+
 delta=5
 medium=40
 
@@ -13,40 +17,33 @@ if [ $1 = mic ]; then
   cmd=$2
 fi
 
-if [ $device = sink ]; then
-  if [ $cmd = dec ]; then
-    pactl set-sink-mute $device_tag 0
-    pactl set-sink-volume $device_tag -$delta%
-  elif [ $cmd = inc ]; then
-    pactl set-sink-mute $device_tag 0
-    pactl set-sink-volume $device_tag +$delta%
-  elif [ $cmd = min ]; then
-    pactl set-sink-volume $device_tag 0
-  elif [ $cmd = max ]; then
-    pactl set-sink-volume $device_tag 100%
-  elif [ $cmd = med ]; then
-    pactl set-sink-volume $device_tag $medium%
-  elif [ $cmd = on ]; then
-    pactl set-sink-mute $device_tag 0
-  elif [ $cmd = off ]; then
-    pactl set-sink-mute $device_tag 1
-  fi
-fi
-
-if [ $cmd = toggle ]; then
+if [ $cmd = inc ]; then
+  pactl set-$device-volume $device_tag +$delta%
+elif [ $cmd = dec ]; then
+  pactl set-$device-volume $device_tag -$delta%
+elif [ $cmd = max ]; then
+  pactl set-$device-volume $device_tag 100%
+elif [ $cmd = min ]; then
+  pactl set-$device-volume $device_tag 0
+elif [ $cmd = med ]; then
+  pactl set-$device-volume $device_tag $medium%
+elif [ $cmd = toggle ]; then
   pactl set-$device-mute $device_tag toggle
+elif [ $cmd = on ]; then
+  pactl set-$device-mute $device_tag 0
+elif [ $cmd = off ]; then
+  pactl set-$device-mute $device_tag 1
 fi
 
 if [ $device = source ]; then
   if [ $cmd = toggle ] || [ $cmd = on ] || [ $cmd = off ]; then
-    default_source=$(pactl info | grep 'Default Source' | awk '{print $3}')
-    mute=$(pactl list sources | grep -A 10 $default_source | grep Mute | awk '{print $2}')
+    mute=$(pactl get-source-mute @DEFAULT_SOURCE@ | awk '{print $2}')
     if [ $mute = yes ]; then
-      notify-desktop -t 1 "mic off"
+      notify-send -t 1000 "mic off"
     elif [ $mute = no ]; then
-      notify-desktop -t 1 "mic on"
+      notify-send -t 1000 "mic on"
     else
-      notify-desktop -t 1 "mic status unknown"
+      notify-send -t 1000 "mic status unknown"
     fi
   fi
 fi

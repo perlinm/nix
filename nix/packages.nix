@@ -15,6 +15,7 @@ let
     jq  # json parsing
     killall  # kill processes by name
     mosh  # better than ssh
+    pdftk  # pdf editor
     ripgrep  # faster grep
     starship  # customizable shell prompt
     trashy  # trash management, replacing "rm"
@@ -23,34 +24,40 @@ let
     watch  # repeat a command and watch output
     wget  # retrieve files from the web
     woof # secure network file sharing
-    xclip  # clipboard
-    xdotool  # simulate keyboard/mouse inputs
     zip unzip  # zipping/unzipping
   ];
   desktop-utilities = with pkgs; [
-    # picom  # window compositing
-    # scrot  # screenshots
-    # wmctrl  # command-line window control (used for scratchpads)
-    light  # screen brightness
+    brightnessctl  # screen brightness
+    grim slurp  # for screenshots
+    dracula-theme  # GTK theme
+    nwg-drawer   # application drawer
+    polybar  # info bar / panel
     swaybg  # set background image
-    waybar  # status bar
+    swaylock-effects swayidle  # screen locker
+    swaynotificationcenter libnotify  # notification daemon
+    swaytools  # get window properties with swayinfo
+    waybar  # info bar / panel
+    wdisplays  # display settings
+    wev  # event logger
+    wl-clipboard  # CLI copy/paste tool
+    # wmctrl  # command-line window control (used for scratchpads)
     # workstyle  # add running applications to workspace names
   ];
   applications = with pkgs; [
     blueberry  # bluetooth tool
-    firefox  # web browser
-    gparted  # graphical disk partitioning utility
+    gnome.eog  # image viewer
+    firefox-wayland  # web browser
     gpick  # color picker
     inkscape  # vector graphics (SVG) editor
-    lxappearance  # window themes
     meld  # file comparison tool
     pavucontrol  # volume control
-    qpdfview okular foxitreader pdftk  # pdf viewers and editors
+    qpdfview okular foxitreader  # pdf viewers
     slack  # work chat
     spotify  # music
     vistafonts dejavu_fonts  # fonts, including consolas
     vlc  # for watching videos
     # zoom-us  # video conferencing app
+    xfce.xfce4-terminal  # terminal emulator
     zotero  # bibliography/reference management system
   ];
 in

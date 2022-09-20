@@ -5,9 +5,6 @@
     "$HOME/.local/bin"
     "$HOME/.pyenv/bin"
     "$HOME/.cargo/bin"
-    "/usr/bin"
-    "/usr/local/bin"
-    "/usr/local/sbin"
   ];
 
   sessionVariables = {
@@ -20,6 +17,7 @@
 
     # make firefox work with wayland
     MOZ_ENABLE_WAYLAND = 1;
+    XDG_CURRENT_DESKTOP = "sway";
 
     # to fix matlab isssues
     MATLAB_LOG_DIR = "/home/perlinm/Workspace/MATLAB/logs";
