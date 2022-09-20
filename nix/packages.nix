@@ -54,11 +54,21 @@ let
     qpdfview okular foxitreader  # pdf viewers
     slack  # work chat
     spotify  # music
-    vistafonts dejavu_fonts  # fonts, including consolas
     vlc  # for watching videos
     # zoom-us  # video conferencing app
     xfce.xfce4-terminal  # terminal emulator
     zotero  # bibliography/reference management system
   ];
+  fonts = with pkgs; [
+    dejavu_fonts
+    fira-code
+    fira-code-symbols
+    liberation_ttf
+    noto-fonts
+    noto-fonts-cjk
+    noto-fonts-emoji
+    proggyfonts
+    vistafonts  # provides consolas
+  ];
 in
-languages ++ console-utilities ++ desktop-utilities ++ applications
+languages ++ console-utilities ++ desktop-utilities ++ applications ++ fonts

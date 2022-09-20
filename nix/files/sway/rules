@@ -1,0 +1,19 @@
+###############################################################################
+# window rules
+###############################################################################
+
+# fullscreen windows prevent "idling"
+for_window [app_id=".*"] inhibit_idle fullscreen
+
+# pin teams, slack, and zotero to specific workspaces
+assign [class="^Slack$"]                        $ws-11
+assign [class="^Zotero$"]                       $ws-12
+
+# floating windows
+for_window [app_id="^pavucontrol$"]   floating enable
+for_window [app_id="^wdisplays$"]     floating enable
+for_window [app_id="^blueberry\.py$"] floating enable
+for_window [app_id="^gpick$"]         floating enable
+for_window [app_id="^wev$"]           floating enable
+for_window [app_id="^thunar$"]        floating enable
+for_window [app_id="^font-manager$"]     floating enable

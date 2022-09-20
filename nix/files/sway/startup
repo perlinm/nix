@@ -1,0 +1,39 @@
+###############################################################################
+# startup and reload commands
+###############################################################################
+
+# GTK fixes and themes
+exec dbus-sway-environment
+exec configure-gtk
+exec_always {
+  gsettings set org.gnome.desktop.interface gtk-theme 'Dracula'
+  gsettings set org.gnome.desktop.interface icon-theme 'dracula-icons'
+}
+
+# ensure that environment variables are set correctly
+exec systemctl --user import-environment
+
+# TODO: enable layouts
+#exec i3-layouts
+
+# remap some keys, such as right alt
+#exec xmodmap ~/.Xmodmap
+
+# notification daemon
+exec swaync
+
+# screen locker
+set $screen-off 'swaymsg "output * dpms off"'
+set $screen-on  'swaymsg "output * dpms on"'
+exec swayidle -w before-sleep swaylock timeout 120 $screen-off resume $screen-on
+
+###############################################################################
+# applications
+###############################################################################
+
+# start on workspace 1
+# exec swaymsg workspace $ws-01
+
+# exec teams
+# exec slack
+# exec zotero
