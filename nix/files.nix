@@ -5,9 +5,6 @@ let
     ".ssh/id_rsa.pub".source = ./files/ssh/id_rsa.pub;
     ".ssh/fingerprint".source = ./files/ssh/fingerprint;
     
-    ".xinitrc".source = ./files/xinitrc;
-    ".Xmodmap".source = ./files/Xmodmap;
-    ".xmonad/xmonad.hs".source = ./files/xmonad.hs;
     ".vimrc".source = ./files/vimrc;
     ".emacs.d/init.el".source = ./files/emacs-init.el;
     ".latexmkrc".source = ./files/latexmkrc;
