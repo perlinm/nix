@@ -79,12 +79,6 @@ in
 
   environment.systemPackages = with pkgs; [
     pulseaudio  # provides pactl for CLI audio control
-    xfce.xfce4-notifyd  # notification daemon
-    xfce.xfce4-panel  # status bar/panel
-    xfce.xfce4-panel-profiles  # panel profiles
-    xfce.xfce4-i3-workspaces-plugin  # workspace management
-    xfce.xfce4-netload-plugin  # show upload/download speeds
-    xfce.xfce4-cpugraph-plugin  # graph of CPU load
   ];
 
   # sound and bluetooth control

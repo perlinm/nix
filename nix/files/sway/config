@@ -30,7 +30,7 @@ output * background ~/Pictures/.background fill
 font pango:Cantarell 14px
 bar swaybar_command waybar
 
-include ~/.config/sway/vars
+include ~/.config/sway/variables
 include ~/.config/sway/rules
 include ~/.config/sway/keybindings
 include ~/.config/sway/startup

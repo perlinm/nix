@@ -20,7 +20,7 @@ let
     "sway/keybindings".source = ./files/sway/keybindings;
     "sway/rules".source = ./files/sway/rules;
     "sway/startup".source = ./files/sway/startup;
-    "sway/vars".source = ./files/sway/vars;
+    "sway/variables".source = ./files/sway/variables;
 
     "swaylock/config".source = ./files/swaylock-config;
 
@@ -32,7 +32,7 @@ let
     "regolith2/i3xrocks/conf.d/setup".source = ./files/regolith2/i3xrocks/conf.d/setup;
 
     "starship.toml".source = ./files/starship.toml;
-    "xfce4/terminal/terminalrc".source = ./files/xfce4-terminalrc;
+    "alacritty/alacritty.yml".source = ./files/alacritty.yml;
     "qpdfview/shortcuts.conf".source = ./files/qpdfview-shortcuts.conf;
     "flake8".source = ./files/flake8;
   };

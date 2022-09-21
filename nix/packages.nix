@@ -63,7 +63,6 @@ let
     spotify  # music
     vlc  # for watching videos
     # workstyle  # add proprams to workspace names
-    xfce.xfce4-terminal  # terminal emulator
     # zoom-us  # video conferencing app
     zotero  # bibliography/reference manager
   ];
