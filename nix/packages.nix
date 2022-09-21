@@ -27,6 +27,7 @@ let
     zip unzip  # zipping/unzipping
   ];
   desktop-utilities = with pkgs; [
+    autotiling-rs  # sane tiling defaults
     brightnessctl  # screen brightness
     grim slurp  # for screenshots
     nwg-drawer   # application drawer
@@ -39,7 +40,6 @@ let
     wev  # event logger
     wl-clipboard  # CLI copy/paste tool
     # wmctrl  # command-line window control (used for scratchpads)
-    # workstyle  # add running applications to workspace names
   ];
   fonts-icons-themes = with pkgs; [
     dracula-theme
@@ -61,7 +61,6 @@ let
     slack  # work chat
     spotify  # music
     vlc  # for watching videos
-    # workstyle  # add proprams to workspace names
     # zoom-us  # video conferencing app
     zotero  # bibliography/reference manager
   ];

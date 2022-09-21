@@ -13,7 +13,6 @@
     enable = true;
     enableCompletion = true;  # https://rycee.gitlab.io/home-manager/options.html#opt-programs.zsh.enableCompletion
     enableVteIntegration = true;
-    enableAutosuggestions = true;
     enableSyntaxHighlighting = true;
     defaultKeymap = "emacs";
     oh-my-zsh.enable = true;

@@ -16,8 +16,8 @@ exec systemctl --user import-environment
 # add network manger to system tray
 exec nm-applet --indicator
 
-# TODO: enable layouts
-#exec i3-layouts
+# sane tiling defaults
+exec autotiling-rs
 
 # notification daemon
 exec swaync

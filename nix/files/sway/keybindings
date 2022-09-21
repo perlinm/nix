@@ -189,6 +189,7 @@ bindsym $mod+Ctrl+Down        exec ~/scripts/brightness.sh dec
 bindsym $mod+Ctrl+Shift+Up    exec ~/scripts/brightness.sh max
 bindsym $mod+Ctrl+Shift+Down  exec ~/scripts/brightness.sh min
 bindsym $mod+Ctrl+slash       exec ~/scripts/brightness.sh mid
+bindsym $mod+Ctrl+Shift+slash exec ~/scripts/brightness.sh mid
 
 # scratchpads
 bindsym $mod+F1 exec ~/scripts/i3-scratchpad -t $terminal
