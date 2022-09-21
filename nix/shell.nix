@@ -70,9 +70,6 @@
     makeSymbolicLinks = lib.hm.dag.entryAfter ["writeBoundary"] ''
       $DRY_RUN_CMD ln -sTf $VERBOSE_ARG $HOME/git/bin $HOME/bin
       $DRY_RUN_CMD ln -sTf $VERBOSE_ARG $HOME/git/scripts $HOME/scripts
-
-      $DRY_RUN_CMD ln -sTf $VERBOSE_ARG $HOME/git/nix/files/sway $HOME/.config/sway
-      $DRY_RUN_CMD ln -sTf $VERBOSE_ARG $HOME/git/nix/files/waybar $HOME/.config/waybar
     '';
   };
 }

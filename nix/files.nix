@@ -16,14 +16,14 @@ let
     "helix/languages.toml".source = ./files/helix/languages.toml;
     "helix/themes/onedark_perlinm.toml".source = ./files/helix/themes/onedark_perlinm.toml;
 
-    # "sway/config".source = ./files/sway/config;
-    # "sway/keybindings".source = ./files/sway/keybindings;
-    # "sway/rules".source = ./files/sway/rules;
-    # "sway/startup".source = ./files/sway/startup;
-    # "sway/variables".source = ./files/sway/variables;
+    "sway/config".source = ./files/sway/config;
+    "sway/keybindings".source = ./files/sway/keybindings;
+    "sway/rules".source = ./files/sway/rules;
+    "sway/startup".source = ./files/sway/startup;
+    "sway/variables".source = ./files/sway/variables;
 
-    # "waybar/config".source = ./files/waybar/config;
-    # "waybar/style.css".source = ./files/waybar/style.css;
+    "waybar/config".source = ./files/waybar/config;
+    "waybar/style.css".source = ./files/waybar/style.css;
     "swaylock/config".source = ./files/swaylock-config;
 
     "regolith2/Xresources".source = ./files/regolith2/Xresources;
