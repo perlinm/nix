@@ -12,7 +12,6 @@
     // -------------------------------------------------------------------------
 
     "layer": "top",
-
     "position": "top",
 
     // If height property would be not present, it'd be calculated dynamically
@@ -20,19 +19,19 @@
 
     "modules-left": [
         "sway/workspaces",
-        "sway/mode"
+        "sway/mode",
     ],
     "modules-center": [
-        "sway/window"
+        "sway/window",
     ],
     "modules-right": [
-        // "network",
-        "pulseaudio",
-        "battery",
+        "tray",
+        "network",
         "cpu",
         "memory",
-        "tray",
-        "clock"
+        "battery",
+        "pulseaudio",
+        "clock",
     ],
 
 
@@ -47,16 +46,10 @@
             "critical": 15
         },
         // Connected to AC
-        "format": "  {icon}  {capacity}%", // Icon: bolt
+        "format": "{capacity}% {icon} ", // Icon: bolt
         // Not connected to AC
-        "format-discharging": "{icon}  {capacity}%",
-        "format-icons": [
-            "", // Icon: battery-full
-            "", // Icon: battery-three-quarters
-            "", // Icon: battery-half
-            "", // Icon: battery-quarter
-            ""  // Icon: battery-empty
-        ],
+        "format-discharging": "{capacity}% {icon}  ",
+        "format-icons": ["", "", "", "", "", "", "", "","", ""],
         "tooltip": true
     },
 
@@ -68,7 +61,7 @@
 
     "cpu": {
         "interval": 1,
-        "format": "{icon0}{icon1}{icon2}{icon3}{icon4}{icon5}{icon6}{icon7} {usage:>3}%",
+        "format": "{usage:>3}% {icon0}{icon1}{icon2}{icon3}{icon4}{icon5}{icon6}{icon7}",
       	"format-icons": ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"],
         "states": {
           "warning": 70,
@@ -78,7 +71,7 @@
 
     "memory": {
         "interval": 5,
-        "format": "  {}%", // Icon: memory
+        "format": "{}% 🐏", // Icon: memory
         "states": {
             "warning": 70,
             "critical": 90
@@ -86,16 +79,16 @@
     },
 
     "network": {
-        "interval": 5,
-        "format-wifi": "  {essid} ({signalStrength}%)", // Icon: wifi
-        "format-ethernet": "  {ifname}: {ipaddr}/{cidr}", // Icon: ethernet
-        "format-disconnected": "⚠  Disconnected",
-        "tooltip-format": "{ifname}: {ipaddr}"
+        "interval": 2,
+        "format": "{bandwidthDownBits:>8} ▼ {bandwidthUpBits:>8} ▲", // Icon: wifi
+        "format-disconnected": "-----b/s ▼ -----b/s ▲", // Icon: wifi
+        "tooltip-format": "{ifname}: {ipaddr}",
+        "tooltip-format-disconnected": "disconnected",
     },
 
     "sway/mode": {
-        "format": "<span style=\"italic\">  {}</span>", // Icon: expand-arrows-alt
-        "tooltip": false
+        "format": "<span style=\"italic\">{}  </span>", // Icon: expand-arrows-alt
+        "tooltip": false,
     },
 
     "sway/window": {
@@ -116,17 +109,10 @@
 
     "pulseaudio": {
         "scroll-step": 1,
-        "format": "{icon}  {volume}%",
-        "format-bluetooth": "{icon}  {volume}%",
-        "format-muted": "",
+        "format": "{volume:>3}% {icon}",
+        "format-muted": "{volume:>3}% 🔇",
         "format-icons": {
-            "headphones": "",
-            "handsfree": "",
-            "headset": "",
-            "phone": "",
-            "portable": "",
-            "car": "",
-            "default": ["", ""]
+            "default": ["🔈", "🔉", "🔊"]
         },
         "on-click": "pavucontrol"
     },
