@@ -19,10 +19,10 @@
 
     "modules-left": [
         "sway/workspaces",
-        "sway/mode",
+        "sway/window",
     ],
     "modules-center": [
-        "sway/window",
+        "sway/mode",
     ],
     "modules-right": [
         "tray",
@@ -43,20 +43,20 @@
         "interval": 10,
         "states": {
             "warning": 30,
-            "critical": 15
+            "critical": 15,
         },
         // Connected to AC
         "format": "{capacity}% {icon} ", // Icon: bolt
         // Not connected to AC
         "format-discharging": "{capacity}% {icon}  ",
         "format-icons": ["", "", "", "", "", "", "", "","", ""],
-        "tooltip": true
+        "tooltip": true,
     },
 
     "clock": {
         "interval": 1,
         "format": "{:%a %e %b %H:%M:%S}",
-        "tooltip": false
+        "tooltip": false,
     },
 
     "cpu": {
@@ -65,8 +65,8 @@
       	"format-icons": ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"],
         "states": {
           "warning": 70,
-          "critical": 90
-        }
+          "critical": 90,
+        },
     },
 
     "memory": {
@@ -74,8 +74,8 @@
         "format": "{}% 🐏", // Icon: memory
         "states": {
             "warning": 70,
-            "critical": 90
-        }
+            "critical": 90,
+        },
     },
 
     "network": {
@@ -87,13 +87,13 @@
     },
 
     "sway/mode": {
-        "format": "<span style=\"italic\">{}  </span>", // Icon: expand-arrows-alt
+        "format": " {} ",
         "tooltip": false,
     },
 
     "sway/window": {
-        "format": "{}",
-        "max-length": 120
+        "format": " {}",
+        "max-length": 120,
     },
 
     "sway/workspaces": {
@@ -103,8 +103,8 @@
         "format-icons": {
             "urgent": "<span color='red'></span>",
             "focused": "",
-            "default": ""
-        }
+            "default": "",
+        },
     },
 
     "pulseaudio": {
@@ -112,14 +112,14 @@
         "format": "{volume:>3}% {icon}",
         "format-muted": "{volume:>3}% 🔇",
         "format-icons": {
-            "default": ["🔈", "🔉", "🔊"]
+            "default": ["🔈", "🔉", "🔊"],
         },
-        "on-click": "pavucontrol"
+        "on-click": "pavucontrol",
     },
 
     "tray": {
         "icon-size": 20,
-        "spacing": 10
-    }
+        "spacing": 10,
+    },
 
 }

@@ -27,7 +27,7 @@ input type:touchpad {
 
 output * background ~/Pictures/.background fill
 
-bar waybar_command waybar
+bar swaybar_command waybar
 
 include ~/.config/sway/variables
 include ~/.config/sway/rules
