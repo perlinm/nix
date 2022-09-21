@@ -13,6 +13,9 @@ exec_always {
 # ensure that environment variables are set correctly
 exec systemctl --user import-environment
 
+# add network manger to system tray
+exec nm-applet --indicator
+
 # TODO: enable layouts
 #exec i3-layouts
 

@@ -27,10 +27,8 @@ input type:touchpad {
 
 output * background ~/Pictures/.background fill
 
-bar {
-  position top
-  swaybar_command waybar
-}
+font pango:Cantarell 14px
+bar swaybar_command waybar
 
 include ~/.config/sway/vars
 include ~/.config/sway/rules

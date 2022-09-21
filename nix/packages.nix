@@ -29,9 +29,7 @@ let
   desktop-utilities = with pkgs; [
     brightnessctl  # screen brightness
     grim slurp  # for screenshots
-    dracula-theme  # GTK theme
     nwg-drawer   # application drawer
-    polybar  # info bar / panel
     swaybg  # set background image
     swaylock-effects swayidle  # screen locker
     swaynotificationcenter libnotify  # notification daemon
@@ -43,7 +41,16 @@ let
     # wmctrl  # command-line window control (used for scratchpads)
     # workstyle  # add running applications to workspace names
   ];
+  fonts-icons-themes = with pkgs; [
+    dejavu_fonts
+    dracula-theme
+    nerdfonts
+    nerd-font-patcher
+    nixos-icons
+    vistafonts  # provides consolas
+  ];
   applications = with pkgs; [
+    alacritty  # terminal emulator
     blueberry  # bluetooth tool
     gnome.eog  # image viewer
     firefox-wayland  # web browser
@@ -55,20 +62,10 @@ let
     slack  # work chat
     spotify  # music
     vlc  # for watching videos
-    # zoom-us  # video conferencing app
+    # workstyle  # add proprams to workspace names
     xfce.xfce4-terminal  # terminal emulator
-    zotero  # bibliography/reference management system
-  ];
-  fonts = with pkgs; [
-    dejavu_fonts
-    fira-code
-    fira-code-symbols
-    liberation_ttf
-    noto-fonts
-    noto-fonts-cjk
-    noto-fonts-emoji
-    proggyfonts
-    vistafonts  # provides consolas
+    # zoom-us  # video conferencing app
+    zotero  # bibliography/reference manager
   ];
 in
-languages ++ console-utilities ++ desktop-utilities ++ applications ++ fonts
+languages ++ console-utilities ++ desktop-utilities ++ fonts-icons-themes ++ applications
