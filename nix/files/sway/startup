@@ -19,9 +19,6 @@ exec nm-applet --indicator
 # TODO: enable layouts
 #exec i3-layouts
 
-# remap some keys, such as right alt
-#exec xmodmap ~/.Xmodmap
-
 # notification daemon
 exec swaync
 

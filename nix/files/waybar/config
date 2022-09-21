@@ -31,6 +31,7 @@
         "memory",
         "battery",
         "pulseaudio",
+        "idle_inhibitor",
         "clock",
     ],
 
@@ -122,4 +123,11 @@
         "spacing": 10,
     },
 
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "◉",
+            "deactivated": "◎",
+        },
+    },
 }
