@@ -12,6 +12,9 @@ auto-pairs = false
 [editor.cursor-shape]
 insert = "bar"
 
+[editor.lsp]
+auto-signature-help = false
+
 [keys.normal]
 ### unbind old keys
 # q = "no_op"  # keep default
@@ -105,7 +108,7 @@ T = "append_mode"
 s = "select_mode"
 S = "select_regex"
 h = "hover"
-d = "extend_line"
+d = "extend_line_below"
 D = "extend_line_above"
 
 [keys.select]
@@ -201,7 +204,7 @@ T = "append_mode"
 s = "collapse_selection"
 S = "select_regex"
 h = "hover"
-d = "extend_line"
+d = "extend_line_below"
 D = "extend_line_above"
 
 [keys.insert]
