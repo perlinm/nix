@@ -25,9 +25,6 @@ in
   home.username = "perlinm";
   home.homeDirectory = "/home/perlinm";
 
-  home.keyboard.variant = "colemak";
-  home.keyboard.options = [ "shift:both_capslock_cancel" "caps:backspace" ];
-
   services = services;
   programs = programs;
   home.packages = packages;

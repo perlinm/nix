@@ -65,10 +65,6 @@ in
     # display (login), desktop, and window managers
     displayManager.gdm.enable = true;
     displayManager.gdm.wayland = true;
-    displayManager.defaultSession = "sway";
-    desktopManager.xfce.enable = true;
-    windowManager.i3.enable = true;
-    windowManager.i3.package = pkgs.i3-gaps;
   };
 
   # enable sway window manager

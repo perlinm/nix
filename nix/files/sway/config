@@ -14,9 +14,8 @@ default_border pixel 3
 default_floating_border pixel 3
 
 input type:keyboard {
-  xkb_layout us
-  xkb_options caps:backspace,shift:both_capslock_cancel
-  xkb_variant colemak
+  xkb_layout us(colemak),us
+  xkb_options caps:backspace,shift:both_capslock_cancel,grp:shift_caps_toggle
   repeat_delay 200
   repeat_rate 60
 }
