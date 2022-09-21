@@ -45,6 +45,7 @@ let
     dracula-theme
     nerdfonts
     nerd-font-patcher
+    papirus-icon-theme
     vistafonts  # provides consolas
   ];
   applications = with pkgs; [

@@ -7,7 +7,7 @@ exec dbus-sway-environment
 exec configure-gtk
 exec_always {
   gsettings set org.gnome.desktop.interface gtk-theme 'Dracula'
-  gsettings set org.gnome.desktop.interface icon-theme 'dracula-icons'
+  gsettings set org.gnome.desktop.interface icon-theme 'Papirus-Dark'
 }
 
 # ensure that environment variables are set correctly
