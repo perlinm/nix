@@ -22,6 +22,8 @@ let
     "sway/startup".source = ./files/sway/startup;
     "sway/variables".source = ./files/sway/variables;
 
+    "waybar/config".source = ./files/waybar/config;
+    "waybar/style.css".source = ./files/waybar/style.css;
     "swaylock/config".source = ./files/swaylock-config;
 
     "regolith2/Xresources".source = ./files/regolith2/Xresources;

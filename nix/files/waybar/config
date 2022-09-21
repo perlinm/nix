@@ -1,0 +1,139 @@
+// =============================================================================
+//
+// Waybar configuration
+//
+// Configuration reference: https://github.com/Alexays/Waybar/wiki/Configuration
+//
+// =============================================================================
+
+{
+    // -------------------------------------------------------------------------
+    // Global configuration
+    // -------------------------------------------------------------------------
+
+    "layer": "top",
+
+    "position": "top",
+
+    // If height property would be not present, it'd be calculated dynamically
+    // "height": 25,
+
+    "modules-left": [
+        "sway/workspaces",
+        "sway/mode"
+    ],
+    "modules-center": [
+        "sway/window"
+    ],
+    "modules-right": [
+        // "network",
+        "pulseaudio",
+        "battery",
+        "cpu",
+        "memory",
+        "tray",
+        "clock"
+    ],
+
+
+    // -------------------------------------------------------------------------
+    // Modules
+    // -------------------------------------------------------------------------
+
+    "battery": {
+        "interval": 10,
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+        // Connected to AC
+        "format": "  {icon}  {capacity}%", // Icon: bolt
+        // Not connected to AC
+        "format-discharging": "{icon}  {capacity}%",
+        "format-icons": [
+            "", // Icon: battery-full
+            "", // Icon: battery-three-quarters
+            "", // Icon: battery-half
+            "", // Icon: battery-quarter
+            ""  // Icon: battery-empty
+        ],
+        "tooltip": true
+    },
+
+    "clock": {
+        "interval": 1,
+        "format": "{:%a %e %b %H:%M:%S}",
+        "tooltip": false
+    },
+
+    "cpu": {
+        "interval": 1,
+        "format": "{icon0}{icon1}{icon2}{icon3}{icon4}{icon5}{icon6}{icon7} {usage:>3}%",
+      	"format-icons": ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"],
+        "states": {
+          "warning": 70,
+          "critical": 90
+        }
+    },
+
+    "memory": {
+        "interval": 5,
+        "format": "  {}%", // Icon: memory
+        "states": {
+            "warning": 70,
+            "critical": 90
+        }
+    },
+
+    "network": {
+        "interval": 5,
+        "format-wifi": "  {essid} ({signalStrength}%)", // Icon: wifi
+        "format-ethernet": "  {ifname}: {ipaddr}/{cidr}", // Icon: ethernet
+        "format-disconnected": "⚠  Disconnected",
+        "tooltip-format": "{ifname}: {ipaddr}"
+    },
+
+    "sway/mode": {
+        "format": "<span style=\"italic\">  {}</span>", // Icon: expand-arrows-alt
+        "tooltip": false
+    },
+
+    "sway/window": {
+        "format": "{}",
+        "max-length": 120
+    },
+
+    "sway/workspaces": {
+        "all-outputs": false,
+        "disable-scroll": true,
+        "format": "{icon} {name}",
+        "format-icons": {
+            "urgent": "<span color='red'></span>",
+            "focused": "",
+            "default": ""
+        }
+    },
+
+    "pulseaudio": {
+        "scroll-step": 1,
+        "format": "{icon}  {volume}%",
+        "format-bluetooth": "{icon}  {volume}%",
+        "format-muted": "",
+        "format-icons": {
+            "headphones": "",
+            "handsfree": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["", ""]
+        },
+        "on-click": "pavucontrol"
+    },
+
+    "tray": {
+        "icon-size": 20,
+        "spacing": 10
+    }
+
+}

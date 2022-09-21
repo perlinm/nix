@@ -42,11 +42,9 @@ let
     # workstyle  # add running applications to workspace names
   ];
   fonts-icons-themes = with pkgs; [
-    dejavu_fonts
     dracula-theme
     nerdfonts
     nerd-font-patcher
-    nixos-icons
     vistafonts  # provides consolas
   ];
   applications = with pkgs; [
