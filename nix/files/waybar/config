@@ -63,7 +63,7 @@
     "cpu": {
         "interval": 1,
         "format": "{usage:>3}% {icon0}{icon1}{icon2}{icon3}{icon4}{icon5}{icon6}{icon7}",
-      	"format-icons": ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"],
+        "format-icons": ["<span alpha='1'>▁</span>", "▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"],
         "states": {
           "warning": 70,
           "critical": 90,
