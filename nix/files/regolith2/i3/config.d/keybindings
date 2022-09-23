@@ -206,6 +206,7 @@ bindsym $mod+Ctrl+slash $script/brightness.sh med
 bindsym $mod+F1 $script/i3-scratchpad -t xfce4-terminal
 bindsym $mod+F2 $script/i3-scratchpad -t "xfce4-terminal --command='ipython3 --profile=perlinm --no-banner'"
 bindsym $mod+F3 $script/i3-scratchpad -t -d 75%x75% "xfce4-terminal --command=htop"
+bindsym $mod+F4 $script/i3-scratchpad -t pavucontrol
 
 ###############################################################################
 # ilia launchers
@@ -221,7 +222,7 @@ bindsym $mod+space exec --no-startup-id ilia -p windows -t $ilia.stylesheet
 bindsym $mod+$alt+space exec --no-startup-id ilia -p apps -t $ilia.stylesheet
 
 # notification viewer
-bindsym $mod+slash exec --no-startup-id ilia -p notifications -t $ilia.stylesheet
+bindsym $mod+k exec --no-startup-id ilia -p notifications -t $ilia.stylesheet
 
 # look selector
 bindsym $mod+Ctrl+s exec --no-startup-id regolith-look-selector -t $ilia.stylesheet
