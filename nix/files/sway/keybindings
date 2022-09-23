@@ -36,10 +36,10 @@ bindsym $mod+BackSpace split toggle
 floating_modifier $mod
 
 # resize window
-bindsym $mod+Left resize shrink width 3 px or 3 ppt
-bindsym $mod+Up resize shrink height 3 px or 3 ppt
-bindsym $mod+Right resize grow width 3 px or 3 ppt
-bindsym $mod+Down resize grow height 3 px or 3 ppt
+bindsym $mod+Left  resize shrink width  3 px or 3 ppt
+bindsym $mod+Up    resize shrink height 3 px or 3 ppt
+bindsym $mod+Right resize grow   width  3 px or 3 ppt
+bindsym $mod+Down  resize grow   height 3 px or 3 ppt
 
 ###############################################################################
 # changing workspaces
@@ -106,8 +106,7 @@ bindsym $mod+Shift+l move container to workspace prev_on_output; workspace prev_
 bindsym $mod+Shift+y move container to workspace next_on_output; workspace next_on_output
 
 # swap workspace
-set $swap exec ~/scripts/i3-swap-workspace-by-name.sh
-set $move exec ~/scripts/i3-move-workspace.py
+set $swap exec ~/scripts/sway-swap-workspace-by-name.sh
 bindsym $mod+Ctrl+grave $swap 0
 bindsym $mod+Ctrl+1     $swap 1
 bindsym $mod+Ctrl+2     $swap 2
@@ -121,6 +120,9 @@ bindsym $mod+Ctrl+9     $swap 9
 bindsym $mod+Ctrl+0     $swap 10
 bindsym $mod+Ctrl+minus $swap 11
 bindsym $mod+Ctrl+equal $swap 12
+
+# move workspace left/right
+set $move exec ~/scripts/sway-move-workspace.py
 bindsym $mod+Ctrl+q $move prev
 bindsym $mod+Ctrl+f $move next
 bindsym $mod+Ctrl+l $move prev
@@ -136,9 +138,6 @@ bindsym $mod+Ctrl+c move workspace to output next
 
 # exit app instance
 bindsym $mod+Escape [con_id="__focused__"] kill
-
-# terminate all app instances
-#bindsym $mod+Ctrl+Escape [con_id="__focused__"] exec kill -9 $(xdotool getwindowfocus getwindowpid)
 
 # reload sway
 bindsym $mod+Delete reload

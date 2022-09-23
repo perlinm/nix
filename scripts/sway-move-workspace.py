@@ -5,15 +5,13 @@ import os
 import subprocess
 import sys
 
-move_script = os.path.join(os.path.dirname(__file__), "i3-swap-workspace-by-name.sh")
-
+move_script = os.path.join(os.path.dirname(__file__), "sway-swap-workspace-by-name.sh")
 assert len(sys.argv) == 2
 
 direction = sys.argv[1]
 assert direction in ["prev", "next"]
 
-workspaces = json.loads(subprocess.check_output(["i3-msg", "-t", "get_workspaces"]))
-active_workspace = len(workspaces)
+workspaces = json.loads(subprocess.check_output(["swaymsg", "-t", "get_workspaces"]))
 current_workspace = next(datum for datum in workspaces if datum["focused"])
 
 diff = 1 if direction == "next" else -1

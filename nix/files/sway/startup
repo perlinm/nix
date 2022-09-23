@@ -5,7 +5,7 @@
 # GTK fixes and themes
 exec dbus-sway-environment
 exec configure-gtk
-exec_always {
+exec {
   gsettings set org.gnome.desktop.interface gtk-theme 'Dracula'
   gsettings set org.gnome.desktop.interface icon-theme 'Papirus-Dark'
 }
