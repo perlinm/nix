@@ -106,7 +106,7 @@ $bind $mod+Shift+l move container to workspace prev_on_output; workspace prev_on
 $bind $mod+Shift+y move container to workspace next_on_output; workspace next_on_output
 
 # swap workspaces
-set $swap exec ~/scripts/sway-swap-workspace-by-name.sh
+set $swap exec ~/scripts/sway-swap-workspace.sh
 $bind $mod+Ctrl+grave $swap 0
 $bind $mod+Ctrl+1     $swap 1
 $bind $mod+Ctrl+2     $swap 2
