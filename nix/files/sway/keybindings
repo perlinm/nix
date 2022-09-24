@@ -3,195 +3,195 @@
 ###############################################################################
 
 # change window focus
-bindsym $mod+a focus left
-bindsym $mod+s focus right
-bindsym $mod+w focus up
-bindsym $mod+r focus down
-bindsym $mod+n focus left
-bindsym $mod+i focus right
-bindsym $mod+u focus up
-bindsym $mod+e focus down
+$bind $mod+a focus left
+$bind $mod+s focus right
+$bind $mod+w focus up
+$bind $mod+r focus down
+$bind $mod+n focus left
+$bind $mod+i focus right
+$bind $mod+u focus up
+$bind $mod+e focus down
 
 # move window
-bindsym $mod+Shift+a move left
-bindsym $mod+Shift+s move right
-bindsym $mod+Shift+w move up
-bindsym $mod+Shift+r move down
-bindsym $mod+Shift+n move left
-bindsym $mod+Shift+i move right
-bindsym $mod+Shift+u move up
-bindsym $mod+Shift+e move down
+$bind $mod+Shift+a move left
+$bind $mod+Shift+s move right
+$bind $mod+Shift+w move up
+$bind $mod+Shift+r move down
+$bind $mod+Shift+n move left
+$bind $mod+Shift+i move right
+$bind $mod+Shift+u move up
+$bind $mod+Shift+e move down
 
 # toggle tiling vs. floating
-bindsym $mod+t floating toggle
-bindsym $mod+Shift+t focus mode_toggle
+$bind $mod+t floating toggle
+$bind $mod+Shift+t focus mode_toggle
 
 # toggle fullscreen
-bindsym $mod+z fullscreen toggle
+$bind $mod+z fullscreen toggle
 
 # toggle window orientation
-bindsym $mod+BackSpace split toggle
+$bind $mod+BackSpace split toggle
  
 # use mouse+$mod to drag floating windows
 floating_modifier $mod
 
 # resize window
-bindsym $mod+Left  resize shrink width  3 px or 3 ppt
-bindsym $mod+Up    resize shrink height 3 px or 3 ppt
-bindsym $mod+Right resize grow   width  3 px or 3 ppt
-bindsym $mod+Down  resize grow   height 3 px or 3 ppt
+$bind $mod+Left  resize shrink width  3 px or 3 ppt
+$bind $mod+Up    resize shrink height 3 px or 3 ppt
+$bind $mod+Right resize grow   width  3 px or 3 ppt
+$bind $mod+Down  resize grow   height 3 px or 3 ppt
 
 ###############################################################################
 # changing workspaces
 ###############################################################################
 
 # move to workspace
-bindsym $mod+grave $ws-0
-bindsym $mod+1     $ws-1
-bindsym $mod+2     $ws-2
-bindsym $mod+3     $ws-3
-bindsym $mod+4     $ws-4
-bindsym $mod+5     $ws-5
-bindsym $mod+6     $ws-6
-bindsym $mod+7     $ws-7
-bindsym $mod+8     $ws-8
-bindsym $mod+9     $ws-9
-bindsym $mod+0     $ws-10
-bindsym $mod+minus $ws-11
-bindsym $mod+equal $ws-12
-bindsym $mod+x workspace back_and_forth
-bindsym $mod+q workspace prev_on_output
-bindsym $mod+f workspace next_on_output
-bindsym $mod+l workspace prev_on_output
-bindsym $mod+y workspace next_on_output
+$bind $mod+grave $ws-0
+$bind $mod+1     $ws-1
+$bind $mod+2     $ws-2
+$bind $mod+3     $ws-3
+$bind $mod+4     $ws-4
+$bind $mod+5     $ws-5
+$bind $mod+6     $ws-6
+$bind $mod+7     $ws-7
+$bind $mod+8     $ws-8
+$bind $mod+9     $ws-9
+$bind $mod+0     $ws-10
+$bind $mod+minus $ws-11
+$bind $mod+equal $ws-12
+$bind $mod+x workspace back_and_forth
+$bind $mod+q workspace prev_on_output
+$bind $mod+f workspace next_on_output
+$bind $mod+l workspace prev_on_output
+$bind $mod+y workspace next_on_output
 
 # move container to workspace
-bindsym $mod+$alt+grave move container to $ws-0
-bindsym $mod+$alt+1     move container to $ws-1
-bindsym $mod+$alt+2     move container to $ws-2
-bindsym $mod+$alt+3     move container to $ws-3
-bindsym $mod+$alt+4     move container to $ws-4
-bindsym $mod+$alt+5     move container to $ws-5
-bindsym $mod+$alt+6     move container to $ws-6
-bindsym $mod+$alt+7     move container to $ws-7
-bindsym $mod+$alt+8     move container to $ws-8
-bindsym $mod+$alt+9     move container to $ws-9
-bindsym $mod+$alt+0     move container to $ws-10
-bindsym $mod+$alt+minus move container to $ws-11
-bindsym $mod+$alt+equal move container to $ws-12
-bindsym $mod+$alt+x move container to workspace back_and_forth
-bindsym $mod+$alt+q move container to workspace prev_on_output
-bindsym $mod+$alt+f move container to workspace next_on_output
-bindsym $mod+$alt+l move container to workspace prev_on_output
-bindsym $mod+$alt+y move container to workspace next_on_output
+$bind $mod+$alt+grave move container to $ws-0
+$bind $mod+$alt+1     move container to $ws-1
+$bind $mod+$alt+2     move container to $ws-2
+$bind $mod+$alt+3     move container to $ws-3
+$bind $mod+$alt+4     move container to $ws-4
+$bind $mod+$alt+5     move container to $ws-5
+$bind $mod+$alt+6     move container to $ws-6
+$bind $mod+$alt+7     move container to $ws-7
+$bind $mod+$alt+8     move container to $ws-8
+$bind $mod+$alt+9     move container to $ws-9
+$bind $mod+$alt+0     move container to $ws-10
+$bind $mod+$alt+minus move container to $ws-11
+$bind $mod+$alt+equal move container to $ws-12
+$bind $mod+$alt+x move container to workspace back_and_forth
+$bind $mod+$alt+q move container to workspace prev_on_output
+$bind $mod+$alt+f move container to workspace next_on_output
+$bind $mod+$alt+l move container to workspace prev_on_output
+$bind $mod+$alt+y move container to workspace next_on_output
 
 # follow container to workspace
-bindsym $mod+Shift+grave move container to $ws-0 ; $ws-0
-bindsym $mod+Shift+1     move container to $ws-1 ; $ws-1
-bindsym $mod+Shift+2     move container to $ws-2 ; $ws-2
-bindsym $mod+Shift+3     move container to $ws-3 ; $ws-3
-bindsym $mod+Shift+4     move container to $ws-4 ; $ws-4
-bindsym $mod+Shift+5     move container to $ws-5 ; $ws-5
-bindsym $mod+Shift+6     move container to $ws-6 ; $ws-6
-bindsym $mod+Shift+7     move container to $ws-7 ; $ws-7
-bindsym $mod+Shift+8     move container to $ws-8 ; $ws-8
-bindsym $mod+Shift+9     move container to $ws-9 ; $ws-9
-bindsym $mod+Shift+0     move container to $ws-10; $ws-10
-bindsym $mod+Shift+minus move container to $ws-11; $ws-11
-bindsym $mod+Shift+equal move container to $ws-12; $ws-12
-bindsym $mod+Shift+x move container to workspace back_and_forth; workspace back_and_forth
-bindsym $mod+Shift+q move container to workspace prev_on_output; workspace prev_on_output
-bindsym $mod+Shift+f move container to workspace next_on_output; workspace next_on_output
-bindsym $mod+Shift+l move container to workspace prev_on_output; workspace prev_on_output
-bindsym $mod+Shift+y move container to workspace next_on_output; workspace next_on_output
+$bind $mod+Shift+grave move container to $ws-0 ; $ws-0
+$bind $mod+Shift+1     move container to $ws-1 ; $ws-1
+$bind $mod+Shift+2     move container to $ws-2 ; $ws-2
+$bind $mod+Shift+3     move container to $ws-3 ; $ws-3
+$bind $mod+Shift+4     move container to $ws-4 ; $ws-4
+$bind $mod+Shift+5     move container to $ws-5 ; $ws-5
+$bind $mod+Shift+6     move container to $ws-6 ; $ws-6
+$bind $mod+Shift+7     move container to $ws-7 ; $ws-7
+$bind $mod+Shift+8     move container to $ws-8 ; $ws-8
+$bind $mod+Shift+9     move container to $ws-9 ; $ws-9
+$bind $mod+Shift+0     move container to $ws-10; $ws-10
+$bind $mod+Shift+minus move container to $ws-11; $ws-11
+$bind $mod+Shift+equal move container to $ws-12; $ws-12
+$bind $mod+Shift+x move container to workspace back_and_forth; workspace back_and_forth
+$bind $mod+Shift+q move container to workspace prev_on_output; workspace prev_on_output
+$bind $mod+Shift+f move container to workspace next_on_output; workspace next_on_output
+$bind $mod+Shift+l move container to workspace prev_on_output; workspace prev_on_output
+$bind $mod+Shift+y move container to workspace next_on_output; workspace next_on_output
 
-# swap workspace
+# swap workspaces
 set $swap exec ~/scripts/sway-swap-workspace-by-name.sh
-bindsym $mod+Ctrl+grave $swap 0
-bindsym $mod+Ctrl+1     $swap 1
-bindsym $mod+Ctrl+2     $swap 2
-bindsym $mod+Ctrl+3     $swap 3
-bindsym $mod+Ctrl+4     $swap 4
-bindsym $mod+Ctrl+5     $swap 5
-bindsym $mod+Ctrl+6     $swap 6
-bindsym $mod+Ctrl+7     $swap 7
-bindsym $mod+Ctrl+8     $swap 8
-bindsym $mod+Ctrl+9     $swap 9
-bindsym $mod+Ctrl+0     $swap 10
-bindsym $mod+Ctrl+minus $swap 11
-bindsym $mod+Ctrl+equal $swap 12
+$bind $mod+Ctrl+grave $swap 0
+$bind $mod+Ctrl+1     $swap 1
+$bind $mod+Ctrl+2     $swap 2
+$bind $mod+Ctrl+3     $swap 3
+$bind $mod+Ctrl+4     $swap 4
+$bind $mod+Ctrl+5     $swap 5
+$bind $mod+Ctrl+6     $swap 6
+$bind $mod+Ctrl+7     $swap 7
+$bind $mod+Ctrl+8     $swap 8
+$bind $mod+Ctrl+9     $swap 9
+$bind $mod+Ctrl+0     $swap 10
+$bind $mod+Ctrl+minus $swap 11
+$bind $mod+Ctrl+equal $swap 12
 
 # move workspace left/right
 set $move exec ~/scripts/sway-move-workspace.py
-bindsym $mod+Ctrl+q $move prev
-bindsym $mod+Ctrl+f $move next
-bindsym $mod+Ctrl+l $move prev
-bindsym $mod+Ctrl+y $move next
+$bind $mod+Ctrl+q $move prev
+$bind $mod+Ctrl+f $move next
+$bind $mod+Ctrl+l $move prev
+$bind $mod+Ctrl+y $move next
 
 # move container or workspace to different output
-bindsym $mod+c      move container to output next
-bindsym $mod+Ctrl+c move workspace to output next
+$bind $mod+c      move container to output next
+$bind $mod+Ctrl+c move workspace to output next
 
 ###############################################################################
 # session management
 ###############################################################################
 
 # exit app instance
-bindsym $mod+Escape [con_id="__focused__"] kill
+$bind $mod+Escape [con_id="__focused__"] kill
 
 # reload sway
-bindsym $mod+Delete reload
+$bind $mod+Delete reload
 
 # lock screen
-bindsym Ctrl+Escape exec swaylock
+$bind Ctrl+Escape exec swaylock
 
 ###############################################################################
 # application launchers
 ###############################################################################
 
-bindsym $mod+Tab    exec $terminal
-bindsym $mod+Return exec $browser
-bindsym $mod+k      exec $notifications
-bindsym $mod+m      exec $launcher
-bindsym $mod+d      exec $display
-bindsym $mod+b      exec $bluetooth
+$bind $mod+Tab    exec $terminal
+$bind $mod+Return exec $browser
+$bind $mod+k      exec $notifications
+$bind $mod+m      exec $launcher
+$bind $mod+d      exec $display
+$bind $mod+b      exec $bluetooth
 
 ###############################################################################
 # personal scripts
 ###############################################################################
 
 # screenshots
-bindsym Print                exec ~/scripts/screenshot.sh screen
-bindsym Ctrl+Print           exec ~/scripts/screenshot.sh window
-bindsym Shift+Print          exec ~/scripts/screenshot.sh selection
-bindsym $mod+backslash       exec ~/scripts/screenshot.sh screen
-bindsym $mod+Ctrl+backslash  exec ~/scripts/screenshot.sh window
-bindsym $mod+Shift+backslash exec ~/scripts/screenshot.sh selection
+$bind Print                exec ~/scripts/screenshot.sh screen
+$bind Ctrl+Print           exec ~/scripts/screenshot.sh window
+$bind Shift+Print          exec ~/scripts/screenshot.sh selection
+$bind $mod+backslash       exec ~/scripts/screenshot.sh screen
+$bind $mod+Ctrl+backslash  exec ~/scripts/screenshot.sh window
+$bind $mod+Shift+backslash exec ~/scripts/screenshot.sh selection
 
 # volume
-bindsym XF86AudioRaiseVolume exec ~/scripts/volume.sh inc
-bindsym XF86AudioLowerVolume exec ~/scripts/volume.sh dec
-bindsym XF86AudioMute        exec ~/scripts/volume.sh toggle
-bindsym XF86AudioMicMute     exec ~/scripts/volume.sh mic toggle
-bindsym Ctrl+Up              exec ~/scripts/volume.sh inc
-bindsym Ctrl+Down            exec ~/scripts/volume.sh dec
-bindsym Ctrl+slash           exec ~/scripts/volume.sh toggle
-bindsym Ctrl+Shift+Up        exec ~/scripts/volume.sh max
-bindsym Ctrl+Shift+Down      exec ~/scripts/volume.sh min
-bindsym Ctrl+Shift+slash     exec ~/scripts/volume.sh med
+$bind XF86AudioRaiseVolume exec ~/scripts/volume.sh inc
+$bind XF86AudioLowerVolume exec ~/scripts/volume.sh dec
+$bind XF86AudioMute        exec ~/scripts/volume.sh toggle
+$bind XF86AudioMicMute     exec ~/scripts/volume.sh mic toggle
+$bind Ctrl+Up              exec ~/scripts/volume.sh inc
+$bind Ctrl+Down            exec ~/scripts/volume.sh dec
+$bind Ctrl+slash           exec ~/scripts/volume.sh toggle
+$bind Ctrl+Shift+Up        exec ~/scripts/volume.sh max
+$bind Ctrl+Shift+Down      exec ~/scripts/volume.sh min
+$bind Ctrl+Shift+slash     exec ~/scripts/volume.sh med
 
 # screen brightness
-bindsym XF86MonBrightnessUp   exec ~/scripts/brightness.sh inc
-bindsym XF86MonBrightnessDown exec ~/scripts/brightness.sh dec
-bindsym $mod+Ctrl+Up          exec ~/scripts/brightness.sh inc
-bindsym $mod+Ctrl+Down        exec ~/scripts/brightness.sh dec
-bindsym $mod+Ctrl+Shift+Up    exec ~/scripts/brightness.sh max
-bindsym $mod+Ctrl+Shift+Down  exec ~/scripts/brightness.sh min
-bindsym $mod+Ctrl+slash       exec ~/scripts/brightness.sh mid
-bindsym $mod+Ctrl+Shift+slash exec ~/scripts/brightness.sh mid
+$bind XF86MonBrightnessUp   exec ~/scripts/brightness.sh inc
+$bind XF86MonBrightnessDown exec ~/scripts/brightness.sh dec
+$bind $mod+Ctrl+Up          exec ~/scripts/brightness.sh inc
+$bind $mod+Ctrl+Down        exec ~/scripts/brightness.sh dec
+$bind $mod+Ctrl+Shift+Up    exec ~/scripts/brightness.sh max
+$bind $mod+Ctrl+Shift+Down  exec ~/scripts/brightness.sh min
+$bind $mod+Ctrl+slash       exec ~/scripts/brightness.sh mid
+$bind $mod+Ctrl+Shift+slash exec ~/scripts/brightness.sh mid
 
 # scratchpads
-bindsym $mod+F1 exec ~/scripts/i3-scratchpad -t $terminal
-bindsym $mod+F2 exec ~/scripts/i3-scratchpad -t "xfce4-terminal --command='ipython3 --profile=perlinm --no-banner'"
-bindsym $mod+F3 exec ~/scripts/i3-scratchpad -t -d 75%x75% "xfce4-terminal --command=htop"
-bindsym $mod+F4 exec ~/scripts/i3-scratchpad -t pavucontrol
+$bind $mod+F1 exec ~/scripts/i3-scratchpad -t $terminal
+$bind $mod+F2 exec ~/scripts/i3-scratchpad -t "xfce4-terminal --command='ipython3 --profile=perlinm --no-banner'"
+$bind $mod+F3 exec ~/scripts/i3-scratchpad -t -d 75%x75% "xfce4-terminal --command=htop"
+$bind $mod+F4 exec ~/scripts/i3-scratchpad -t pavucontrol

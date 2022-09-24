@@ -14,7 +14,7 @@ smart_borders on
 default_border pixel 3
 default_floating_border pixel 3
 
-input type:keyboard {
+input 1:1:AT_Translated_Set_2_keyboard {
   xkb_layout us(colemak),us
   xkb_options caps:backspace,lv3:ralt_alt,shift:both_capslock_cancel,grp:shift_caps_toggle
   repeat_delay 200

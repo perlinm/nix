@@ -39,7 +39,6 @@ let
     wdisplays  # display settings
     wev  # event logger
     wl-clipboard  # CLI copy/paste tool
-    # wmctrl  # command-line window control (used for scratchpads)
   ];
   fonts-icons-themes = with pkgs; [
     dracula-theme

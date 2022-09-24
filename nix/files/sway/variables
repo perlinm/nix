@@ -4,6 +4,7 @@
 
 set $mod Mod4
 set $alt Mod1
+set $bind bindsym --to-code
 
 set $terminal      alacritty
 set $browser       firefox
