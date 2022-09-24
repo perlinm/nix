@@ -106,7 +106,7 @@ $bind $mod+Shift+l move container to workspace prev_on_output; workspace prev_on
 $bind $mod+Shift+y move container to workspace next_on_output; workspace next_on_output
 
 # swap workspaces
-set $swap exec ~/scripts/sway-swap-workspace.sh
+set $swap exec ~/scripts/sway-swap-workspace
 $bind $mod+Ctrl+grave $swap 0
 $bind $mod+Ctrl+1     $swap 1
 $bind $mod+Ctrl+2     $swap 2
@@ -122,7 +122,7 @@ $bind $mod+Ctrl+minus $swap 11
 $bind $mod+Ctrl+equal $swap 12
 
 # move workspace left/right
-set $move exec ~/scripts/sway-move-workspace.py
+set $move exec ~/scripts/sway-move-workspace
 $bind $mod+Ctrl+q $move prev
 $bind $mod+Ctrl+f $move next
 $bind $mod+Ctrl+l $move prev
@@ -161,34 +161,34 @@ $bind $mod+b      exec $bluetooth
 ###############################################################################
 
 # screenshots
-$bind Print                exec ~/scripts/screenshot.sh screen
-$bind Ctrl+Print           exec ~/scripts/screenshot.sh window
-$bind Shift+Print          exec ~/scripts/screenshot.sh selection
-$bind $mod+backslash       exec ~/scripts/screenshot.sh screen
-$bind $mod+Ctrl+backslash  exec ~/scripts/screenshot.sh window
-$bind $mod+Shift+backslash exec ~/scripts/screenshot.sh selection
+$bind Print                exec ~/scripts/screenshot screen
+$bind Ctrl+Print           exec ~/scripts/screenshot window
+$bind Shift+Print          exec ~/scripts/screenshot selection
+$bind $mod+backslash       exec ~/scripts/screenshot screen
+$bind $mod+Ctrl+backslash  exec ~/scripts/screenshot window
+$bind $mod+Shift+backslash exec ~/scripts/screenshot selection
 
 # volume
-$bind XF86AudioRaiseVolume exec ~/scripts/volume.sh inc
-$bind XF86AudioLowerVolume exec ~/scripts/volume.sh dec
-$bind XF86AudioMute        exec ~/scripts/volume.sh toggle
-$bind XF86AudioMicMute     exec ~/scripts/volume.sh mic toggle
-$bind Ctrl+Up              exec ~/scripts/volume.sh inc
-$bind Ctrl+Down            exec ~/scripts/volume.sh dec
-$bind Ctrl+slash           exec ~/scripts/volume.sh toggle
-$bind Ctrl+Shift+Up        exec ~/scripts/volume.sh max
-$bind Ctrl+Shift+Down      exec ~/scripts/volume.sh min
-$bind Ctrl+Shift+slash     exec ~/scripts/volume.sh med
+$bind XF86AudioRaiseVolume exec ~/scripts/volume inc
+$bind XF86AudioLowerVolume exec ~/scripts/volume dec
+$bind XF86AudioMute        exec ~/scripts/volume toggle
+$bind XF86AudioMicMute     exec ~/scripts/volume mic toggle
+$bind Ctrl+Up              exec ~/scripts/volume inc
+$bind Ctrl+Down            exec ~/scripts/volume dec
+$bind Ctrl+slash           exec ~/scripts/volume toggle
+$bind Ctrl+Shift+Up        exec ~/scripts/volume max
+$bind Ctrl+Shift+Down      exec ~/scripts/volume min
+$bind Ctrl+Shift+slash     exec ~/scripts/volume med
 
 # screen brightness
-$bind XF86MonBrightnessUp   exec ~/scripts/brightness.sh inc
-$bind XF86MonBrightnessDown exec ~/scripts/brightness.sh dec
-$bind $mod+Ctrl+Up          exec ~/scripts/brightness.sh inc
-$bind $mod+Ctrl+Down        exec ~/scripts/brightness.sh dec
-$bind $mod+Ctrl+Shift+Up    exec ~/scripts/brightness.sh max
-$bind $mod+Ctrl+Shift+Down  exec ~/scripts/brightness.sh min
-$bind $mod+Ctrl+slash       exec ~/scripts/brightness.sh mid
-$bind $mod+Ctrl+Shift+slash exec ~/scripts/brightness.sh mid
+$bind XF86MonBrightnessUp   exec ~/scripts/brightness inc
+$bind XF86MonBrightnessDown exec ~/scripts/brightness dec
+$bind $mod+Ctrl+Up          exec ~/scripts/brightness inc
+$bind $mod+Ctrl+Down        exec ~/scripts/brightness dec
+$bind $mod+Ctrl+Shift+Up    exec ~/scripts/brightness max
+$bind $mod+Ctrl+Shift+Down  exec ~/scripts/brightness min
+$bind $mod+Ctrl+slash       exec ~/scripts/brightness mid
+$bind $mod+Ctrl+Shift+slash exec ~/scripts/brightness mid
 
 # scratchpads
 $bind $mod+F1 exec ~/scripts/i3-scratchpad -t $terminal

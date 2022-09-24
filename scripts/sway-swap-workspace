@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env sh
 
 if [ $# -ne 1 ]; then
   echo "usage: $0 [workspace]"
