@@ -4,13 +4,15 @@
 
 set $mod Mod4
 set $alt Mod1
-set $bind bindsym --to-code
+set $bind bindsym --to-code --no-repeat
+set $bind-repeat bindsym --to-code
 
 set $terminal      alacritty
 set $browser       firefox
 set $notifications swaync-client -t -sw
-set $bluetooth     blueberry
 set $display       wdisplays
+set $volume        pavucontrol
+set $bluetooth     blueberry
 set $launcher      nwg-drawer -g Dracula -term $terminal
 
 set $ws-0  workspace number 0

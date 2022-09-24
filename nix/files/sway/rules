@@ -10,7 +10,6 @@ assign [class="^Zotero$"] $ws-12
 for_window [app_id=".*"] inhibit_idle fullscreen
 
 # floating windows
-for_window [cond_mark="^pad-"]               floating enable
 for_window [app_id="^pavucontrol$"]          floating enable
 for_window [app_id="^nm-connection-editor$"] floating enable
 for_window [app_id="^wdisplays$"]            floating enable

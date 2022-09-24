@@ -36,10 +36,10 @@ $bind $mod+BackSpace split toggle
 floating_modifier $mod
 
 # resize window
-$bind $mod+Left  resize shrink width  3 px or 3 ppt
-$bind $mod+Up    resize shrink height 3 px or 3 ppt
-$bind $mod+Right resize grow   width  3 px or 3 ppt
-$bind $mod+Down  resize grow   height 3 px or 3 ppt
+$bind-repeat $mod+Left  resize shrink width  5 ppt or 100 px
+$bind-repeat $mod+Up    resize shrink height 5 ppt or 100 px
+$bind-repeat $mod+Right resize grow   width  5 ppt or 100 px
+$bind-repeat $mod+Down  resize grow   height 5 ppt or 100 px
 
 ###############################################################################
 # changing workspaces
@@ -149,12 +149,13 @@ $bind Ctrl+Escape exec swaylock
 # application launchers
 ###############################################################################
 
-$bind $mod+Tab    exec $terminal
-$bind $mod+Return exec $browser
-$bind $mod+k      exec $notifications
-$bind $mod+m      exec $launcher
-$bind $mod+d      exec $display
-$bind $mod+b      exec $bluetooth
+$bind $mod+Tab        exec $terminal
+$bind $mod+Return     exec $browser
+$bind $mod+k          exec $notifications
+$bind $mod+d          exec $display
+$bind $mod+v          exec $volume
+$bind $mod+b          exec $bluetooth
+$bind $mod+$alt+space exec $launcher
 
 ###############################################################################
 # personal scripts
@@ -169,29 +170,26 @@ $bind $mod+Ctrl+backslash  exec ~/scripts/screenshot window
 $bind $mod+Shift+backslash exec ~/scripts/screenshot selection
 
 # volume
-$bind XF86AudioRaiseVolume exec ~/scripts/volume inc
-$bind XF86AudioLowerVolume exec ~/scripts/volume dec
+$bind-repeat XF86AudioRaiseVolume exec ~/scripts/volume inc
+$bind-repeat XF86AudioLowerVolume exec ~/scripts/volume dec
+$bind-repeat Ctrl+Up              exec ~/scripts/volume inc
+$bind-repeat Ctrl+Down            exec ~/scripts/volume dec
 $bind XF86AudioMute        exec ~/scripts/volume toggle
-$bind XF86AudioMicMute     exec ~/scripts/volume mic toggle
-$bind Ctrl+Up              exec ~/scripts/volume inc
-$bind Ctrl+Down            exec ~/scripts/volume dec
 $bind Ctrl+slash           exec ~/scripts/volume toggle
 $bind Ctrl+Shift+Up        exec ~/scripts/volume max
 $bind Ctrl+Shift+Down      exec ~/scripts/volume min
 $bind Ctrl+Shift+slash     exec ~/scripts/volume med
+$bind XF86AudioMicMute     exec ~/scripts/volume mic toggle
 
 # screen brightness
-$bind XF86MonBrightnessUp   exec ~/scripts/brightness inc
-$bind XF86MonBrightnessDown exec ~/scripts/brightness dec
-$bind $mod+Ctrl+Up          exec ~/scripts/brightness inc
-$bind $mod+Ctrl+Down        exec ~/scripts/brightness dec
+$bind-repeat XF86MonBrightnessUp   exec ~/scripts/brightness inc
+$bind-repeat XF86MonBrightnessDown exec ~/scripts/brightness dec
+$bind-repeat $mod+Ctrl+Up          exec ~/scripts/brightness inc
+$bind-repeat $mod+Ctrl+Down        exec ~/scripts/brightness dec
 $bind $mod+Ctrl+Shift+Up    exec ~/scripts/brightness max
 $bind $mod+Ctrl+Shift+Down  exec ~/scripts/brightness min
 $bind $mod+Ctrl+slash       exec ~/scripts/brightness mid
 $bind $mod+Ctrl+Shift+slash exec ~/scripts/brightness mid
 
 # scratchpads
-$bind $mod+F1 exec ~/scripts/i3-scratchpad -t $terminal
-$bind $mod+F2 exec ~/scripts/i3-scratchpad -t "xfce4-terminal --command='ipython3 --profile=perlinm --no-banner'"
-$bind $mod+F3 exec ~/scripts/i3-scratchpad -t -d 75%x75% "xfce4-terminal --command=htop"
-$bind $mod+F4 exec ~/scripts/i3-scratchpad -t pavucontrol
+#$bind $mod+F1 exec ~/scripts/sway-scratchpad ...
