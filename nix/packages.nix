@@ -60,6 +60,7 @@ let
     slack  # work chat
     spotify  # music
     vlc  # for watching videos
+    xfce.thunar  # file browser
     # zoom-us  # video conferencing app
     zotero  # bibliography/reference manager
   ];

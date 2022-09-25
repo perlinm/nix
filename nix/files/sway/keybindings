@@ -192,4 +192,15 @@ $bind $mod+Ctrl+slash       exec ~/scripts/brightness mid
 $bind $mod+Ctrl+Shift+slash exec ~/scripts/brightness mid
 
 # scratchpads
-#$bind $mod+F1 exec ~/scripts/sway-scratchpad ...
+$bind $mod+F1  exec swaymsg [app_id="pad-F1"]  scratchpad show || $terminal --class="pad-F1"
+$bind $mod+F2  exec swaymsg [app_id="pad-F2"]  scratchpad show || $terminal --class="pad-F2"
+$bind $mod+F3  exec swaymsg [app_id="pad-F3"]  scratchpad show || $terminal --class="pad-F3"
+$bind $mod+F4  exec swaymsg [app_id="pad-F4"]  scratchpad show || $terminal --class="pad-F4"
+$bind $mod+F5  exec swaymsg [app_id="pad-F5"]  scratchpad show || $terminal --class="pad-F5"
+$bind $mod+F6  exec swaymsg [app_id="pad-F6"]  scratchpad show || $terminal --class="pad-F6"
+$bind $mod+F7  exec swaymsg [app_id="pad-F7"]  scratchpad show || $terminal --class="pad-F7"
+$bind $mod+F8  exec swaymsg [app_id="pad-F8"]  scratchpad show || $terminal --class="pad-F8"
+$bind $mod+F9  exec swaymsg [app_id="pad-F9"]  scratchpad show || $terminal --class="pad-F9"
+$bind $mod+F10 exec swaymsg [app_id="pad-F10"] scratchpad show || $terminal --class="pad-F10"
+$bind $mod+F11 exec swaymsg [app_id="pad-F11"] scratchpad show || $terminal --class="pad-F11"
+$bind $mod+F12 exec swaymsg [app_id="pad-F12"] scratchpad show || $terminal --class="pad-F12"
