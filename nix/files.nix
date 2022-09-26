@@ -26,13 +26,6 @@ let
     "waybar/style.css".source = ./files/waybar/style.css;
     "swaylock/config".source = ./files/swaylock-config;
 
-    "regolith2/Xresources".source = ./files/regolith2/Xresources;
-    "regolith2/i3/config.d/bar".source = ./files/regolith2/i3/config.d/bar;
-    "regolith2/i3/config.d/rules".source = ./files/regolith2/i3/config.d/rules;
-    "regolith2/i3/config.d/keybindings".source = ./files/regolith2/i3/config.d/keybindings;
-    "regolith2/i3/config.d/startup".source = ./files/regolith2/i3/config.d/startup;
-    "regolith2/i3xrocks/conf.d/setup".source = ./files/regolith2/i3xrocks/conf.d/setup;
-
     "starship.toml".source = ./files/starship.toml;
     "alacritty/alacritty.yml".source = ./files/alacritty.yml;
     "qpdfview/shortcuts.conf".source = ./files/qpdfview-shortcuts.conf;
