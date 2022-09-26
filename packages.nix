@@ -31,13 +31,14 @@ let
     autotiling-rs  # sane tiling defaults
     brightnessctl  # screen brightness
     grim slurp  # for screenshots
-    sway  # window manager!
+    # sway  # window manager!
     swaybg  # set background image
-    swaylock-effects swayidle  # screen locker
+    swaylock-effects  # screen locker
+    swayidle  # lock or turn off screen when idling
     swaynotificationcenter libnotify  # notification daemon
     swaytools  # get window properties with swayinfo
     waybar  # info bar / panel
-    wdisplays  # display settings
+    # wdisplays  # display settings
     wev  # event logger
     wl-clipboard  # CLI copy/paste tool
   ];
@@ -59,7 +60,7 @@ let
     pavucontrol  # volume control
     qpdfview okular foxitreader  # pdf viewers
     # slack  # work chat
-    spotify  # music
+    # spotify  # music
     vlc  # for watching videos
     xfce.thunar  # file browser
     # zoom-us  # video conferencing app

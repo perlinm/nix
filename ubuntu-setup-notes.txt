@@ -9,6 +9,12 @@ nix-channel --update
 export NIX_PATH=$HOME/.nix-defexpr/channels:/nix/var/nix/profiles/per-user/root/channels${NIX_PATH:+:$NIX_PATH}
 nix-shell '<home-manager>' -A install
 
+# to enable using nix packages
+# add /home/perlinm/.nix-profile/bin to PATH in /etc/environment
+
+# to enable wayland mode for firefox
+echo "MOZ_ENABLE_WAYLAND=1" >> /etc/environment
+
 # for alacritty, see:
 # https://github.com/NixOS/nixpkgs/issues/122671
 # https://github.com/guibou/nixGL/
