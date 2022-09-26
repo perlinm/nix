@@ -10,8 +10,8 @@ assign [class="^Zotero$"] $ws-12
 for_window [app_id=".*"] inhibit_idle fullscreen
 
 # scratchpads
-for_window [app_id="^pad-F[0-9]+$"] move scratchpad, scratchpad show
-for_window [app_id="^pad-F[0-9]+$"] floating enable, resize set 1000 600
+for_window [title="^pad-F[0-9]+$"] move scratchpad, scratchpad show
+for_window [title="^pad-F[0-9]+$"] floating enable, resize set 1000 600
 
 # floating windows
 for_window [app_id="^pavucontrol$"]          floating enable, resize set 1000 600
