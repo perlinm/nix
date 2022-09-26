@@ -23,6 +23,7 @@ input 1:1:AT_Translated_Set_2_keyboard {
 
 input type:touchpad {
   natural_scroll enabled
+  click_method clickfinger
 }
 
 output * background ~/Pictures/.background fill

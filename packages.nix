@@ -27,7 +27,7 @@ let
     zip unzip  # zipping/unzipping
   ];
   desktop-utilities = with pkgs; [
-    i3  # FOR TESTING PURPOSES
+    i3-gaps  # FOR TESTING PURPOSES
     autotiling-rs  # sane tiling defaults
     brightnessctl  # screen brightness
     grim slurp  # for screenshots
@@ -38,7 +38,7 @@ let
     swaynotificationcenter libnotify  # notification daemon
     swaytools  # get window properties with swayinfo
     waybar  # info bar / panel
-    # wdisplays  # display settings
+    wdisplays  # display settings
     wev  # event logger
     wl-clipboard  # CLI copy/paste tool
   ];
@@ -59,8 +59,8 @@ let
     meld  # file comparison tool
     pavucontrol  # volume control
     qpdfview okular foxitreader  # pdf viewers
-    # slack  # work chat
-    # spotify  # music
+    slack  # work chat
+    spotify  # music
     vlc  # for watching videos
     xfce.thunar  # file browser
     # zoom-us  # video conferencing app

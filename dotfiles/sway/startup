@@ -31,9 +31,6 @@ exec swayidle -w before-sleep swaylock timeout 120 $screen-off resume $screen-on
 # applications
 ###############################################################################
 
-# start on workspace 1
-# exec swaymsg workspace $ws-01
-
-# exec teams
-# exec slack
-# exec zotero
+exec google-chrome
+exec slack
+exec zotero
