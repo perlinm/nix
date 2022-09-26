@@ -1,3 +1,0 @@
-#!/usr/bin/env sh
-
-/bin/bash /usr/local/share/kbd_backlight $*
