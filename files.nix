@@ -1,35 +1,35 @@
 let
   home = {
-    ".ssh/config".source = ./configs/ssh/config;
-    ".ssh/id_rsa.gpg".source = ./configs/ssh/id_rsa.gpg;
-    ".ssh/id_rsa.pub".source = ./configs/ssh/id_rsa.pub;
-    ".ssh/fingerprint".source = ./configs/ssh/fingerprint;
+    ".ssh/config".source = ./dotfiles/ssh/config;
+    ".ssh/id_rsa.gpg".source = ./dotfiles/ssh/id_rsa.gpg;
+    ".ssh/id_rsa.pub".source = ./dotfiles/ssh/id_rsa.pub;
+    ".ssh/fingerprint".source = ./dotfiles/ssh/fingerprint;
     
-    ".vimrc".source = ./configs/vimrc;
-    ".emacs.d/init.el".source = ./configs/emacs-init.el;
-    ".latexmkrc".source = ./configs/latexmkrc;
-    ".ipython/profile_perlinm/startup/00-libs.py".source = ./configs/ipython-startup-libs.py;
+    ".vimrc".source = ./dotfiles/vimrc;
+    ".emacs.d/init.el".source = ./dotfiles/emacs-init.el;
+    ".latexmkrc".source = ./dotfiles/latexmkrc;
+    ".ipython/profile_perlinm/startup/00-libs.py".source = ./dotfiles/ipython-startup-libs.py;
   };
 
   xdg = {
-    "helix/config.toml".source = ./configs/helix/config.toml;
-    "helix/languages.toml".source = ./configs/helix/languages.toml;
-    "helix/themes/onedark_perlinm.toml".source = ./configs/helix/themes/onedark_perlinm.toml;
+    "helix/config.toml".source = ./dotfiles/helix/config.toml;
+    "helix/languages.toml".source = ./dotfiles/helix/languages.toml;
+    "helix/themes/onedark_perlinm.toml".source = ./dotfiles/helix/themes/onedark_perlinm.toml;
 
-    "sway/config".source = ./configs/sway/config;
-    "sway/keybindings".source = ./configs/sway/keybindings;
-    "sway/rules".source = ./configs/sway/rules;
-    "sway/startup".source = ./configs/sway/startup;
-    "sway/variables".source = ./configs/sway/variables;
+    "sway/config".source = ./dotfiles/sway/config;
+    "sway/keybindings".source = ./dotfiles/sway/keybindings;
+    "sway/rules".source = ./dotfiles/sway/rules;
+    "sway/startup".source = ./dotfiles/sway/startup;
+    "sway/variables".source = ./dotfiles/sway/variables;
 
-    "waybar/config".source = ./configs/waybar/config;
-    "waybar/style.css".source = ./configs/waybar/style.css;
-    "swaylock/config".source = ./configs/swaylock-config;
+    "waybar/config".source = ./dotfiles/waybar/config;
+    "waybar/style.css".source = ./dotfiles/waybar/style.css;
+    "swaylock/config".source = ./dotfiles/swaylock-config;
 
-    "starship.toml".source = ./configs/starship.toml;
-    "alacritty/alacritty.yml".source = ./configs/alacritty.yml;
-    "qpdfview/shortcuts.conf".source = ./configs/qpdfview-shortcuts.conf;
-    "flake8".source = ./configs/flake8;
+    "starship.toml".source = ./dotfiles/starship.toml;
+    "alacritty/alacritty.yml".source = ./dotfiles/alacritty.yml;
+    "qpdfview/shortcuts.conf".source = ./dotfiles/qpdfview-shortcuts.conf;
+    "flake8".source = ./dotfiles/flake8;
   };
 in
 {
