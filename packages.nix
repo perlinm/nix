@@ -33,11 +33,11 @@ let
     grim slurp  # for screenshots
     sway  # window manager!
     swaybg  # set background image
-    # swaylock-effects swayidle  # screen locker
+    swaylock-effects swayidle  # screen locker
     swaynotificationcenter libnotify  # notification daemon
     swaytools  # get window properties with swayinfo
-    # waybar  # info bar / panel
-    # wdisplays  # display settings
+    waybar  # info bar / panel
+    wdisplays  # display settings
     wev  # event logger
     wl-clipboard  # CLI copy/paste tool
   ];
