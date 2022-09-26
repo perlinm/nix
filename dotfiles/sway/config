@@ -31,7 +31,8 @@ output * background ~/Pictures/.background fill
 seat * hide_cursor 5000
 seat * hide_cursor when-typing enable
 
-bar swaybar_command waybar
+#bar swaybar_command waybar
+exec waybar
 
 include ~/.config/sway/variables
 include ~/.config/sway/rules

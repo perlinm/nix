@@ -5,7 +5,7 @@ let
     gcc
     # mathematica
     texlive.combined.scheme-full
-    (import ./python.nix { inherit pkgs; })
+    # (import ./python.nix { inherit pkgs; })
   ];
   console-utilities = with pkgs; [
     cmake  # build system
@@ -27,16 +27,17 @@ let
     zip unzip  # zipping/unzipping
   ];
   desktop-utilities = with pkgs; [
+    i3  # FOR TESTING PURPOSES
     autotiling-rs  # sane tiling defaults
     brightnessctl  # screen brightness
     grim slurp  # for screenshots
-    nwg-drawer   # application drawer
+    sway  # window manager!
     swaybg  # set background image
-    swaylock-effects swayidle  # screen locker
+    # swaylock-effects swayidle  # screen locker
     swaynotificationcenter libnotify  # notification daemon
     swaytools  # get window properties with swayinfo
-    waybar  # info bar / panel
-    wdisplays  # display settings
+    # waybar  # info bar / panel
+    # wdisplays  # display settings
     wev  # event logger
     wl-clipboard  # CLI copy/paste tool
   ];
@@ -57,7 +58,7 @@ let
     meld  # file comparison tool
     pavucontrol  # volume control
     qpdfview okular foxitreader  # pdf viewers
-    slack  # work chat
+    # slack  # work chat
     spotify  # music
     vlc  # for watching videos
     xfce.thunar  # file browser
