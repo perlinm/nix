@@ -4,49 +4,14 @@ sudo apt install aptitude
 # https://nixos.org/download.html
 # https://nix-community.github.io/home-manager/index.html#sec-install-standalone
 sudo sh <(curl -L https://nixos.org/nix/install) --daemon
-nix-channel --add https://github.com/nix-community/home-manager/archive/release-22.05.tar.gz home-manager
+nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
 nix-channel --update
 export NIX_PATH=$HOME/.nix-defexpr/channels:/nix/var/nix/profiles/per-user/root/channels${NIX_PATH:+:$NIX_PATH}
 nix-shell '<home-manager>' -A install
 
-# after adding regolith to apt repositories: https://regolith-desktop.com/
-sudo aptitude install regolith-desktop
-
-# following: https://regolith-desktop.com/docs/using-regolith/configuration/
-sudo aptitude install $(aptitude search regolith-look | grep -v '^i ')
-sudo aptitude install \
-  i3xrocks-focused-window-name \
-  i3xrocks-rofication \
-  i3xrocks-info \
-  i3xrocks-app-launcher \
-  i3xrocks-memory \
-  i3xrocks-battery \
-  regolith-compositor-picom-glx
+# for alacritty, see:
+# https://github.com/NixOS/nixpkgs/issues/122671
+# https://github.com/guibou/nixGL/
 
 # update default terminal emulator
 sudo update-alternatives --config x-terminal-emulator
-
-sudo aptitude remove \
-  regolith-i3-rofication-ilia \
-  regolith-i3-base-launchers \
-  regolith-i3-navigation \
-  regolith-i3-next-workspace \
-  regolith-i3-i3xrocks \
-  regolith-i3-ilia \
-  regolith-i3-rofication-ilia \
-  regolith-i3-resize \
-  regolith-i3-gnome \
-  regolith-i3-session \
-  regolith-i3-workspace-config \
-  regolith-i3-networkmanager
-
-sudo aptitude remove \
-  i3xrocks-app-launcher \
-  i3xrocks-memory \
-  i3xrocks-info
-
-pip3 install --user i3-layouts
-
-mkdir ~/src && mkdir ~/scripts
-git clone git@gitlab.com:aquator/i3-scratchpad.git ~/src/i3-scratchpad
-ln -s ~/src/i3-scratchpad/i3-scratchpad ~/scripts/i3-scratchpad
