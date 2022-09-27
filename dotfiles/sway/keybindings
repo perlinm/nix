@@ -149,13 +149,12 @@ $bind Ctrl+Escape exec swaylock
 # application launchers
 ###############################################################################
 
-$bind $mod+Tab        exec $terminal
-$bind $mod+Return     exec $browser
-$bind $mod+k          exec $notifications
-$bind $mod+d          exec $display
-$bind $mod+v          exec $volume
-$bind $mod+b          exec $bluetooth
-$bind $mod+$alt+space exec $launcher
+$bind $mod+Tab    exec $terminal
+$bind $mod+Return exec $browser
+$bind $mod+k      exec $notifications
+$bind $mod+d      exec $display
+$bind $mod+v      exec $volume
+$bind $mod+b      exec $bluetooth
 
 ###############################################################################
 # personal scripts
