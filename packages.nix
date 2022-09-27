@@ -26,7 +26,7 @@ let
     woof # secure network file sharing
     zip unzip  # zipping/unzipping
   ];
-  desktop-utilities = with pkgs; [
+  sway-utilities = with pkgs; [
     autotiling-rs  # sane tiling defaults
     brightnessctl  # screen brightness
     grim slurp  # for screenshots
@@ -39,6 +39,18 @@ let
     wdisplays  # display settings
     wev  # event logger
     wl-clipboard  # CLI copy/paste tool
+  ];
+  i3-utilities = with pkgs; [
+    autotiling  # sane tiling defaults
+    picom  # window compositor
+    maim  # screenshots
+    feh  # set background image
+    xclip  # CLI copy/paste tool
+    xidlehook  # lock or turn off screen when idling
+    xorg.xbacklight  # screen brightness
+    xorg.xev  # event logger
+    xorg.xprop  # get window properties
+    xss-lock  # lock screen manager
   ];
   fonts-icons-themes = with pkgs; [
     dracula-theme
@@ -65,4 +77,4 @@ let
     zotero  # bibliography/reference manager
   ];
 in
-languages ++ console-utilities ++ desktop-utilities ++ fonts-icons-themes ++ applications
+languages ++ console-utilities ++ sway-utilities ++ i3-utilities ++ fonts-icons-themes ++ applications
