@@ -27,11 +27,9 @@ let
     zip unzip  # zipping/unzipping
   ];
   desktop-utilities = with pkgs; [
-    i3-gaps  # FOR TESTING PURPOSES
     autotiling-rs  # sane tiling defaults
     brightnessctl  # screen brightness
     grim slurp  # for screenshots
-    # sway  # window manager!
     swaybg  # set background image
     swaylock-effects  # screen locker
     swayidle  # lock or turn off screen when idling
