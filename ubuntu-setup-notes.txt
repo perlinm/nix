@@ -18,10 +18,14 @@ echo "MOZ_ENABLE_WAYLAND=1" >> /etc/environment
 # install apps whose nix vesions do not work correctly
 sudo aptitude install swaylock wdisplays
 
+# for screen sharing, and possibly for zoom to work
+sudo aptitude install xdg-desktop-portal-wlr
+
 # for swaync
 cd ~/src && git clone git@github.com:ErikReider/SwayNotificationCenter.git
 sudo aptitude install build-essential meson valac gobject-introspection scdoc
 sudo aptitude install libwayland-dev libgtk-3-dev libgirepository1.0-dev libjson-glib-dev libhandy-1-dev libgtk-layer-shell-dev
+# see https://github.com/NixOS/nixpkgs/issues/18012#issuecomment-335350903
 
 # for alacritty, see:
 # https://github.com/NixOS/nixpkgs/issues/122671
