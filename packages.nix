@@ -30,9 +30,9 @@ let
     autotiling-rs  # sane tiling defaults
     brightnessctl  # screen brightness
     grim slurp  # for screenshots
-    nwg-drawer   # application drawer
     swaybg  # set background image
-    swaylock-effects swayidle  # screen locker
+    swaylock-effects  # screen locker
+    swayidle  # lock or turn off screen when idling
     swaynotificationcenter libnotify  # notification daemon
     swaytools  # get window properties with swayinfo
     waybar  # info bar / panel

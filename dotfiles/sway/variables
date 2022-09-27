@@ -13,7 +13,6 @@ set $notifications swaync-client -t -sw
 set $display       wdisplays
 set $volume        pavucontrol
 set $bluetooth     blueberry
-set $launcher      nwg-drawer -g Dracula -term $terminal
 
 set $ws-0  workspace number 0
 set $ws-1  workspace number 1

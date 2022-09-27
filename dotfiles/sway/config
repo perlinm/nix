@@ -23,6 +23,11 @@ input 1:1:AT_Translated_Set_2_keyboard {
 
 input type:touchpad {
   natural_scroll enabled
+  scroll_method two_finger
+  click_method clickfinger
+  accel_profile adaptive
+  pointer_accel 0.5
+  tap enabled 0.5
 }
 
 output * background ~/Pictures/.background fill
