@@ -31,9 +31,9 @@ let
     brightnessctl  # screen brightness
     grim slurp  # for screenshots
     swaybg  # set background image
-    swaylock-effects  # screen locker
+    # swaylock-effects  # screen locker
     swayidle  # lock or turn off screen when idling
-    swaynotificationcenter libnotify  # notification daemon
+    # swaynotificationcenter libnotify  # notification daemon
     swaytools  # get window properties with swayinfo
     waybar  # info bar / panel
     wdisplays  # display settings

@@ -21,3 +21,4 @@ for_window [app_id="^blueberry\.py$"]        floating enable
 for_window [app_id="^gpick$"]                floating enable
 for_window [app_id="^wev$"]                  floating enable
 for_window [app_id="^thunar$"]               floating enable, resize set 1000 800
+for_window [class="^Matplotlib$"]            floating enable, resize set 1000 800
