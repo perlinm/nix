@@ -25,7 +25,7 @@ exec swaync
 # screen locker
 set $screen-off 'swaymsg "output * dpms off"'
 set $screen-on  'swaymsg "output * dpms on"'
-exec swayidle -w before-sleep swaylock timeout 120 $screen-off resume $screen-on
+exec swayidle -w before-sleep swaylock timeout 300 $screen-off resume $screen-on
 
 ###############################################################################
 # applications
