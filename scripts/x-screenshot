@@ -1,0 +1,21 @@
+#!/usr/bin/env sh
+
+if [ "$#" -ne 1 ]; then
+  exit 1
+fi
+
+screenshot_dir=~/Pictures/screenshots
+output=$screenshot_dir/$(date +"%Y-%m-%d-%H-%M-%S").png
+
+if [ $1 = screen ]; then
+  maim --hidecursor $output
+
+elif [ $1 = window ]; then
+  maim --hidecursor --window=$(xdotool getactivewindow) --capturebackground $output
+
+elif [ $1 = selection ]; then
+  maim -s $output
+
+fi
+
+xclip -selection clipboard -t image/png -i $output

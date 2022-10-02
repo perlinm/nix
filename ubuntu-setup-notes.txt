@@ -15,13 +15,26 @@ nix-shell '<home-manager>' -A install
 # update default terminal emulator
 sudo update-alternatives --config x-terminal-emulator
 
-# install i3-gnome: https://github.com/nmakel/i3-gnome/blob/master/README.md
-sudo aptitude install i3 gnome-flashback
-cd ~/src
-git clone https://github.com/nmakel/i3-gnome.git
-cd i3-gnome
-sudo make install
-gsettings set org.gnome.gnome-flashback desktop false
-gsettings set org.gnome.gnome-flashback root-background true
+# print to /etc/X11/xorg.conf.d/20-screen.conf
+Section "Device"
+    Identifier "Intel Graphics"
+    Driver "intel"
+    Option "Backlight" "intel_backlight"
+EndSection
 
+# print to /etc/X11/xorg.conf.d/30-touchpad.conf
+Section "InputClass"
+    Identifier "devname"
+    Driver "libinput"
+    MatchIsTouchpad "on"
 
+    Option "NaturalScrolling" "true"
+    Option "ScrollMethod" "twofinger"
+    Option "ClickMethod" "clickfinger"
+    Option "Tapping" "true"
+    Option "AccelProfile" "adaptive"
+    Option "AccelSpeed" "0.5"
+
+    Option "DisableWhileTyping" "on"
+    Option "PalmDetect" "on"
+EndSection

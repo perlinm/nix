@@ -42,10 +42,12 @@ let
   ];
   i3-utilities = with pkgs; [
     autotiling  # sane tiling defaults
+    # gnome.gnome-control-center  # provides display settings
     # picom  # window compositor
     maim  # screenshots
     feh  # set background image
     xclip  # CLI copy/paste tool
+    xdotool  # simulate keyboard/mouse input, manipulate windows
     xidlehook  # lock or turn off screen when idling
     xorg.xbacklight  # screen brightness
     xorg.xev  # event logger
@@ -60,7 +62,7 @@ let
     vistafonts  # provides consolas
   ];
   applications = with pkgs; [
-    alacritty  # terminal emulator
+    alacritty xfce.xfce4-terminal  # terminal emulators
     blueberry  # bluetooth tool
     gnome.eog  # image viewer
     # firefox-wayland  # web browser

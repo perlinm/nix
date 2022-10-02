@@ -161,12 +161,12 @@ $bind $mod+b      exec $bluetooth
 ###############################################################################
 
 # screenshots
-$bind Print                exec ~/scripts/screenshot screen
-$bind Ctrl+Print           exec ~/scripts/screenshot window
-$bind Shift+Print          exec ~/scripts/screenshot selection
-$bind $mod+backslash       exec ~/scripts/screenshot screen
-$bind $mod+Ctrl+backslash  exec ~/scripts/screenshot window
-$bind $mod+Shift+backslash exec ~/scripts/screenshot selection
+$bind Print                exec ~/scripts/w-screenshot screen
+$bind Ctrl+Print           exec ~/scripts/w-screenshot window
+$bind Shift+Print          exec ~/scripts/w-screenshot selection
+$bind $mod+backslash       exec ~/scripts/w-screenshot screen
+$bind $mod+Ctrl+backslash  exec ~/scripts/w-screenshot window
+$bind $mod+Shift+backslash exec ~/scripts/w-screenshot selection
 
 # volume
 $bind-repeat XF86AudioRaiseVolume exec ~/scripts/volume inc
@@ -181,14 +181,14 @@ $bind Ctrl+Shift+slash     exec ~/scripts/volume med
 $bind XF86AudioMicMute     exec ~/scripts/volume mic toggle
 
 # screen brightness
-$bind-repeat XF86MonBrightnessUp   exec ~/scripts/brightness inc
-$bind-repeat XF86MonBrightnessDown exec ~/scripts/brightness dec
-$bind-repeat $mod+Ctrl+Up          exec ~/scripts/brightness inc
-$bind-repeat $mod+Ctrl+Down        exec ~/scripts/brightness dec
-$bind $mod+Ctrl+Shift+Up    exec ~/scripts/brightness max
-$bind $mod+Ctrl+Shift+Down  exec ~/scripts/brightness min
-$bind $mod+Ctrl+slash       exec ~/scripts/brightness mid
-$bind $mod+Ctrl+Shift+slash exec ~/scripts/brightness mid
+$bind-repeat XF86MonBrightnessUp   exec ~/scripts/w-brightness inc
+$bind-repeat XF86MonBrightnessDown exec ~/scripts/w-brightness dec
+$bind-repeat $mod+Ctrl+Up          exec ~/scripts/w-brightness inc
+$bind-repeat $mod+Ctrl+Down        exec ~/scripts/w-brightness dec
+$bind $mod+Ctrl+Shift+Up           exec ~/scripts/w-brightness max
+$bind $mod+Ctrl+Shift+Down         exec ~/scripts/w-brightness min
+$bind $mod+Ctrl+slash              exec ~/scripts/w-brightness mid
+$bind $mod+Ctrl+Shift+slash        exec ~/scripts/w-brightness mid
 
 # scratchpads
 $bind $mod+F1  exec swaymsg [title="^pad-F1$"]  scratchpad show || $terminal --title="pad-F1"
