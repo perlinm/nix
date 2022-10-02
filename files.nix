@@ -26,6 +26,11 @@ let
     "waybar/style.css".source = ./dotfiles/waybar/style.css;
     "swaylock/config".source = ./dotfiles/swaylock-config;
 
+    "i3/config".source = ./dotfiles/i3/config;
+    "i3/keybindings".source = ./dotfiles/i3/keybindings;
+    "i3/rules".source = ./dotfiles/i3/rules;
+    "i3/startup".source = ./dotfiles/i3/startup;
+
     "starship.toml".source = ./dotfiles/starship.toml;
     "alacritty/alacritty.yml".source = ./dotfiles/alacritty.yml;
     "qpdfview/shortcuts.conf".source = ./dotfiles/qpdfview-shortcuts.conf;

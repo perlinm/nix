@@ -46,6 +46,7 @@ let
     # picom  # window compositor
     maim  # screenshots
     feh  # set background image
+    # polybar  # info bar / panel
     xclip  # CLI copy/paste tool
     xdotool  # simulate keyboard/mouse input, manipulate windows
     xidlehook  # lock or turn off screen when idling
