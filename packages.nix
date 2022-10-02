@@ -42,7 +42,7 @@ let
   ];
   i3-utilities = with pkgs; [
     autotiling  # sane tiling defaults
-    picom  # window compositor
+    # picom  # window compositor
     maim  # screenshots
     feh  # set background image
     xclip  # CLI copy/paste tool
@@ -63,7 +63,7 @@ let
     alacritty  # terminal emulator
     blueberry  # bluetooth tool
     gnome.eog  # image viewer
-    firefox-wayland  # web browser
+    # firefox-wayland  # web browser
     gpick  # color picker
     inkscape  # vector graphics (SVG) editor
     meld  # file comparison tool

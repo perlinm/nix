@@ -106,7 +106,7 @@ $bind $mod+Shift+l move container to workspace prev_on_output; workspace prev_on
 $bind $mod+Shift+y move container to workspace next_on_output; workspace next_on_output
 
 # swap workspaces
-set $swap exec ~/scripts/sway-swap-workspace
+set $swap exec ~/scripts/i3-swap-workspace
 $bind $mod+Ctrl+grave $swap 0
 $bind $mod+Ctrl+1     $swap 1
 $bind $mod+Ctrl+2     $swap 2
@@ -122,7 +122,7 @@ $bind $mod+Ctrl+minus $swap 11
 $bind $mod+Ctrl+equal $swap 12
 
 # move workspace left/right
-set $move exec ~/scripts/sway-move-workspace
+set $move exec ~/scripts/i3-move-workspace
 $bind $mod+Ctrl+q $move prev
 $bind $mod+Ctrl+f $move next
 $bind $mod+Ctrl+l $move prev
