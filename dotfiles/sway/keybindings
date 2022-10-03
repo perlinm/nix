@@ -106,7 +106,7 @@ $bind $mod+Shift+l move container to workspace prev_on_output; workspace prev_on
 $bind $mod+Shift+y move container to workspace next_on_output; workspace next_on_output
 
 # swap workspaces
-set $swap exec ~/scripts/sway-swap-workspace
+set $swap exec ~/scripts/i3-swap-workspace
 $bind $mod+Ctrl+grave $swap 0
 $bind $mod+Ctrl+1     $swap 1
 $bind $mod+Ctrl+2     $swap 2
@@ -122,7 +122,7 @@ $bind $mod+Ctrl+minus $swap 11
 $bind $mod+Ctrl+equal $swap 12
 
 # move workspace left/right
-set $move exec ~/scripts/sway-move-workspace
+set $move exec ~/scripts/i3-move-workspace
 $bind $mod+Ctrl+q $move prev
 $bind $mod+Ctrl+f $move next
 $bind $mod+Ctrl+l $move prev
@@ -161,12 +161,12 @@ $bind $mod+b      exec $bluetooth
 ###############################################################################
 
 # screenshots
-$bind Print                exec ~/scripts/screenshot screen
-$bind Ctrl+Print           exec ~/scripts/screenshot window
-$bind Shift+Print          exec ~/scripts/screenshot selection
-$bind $mod+backslash       exec ~/scripts/screenshot screen
-$bind $mod+Ctrl+backslash  exec ~/scripts/screenshot window
-$bind $mod+Shift+backslash exec ~/scripts/screenshot selection
+$bind Print                exec ~/scripts/w-screenshot screen
+$bind Ctrl+Print           exec ~/scripts/w-screenshot window
+$bind Shift+Print          exec ~/scripts/w-screenshot selection
+$bind $mod+backslash       exec ~/scripts/w-screenshot screen
+$bind $mod+Ctrl+backslash  exec ~/scripts/w-screenshot window
+$bind $mod+Shift+backslash exec ~/scripts/w-screenshot selection
 
 # volume
 $bind-repeat XF86AudioRaiseVolume exec ~/scripts/volume inc
@@ -181,14 +181,14 @@ $bind Ctrl+Shift+slash     exec ~/scripts/volume med
 $bind XF86AudioMicMute     exec ~/scripts/volume mic toggle
 
 # screen brightness
-$bind-repeat XF86MonBrightnessUp   exec ~/scripts/brightness inc
-$bind-repeat XF86MonBrightnessDown exec ~/scripts/brightness dec
-$bind-repeat $mod+Ctrl+Up          exec ~/scripts/brightness inc
-$bind-repeat $mod+Ctrl+Down        exec ~/scripts/brightness dec
-$bind $mod+Ctrl+Shift+Up    exec ~/scripts/brightness max
-$bind $mod+Ctrl+Shift+Down  exec ~/scripts/brightness min
-$bind $mod+Ctrl+slash       exec ~/scripts/brightness mid
-$bind $mod+Ctrl+Shift+slash exec ~/scripts/brightness mid
+$bind-repeat XF86MonBrightnessUp   exec ~/scripts/w-brightness inc
+$bind-repeat XF86MonBrightnessDown exec ~/scripts/w-brightness dec
+$bind-repeat $mod+Ctrl+Up          exec ~/scripts/w-brightness inc
+$bind-repeat $mod+Ctrl+Down        exec ~/scripts/w-brightness dec
+$bind $mod+Ctrl+Shift+Up           exec ~/scripts/w-brightness max
+$bind $mod+Ctrl+Shift+Down         exec ~/scripts/w-brightness min
+$bind $mod+Ctrl+slash              exec ~/scripts/w-brightness mid
+$bind $mod+Ctrl+Shift+slash        exec ~/scripts/w-brightness mid
 
 # scratchpads
 $bind $mod+F1  exec swaymsg [app_id="^pad-F1$"]  scratchpad show || $terminal --class="pad-F1"
