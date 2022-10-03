@@ -26,36 +26,6 @@ let
     woof # secure network file sharing
     zip unzip  # zipping/unzipping
   ];
-  sway-utilities = with pkgs; [
-    autotiling-rs  # sane tiling defaults
-    brightnessctl  # screen brightness
-    grim slurp  # for screenshots
-    # swaybg  # set background image
-    # swaylock-effects  # screen locker
-    swayidle  # lock or turn off screen when idling
-    # swaynotificationcenter libnotify  # notification daemon
-    swaytools  # get window properties with swayinfo
-    waybar  # info bar / panel
-    # wdisplays  # display settings
-    wev  # event logger
-    wl-clipboard  # CLI copy/paste tool
-  ];
-  i3-utilities = with pkgs; [
-    autotiling  # sane tiling defaults
-    feh  # set background image
-    # gnome.gnome-control-center  # provides display settings
-    maim  # screenshots
-    notify-osd-customizable  # noitification daemon
-    # picom  # window compositor
-    # polybar  # info bar / panel
-    xclip  # CLI copy/paste tool
-    xdotool  # simulate keyboard/mouse input, manipulate windows
-    xidlehook  # lock or turn off screen when idling
-    xorg.xbacklight  # screen brightness
-    xorg.xev  # event logger
-    xorg.xprop  # get window properties
-    xss-lock  # lock screen manager
-  ];
   fonts-icons-themes = with pkgs; [
     dracula-theme
     nerdfonts
@@ -80,5 +50,35 @@ let
     # zoom-us  # video conferencing app
     zotero  # bibliography/reference manager
   ];
+  i3-utilities = with pkgs; [
+    autotiling  # sane tiling defaults
+    feh  # set background image
+    # gnome.gnome-control-center  # provides display settings
+    maim  # screenshots
+    notify-osd-customizable  # noitification daemon
+    # picom  # window compositor
+    # polybar  # info bar / panel
+    xclip  # CLI copy/paste tool
+    xdotool  # simulate keyboard/mouse input, manipulate windows
+    xidlehook  # lock or turn off screen when idling
+    xorg.xbacklight  # screen brightness
+    xorg.xev  # event logger
+    xorg.xprop  # get window properties
+    xss-lock  # lock screen manager
+  ];
+  sway-utilities = with pkgs; [
+    autotiling-rs  # sane tiling defaults
+    brightnessctl  # screen brightness
+    grim slurp  # for screenshots
+    swaybg  # set background image
+    swaylock-effects  # screen locker
+    swayidle  # lock or turn off screen when idling
+    swaynotificationcenter libnotify  # notification daemon
+    swaytools  # get window properties with swayinfo
+    waybar  # info bar / panel
+    wdisplays  # display settings
+    wev  # event logger
+    wl-clipboard  # CLI copy/paste tool
+  ];
 in
-languages ++ console-utilities ++ fonts-icons-themes ++ sway-utilities ++ i3-utilities ++ applications
+languages ++ console-utilities ++ fonts-icons-themes ++ applications ++ i3-utilities

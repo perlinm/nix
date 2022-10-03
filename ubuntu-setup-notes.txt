@@ -18,6 +18,8 @@ sudo update-alternatives --config x-terminal-emulator
 # install teams
 sudo snap install teams-for-linux
 
+# install i3-gnome: https://github.com/i3-gnome
+
 # print to /etc/X11/xorg.conf.d/20-screen.conf
 Section "Device"
     Identifier "Intel Graphics"

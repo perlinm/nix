@@ -16,14 +16,10 @@ let
     "helix/languages.toml".source = ./dotfiles/helix/languages.toml;
     "helix/themes/onedark_perlinm.toml".source = ./dotfiles/helix/themes/onedark_perlinm.toml;
 
-    "sway/config".source = ./dotfiles/sway/config;
-    "sway/keybindings".source = ./dotfiles/sway/keybindings;
-    "sway/rules".source = ./dotfiles/sway/rules;
-    "sway/startup".source = ./dotfiles/sway/startup;
-    "sway/variables".source = ./dotfiles/sway/variables;
-    "waybar/config".source = ./dotfiles/waybar/config;
-    "waybar/style.css".source = ./dotfiles/waybar/style.css;
-    "swaylock/config".source = ./dotfiles/swaylock-config;
+    "starship.toml".source = ./dotfiles/starship.toml;
+    "alacritty/alacritty.yml".source = ./dotfiles/alacritty.yml;
+    "qpdfview/shortcuts.conf".source = ./dotfiles/qpdfview-shortcuts.conf;
+    "flake8".source = ./dotfiles/flake8;
 
     "i3/config".source = ./dotfiles/i3/config;
     "i3/keybindings".source = ./dotfiles/i3/keybindings;
@@ -32,10 +28,14 @@ let
     "polybar/config.ini".source = ./dotfiles/polybar/config.ini;
     "polybar/launch.sh".source = ./dotfiles/polybar/launch.sh;
 
-    "starship.toml".source = ./dotfiles/starship.toml;
-    "alacritty/alacritty.yml".source = ./dotfiles/alacritty.yml;
-    "qpdfview/shortcuts.conf".source = ./dotfiles/qpdfview-shortcuts.conf;
-    "flake8".source = ./dotfiles/flake8;
+    "sway/config".source = ./dotfiles/sway/config;
+    "sway/keybindings".source = ./dotfiles/sway/keybindings;
+    "sway/rules".source = ./dotfiles/sway/rules;
+    "sway/startup".source = ./dotfiles/sway/startup;
+    "sway/variables".source = ./dotfiles/sway/variables;
+    "waybar/config".source = ./dotfiles/waybar/config;
+    "waybar/style.css".source = ./dotfiles/waybar/style.css;
+    "swaylock/config".source = ./dotfiles/swaylock-config;
   };
 in
 {
