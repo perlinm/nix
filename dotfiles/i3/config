@@ -12,12 +12,7 @@ default_border pixel 3
 default_floating_border pixel 3
 
 exec --no-startup-id feh --bg-fill ~/Pictures/.background
-
-font pango:DroidSansMono Nerd Font Mono 15px
-
-bar {
-  position top
-}
+exec_always --no-startup-id /home/perlinm/.config/polybar/launch.sh
 
 include ~/.config/i3/rules
 include ~/.config/i3/keybindings

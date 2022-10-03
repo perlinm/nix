@@ -168,6 +168,7 @@ bindsym $mod+Escape [con_id="__focused__"] kill
 
 # reload i3
 bindsym $mod+Delete reload
+bindsym $mod+Ctrl+Delete restart
 
 # lock screen
 bindsym Ctrl+Escape exec --no-startup-id ~/scripts/x-lock

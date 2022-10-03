@@ -15,7 +15,7 @@ exec systemctl --user import-environment
 exec nm-applet --indicator
 
 # sane tiling defaults
-exec autotiling-rs
+exec autotiling
 
 # notification daemon
 exec swaync

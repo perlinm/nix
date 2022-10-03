@@ -21,7 +21,6 @@ let
     "sway/rules".source = ./dotfiles/sway/rules;
     "sway/startup".source = ./dotfiles/sway/startup;
     "sway/variables".source = ./dotfiles/sway/variables;
-
     "waybar/config".source = ./dotfiles/waybar/config;
     "waybar/style.css".source = ./dotfiles/waybar/style.css;
     "swaylock/config".source = ./dotfiles/swaylock-config;
@@ -30,6 +29,8 @@ let
     "i3/keybindings".source = ./dotfiles/i3/keybindings;
     "i3/rules".source = ./dotfiles/i3/rules;
     "i3/startup".source = ./dotfiles/i3/startup;
+    "polybar/config.ini".source = ./dotfiles/polybar/config.ini;
+    "polybar/launch.sh".source = ./dotfiles/polybar/launch.sh;
 
     "starship.toml".source = ./dotfiles/starship.toml;
     "alacritty/alacritty.yml".source = ./dotfiles/alacritty.yml;
