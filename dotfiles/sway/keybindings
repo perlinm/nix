@@ -173,12 +173,12 @@ $bind-repeat XF86AudioRaiseVolume exec ~/scripts/volume inc
 $bind-repeat XF86AudioLowerVolume exec ~/scripts/volume dec
 $bind-repeat Ctrl+Up              exec ~/scripts/volume inc
 $bind-repeat Ctrl+Down            exec ~/scripts/volume dec
-$bind XF86AudioMute        exec ~/scripts/volume toggle
-$bind Ctrl+slash           exec ~/scripts/volume toggle
-$bind Ctrl+Shift+Up        exec ~/scripts/volume max
-$bind Ctrl+Shift+Down      exec ~/scripts/volume min
-$bind Ctrl+Shift+slash     exec ~/scripts/volume med
-$bind XF86AudioMicMute     exec ~/scripts/volume mic toggle
+$bind XF86AudioMute               exec ~/scripts/volume toggle
+$bind Ctrl+slash                  exec ~/scripts/volume toggle
+$bind Ctrl+Shift+Up               exec ~/scripts/volume max
+$bind Ctrl+Shift+Down             exec ~/scripts/volume min
+$bind Ctrl+Shift+slash            exec ~/scripts/volume med
+$bind XF86AudioMicMute            exec ~/scripts/volume mic toggle
 
 # screen brightness
 $bind-repeat XF86MonBrightnessUp   exec ~/scripts/w-brightness inc

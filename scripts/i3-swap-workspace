@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+if [ $# -ne 1 ]; then
+  echo "usage: $0 [workspace]"
+  exit 1
+fi
+
+current=$(i3-msg -t get_workspaces | jq '.[] | select(.focused==true).name')
+tmp=$(echo $RANDOM | md5sum | awk '{print $1}')
+
+# echo $tmp
+# exit
+
+i3-msg "rename workspace $current to $1"
+if [ $? -ne 0 ]; then
+  i3-msg "rename workspace $1 to $tmp, \
+          rename workspace $current to $1, \
+          rename workspace $tmp to $current"
+fi

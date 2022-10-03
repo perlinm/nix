@@ -1,0 +1,232 @@
+###############################################################################
+# set some variables
+###############################################################################
+
+set $mod Mod4
+set $alt Mod1
+
+set $terminal  xfce4-terminal
+set $browser   firefox
+set $display   gnome-control-center display
+set $volume    pavucontrol
+set $bluetooth blueberry
+
+set $ws-0  workspace number 0
+set $ws-1  workspace number 1
+set $ws-2  workspace number 2
+set $ws-3  workspace number 3
+set $ws-4  workspace number 4
+set $ws-5  workspace number 5
+set $ws-6  workspace number 6
+set $ws-7  workspace number 7
+set $ws-8  workspace number 8
+set $ws-9  workspace number 9
+set $ws-10 workspace number 10
+set $ws-11 workspace number 11
+set $ws-12 workspace number 12
+
+###############################################################################
+# navigation within a workspace
+###############################################################################
+
+# change window focus
+bindsym $mod+a focus left
+bindsym $mod+s focus right
+bindsym $mod+w focus up
+bindsym $mod+r focus down
+bindsym $mod+n focus left
+bindsym $mod+i focus right
+bindsym $mod+u focus up
+bindsym $mod+e focus down
+
+# move window
+bindsym $mod+Shift+a move left
+bindsym $mod+Shift+s move right
+bindsym $mod+Shift+w move up
+bindsym $mod+Shift+r move down
+bindsym $mod+Shift+n move left
+bindsym $mod+Shift+i move right
+bindsym $mod+Shift+u move up
+bindsym $mod+Shift+e move down
+
+# toggle tiling vs. floating
+bindsym $mod+t floating toggle
+bindsym $mod+Shift+t focus mode_toggle
+
+# toggle fullscreen
+bindsym $mod+z fullscreen toggle
+
+# toggle window orientation
+bindsym $mod+BackSpace split toggle
+ 
+# use mouse+$mod to drag floating windows
+floating_modifier $mod
+
+# resize window
+bindsym $mod+Left  resize shrink width  100 px or 5 ppt
+bindsym $mod+Up    resize shrink height 100 px oq 5 ppt
+bindsym $mod+Right resize grow   width  100 px or 5 ppt
+bindsym $mod+Down  resize grow   height 100 px or 5 ppt
+
+###############################################################################
+# changing workspaces
+###############################################################################
+
+# move to workspace
+bindsym $mod+grave $ws-0
+bindsym $mod+1     $ws-1
+bindsym $mod+2     $ws-2
+bindsym $mod+3     $ws-3
+bindsym $mod+4     $ws-4
+bindsym $mod+5     $ws-5
+bindsym $mod+6     $ws-6
+bindsym $mod+7     $ws-7
+bindsym $mod+8     $ws-8
+bindsym $mod+9     $ws-9
+bindsym $mod+0     $ws-10
+bindsym $mod+minus $ws-11
+bindsym $mod+equal $ws-12
+bindsym $mod+x workspace back_and_forth
+bindsym $mod+q workspace prev_on_output
+bindsym $mod+f workspace next_on_output
+bindsym $mod+l workspace prev_on_output
+bindsym $mod+y workspace next_on_output
+
+# move container to workspace
+bindsym $mod+$alt+grave move container to $ws-0
+bindsym $mod+$alt+1     move container to $ws-1
+bindsym $mod+$alt+2     move container to $ws-2
+bindsym $mod+$alt+3     move container to $ws-3
+bindsym $mod+$alt+4     move container to $ws-4
+bindsym $mod+$alt+5     move container to $ws-5
+bindsym $mod+$alt+6     move container to $ws-6
+bindsym $mod+$alt+7     move container to $ws-7
+bindsym $mod+$alt+8     move container to $ws-8
+bindsym $mod+$alt+9     move container to $ws-9
+bindsym $mod+$alt+0     move container to $ws-10
+bindsym $mod+$alt+minus move container to $ws-11
+bindsym $mod+$alt+equal move container to $ws-12
+bindsym $mod+$alt+x move container to workspace back_and_forth
+bindsym $mod+$alt+q move container to workspace prev_on_output
+bindsym $mod+$alt+f move container to workspace next_on_output
+bindsym $mod+$alt+l move container to workspace prev_on_output
+bindsym $mod+$alt+y move container to workspace next_on_output
+
+# follow container to workspace
+bindsym $mod+Shift+grave move container to $ws-0;  $ws-0
+bindsym $mod+Shift+1     move container to $ws-1;  $ws-1
+bindsym $mod+Shift+2     move container to $ws-2;  $ws-2
+bindsym $mod+Shift+3     move container to $ws-3;  $ws-3
+bindsym $mod+Shift+4     move container to $ws-4;  $ws-4
+bindsym $mod+Shift+5     move container to $ws-5;  $ws-5
+bindsym $mod+Shift+6     move container to $ws-6;  $ws-6
+bindsym $mod+Shift+7     move container to $ws-7;  $ws-7
+bindsym $mod+Shift+8     move container to $ws-8;  $ws-8
+bindsym $mod+Shift+9     move container to $ws-9;  $ws-9
+bindsym $mod+Shift+0     move container to $ws-10; $ws-10
+bindsym $mod+Shift+minus move container to $ws-11; $ws-11
+bindsym $mod+Shift+equal move container to $ws-12; $ws-12
+bindsym $mod+Shift+x move container to workspace back_and_forth; workspace back_and_forth
+bindsym $mod+Shift+q move container to workspace prev_on_output; workspace prev_on_output
+bindsym $mod+Shift+f move container to workspace next_on_output; workspace next_on_output
+bindsym $mod+Shift+l move container to workspace prev_on_output; workspace prev_on_output
+bindsym $mod+Shift+y move container to workspace next_on_output; workspace next_on_output
+
+# swap workspaces
+set $swap exec --no-startup-id ~/scripts/i3-swap-workspace
+bindsym $mod+Ctrl+grave $swap 0
+bindsym $mod+Ctrl+1     $swap 1
+bindsym $mod+Ctrl+2     $swap 2
+bindsym $mod+Ctrl+3     $swap 3
+bindsym $mod+Ctrl+4     $swap 4
+bindsym $mod+Ctrl+5     $swap 5
+bindsym $mod+Ctrl+6     $swap 6
+bindsym $mod+Ctrl+7     $swap 7
+bindsym $mod+Ctrl+8     $swap 8
+bindsym $mod+Ctrl+9     $swap 9
+bindsym $mod+Ctrl+0     $swap 10
+bindsym $mod+Ctrl+minus $swap 11
+bindsym $mod+Ctrl+equal $swap 12
+
+# move workspace left/right
+set $move exec --no-startup-id ~/scripts/i3-move-workspace
+bindsym $mod+Ctrl+q $move prev
+bindsym $mod+Ctrl+f $move next
+bindsym $mod+Ctrl+l $move prev
+bindsym $mod+Ctrl+y $move next
+
+# move container or workspace to different output
+bindsym $mod+c      move container to output next
+bindsym $mod+Ctrl+c move workspace to output next
+
+###############################################################################
+# session management
+###############################################################################
+
+# exit app instance
+bindsym $mod+Escape [con_id="__focused__"] kill
+
+# reload i3
+bindsym $mod+Delete reload
+bindsym $mod+Ctrl+Delete restart
+
+# lock screen
+bindsym Ctrl+Escape exec --no-startup-id ~/scripts/x-lock
+
+###############################################################################
+# application launchers
+###############################################################################
+
+bindsym $mod+Tab    exec --no-startup-id $terminal
+bindsym $mod+Return exec --no-startup-id $browser
+bindsym $mod+d      exec --no-startup-id $display
+bindsym $mod+v      exec --no-startup-id $volume
+bindsym $mod+b      exec --no-startup-id $bluetooth
+
+###############################################################################
+# personal scripts
+###############################################################################
+
+# screenshots
+bindsym Print                exec --no-startup-id ~/scripts/x-screenshot screen
+bindsym Ctrl+Print           exec --no-startup-id ~/scripts/x-screenshot window
+bindsym Shift+Print          exec --no-startup-id ~/scripts/x-screenshot selection
+bindsym $mod+backslash       exec --no-startup-id ~/scripts/x-screenshot screen
+bindsym $mod+Ctrl+backslash  exec --no-startup-id ~/scripts/x-screenshot window
+bindsym $mod+Shift+backslash exec --no-startup-id ~/scripts/x-screenshot selection
+
+# volume
+bindsym XF86AudioRaiseVolume exec --no-startup-id ~/scripts/volume inc
+bindsym XF86AudioLowerVolume exec --no-startup-id ~/scripts/volume dec
+bindsym Ctrl+Up              exec --no-startup-id ~/scripts/volume inc
+bindsym Ctrl+Down            exec --no-startup-id ~/scripts/volume dec
+bindsym XF86AudioMute        exec --no-startup-id ~/scripts/volume toggle
+bindsym Ctrl+slash           exec --no-startup-id ~/scripts/volume toggle
+bindsym Ctrl+Shift+Up        exec --no-startup-id ~/scripts/volume max
+bindsym Ctrl+Shift+Down      exec --no-startup-id ~/scripts/volume min
+bindsym Ctrl+Shift+slash     exec --no-startup-id ~/scripts/volume med
+bindsym XF86AudioMicMute     exec --no-startup-id ~/scripts/volume mic toggle
+
+# screen brightness
+bindsym XF86MonBrightnessUp   exec --no-startup-id ~/scripts/x-brightness inc
+bindsym XF86MonBrightnessDown exec --no-startup-id ~/scripts/x-brightness dec
+bindsym $mod+Ctrl+Up          exec --no-startup-id ~/scripts/x-brightness inc
+bindsym $mod+Ctrl+Down        exec --no-startup-id ~/scripts/x-brightness dec
+bindsym $mod+Ctrl+Shift+Up    exec --no-startup-id ~/scripts/x-brightness max
+bindsym $mod+Ctrl+Shift+Down  exec --no-startup-id ~/scripts/x-brightness min
+bindsym $mod+Ctrl+slash       exec --no-startup-id ~/scripts/x-brightness mid
+bindsym $mod+Ctrl+Shift+slash exec --no-startup-id ~/scripts/x-brightness mid
+
+# scratchpads
+bindsym $mod+F1  exec --no-startup-id i3-msg [title="^pad-F1$"]  scratchpad show || $terminal --title="pad-F1"
+bindsym $mod+F2  exec --no-startup-id i3-msg [title="^pad-F2$"]  scratchpad show || $terminal --title="pad-F2"
+bindsym $mod+F3  exec --no-startup-id i3-msg [title="^pad-F3$"]  scratchpad show || $terminal --title="pad-F3"
+bindsym $mod+F4  exec --no-startup-id i3-msg [title="^pad-F4$"]  scratchpad show || $terminal --title="pad-F4"
+bindsym $mod+F5  exec --no-startup-id i3-msg [title="^pad-F5$"]  scratchpad show || $terminal --title="pad-F5"
+bindsym $mod+F6  exec --no-startup-id i3-msg [title="^pad-F6$"]  scratchpad show || $terminal --title="pad-F6"
+bindsym $mod+F7  exec --no-startup-id i3-msg [title="^pad-F7$"]  scratchpad show || $terminal --title="pad-F7"
+bindsym $mod+F8  exec --no-startup-id i3-msg [title="^pad-F8$"]  scratchpad show || $terminal --title="pad-F8"
+bindsym $mod+F9  exec --no-startup-id i3-msg [title="^pad-F9$"]  scratchpad show || $terminal --title="pad-F9"
+bindsym $mod+F10 exec --no-startup-id i3-msg [title="^pad-F10$"] scratchpad show || $terminal --title="pad-F10"
+bindsym $mod+F11 exec --no-startup-id i3-msg [title="^pad-F11$"] scratchpad show || $terminal --title="pad-F11"
+bindsym $mod+F12 exec --no-startup-id i3-msg [title="^pad-F12$"] scratchpad show || $terminal --title="pad-F12"

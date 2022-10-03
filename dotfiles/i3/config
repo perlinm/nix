@@ -1,0 +1,19 @@
+###############################################################################
+# main config file: i3
+# https://i3wm.org/docs/userguide.html
+###############################################################################
+
+focus_wrapping no
+mouse_warping none
+workspace_auto_back_and_forth yes
+
+hide_edge_borders smart
+default_border pixel 3
+default_floating_border pixel 3
+
+exec --no-startup-id feh --bg-fill ~/Pictures/.background
+exec_always --no-startup-id /home/perlinm/.config/polybar/launch.sh
+
+include ~/.config/i3/rules
+include ~/.config/i3/keybindings
+include ~/.config/i3/startup

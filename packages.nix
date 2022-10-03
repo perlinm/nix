@@ -26,7 +26,47 @@ let
     woof # secure network file sharing
     zip unzip  # zipping/unzipping
   ];
-  desktop-utilities = with pkgs; [
+  fonts-icons-themes = with pkgs; [
+    dracula-theme
+    nerdfonts
+    nerd-font-patcher
+    papirus-icon-theme
+    vistafonts  # provides consolas
+  ];
+  applications = with pkgs; [
+    alacritty xfce.xfce4-terminal  # terminal emulators
+    blueberry  # bluetooth tool
+    gnome.eog  # image viewer
+    firefox-wayland  # web browser
+    gpick  # color picker
+    inkscape  # vector graphics (SVG) editor
+    meld  # file comparison tool
+    pavucontrol  # volume control
+    qpdfview okular foxitreader  # pdf viewers
+    slack  # work chat
+    spotify  # music
+    vlc  # for watching videos
+    xfce.thunar  # file browser
+    zoom-us  # video conferencing app
+    zotero  # bibliography/reference manager
+  ];
+  i3-utilities = with pkgs; [
+    autotiling  # sane tiling defaults
+    feh  # set background image
+    gnome.gnome-control-center  # provides display settings
+    maim  # screenshots
+    notify-osd-customizable  # noitification daemon
+    picom  # window compositor
+    polybar  # info bar / panel
+    xclip  # CLI copy/paste tool
+    xdotool  # simulate keyboard/mouse input, manipulate windows
+    xidlehook  # lock or turn off screen when idling
+    xorg.xbacklight  # screen brightness
+    xorg.xev  # event logger
+    xorg.xprop  # get window properties
+    xss-lock  # lock screen manager
+  ];
+  sway-utilities = with pkgs; [
     autotiling-rs  # sane tiling defaults
     brightnessctl  # screen brightness
     grim slurp  # for screenshots
@@ -40,29 +80,5 @@ let
     wev  # event logger
     wl-clipboard  # CLI copy/paste tool
   ];
-  fonts-icons-themes = with pkgs; [
-    dracula-theme
-    nerdfonts
-    nerd-font-patcher
-    papirus-icon-theme
-    vistafonts  # provides consolas
-  ];
-  applications = with pkgs; [
-    alacritty  # terminal emulator
-    blueberry  # bluetooth tool
-    gnome.eog  # image viewer
-    firefox-wayland  # web browser
-    gpick  # color picker
-    inkscape  # vector graphics (SVG) editor
-    meld  # file comparison tool
-    pavucontrol  # volume control
-    qpdfview okular foxitreader  # pdf viewers
-    slack  # work chat
-    spotify  # music
-    vlc  # for watching videos
-    xfce.thunar  # file browser
-    # zoom-us  # video conferencing app
-    zotero  # bibliography/reference manager
-  ];
 in
-languages ++ console-utilities ++ desktop-utilities ++ fonts-icons-themes ++ applications
+languages ++ console-utilities ++ fonts-icons-themes ++ applications ++ sway-utilities
