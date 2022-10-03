@@ -5,7 +5,7 @@ let
     gcc
     # mathematica
     texlive.combined.scheme-full
-    (import ./python.nix { inherit pkgs; })
+    # (import ./python.nix { inherit pkgs; })
   ];
   console-utilities = with pkgs; [
     cmake  # build system
@@ -37,27 +37,27 @@ let
     alacritty xfce.xfce4-terminal  # terminal emulators
     blueberry  # bluetooth tool
     gnome.eog  # image viewer
-    firefox-wayland  # web browser
+    # firefox-wayland  # web browser
     gpick  # color picker
     inkscape  # vector graphics (SVG) editor
     meld  # file comparison tool
-    pavucontrol  # volume control
+    # pavucontrol  # volume control
     qpdfview okular foxitreader  # pdf viewers
     slack  # work chat
-    spotify  # music
+    # spotify  # music
     vlc  # for watching videos
     xfce.thunar  # file browser
-    zoom-us  # video conferencing app
+    # zoom-us  # video conferencing app
     zotero  # bibliography/reference manager
   ];
   i3-utilities = with pkgs; [
     autotiling  # sane tiling defaults
     feh  # set background image
-    gnome.gnome-control-center  # provides display settings
+    # gnome.gnome-control-center  # provides display settings
     maim  # screenshots
     notify-osd-customizable  # noitification daemon
-    picom  # window compositor
-    polybar  # info bar / panel
+    # picom  # window compositor
+    # polybar  # info bar / panel
     xclip  # CLI copy/paste tool
     xdotool  # simulate keyboard/mouse input, manipulate windows
     xidlehook  # lock or turn off screen when idling
@@ -81,4 +81,4 @@ let
     wl-clipboard  # CLI copy/paste tool
   ];
 in
-languages ++ console-utilities ++ fonts-icons-themes ++ applications ++ sway-utilities
+languages ++ console-utilities ++ fonts-icons-themes ++ applications ++ i3-utilities
