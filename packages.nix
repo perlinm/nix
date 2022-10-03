@@ -5,8 +5,8 @@ let
     gcc
     # mathematica
     texlive.combined.scheme-full
-    # (import ./python.nix { inherit pkgs; })
   ];
+  python = [(import ./python.nix { inherit pkgs; })];
   console-utilities = with pkgs; [
     cmake  # build system
     git  # version control system
@@ -82,4 +82,7 @@ let
     wl-clipboard  # CLI copy/paste tool
   ];
 in
-languages ++ console-utilities ++ fonts-icons-themes ++ applications ++ i3-utilities
+{
+  home = languages ++ console-utilities ++ fonts-icons-themes ++ applications ++ sway-utilities ++ python;
+  work = languages ++ console-utilities ++ fonts-icons-themes ++ applications ++ i3-utilities;
+}

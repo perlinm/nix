@@ -36,7 +36,6 @@ in
 
   services = services;
   programs = programs;
-  home.packages = packages;
   home.file = files.home;
   xdg.configFile = files.xdg;
 
@@ -44,6 +43,8 @@ in
   home.sessionVariables = shell.sessionVariables;
   home.shellAliases = shell.aliases;
   home.activation = shell.activation;
+
+  home.packages = packages.work;
 
   # allow installing unfree packages
   nixpkgs.config.allowUnfree = true;
