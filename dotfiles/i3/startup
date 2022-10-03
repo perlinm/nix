@@ -16,6 +16,9 @@ exec --no-startup-id picom --fading --fade-delta=2 --daemon
 # add network manger to system tray
 exec --no-startup-id nm-applet --indicator
 
+# notification daemon
+exec --no-startup-id notify-osd
+
 # sane tiling defaults
 exec --no-startup-id autotiling
 
@@ -26,5 +29,6 @@ exec --no-startup-id xss-lock -- ~/scripts/x-lock
 # applications
 ###############################################################################
 
-#exec --no-startup-id slack
-#exec --no-startup-id zotero
+exec --no-startup-id teams-for-linux
+exec --no-startup-id slack
+exec --no-startup-id zotero

@@ -30,22 +30,23 @@ let
     autotiling-rs  # sane tiling defaults
     brightnessctl  # screen brightness
     grim slurp  # for screenshots
-    swaybg  # set background image
+    # swaybg  # set background image
     # swaylock-effects  # screen locker
     swayidle  # lock or turn off screen when idling
     # swaynotificationcenter libnotify  # notification daemon
     swaytools  # get window properties with swayinfo
     waybar  # info bar / panel
-    wdisplays  # display settings
+    # wdisplays  # display settings
     wev  # event logger
     wl-clipboard  # CLI copy/paste tool
   ];
   i3-utilities = with pkgs; [
     autotiling  # sane tiling defaults
-    # gnome.gnome-control-center  # provides display settings
-    # picom  # window compositor
-    maim  # screenshots
     feh  # set background image
+    # gnome.gnome-control-center  # provides display settings
+    maim  # screenshots
+    notify-osd-customizable  # noitification daemon
+    # picom  # window compositor
     # polybar  # info bar / panel
     xclip  # CLI copy/paste tool
     xdotool  # simulate keyboard/mouse input, manipulate windows
@@ -70,14 +71,14 @@ let
     gpick  # color picker
     inkscape  # vector graphics (SVG) editor
     meld  # file comparison tool
-    pavucontrol  # volume control
+    # pavucontrol  # volume control
     qpdfview okular foxitreader  # pdf viewers
     slack  # work chat
-    spotify  # music
+    # spotify  # music
     vlc  # for watching videos
     xfce.thunar  # file browser
     # zoom-us  # video conferencing app
     zotero  # bibliography/reference manager
   ];
 in
-languages ++ console-utilities ++ sway-utilities ++ i3-utilities ++ fonts-icons-themes ++ applications
+languages ++ console-utilities ++ fonts-icons-themes ++ sway-utilities ++ i3-utilities ++ applications

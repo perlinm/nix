@@ -3,8 +3,9 @@
 ###############################################################################
 
 # pin teams, slack, and zotero to specific workspaces
-assign [class="^Slack$"]  workspace number 11
-assign [class="^Zotero$"] workspace number 12
+assign [class="^teams-for-linux$"]  workspace number 0
+assign [class="^Slack$"]            workspace number 11
+assign [class="^Zotero$"]           workspace number 12
 
 # scratchpads
 for_window [title="^pad-F[0-9]+$"] move scratchpad, scratchpad show
@@ -13,7 +14,7 @@ for_window [title="^pad-F[0-9]+$"] floating enable, resize set 1000 600, move po
 # floating windows
 for_window [class="^Pavucontrol$"]          floating enable, resize set 1000 600
 for_window [class="^Nm-connection-editor$"] floating enable
-for_window [class="^Gnome-control-center$"] floating enable
+for_window [class="^gnome-control-center$"] floating enable
 for_window [class="^Blueberry\.py$"]        floating enable
 for_window [class="^Gpick$"]                floating enable
 for_window [id="0x2e00001"]                 floating enable  # id of xev, see xwininfo

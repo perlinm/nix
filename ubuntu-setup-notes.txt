@@ -15,6 +15,9 @@ nix-shell '<home-manager>' -A install
 # update default terminal emulator
 sudo update-alternatives --config x-terminal-emulator
 
+# install teams
+sudo snap install teams-for-linux
+
 # print to /etc/X11/xorg.conf.d/20-screen.conf
 Section "Device"
     Identifier "Intel Graphics"
