@@ -9,7 +9,7 @@ assign [class="^Zotero$"]           workspace number 12
 
 # scratchpads
 for_window [title="^pad-F[0-9]+$"] move scratchpad, scratchpad show
-for_window [title="^pad-F[0-9]+$"] floating enable, resize set 1000 600, move position center
+for_window [title="^pad-F[0-9]+$"] floating enable, resize set 1000 800, move position center
 
 # floating windows
 for_window [class="^Pavucontrol$"]          floating enable, resize set 1000 600
@@ -20,3 +20,4 @@ for_window [class="^Gpick$"]                floating enable
 for_window [id="0x2e00001"]                 floating enable  # id of xev, see xwininfo
 for_window [class="^Thunar$"]               floating enable, resize set 1000 800
 for_window [class="^Matplotlib$"]           floating enable, resize set 1000 800
+for_window [class="^Lxappearance$"]         floating enable

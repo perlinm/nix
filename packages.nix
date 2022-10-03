@@ -40,6 +40,7 @@ let
     # firefox-wayland  # web browser
     gpick  # color picker
     inkscape  # vector graphics (SVG) editor
+    lxappearance  # tool to set themes
     meld  # file comparison tool
     # pavucontrol  # volume control
     qpdfview okular foxitreader  # pdf viewers
