@@ -7,7 +7,7 @@ set $alt Mod1
 set $bind bindsym --to-code --no-repeat
 set $bind-repeat bindsym --to-code
 
-set $terminal      xfce4-terminal
+set $terminal      alacritty
 set $browser       firefox
 set $notifications swaync-client -t -sw
 set $display       wdisplays
