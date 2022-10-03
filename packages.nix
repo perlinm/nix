@@ -37,24 +37,41 @@ let
     alacritty xfce.xfce4-terminal  # terminal emulators
     blueberry  # bluetooth tool
     gnome.eog  # image viewer
-    # firefox-wayland  # web browser
     gpick  # color picker
     inkscape  # vector graphics (SVG) editor
-    lxappearance  # tool to set themes
     meld  # file comparison tool
-    # pavucontrol  # volume control
     qpdfview okular foxitreader  # pdf viewers
     slack  # work chat
-    # spotify  # music
     vlc  # for watching videos
     xfce.thunar  # file browser
-    # zoom-us  # video conferencing app
     zotero  # bibliography/reference manager
+  ];
+  nixos-applications = with pkgs; [
+    pavucontrol  # volume control
+    spotify  # music
+    zoom-us  # video conferencing app
+  ];
+  sway-utilities = with pkgs; [
+    autotiling-rs  # sane tiling defaults
+    brightnessctl  # screen brightness
+    firefox-wayland  # web browser
+    grim slurp  # for screenshots
+    swaybg  # set background image
+    swaylock-effects  # screen locker
+    swayidle  # lock or turn off screen when idling
+    swaynotificationcenter libnotify  # notification daemon
+    swaytools  # get window properties with swayinfo
+    waybar  # info bar / panel
+    wdisplays  # display settings
+    wev  # event logger
+    wl-clipboard  # CLI copy/paste tool
   ];
   i3-utilities = with pkgs; [
     autotiling  # sane tiling defaults
+    # firefox  # web browser
     feh  # set background image
     # gnome.gnome-control-center  # provides display settings
+    lxappearance  # set GTK themes
     maim  # screenshots
     notify-osd-customizable  # noitification daemon
     # picom  # window compositor
@@ -67,22 +84,8 @@ let
     xorg.xprop  # get window properties
     xss-lock  # lock screen manager
   ];
-  sway-utilities = with pkgs; [
-    autotiling-rs  # sane tiling defaults
-    brightnessctl  # screen brightness
-    grim slurp  # for screenshots
-    swaybg  # set background image
-    swaylock-effects  # screen locker
-    swayidle  # lock or turn off screen when idling
-    swaynotificationcenter libnotify  # notification daemon
-    swaytools  # get window properties with swayinfo
-    waybar  # info bar / panel
-    wdisplays  # display settings
-    wev  # event logger
-    wl-clipboard  # CLI copy/paste tool
-  ];
 in
 {
-  home = languages ++ console-utilities ++ fonts-icons-themes ++ applications ++ sway-utilities ++ python;
-  work = languages ++ console-utilities ++ fonts-icons-themes ++ applications ++ i3-utilities;
+  home = console-utilities ++ languages ++ fonts-icons-themes ++ applications ++ nixos-applications ++ python ++ sway-utilities;
+  work = console-utilities ++ languages ++ fonts-icons-themes ++ applications ++ i3-utilities;
 }

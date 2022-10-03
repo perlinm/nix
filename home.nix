@@ -1,12 +1,11 @@
  # https://github.com/nix-community/home-manager
-{ config, pkgs, lib, ... }:
+{ pkgs, lib, ... }:
 
 # TODO:
 # add LSPs
 # configure firefox
 # python environments: https://github.com/DavHau/mach-nix
 # remaining parts of arch-setup
-# credit i3-scriatchpad and add it to the repo
 # look into https://looking-glass.io/
 
 let
