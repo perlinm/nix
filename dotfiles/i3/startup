@@ -9,6 +9,7 @@ exec --no-startup-id gsettings set org.gnome.desktop.interface icon-theme 'Papir
 # keyboard settings
 exec --no-startup-id xset r 66
 exec --no-startup-id xset r rate 200 60
+exec --no-startup-id setxkbmap us(colemak),us -option caps:backspace -option lv3:ralt_alt -option shift:both_capslock_cancel -option grp:ctrls_toggle
 
 # window compositing
 exec --no-startup-id picom --fading --fade-delta=2 --daemon
