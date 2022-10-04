@@ -10,7 +10,7 @@
   sessionVariables = {
     EDITOR = "hx";
     VISUAL = "hx";
-    BROWSER = "/usr/bin/firefox";
+    BROWSER = "firefox";
     TERM = "xterm-256color";
 
     RUST_BACKTRACE = 1;
@@ -20,7 +20,7 @@
     XDG_CURRENT_DESKTOP = "sway";
 
     # to fix matlab isssues
-    MATLAB_LOG_DIR = "/home/perlinm/Workspace/MATLAB/logs";
+    MATLAB_LOG_DIR = "$HOME/Workspace/MATLAB/logs";
     QT_LOGGING_RULES = "qt5ct.debug=false";
     TF_CPP_MIN_LOG_LEVEL = 2;
   };
