@@ -12,7 +12,7 @@ for_window [title="^pad-F[0-9]+$"] move scratchpad, scratchpad show
 for_window [title="^pad-F[0-9]+$"] floating enable, move position center, resize set 1000 800
 
 # floating windows
-for_window [class="^Pavucontrol$"]          floating enable, move position center, resize set 1000 600
+for_window [class="^Pavucontrol$"]          floating enable, move position center, resize set 1000 800
 for_window [class="^Nm-connection-editor$"] floating enable, move position center
 for_window [class="^gnome-control-center$"] floating enable, move position center
 for_window [class="^Blueberry\.py$"]        floating enable, move position center

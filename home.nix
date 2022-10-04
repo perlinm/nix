@@ -24,13 +24,12 @@ in
   home.username = "perlinm";
   home.homeDirectory = "/home/perlinm";
 
-  home.keyboard.layout = "us";
-  home.keyboard.variant = "colemak";
+  home.keyboard.layout = "us(colemak),us";
   home.keyboard.options = [
     "caps:backspace"
     "lv3:ralt_alt"
     "shift:both_capslock_cancel"
-    "grp:shift_caps_toggle"
+    "grp:ctrls_toggle"
   ];
 
   services = services;
