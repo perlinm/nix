@@ -96,7 +96,7 @@
 ;; aesthetics
 (set-frame-parameter (selected-frame) 'alpha '(75 75)) ;; background transparency
 (add-to-list 'default-frame-alist '(alpha 75 75)) ;; background transparency
-(add-to-list 'default-frame-alist '(font . "Consolas-13")) ;; font
+(add-to-list 'default-frame-alist '(font . "Consolas-14")) ;; font
 (add-to-list 'default-frame-alist '(foreground-color . "grey90")) ;; font color
 
 ;; highlight parentheses
@@ -112,7 +112,7 @@
 (setq column-number-mode t) ;; show column number at cursor
 (tool-bar-mode -1) ;; disable tool bar
 (menu-bar-mode -1) ;; disable menu bar
-(scroll-bar-mode 1) ;; disable scroll bar
+(scroll-bar-mode -1) ;; disable scroll bar
 (setq inhibit-startup-message t) ;; inhibit startup messages
 (global-auto-revert-mode) ;; refresh buffers when files are modified
 (setq x-select-enable-clipboard t) ;; make emacs cooperate with system clipboard
