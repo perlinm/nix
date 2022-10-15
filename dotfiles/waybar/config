@@ -100,12 +100,13 @@
     "sway/workspaces": {
         "all-outputs": false,
         "disable-scroll": true,
-        "format": "{icon} {name}",
-        "format-icons": {
-            "urgent": "<span color='red'></span>",
-            "focused": "",
-            "default": "",
-        },
+        "format": "{name}",
+        // "format": "{icon} {name}",
+        // "format-icons": {
+        //     "urgent": "<span color='red'></span>",
+        //     "focused": "",
+        //     "default": "",
+        // },
     },
 
     "pulseaudio": {
