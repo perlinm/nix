@@ -86,6 +86,6 @@ let
   ];
 in
 {
-  home = console-utilities ++ languages ++ fonts-icons-themes ++ applications ++ sway-utilities ++ nixos-applications ++ python ++ ;
+  home = console-utilities ++ languages ++ fonts-icons-themes ++ applications ++ sway-utilities ++ nixos-applications ++ python;
   work = console-utilities ++ languages ++ fonts-icons-themes ++ applications ++ sway-utilities;
 }

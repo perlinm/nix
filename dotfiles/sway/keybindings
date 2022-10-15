@@ -86,16 +86,16 @@ $bind $mod+$alt+l move container to workspace prev_on_output
 $bind $mod+$alt+y move container to workspace next_on_output
 
 # follow container to workspace
-$bind $mod+Shift+grave move container to $ws-0 ; $ws-0
-$bind $mod+Shift+1     move container to $ws-1 ; $ws-1
-$bind $mod+Shift+2     move container to $ws-2 ; $ws-2
-$bind $mod+Shift+3     move container to $ws-3 ; $ws-3
-$bind $mod+Shift+4     move container to $ws-4 ; $ws-4
-$bind $mod+Shift+5     move container to $ws-5 ; $ws-5
-$bind $mod+Shift+6     move container to $ws-6 ; $ws-6
-$bind $mod+Shift+7     move container to $ws-7 ; $ws-7
-$bind $mod+Shift+8     move container to $ws-8 ; $ws-8
-$bind $mod+Shift+9     move container to $ws-9 ; $ws-9
+$bind $mod+Shift+grave move container to $ws-0;  $ws-0
+$bind $mod+Shift+1     move container to $ws-1;  $ws-1
+$bind $mod+Shift+2     move container to $ws-2;  $ws-2
+$bind $mod+Shift+3     move container to $ws-3;  $ws-3
+$bind $mod+Shift+4     move container to $ws-4;  $ws-4
+$bind $mod+Shift+5     move container to $ws-5;  $ws-5
+$bind $mod+Shift+6     move container to $ws-6;  $ws-6
+$bind $mod+Shift+7     move container to $ws-7;  $ws-7
+$bind $mod+Shift+8     move container to $ws-8;  $ws-8
+$bind $mod+Shift+9     move container to $ws-9;  $ws-9
 $bind $mod+Shift+0     move container to $ws-10; $ws-10
 $bind $mod+Shift+minus move container to $ws-11; $ws-11
 $bind $mod+Shift+equal move container to $ws-12; $ws-12
