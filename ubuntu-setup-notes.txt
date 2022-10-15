@@ -15,6 +15,9 @@ nix-shell '<home-manager>' -A install
 # update default terminal emulator
 sudo update-alternatives --config x-terminal-emulator
 
+# zotero add-ons (must be installed manually):
+# FireTray, ZotFile, zutilo, zotero-better-bibtex, zotero-shortdoi
+
 ######################################################################
 # for sway
 
