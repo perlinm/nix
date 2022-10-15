@@ -15,6 +15,15 @@ nix-shell '<home-manager>' -A install
 # update default terminal emulator
 sudo update-alternatives --config x-terminal-emulator
 
+
+######################################################################
+# for sway
+
+sudo aptitude remove xdg-desktop-portal-gnome
+
+######################################################################
+# for i3
+
 # install teams
 sudo snap install teams-for-linux
 

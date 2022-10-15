@@ -40,7 +40,7 @@ let
     gpick  # color picker
     inkscape  # vector graphics (SVG) editor
     meld  # file comparison tool
-    qpdfview okular foxitreader  # pdf viewers
+    qpdfview zathura okular foxitreader  # pdf viewers
     slack  # work chat
     vlc  # for watching videos
     xfce.thunar  # file browser
@@ -53,16 +53,16 @@ let
   ];
   sway-utilities = with pkgs; [
     autotiling-rs  # sane tiling defaults
-    brightnessctl  # screen brightness
-    firefox-wayland  # web browser
+    # brightnessctl  # screen brightness
+    # firefox-wayland  # web browser
     grim slurp  # for screenshots
-    swaybg  # set background image
-    swaylock-effects  # screen locker
+    # swaybg  # set background image
+    # swaylock-effects  # screen locker
     swayidle  # lock or turn off screen when idling
-    swaynotificationcenter libnotify  # notification daemon
-    swaytools  # get window properties with swayinfo
-    waybar  # info bar / panel
-    wdisplays  # display settings
+    # swaynotificationcenter libnotify  # notification daemon
+    # swaytools  # get window properties with swayinfo
+    # waybar  # info bar / panel
+    # wdisplays  # display settings
     wev  # event logger
     wl-clipboard  # CLI copy/paste tool
   ];
@@ -86,6 +86,6 @@ let
   ];
 in
 {
-  home = console-utilities ++ languages ++ fonts-icons-themes ++ applications ++ nixos-applications ++ python ++ sway-utilities;
-  work = console-utilities ++ languages ++ fonts-icons-themes ++ applications ++ i3-utilities;
+  home = console-utilities ++ languages ++ fonts-icons-themes ++ applications ++ sway-utilities ++ nixos-applications ++ python ++ ;
+  work = console-utilities ++ languages ++ fonts-icons-themes ++ applications ++ sway-utilities;
 }
