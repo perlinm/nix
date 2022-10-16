@@ -60,7 +60,7 @@ let
     swaybg  # set background image
     swaylock-effects  # screen locker
     swayidle  # lock or turn off screen when idling
-    swaynotificationcenter  # notification daemon
+    swaynotificationcenter libnotify  # notification daemon
     swaytools  # get window properties with swayinfo
     waybar  # info bar / panel
     wdisplays  # display settings
