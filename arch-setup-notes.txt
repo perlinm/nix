@@ -41,6 +41,7 @@ sudo pacman -S pavucontrol
 yay -S google-chrome
 sudo pacman -Rns xdg-desktop-portal-gnome
 sudo pacman -S xdg-desktop-portal-wlr
+# enable WebRPC PipeWire support: chrome://flags/#enable-webrtc-pipewire-capturer
 
 # manually install zotero plugins from: https://www.zotero.org/support/plugins
 # Better Bibtex, ZotFile, Zutilo, shortDOI
@@ -50,6 +51,7 @@ sudo pacman -S python ipython flake8 mypy jupyter-notebook pyenv
 sudo pacman -S python-matplotlib python-networkx python-numpy python-scipy python-sympy
 yay -S pyenv-virtualenv
 pip install cirq
+# remove everything nix-related from the path to install python versions with pyenv
 
 # misc.
 sudo pacman -S libreoffice
