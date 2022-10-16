@@ -28,6 +28,7 @@ ln -sf ~/nix/home.nix ~/.config/nixpkgs/home.nix
 sudo pacman -S sway polkit swaybg swayidle waybar xorg-xwayland
 sudo pacman -S autotiling-rs brightnessctl grim slurp wdisplays wl-clipboard
 yay -S swaylock-effects swaync swaytools wev  # remove nix from PATH
+sudo pacman -S i3  # for workspace moving scripts, which use i3-msg (for backwards compatibility)
 
 # to enable wayland mode for firefox
 echo "MOZ_ENABLE_WAYLAND=1" >> /etc/environment
