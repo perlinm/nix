@@ -77,10 +77,12 @@
 
 #battery.warning {
   color: orange;
+  background-color: #323232;
 }
 
 #battery.critical {
   color: red;
+  background-color: #323232;
 }
 
 #battery.warning.discharging {
@@ -103,26 +105,22 @@
 
 #cpu.warning {
   color: orange;
+  background-color: #323232;
 }
 
 #cpu.critical {
-    color: red;
-}
-
-#memory {
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
-  animation-direction: alternate;
+  color: red;
+  background-color: #323232;
 }
 
 #memory.warning {
   color: orange;
+  background-color: #323232;
 }
 
 #memory.critical {
   color: red;
-  animation-name: blink-critical;
-  animation-duration: 2s;
+  background-color: #323232;
 }
 
 #mode {
@@ -162,7 +160,7 @@
   padding-bottom: 2px;
   padding-left: 10px;
   padding-right: 10px;
-  color: #888888;
+  color: white;
 }
 
 #workspaces button.focused {
@@ -173,5 +171,6 @@
 
 #workspaces button.urgent {
   border-color: #c9545d;
+  color: white;
   color: #c9545d;
 }
