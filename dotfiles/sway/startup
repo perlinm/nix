@@ -20,12 +20,15 @@ exec autotiling-rs
 # notification daemon
 exec swaync
 
+# disk automounting
+exec udiskie --smart-tray
+
 # screen locker
 set $screen-off 'swaymsg "output * dpms off"'
 set $screen-on  'swaymsg "output * dpms on"'
 exec swayidle -w before-sleep swaylock timeout 300 $screen-off resume $screen-on
 
-# enable screen sharing in Teams >:|
+# enable screen sharing in Teams
 exec ~/scripts/w-enable-screensharing
 
 ###############################################################################

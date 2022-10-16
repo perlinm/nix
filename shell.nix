@@ -28,7 +28,7 @@
   aliases = {
     sudo = "sudo ";  # allows using aliases after "sudo"
     rem = "trash";  # trash management, replacing "rm"
-    pm = "aptitude";  # package manager
+    pm = "yay";  # package manager
     calc = "ipython3 --profile=perlinm --no-banner";
 
     # python aliases

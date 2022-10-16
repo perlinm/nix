@@ -8,7 +8,4 @@
 
   # network / wifi management
   network-manager-applet.enable = true;
-
-  # disk automounting
-  udiskie.enable = true;
 }

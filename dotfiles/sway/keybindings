@@ -190,16 +190,16 @@ $bind $mod+Ctrl+slash              exec ~/scripts/w-brightness mid
 $bind $mod+Ctrl+Shift+slash        exec ~/scripts/w-brightness mid
 
 # scratchpads
-$bind $mod+F1  exec swaymsg [title="^pad-F1$"]  scratchpad show || $terminal --title="pad-F1"
-$bind $mod+F2  exec swaymsg [title="^pad-F2$"]  scratchpad show || $terminal --title="pad-F2"
-$bind $mod+F3  exec swaymsg [title="^pad-F3$"]  scratchpad show || $terminal --title="pad-F3"
-$bind $mod+F4  exec swaymsg [title="^pad-F4$"]  scratchpad show || $terminal --title="pad-F4"
-$bind $mod+F5  exec swaymsg [title="^pad-F5$"]  scratchpad show || $terminal --title="pad-F5"
-$bind $mod+F6  exec swaymsg [title="^pad-F6$"]  scratchpad show || $terminal --title="pad-F6"
-$bind $mod+F7  exec swaymsg [title="^pad-F7$"]  scratchpad show || $terminal --title="pad-F7"
-$bind $mod+F8  exec swaymsg [title="^pad-F8$"]  scratchpad show || $terminal --title="pad-F8"
-$bind $mod+F9  exec swaymsg [title="^pad-F9$"]  scratchpad show || $terminal --title="pad-F9"
-$bind $mod+F10 exec swaymsg [title="^pad-F10$"] scratchpad show || $terminal --title="pad-F10"
-$bind $mod+F11 exec swaymsg [title="^pad-F11$"] scratchpad show || $terminal --title="pad-F11"
-$bind $mod+F12 exec swaymsg [title="^pad-F12$"] scratchpad show || $terminal --title="pad-F12"
+$bind $mod+F1  exec swaymsg [class="^pad-F1$"]  scratchpad show || $terminal --class="pad-F1"
+$bind $mod+F2  exec swaymsg [class="^pad-F2$"]  scratchpad show || $terminal --class="pad-F2"
+$bind $mod+F3  exec swaymsg [class="^pad-F3$"]  scratchpad show || $terminal --class="pad-F3"
+$bind $mod+F4  exec swaymsg [class="^pad-F4$"]  scratchpad show || $terminal --class="pad-F4"
+$bind $mod+F5  exec swaymsg [class="^pad-F5$"]  scratchpad show || $terminal --class="pad-F5"
+$bind $mod+F6  exec swaymsg [class="^pad-F6$"]  scratchpad show || $terminal --class="pad-F6"
+$bind $mod+F7  exec swaymsg [class="^pad-F7$"]  scratchpad show || $terminal --class="pad-F7"
+$bind $mod+F8  exec swaymsg [class="^pad-F8$"]  scratchpad show || $terminal --class="pad-F8"
+$bind $mod+F9  exec swaymsg [class="^pad-F9$"]  scratchpad show || $terminal --class="pad-F9"
+$bind $mod+F10 exec swaymsg [class="^pad-F10$"] scratchpad show || $terminal --class="pad-F10"
+$bind $mod+F11 exec swaymsg [class="^pad-F11$"] scratchpad show || $terminal --class="pad-F11"
+$bind $mod+F12 exec swaymsg [class="^pad-F12$"] scratchpad show || $terminal --class="pad-F12"
 $bind $mod+v   exec swaymsg [app_id="^pavucontrol$"] scratchpad show || $volume
