@@ -25,6 +25,7 @@ ln -sf ~/nix/home.nix ~/.config/nixpkgs/home.nix
 sudo pacman -S sway polkit swaybg swayidle swaylock waybar xorg-xwayland
 sudo pacman -S autotiling-rs brightnessctl grim slurp wdisplays wl-clipboard
 yay -S swaync swaytools wev
+# removing everything nix-related from the path may be necessary to install swaync and wev
 
 # to enable wayland mode for firefox
 echo "MOZ_ENABLE_WAYLAND=1" >> /etc/environment
