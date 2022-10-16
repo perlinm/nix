@@ -1,8 +1,8 @@
 daemonize
 ignore-empty-password
-#screenshots
-#effect-blur=5x5
-image=~/Pictures/.background
+screenshots
+effect-blur=5x5
+#image=~/Pictures/.background
 
 # colors taken from https://github.com/Big-B/swaylock-fancy/blob/master/swaylock-fancy
 

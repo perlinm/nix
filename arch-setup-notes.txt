@@ -4,6 +4,7 @@ sudo pacman -S yay
 
 # set KEYMAP=colemak in /etc/vconsole.conf
 # manually uncomment 'Color' from /etc/pacman.conf
+# set HandleLidSwitch=ignore in /etc/systemd/logind.conf
 
 # get personal configs (after copying over ssh keys)
 git clone git@github.com:perlinm/scripts-configs-etc.git
@@ -21,11 +22,12 @@ nix-shell '<home-manager>' -A install
 ln -sf ~/nix/home.nix ~/.config/nixpkgs/home.nix
 ~/.nix-profile/bin/home-manager switch -b backup
 
+# WARNING: everything nix-related needs to be removed from the PATH to build packages in the AUR
+
 # sway
-sudo pacman -S sway polkit swaybg swayidle swaylock waybar xorg-xwayland
+sudo pacman -S sway polkit swaybg swayidle waybar xorg-xwayland
 sudo pacman -S autotiling-rs brightnessctl grim slurp wdisplays wl-clipboard
-yay -S swaync swaytools wev
-# removing everything nix-related from the path may be necessary to install swaync and wev
+yay -S swaylock-effects swaync swaytools wev  # remove nix from PATH
 
 # to enable wayland mode for firefox
 echo "MOZ_ENABLE_WAYLAND=1" >> /etc/environment
@@ -51,9 +53,8 @@ sudo pacman -S xdg-desktop-portal-wlr
 # python
 sudo pacman -S python ipython flake8 mypy jupyter-notebook pyenv
 sudo pacman -S python-matplotlib python-networkx python-numpy python-scipy python-sympy
-yay -S pyenv-virtualenv
+yay -S pyenv-virtualenv  # remove nix from PATH
 pip install cirq
-# remove everything nix-related from the path to install python versions with pyenv
 
 # misc.
 sudo pacman -S libreoffice
