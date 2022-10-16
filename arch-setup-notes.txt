@@ -59,3 +59,6 @@ pip install cirq
 
 # misc.
 sudo pacman -S libreoffice
+
+# for ColdQuanta VPN
+sudo pacman -S netextender
