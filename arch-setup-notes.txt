@@ -5,6 +5,7 @@ sudo pacman -S yay
 # set KEYMAP=colemak in /etc/vconsole.conf
 # manually uncomment 'Color' from /etc/pacman.conf
 # set HandleLidSwitch=ignore in /etc/systemd/logind.conf
+# set HandlePowerKey=suspend in /etc/systemd/logind.conf
 
 # get personal configs (after copying over ssh keys)
 git clone git@github.com:perlinm/scripts-configs-etc.git
