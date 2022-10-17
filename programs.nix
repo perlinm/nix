@@ -77,4 +77,9 @@
       co = "checkout";
     };
   };
+
+  keychain = {
+    enable = true;
+    extraFlags = [ "--quiet" "--noask" "--timeout 180" ];
+  };
 }
