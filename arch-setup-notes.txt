@@ -33,6 +33,7 @@ sudo pacman -S i3  # for workspace moving scripts, which use i3-msg (for backwar
 
 # to enable wayland mode for firefox
 echo "MOZ_ENABLE_WAYLAND=1" >> /etc/environment
+# to disable ctrl+q, to go about:config and disable browser.quitShortcut.disabled
 
 # network management applet (in tray)
 sudo pacman -S network-manager-applet
@@ -57,6 +58,10 @@ sudo pacman -S python ipython flake8 mypy jupyter-notebook pyenv
 sudo pacman -S python-matplotlib python-networkx python-numpy python-scipy python-sympy
 yay -S pyenv-virtualenv  # remove nix from PATH
 pip install cirq
+
+# python LSP
+sudo pacman -S python-lsp-server python-lsp-black
+yay -S python-pylsp-mypy
 
 # misc.
 sudo pacman -S libreoffice

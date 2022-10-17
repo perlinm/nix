@@ -47,7 +47,7 @@
             "critical": 15,
         },
         // Connected to AC
-        "format": "{capacity}% {icon} ", // Icon: bolt
+        "format": "{capacity}% {icon} ",
         // Not connected to AC
         "format-discharging": "{capacity}% {icon}  ",
         "format-icons": ["", "", "", "", "", "", "", "","", ""],
@@ -72,7 +72,7 @@
 
     "memory": {
         "interval": 5,
-        "format": "{}% 🐏", // Icon: memory
+        "format": "{}% 🐏",
         "states": {
             "warning": 70,
             "critical": 90,
@@ -81,8 +81,8 @@
 
     "network": {
         "interval": 2,
-        "format": "{bandwidthDownBits:>8} ▼ {bandwidthUpBits:>8} ▲", // Icon: wifi
-        "format-disconnected": "-----b/s ▼ -----b/s ▲", // Icon: wifi
+        "format": "{bandwidthDownBits:>8} ▼ {bandwidthUpBits:>8} ▲",
+        "format-disconnected": "-----b/s ▼ -----b/s ▲",
         "tooltip-format": "{ifname}: {ipaddr}",
         "tooltip-format-disconnected": "disconnected",
     },
@@ -101,18 +101,12 @@
         "all-outputs": false,
         "disable-scroll": true,
         "format": "{name}",
-        // "format": "{icon} {name}",
-        // "format-icons": {
-        //     "urgent": "<span color='red'></span>",
-        //     "focused": "",
-        //     "default": "",
-        // },
     },
 
     "pulseaudio": {
         "scroll-step": 1,
         "format": "{volume:>3}% {icon}",
-        "format-muted": "{volume:>3}% 🔇",
+        "format-muted": "<span color='red'>{volume:>3}%</span> 🔇",
         "format-icons": {
             "default": ["🔈", "🔉", "🔊"],
         },
