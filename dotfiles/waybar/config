@@ -35,7 +35,6 @@
         "clock",
     ],
 
-
     // -------------------------------------------------------------------------
     // Modules
     // -------------------------------------------------------------------------
@@ -105,12 +104,16 @@
 
     "pulseaudio": {
         "scroll-step": 1,
-        "format": "{volume:>3}% {icon}",
-        "format-muted": "<span color='red'>{volume:>3}%</span> 🔇",
+        "format": "{volume:>3}% {icon}{format_source}",
+        "format-muted": "<span color='red'>{volume:>3}%</span> 🔇{format_source}",
         "format-icons": {
             "default": ["🔈", "🔉", "🔊"],
         },
-        "on-click": "pavucontrol",
+        "format-source": " ",
+        "format-source-muted": "<span color='red'>m</span>",
+        "on-click": "~/scripts/volume toggle",
+        "on-click-middle": "~/scripts/volume med",
+        "on-click-right": "swaymsg [app_id='^pavucontrol$'] scratchpad show || pavucontrol",
     },
 
     "tray": {

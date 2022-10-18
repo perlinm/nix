@@ -80,6 +80,6 @@
 
   keychain = {
     enable = true;
-    extraFlags = [ "--quiet" "--noask" "--timeout 180" ];
+    extraFlags = [ "--quiet" "--timeout 180" ];
   };
 }

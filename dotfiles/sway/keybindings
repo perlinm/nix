@@ -178,6 +178,7 @@ $bind Ctrl+Shift+Up               exec ~/scripts/volume max
 $bind Ctrl+Shift+Down             exec ~/scripts/volume min
 $bind Ctrl+Shift+slash            exec ~/scripts/volume med
 $bind XF86AudioMicMute            exec ~/scripts/volume mic toggle
+$bind Ctrl+Alt+slash              exec ~/scripts/volume mic toggle
 
 # screen brightness
 $bind-repeat XF86MonBrightnessUp   exec ~/scripts/w-brightness inc

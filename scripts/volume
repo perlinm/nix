@@ -5,7 +5,7 @@ if [ "$#" -lt 1 ]; then
 fi
 
 delta=5
-medium=40
+medium=50
 
 device=sink
 device_tag=@DEFAULT_SINK@
@@ -33,17 +33,4 @@ elif [ $cmd = on ]; then
   pactl set-$device-mute $device_tag 0
 elif [ $cmd = off ]; then
   pactl set-$device-mute $device_tag 1
-fi
-
-if [ $device = source ]; then
-  if [ $cmd = toggle ] || [ $cmd = on ] || [ $cmd = off ]; then
-    mute=$(pactl get-source-mute @DEFAULT_SOURCE@ | awk '{print $2}')
-    if [ $mute = yes ]; then
-      notify-send -t 1000 "mic off"
-    elif [ $mute = no ]; then
-      notify-send -t 1000 "mic on"
-    else
-      notify-send -t 1000 "mic status unknown"
-    fi
-  fi
 fi
