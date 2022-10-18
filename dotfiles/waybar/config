@@ -110,7 +110,7 @@
             "default": ["🔈", "🔉", "🔊"],
         },
         "format-source": " ",
-        "format-source-muted": "<span color='red'>m</span>",
+        "format-source-muted": "<span color='red'>•</span>",
         "on-click": "~/scripts/volume toggle",
         "on-click-middle": "~/scripts/volume med",
         "on-click-right": "swaymsg [app_id='^pavucontrol$'] scratchpad show || pavucontrol",
