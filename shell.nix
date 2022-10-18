@@ -52,7 +52,10 @@
       pyenv-init
       cd ~/super.tech/SuperstaQ
     '';
-    pygrep = "$HOME/super.tech/SuperstaQ/dev_tools/pygrep.sh";
+    qq = ''
+      pyenv-init
+      cd ~/super.tech/QFI-Opt
+    '';
 
     # telehealth
     tt = ''
