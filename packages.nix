@@ -48,7 +48,8 @@ let
   ];
   nixos-applications = with pkgs; [
     alacritty xfce.xfce4-terminal  # terminal emulators
-    pavucontrol  # volume control
+    pamixer  # command-line volume control
+    pavucontrol  # GUI volume control
     spotify  # music
     zoom-us  # video conferencing app
   ];

@@ -4,33 +4,32 @@ if [ "$#" -lt 1 ]; then
   exit 1
 fi
 
+cmd=$1
 delta=5
 medium=50
+cap=150
 
-device=sink
-device_tag=@DEFAULT_SINK@
-cmd=$1
-
-if [ $1 = mic ]; then
-  device=source
-  device_tag=@DEFAULT_SOURCE@
+if [ $cmd = mic ]; then
   cmd=$2
+  device=--default-source
+  medium=20
+  cap=100
 fi
 
-if [ $cmd = inc ]; then
-  pactl set-$device-volume $device_tag +$delta%
+if [ $cmd = inc ] && [ "$(pamixer --get-volume)" -lt "$cap" ]; then
+  pamixer $device --increase $delta --allow-boost
 elif [ $cmd = dec ]; then
-  pactl set-$device-volume $device_tag -$delta%
+  pamixer $device --decrease $delta --allow-boost
 elif [ $cmd = max ]; then
-  pactl set-$device-volume $device_tag 100%
+  pamixer $device --set-volume 100
 elif [ $cmd = min ]; then
-  pactl set-$device-volume $device_tag 0
+  pamixer $device --set-volume 0
 elif [ $cmd = med ]; then
-  pactl set-$device-volume $device_tag $medium%
+  pamixer $device --set-volume $medium
 elif [ $cmd = toggle ]; then
-  pactl set-$device-mute $device_tag toggle
+  pamixer $device --toggle-mute
 elif [ $cmd = on ]; then
-  pactl set-$device-mute $device_tag 0
+  pamixer $device --unmute
 elif [ $cmd = off ]; then
-  pactl set-$device-mute $device_tag 1
+  pamixer $device --mute
 fi
