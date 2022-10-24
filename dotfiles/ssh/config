@@ -1,3 +1,8 @@
+Host aws-gpu
+  HostName ec2-3-230-154-206.compute-1.amazonaws.com
+  User ubuntu
+  IdentityFile ~/super.tech/.ssh/superstaq_gpu.pem
+
 Host jlse
   HostName login.jlse.anl.gov
 

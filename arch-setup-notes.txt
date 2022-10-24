@@ -2,6 +2,15 @@
 sudo pacman -Syyu
 sudo pacman -S yay
 
+# add 8GB swap file
+sudo swapoff /swapfile
+sudo rm /swapfile
+sudo fallocate -l 8GB /swapfile
+sudo chmod 0600 /swapfile
+sudo mkswap /swapfile
+sudo swapon /swapfile
+# add "/swapfile swap swap defaults 0 0" to /etc/fstab
+
 # set KEYMAP=colemak in /etc/vconsole.conf
 # manually uncomment 'Color' from /etc/pacman.conf
 # set HandleLidSwitch=ignore in /etc/systemd/logind.conf
