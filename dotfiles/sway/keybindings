@@ -178,7 +178,7 @@ $bind Ctrl+Shift+Up               exec ~/scripts/volume max
 $bind Ctrl+Shift+Down             exec ~/scripts/volume min
 $bind Ctrl+Shift+slash            exec ~/scripts/volume med
 $bind XF86AudioMicMute            exec ~/scripts/volume mic toggle
-$bind Ctrl+Alt+slash              exec ~/scripts/volume mic toggle
+$bind $alt+Ctrl+slash             exec ~/scripts/volume mic toggle
 
 # screen brightness
 $bind-repeat XF86MonBrightnessUp   exec ~/scripts/w-brightness inc
@@ -190,7 +190,11 @@ $bind $mod+Ctrl+Shift+Down         exec ~/scripts/w-brightness min
 $bind $mod+Ctrl+slash              exec ~/scripts/w-brightness mid
 $bind $mod+Ctrl+Shift+slash        exec ~/scripts/w-brightness mid
 
-# scratchpads
+###############################################################################
+# miscellaneous
+###############################################################################
+
+# terminal scratchpads
 $bind $mod+F1  exec swaymsg [app_id="^pad-F1$"]  scratchpad show || $terminal --class="pad-F1"
 $bind $mod+F2  exec swaymsg [app_id="^pad-F2$"]  scratchpad show || $terminal --class="pad-F2"
 $bind $mod+F3  exec swaymsg [app_id="^pad-F3$"]  scratchpad show || $terminal --class="pad-F3"
@@ -203,4 +207,9 @@ $bind $mod+F9  exec swaymsg [app_id="^pad-F9$"]  scratchpad show || $terminal --
 $bind $mod+F10 exec swaymsg [app_id="^pad-F10$"] scratchpad show || $terminal --class="pad-F10"
 $bind $mod+F11 exec swaymsg [app_id="^pad-F11$"] scratchpad show || $terminal --class="pad-F11"
 $bind $mod+F12 exec swaymsg [app_id="^pad-F12$"] scratchpad show || $terminal --class="pad-F12"
+
+# volume control scratchpad
 $bind $mod+v   exec swaymsg [app_id="^pavucontrol$"] scratchpad show || $volume
+
+# hack to toggle idle inhibitor with waybar
+$bind $alt+Ctrl+apostrophe seat - cursor set 1723 13; seat - cursor press button1; seat - cursor release button1
