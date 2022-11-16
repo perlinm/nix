@@ -3,7 +3,7 @@
   gpg-agent = {
     enable = true;
     enableSshSupport = true;
-    pinentryFlavor = "gtk2";
+    pinentryFlavor = "qt";
   };
 
   # network / wifi management

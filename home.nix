@@ -42,7 +42,7 @@ in
   home.shellAliases = shell.aliases;
   home.activation = shell.activation;
 
-  home.packages = packages.work;
+  # home.packages = packages;
 
   # allow installing unfree packages
   nixpkgs.config.allowUnfree = true;

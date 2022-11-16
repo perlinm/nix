@@ -8,8 +8,8 @@
   ];
 
   sessionVariables = {
-    EDITOR = "hx";
-    VISUAL = "hx";
+    EDITOR = "helix";
+    VISUAL = "helix";
     BROWSER = "firefox";
     TERM = "xterm-256color";
 
@@ -28,6 +28,7 @@
   aliases = {
     sudo = "sudo ";  # allows using aliases after "sudo"
     rem = "trash";  # trash management, replacing "rm"
+    hx = "helix";  # text editor
     pm = "yay";  # package manager
     calc = "ipython3 --profile=perlinm --no-banner";
 

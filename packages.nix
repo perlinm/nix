@@ -17,6 +17,7 @@ let
     mosh  # better than ssh
     pdftk  # pdf editor
     ripgrep  # faster grep
+    ripgrep-all  # faster grep, now also for pdf, docx, etc. files
     starship  # customizable shell prompt
     trashy  # trash management, replacing "rm"
     tree  # list directories
@@ -35,23 +36,21 @@ let
     vistafonts  # provides consolas
   ];
   applications = with pkgs; [
+    alacritty xfce.xfce4-terminal  # terminal emulators
     blueberry  # bluetooth tool
     gnome.eog  # image viewer
     gpick  # color picker
     inkscape  # vector graphics (SVG) editor
     meld  # file comparison tool
-    qpdfview zathura okular foxitreader  # pdf viewers
-    slack  # work chat
-    vlc  # for watching videos
-    xfce.thunar  # file browser
-    zotero  # bibliography/reference manager
-  ];
-  nixos-applications = with pkgs; [
-    alacritty xfce.xfce4-terminal  # terminal emulators
     pamixer  # command-line volume control
     pavucontrol  # GUI volume control
+    qpdfview zathura okular foxitreader  # pdf viewers
+    slack  # work chat
     spotify  # music
+    vlc  # for watching videos
+    xfce.thunar  # file browser
     zoom-us  # video conferencing app
+    zotero  # bibliography/reference manager
   ];
   sway-utilities = with pkgs; [
     autotiling-rs  # sane tiling defaults
@@ -87,7 +86,4 @@ let
     xss-lock  # lock screen manager
   ];
 in
-{
-  home = console-utilities ++ languages ++ fonts-icons-themes ++ applications ++ sway-utilities ++ nixos-applications ++ python;
-  work = console-utilities ++ languages ++ fonts-icons-themes ++ applications;
-}
+console-utilities ++ languages ++ python ++ fonts-icons-themes ++ applications ++ sway-utilities
