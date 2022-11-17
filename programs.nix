@@ -64,7 +64,7 @@
     userName = "Michael A. Perlin";
     userEmail = "mika.perlin@gmail.com";
     extraConfig = {
-      core.editor = "hx";
+      core.editor = "helix";
       init.defaultBranch = "main";
       fetch.prune = "true";
       pull.ff = "only";
