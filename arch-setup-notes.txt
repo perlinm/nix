@@ -32,9 +32,6 @@ nix-shell '<home-manager>' -A install
 ln -sf ~/nix/home.nix ~/.config/nixpkgs/home.nix
 ~/.nix-profile/bin/home-manager switch -b backup
 
-# enable gnome keyring
-systemctl --user start gnome-keyring.service
-
 # WARNING: everything nix-related needs to be removed from the PATH to build packages in the AUR
 
 # sway
@@ -77,6 +74,8 @@ yay -S python-pylsp-mypy
 
 # misc.
 sudo pacman -S libreoffice hunspell-en_us
+
+# for more packages, see packages.nix
 
 # for ColdQuanta VPN
 sudo pacman -S netextender
