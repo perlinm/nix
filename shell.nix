@@ -5,6 +5,7 @@
     "$HOME/.local/bin"
     "$HOME/.pyenv/bin"
     "$HOME/.cargo/bin"
+    "$HOME/.cabal/bin"
   ];
 
   sessionVariables = {
