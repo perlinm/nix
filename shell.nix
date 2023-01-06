@@ -58,6 +58,10 @@
       pyenv-init
       cd ~/super.tech/QFI-Opt
     '';
+    cc = ''
+      pyenv-init
+      cd ~/super.tech/coldquanta-system/modeling/coldquanta/modeling/gates/cz_atomic_sim
+    '';
 
     # telehealth
     tt = ''

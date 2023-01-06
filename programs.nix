@@ -56,8 +56,8 @@
     };
   };
 
-  exa.enable = true;
-  exa.enableAliases = true;
+  # exa.enable = true;
+  # exa.enableAliases = true;
 
   git = {
     enable = true;
