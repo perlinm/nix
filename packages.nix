@@ -32,6 +32,9 @@ let
     dracula-theme
     nerdfonts
     nerd-font-patcher
+    noto-fonts
+    noto-fonts-emoji
+    noto-fonts-extra
     papirus-icon-theme
     vistafonts  # provides consolas
   ];
