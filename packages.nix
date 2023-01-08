@@ -2,12 +2,12 @@
 let
   languages = with pkgs; [
     cargo
-    conda
     gcc
     # mathematica
     texlive.combined.scheme-full
+    # wolfram-engine
   ];
-  python = [(import ./python.nix { inherit pkgs; })];
+  python = import ./python.nix { inherit pkgs; };
   console-utilities = with pkgs; [
     cmake  # build system
     git  # version control system
@@ -46,6 +46,7 @@ let
     # gparted  # graphical disk partitioning
     gpick  # color picker
     inkscape  # vector graphics (SVG) editor
+    maxima sage  # computer algebra systems
     meld  # file comparison tool
     pamixer  # command-line volume control
     pavucontrol  # GUI volume control
@@ -61,7 +62,7 @@ let
     i3  # parent to sway, incuded for 'i3-msg' command
     autotiling-rs  # sane tiling defaults
     brightnessctl  # screen brightness
-    firefox-wayland  # web browser
+    firefox-wayland google-chrome  # web browsers
     grim slurp  # for screenshots
     swaybg  # set background image
     swaylock-effects  # screen locker
