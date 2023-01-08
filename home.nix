@@ -8,6 +8,9 @@
 # remaining parts of arch-setup
 # look into https://looking-glass.io/
 
+# make starship recognize conda-shell
+# configure starship in programs.nix
+
 let
   services = import ./services.nix;
   programs = import ./programs.nix {inherit pkgs; };
@@ -42,7 +45,7 @@ in
   home.shellAliases = shell.aliases;
   home.activation = shell.activation;
 
-  # home.packages = packages;
+  home.packages = packages;
 
   # allow installing unfree packages
   nixpkgs.config.allowUnfree = true;

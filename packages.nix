@@ -2,6 +2,7 @@
 let
   languages = with pkgs; [
     cargo
+    conda
     gcc
     # mathematica
     texlive.combined.scheme-full
@@ -42,6 +43,7 @@ let
     alacritty xfce.xfce4-terminal  # terminal emulators
     blueberry  # bluetooth tool
     gnome.eog  # image viewer
+    # gparted  # graphical disk partitioning
     gpick  # color picker
     inkscape  # vector graphics (SVG) editor
     meld  # file comparison tool
@@ -56,6 +58,7 @@ let
     zotero  # bibliography/reference manager
   ];
   sway-utilities = with pkgs; [
+    i3  # parent to sway, incuded for 'i3-msg' command
     autotiling-rs  # sane tiling defaults
     brightnessctl  # screen brightness
     firefox-wayland  # web browser

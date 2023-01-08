@@ -39,6 +39,9 @@ in
   # schedule user processes/threads
   security.rtkit.enable = true;
 
+  # fine-grained authentication agent
+  security.polkit.enable = true;
+
   networking.hostName = "map-nix";
   networking.networkmanager.enable = true;
 

@@ -1,0 +1,31 @@
+TODO:
+- get Mathematica working
+
+# copy over sway-fixes.nix to /etc/nixos/
+
+##################################################
+# setting up conda
+conda-shell
+conda-install
+conda update conda
+conda install python=3.10
+
+# allow activating virtual environments
+conda init
+
+# to set up a virual environment:
+conda create --name <VENV-NAME> python=3.<VERSION>
+
+# to allow installing local packages with 'pip install .'
+conda install conda-develop
+
+# for jupyter notebooks
+# NOTE: 'jupyter notebook' must be executed OUTSIDE virtual environments
+#       venvs in notebooks are controlled by the choice of kernel
+conda install -c conda-forge jupyterlab
+conda install -c conda-forge nb_conda_kernels
+conda install -c conda-forge jupyter_contrib_nbextensions  # optional extensions
+
+# to start using conda and activate a virtual environment
+conda-shell
+conda activate <VENV-NAME>

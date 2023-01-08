@@ -7,6 +7,9 @@
     enable = true;
     enableCompletion = true;  # https://rycee.gitlab.io/home-manager/options.html#opt-programs.bash.enableCompletion
     enableVteIntegration = true;
+    initExtra = ''
+      eval "$(starship init bash)"
+    '';
   };
 
   zsh = {
@@ -56,8 +59,8 @@
     };
   };
 
-  # exa.enable = true;
-  # exa.enableAliases = true;
+  exa.enable = true;
+  exa.enableAliases = true;
 
   git = {
     enable = true;
