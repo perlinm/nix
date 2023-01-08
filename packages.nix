@@ -42,6 +42,7 @@ let
   applications = with pkgs; [
     alacritty xfce.xfce4-terminal  # terminal emulators
     blueberry  # bluetooth tool
+    firefox google-chrome  # web browsers
     gnome.eog  # image viewer
     # gparted  # graphical disk partitioning
     gpick  # color picker
@@ -62,7 +63,6 @@ let
     i3  # parent to sway, incuded for 'i3-msg' command
     autotiling-rs  # sane tiling defaults
     brightnessctl  # screen brightness
-    firefox-wayland google-chrome  # web browsers
     grim slurp  # for screenshots
     swaybg  # set background image
     swaylock-effects  # screen locker
@@ -76,7 +76,6 @@ let
   ];
   i3-utilities = with pkgs; [
     autotiling  # sane tiling defaults
-    firefox  # web browser
     feh  # set background image
     gnome.gnome-control-center  # provides display settings
     lxappearance  # set GTK themes
