@@ -96,6 +96,12 @@ in
   # interprocess communications manager
   services.dbus.enable = true;
 
+  # change some power settings
+  services.logind.extraConfig = ''
+    HandlePowerKey=suspend  # suspend when pressing power key
+    HandleLidSwitch=ignore  # ignore laptop lid closing
+  '';
+
   users.users.perlinm = {
     isNormalUser = true;
     description = "Michael A. Perlin";
