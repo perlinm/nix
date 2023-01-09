@@ -51,7 +51,7 @@ let
     meld  # file comparison tool
     pamixer  # command-line volume control
     pavucontrol  # GUI volume control
-    qpdfview zathura okular foxitreader  # pdf viewers
+    qpdfview zathura okular  # pdf viewers
     slack  # work chat
     spotify  # music
     vlc  # for watching videos
