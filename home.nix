@@ -42,6 +42,9 @@ in
   # let Home Manager manage fonts;  https://github.com/nix-community/home-manager/issues/1118
   fonts.fontconfig.enable = lib.mkForce true;
 
-  # have Home Manager set some helpful environment variables for installed packages.
-  targets.genericLinux.enable = true;
+  gtk = {
+    enable = true;
+    theme.name = "Dracula";
+    theme.package = pkgs.dracula-theme;
+  };
 }

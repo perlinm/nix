@@ -1,4 +1,4 @@
-fix bug with waybar system tray
+make conda-shell work with zsh
 
 make starship recognize conda-shell
 proper power button + lid handling (see configuration.nix)

@@ -174,3 +174,10 @@
   color: white;
   color: #c9545d;
 }
+
+#workspaces button:hover {
+  background: inherit;
+  border: inherit;
+  box-shadow: inherit;
+  text-shadow: inherit;
+}
