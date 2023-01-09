@@ -17,13 +17,12 @@ in
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "22.11"; # Did you read the comment?
+  system.stateVersion = "22.05"; # Did you read the comment?
 
   # system.autoUpgrade.enable = true;
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   imports = [
-    <nixos-hardware/dell/xps/15-9550>
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
 
@@ -38,15 +37,6 @@ in
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
 
-  # setup keyfile for encrypted hard drive
-  boot.initrd.secrets = {
-    "/crypto_keyfile.bin" = null;
-  };
-
-  # enable swap on LUKS
-  boot.initrd.luks.devices."luks-f4650d9b-98cf-48a4-b7e2-6b1a6ccc1538".device = "/dev/disk/by-uuid/f4650d9b-98cf-48a4-b7e2-6b1a6ccc1538";
-  boot.initrd.luks.devices."luks-f4650d9b-98cf-48a4-b7e2-6b1a6ccc1538".keyFile = "/crypto_keyfile.bin";
-
   # schedule user processes/threads
   security.rtkit.enable = true;
 
@@ -54,7 +44,7 @@ in
   security.polkit.enable = true;
 
   # networking options
-  networking.hostName = "map-work";
+  networking.hostName = "map-nix";
   networking.networkmanager.enable = true;
 
   # internationalisation properties
@@ -81,10 +71,6 @@ in
     displayManager.gdm.enable = true;
     displayManager.gdm.wayland = true;
     desktopManager.xfce.enable = true;
-
-    # enable automatic login
-    displayManager.autoLogin.enable = true;
-    displayManager.autoLogin.user = "perlinm";
   };
 
   # enable sway window manager
