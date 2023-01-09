@@ -38,6 +38,6 @@ exec ~/scripts/w-enable-screensharing
 # applications
 ###############################################################################
 
-exec google-chrome-stable --enable-features=UseOzonePlatform --ozone-plaform=wayland --app=https://teams.microsoft.com
-exec slack
-exec zotero
+# exec google-chrome-stable --enable-features=UseOzonePlatform --ozone-plaform=wayland --app=https://teams.microsoft.com
+# exec slack
+# exec zotero
