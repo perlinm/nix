@@ -9,6 +9,7 @@ let
     builtins.fetchTarball
       "https://github.com/nix-community/home-manager/archive/master.tar.gz";
   sway-fixes = import ./sway-fixes.nix { inherit pkgs; };
+  mathematica-overlay = import ./overlays/mathematica.nix { inherit pkgs; };
 in
 {
   # This value determines the NixOS release from which the default
@@ -17,7 +18,7 @@ in
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "22.11"; # Did you read the comment?
+  system.stateVersion = "22.05"; # Did you read the comment?
 
   # system.autoUpgrade.enable = true;
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -31,6 +32,8 @@ in
 
   # allow unfree software, which may be necessary for drivers
   nixpkgs.config.allowUnfree = true;
+
+  nixpkgs.overlays = [ (mathematica-overlay) ];
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;

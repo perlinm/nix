@@ -13,7 +13,7 @@
 
 let
   services = import ./services.nix;
-  programs = import ./programs.nix {inherit pkgs; };
+  programs = import ./programs.nix { inherit pkgs; };
   packages = import ./packages.nix { inherit pkgs; };
   files = import ./files.nix;
   shell = import ./shell.nix { inherit lib; };

@@ -1,10 +1,10 @@
-TODO:
-- get Mathematica working
-
-# copy over sway-fixes.nix to /etc/nixos/
+# copy over main config files
+sudo cp ~/nix/configuration.nix /etc/nixos
+sudo cp ~/nix/sway-fixes.nix /etc/nixos
 
 ##################################################
-# setting up conda
+# conda / python
+
 conda-shell
 conda-install
 conda update conda
@@ -29,3 +29,22 @@ conda install -c conda-forge jupyter_contrib_nbextensions  # optional extensions
 # to start using conda and activate a virtual environment
 conda-shell
 conda activate <VENV-NAME>
+
+##################################################
+# mathematica
+# procedure inspired by https://gist.github.com/kinnala/b45c0ce0b2670be6cdaffb9b6e9ec6f3
+# do everything in the ~/.mathematica directory
+
+# aquire mathematica installer file, run
+nix-store --add-fixed sha256 <FILE>
+
+# download files here to a local directory:
+# https://github.com/NixOS/nixpkgs/tree/master/pkgs/applications/science/math/mathematica
+
+# get installer file hash, and update the hash in 'versions.nix', if necessary
+nix --extra-experimental-features nix-command hash file <FILE>
+
+# install mathematica!
+nix-build default.nix
+
+# executable will be in ~/.mathematica/result/...

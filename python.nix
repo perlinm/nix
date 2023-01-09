@@ -18,7 +18,6 @@ let
     setuptools
     sympy
   ];
-  python-with-my-packages = [(pkgs.python3.withPackages my-python-packages)];
-  conda = [ pkgs.conda ];
+  python-with-my-packages = [ (pkgs.python3.withPackages my-python-packages) ];
 in
-python-with-my-packages ++ conda
+python-with-my-packages ++ [ pkgs.conda ]
