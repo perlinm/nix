@@ -7,5 +7,4 @@ proper power button + lid handling (see configuration.nix)
 configure starship in programs.nix
 configure firefox with nix
 
-add LSPs (?)
 look into https://looking-glass.io/ (?)
