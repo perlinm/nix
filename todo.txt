@@ -1,4 +1,3 @@
-get nm-applet working
 fix bug with waybar system tray
 
 make starship recognize conda-shell

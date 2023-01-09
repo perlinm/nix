@@ -56,8 +56,6 @@ in
   # networking options
   networking.hostName = "map-work";
   networking.networkmanager.enable = true;
-  # programs.nm-applet.enable = true;  # TODO: get this working
-  # programs.nm-applet.indicator = true;
 
   # internationalisation properties
   # WARNING: these are ignored by some desktop environments (e.g. GNOME)
