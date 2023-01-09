@@ -176,8 +176,8 @@
 }
 
 #workspaces button:hover {
-  background: inherit;
-  border: inherit;
   box-shadow: inherit;
   text-shadow: inherit;
+  border-color: #4c7899;
+  background-color: #4c7899;
 }

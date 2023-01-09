@@ -39,12 +39,15 @@ in
   # allow installing unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  # let Home Manager manage fonts;  https://github.com/nix-community/home-manager/issues/1118
+  # let Home Manager manage fonts; https://github.com/nix-community/home-manager/issues/1118
   fonts.fontconfig.enable = lib.mkForce true;
 
+  # let Home Manager manage gtk themes
   gtk = {
     enable = true;
     theme.name = "Dracula";
     theme.package = pkgs.dracula-theme;
+    iconTheme.name = "Papirus-Dark";
+    iconTheme.package = pkgs.papirus-icon-theme;
   };
 }
