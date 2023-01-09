@@ -82,6 +82,7 @@ in
     # display (login), desktop, and window managers
     displayManager.gdm.enable = true;
     displayManager.gdm.wayland = true;
+    desktopManager.xfce.enable = true;
 
     # enable automatic login
     displayManager.autoLogin.enable = true;
@@ -114,6 +115,9 @@ in
 
   # interprocess communications manager
   services.dbus.enable = true;
+
+  # automounting external drives
+  services.udisks2.enable = true;
 
   # change some power settings (TODO: fix)
   # services.logind.extraConfig = ''

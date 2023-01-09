@@ -1,14 +1,5 @@
  # https://github.com/nix-community/home-manager
 { pkgs, lib, ... }:
-
-# TODO:
-# add LSPs
-# configure firefox
-# look into https://looking-glass.io/
-
-# make starship recognize conda-shell
-# configure starship in programs.nix
-
 let
   services = import ./services.nix;
   programs = import ./programs.nix { inherit pkgs; };

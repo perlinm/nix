@@ -37,9 +37,18 @@
     python = "python3";
     ipython = "ipython3";
 
-    ss = "cd ~/super.tech/SuperstaQ";
-    qq = "cd ~/super.tech/QFI-Opt";
-    cc = "cd ~/super.tech/coldquanta-system/modeling/coldquanta/modeling/gates/cz_atomic_sim";
+    ss = ''
+      conda activate SuperstaQ
+      cd ~/super.tech/SuperstaQ
+    '';
+    qq = ''
+      conda activate QFI-Opt
+      cd ~/super.tech/QFI-Opt
+    '';
+    cc = ''
+      conda activate ColdQuanta
+      cd ~/super.tech/coldquanta-system/modeling/coldquanta/modeling/gates/cz_atomic_sim
+    '';
 
     # # telehealth
     # tt = ''
