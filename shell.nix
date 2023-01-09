@@ -49,6 +49,10 @@
       conda activate ColdQuanta
       cd ~/super.tech/coldquanta-system/modeling/coldquanta/modeling/gates/cz_atomic_sim
     '';
+    ccs = ''
+      conda activate ColdQuanta
+      cd ~/super.tech/coldquanta-system
+    '';
 
     # # telehealth
     # tt = ''
