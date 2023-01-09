@@ -50,6 +50,9 @@
     wlr.enable = true;
     # gtk portal needed to make gtk apps happy
     extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-    # gtkUsePortal = true;  # gives depracation warning
   };
+
+  # packages to assist wayland compabitility with QT
+  qt5-fix = pkgs.libsForQt5.qt5.qtwayland;
+  qt6-fix = pkgs.qt6.qtwayland;
 }

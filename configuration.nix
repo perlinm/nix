@@ -98,6 +98,8 @@ in
   environment.systemPackages = with pkgs; [
     sway-fixes.dbus-sway-environment
     sway-fixes.configure-gtk
+    sway-fixes.qt5-fix
+    sway-fixes.qt6-fix
   ];
 
   # sound and bluetooth control
