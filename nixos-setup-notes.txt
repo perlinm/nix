@@ -2,6 +2,8 @@
 sudo cp ~/nix/configuration.nix /etc/nixos
 sudo cp ~/nix/sway-fixes.nix /etc/nixos
 
+# to disable ctrl+q in firefox, go to 'about:config' and enable 'browser.quitShortcut.disabled'
+
 ##################################################
 # conda / python
 

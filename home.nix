@@ -4,8 +4,6 @@
 # TODO:
 # add LSPs
 # configure firefox
-# python environments: https://github.com/DavHau/mach-nix
-# remaining parts of arch-setup
 # look into https://looking-glass.io/
 
 # make starship recognize conda-shell
