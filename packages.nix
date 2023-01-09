@@ -16,7 +16,9 @@ let
     jq  # json parsing
     killall  # kill processes by name
     mosh  # better than ssh
+    pciutils dmidecode  # inspect hardware devices
     pdftk  # pdf editor
+    pulseaudio  # provides pactl for audio control
     ripgrep  # faster grep
     ripgrep-all  # faster grep, now also for pdf, docx, etc. files
     starship  # customizable shell prompt
@@ -44,7 +46,7 @@ let
     blueberry  # bluetooth tool
     firefox google-chrome  # web browsers
     gnome.eog  # image viewer
-    # gparted  # graphical disk partitioning
+    gparted  # graphical disk partitioning
     gpick  # color picker
     inkscape  # vector graphics (SVG) editor
     maxima sage  # computer algebra systems

@@ -9,7 +9,6 @@ let
     builtins.fetchTarball
       "https://github.com/nix-community/home-manager/archive/master.tar.gz";
   sway-fixes = import ./sway-fixes.nix { inherit pkgs; };
-  mathematica-overlay = import ./overlays/mathematica.nix { inherit pkgs; };
 in
 {
   # This value determines the NixOS release from which the default
@@ -18,26 +17,35 @@ in
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "22.05"; # Did you read the comment?
+  system.stateVersion = "22.11"; # Did you read the comment?
 
   # system.autoUpgrade.enable = true;
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   imports = [
+    <nixos-hardware/dell/xps/15-9550>
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
 
     (import "${home-manager-tarball}/nixos")
-    ];
+  ];
 
-  # allow unfree software, which may be necessary for drivers
-  nixpkgs.config.allowUnfree = true;
+  # use the Zen linux kernel (others mignt not work!)
+  boot.kernelPackages = pkgs.linuxPackages_zen;
 
-  nixpkgs.overlays = [ (mathematica-overlay) ];
-
+  # bootloader
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
+
+  # setup keyfile for encrypted hard drive
+  boot.initrd.secrets = {
+    "/crypto_keyfile.bin" = null;
+  };
+
+  # enable swap on LUKS
+  boot.initrd.luks.devices."luks-f4650d9b-98cf-48a4-b7e2-6b1a6ccc1538".device = "/dev/disk/by-uuid/f4650d9b-98cf-48a4-b7e2-6b1a6ccc1538";
+  boot.initrd.luks.devices."luks-f4650d9b-98cf-48a4-b7e2-6b1a6ccc1538".keyFile = "/crypto_keyfile.bin";
 
   # schedule user processes/threads
   security.rtkit.enable = true;
@@ -45,7 +53,8 @@ in
   # fine-grained authentication agent
   security.polkit.enable = true;
 
-  networking.hostName = "map-nix";
+  # networking options
+  networking.hostName = "map-work";
   networking.networkmanager.enable = true;
 
   # internationalisation properties
@@ -79,10 +88,6 @@ in
   programs.sway.wrapperFeatures.gtk = true;
   xdg.portal = sway-fixes.xdg-portal;
 
-  environment.systemPackages = with pkgs; [
-    pulseaudio  # provides pactl for CLI audio control
-  ];
-
   # sound and bluetooth control
   sound.enable = true;
   services.pipewire = {
@@ -99,7 +104,7 @@ in
   # interprocess communications manager
   services.dbus.enable = true;
 
-  # change some power settings
+  # change some power settings (TODO: fix)
   services.logind.extraConfig = ''
     HandlePowerKey=suspend  # suspend when pressing power key
     HandleLidSwitch=ignore  # ignore laptop lid closing
@@ -111,6 +116,9 @@ in
     extraGroups = [ "wheel" "networkmanager" "audio" "video" ];
     shell = pkgs.zsh;
   };
+
+  # allow unfree software, which may be necessary for some drivers
+  nixpkgs.config.allowUnfree = true;
 
   # make home-manager use global configs and install paths (as opposed to user-specefic ones)
   home-manager.useUserPackages = true;
