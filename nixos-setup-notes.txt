@@ -18,15 +18,15 @@ conda init
 # to set up a virual environment:
 conda create --name <VENV-NAME> python=3.<VERSION>
 
-# to allow installing local packages with 'pip install .'
-conda install conda-develop
-
 # for jupyter notebooks
 # NOTE: 'jupyter notebook' must be executed OUTSIDE virtual environments
 #       venvs in notebooks are controlled by the choice of kernel
 conda install -c conda-forge jupyterlab
 conda install -c conda-forge nb_conda_kernels
 conda install -c conda-forge jupyter_contrib_nbextensions  # optional extensions
+
+# inside virtual environment for which we want a jupyter kernel:
+conda install ipykernel
 
 # to start using conda and activate a virtual environment
 conda-shell
