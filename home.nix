@@ -11,7 +11,7 @@ in
   # The state version determines some configuration defaults.
   # This version can be updated, but doing so may require manual intervention.
   # https://nix-community.github.io/home-manager/options.html#opt-home.stateVersion
-  home.stateVersion = "22.05";
+  home.stateVersion = "22.11";
 
   home.username = "perlinm";
   home.homeDirectory = "/home/perlinm";
