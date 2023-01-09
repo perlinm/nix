@@ -11,12 +11,18 @@ let
     mypy
     networkx
     numpy
-    pip
+    # pip  # only use inside virtual environments!
     pylint
     pytest
     scipy
     setuptools
     sympy
+    # language server protocol packages
+    python-lsp-server
+    python-lsp-black
+    pyls-flake8
+    pyls-isort
+    pylsp-mypy
   ];
   python-with-my-packages = [ (pkgs.python3.withPackages my-python-packages) ];
 in

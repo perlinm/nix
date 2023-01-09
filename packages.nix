@@ -9,7 +9,7 @@ let
   ];
   python = import ./python.nix { inherit pkgs; };
   console-utilities = with pkgs; [
-    cmake  # build system
+    cmake gnumake  # build system
     git  # version control system
     helix vim emacs  # text editors
     htop  # process viewer
