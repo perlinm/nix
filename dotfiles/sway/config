@@ -30,7 +30,7 @@ input type:touchpad {
   pointer_accel 0.5
 }
 
-# output * background ~/Pictures/.background fill
+output * background ~/Pictures/.background fill
 
 # hide cursor when inactive or typing
 seat * hide_cursor 5000
