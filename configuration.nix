@@ -56,6 +56,8 @@ in
   # networking options
   networking.hostName = "map-work";
   networking.networkmanager.enable = true;
+  # programs.nm-applet.enable = true;  # TODO: get this working
+  # programs.nm-applet.indicator = true;
 
   # internationalisation properties
   # WARNING: these are ignored by some desktop environments (e.g. GNOME)
@@ -80,6 +82,10 @@ in
     # display (login), desktop, and window managers
     displayManager.gdm.enable = true;
     displayManager.gdm.wayland = true;
+
+    # enable automatic login
+    displayManager.autoLogin.enable = true;
+    displayManager.autoLogin.user = "perlinm";
   };
 
   # enable sway window manager
@@ -87,6 +93,11 @@ in
   programs.xwayland.enable = true;
   programs.sway.wrapperFeatures.gtk = true;
   xdg.portal = sway-fixes.xdg-portal;
+
+  environment.systemPackages = with pkgs; [
+    sway-fixes.dbus-sway-environment
+    sway-fixes.configure-gtk
+  ];
 
   # sound and bluetooth control
   sound.enable = true;
@@ -105,10 +116,10 @@ in
   services.dbus.enable = true;
 
   # change some power settings (TODO: fix)
-  services.logind.extraConfig = ''
-    HandlePowerKey=suspend  # suspend when pressing power key
-    HandleLidSwitch=ignore  # ignore laptop lid closing
-  '';
+  # services.logind.extraConfig = ''
+  #   HandlePowerKey=suspend  # suspend when pressing power key
+  #   HandleLidSwitch=ignore  # ignore laptop lid closing
+  # '';
 
   users.users.perlinm = {
     isNormalUser = true;
