@@ -36,34 +36,13 @@
     ipy = "ipython";
     python = "python3";
     ipython = "ipython3";
-    # pyenv-init = ''
-    #   eval "$(pyenv init --path)"
-    #   eval "$(pyenv virtualenv-init -)"
-    # '';
-    # black = "$(pyenv which black)";
-    # flake8 = "$(pyenv which flake8)";
-    # jupyter = "$(pyenv which jupyter)";
-    # mypy = "$(pyenv which mypy)";
-    # pip = "$(pyenv which pip)";
-    # pytest = "$(pyenv which pytest)";
 
-    # # super.tech
-    # ss = ''
-    #   pyenv-init
-    #   cd ~/super.tech/SuperstaQ
-    # '';
-    # qq = ''
-    #   pyenv-init
-    #   cd ~/super.tech/QFI-Opt
-    # '';
-    # cc = ''
-    #   pyenv-init
-    #   cd ~/super.tech/coldquanta-system/modeling/coldquanta/modeling/gates/cz_atomic_sim
-    # '';
+    ss = "cd ~/super.tech/SuperstaQ";
+    qq = "cd ~/super.tech/QFI-Opt";
+    cc = "cd ~/super.tech/coldquanta-system/modeling/coldquanta/modeling/gates/cz_atomic_sim";
 
     # # telehealth
     # tt = ''
-    #   pyenv-init
     #   export FLASK_APP=app
     #   export FLASK_ENV=development
     #   cd ~/telehealth
