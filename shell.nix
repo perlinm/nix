@@ -37,7 +37,7 @@
     python = "python3";
     ipython = "ipython3";
 
-    cs = "conda-shell";
+    cs = "conda-shell -c $(echo $SHELL)";
     ss = ''
       conda activate SuperstaQ
       cd ~/super.tech/SuperstaQ

@@ -1,6 +1,7 @@
 add_newline = false
 format = """
-$env_var\
+$cmd_duration\
+$custom\
 $conda\
 $time\
 $directory\
@@ -11,11 +12,16 @@ $git_status
 $character
 """
 
-[env_var.CONDA_EXE]
-format = '🐍'
+[cmd_duration]
+format = """⏱  took [$duration]($style)
+"""
+
+[custom.conda-shell]
+when = 'test "$(env | rg PS1=conda-shell)"'
+format = '\(conda-shell\) '
 
 [conda]
-format = '\($environment\)'
+format = '\($environment\) '
 
 [time]
 disabled = false

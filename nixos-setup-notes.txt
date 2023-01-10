@@ -36,7 +36,7 @@ conda install -c conda-forge jupyter_contrib_nbextensions  # optional extensions
 # inside virtual environment for which we want a jupyter kernel:
 conda install ipykernel
 
-# to start using conda and activate a virtual environment
+# manually enable conda and activate a virtual environment
 conda-shell
 conda activate <VENV-NAME>
 

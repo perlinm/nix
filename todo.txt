@@ -1,5 +1,4 @@
 make git pull work in the conda-shell
-make conda-shell work with zsh
 
 proper power button + lid handling (see configuration.nix)
 
