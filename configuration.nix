@@ -81,6 +81,9 @@ in
     displayManager.autoLogin.user = "perlinm";
   };
 
+  # keyboard layout in the console
+  console.keyMap = "colemak";
+
   # enable sway window manager
   programs.sway.enable = true;
   programs.xwayland.enable = true;
