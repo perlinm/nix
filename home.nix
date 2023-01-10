@@ -36,11 +36,8 @@ in
 
   home.packages = packages;
 
-  # allow installing unfree packages
-  nixpkgs.config.allowUnfree = true;
-
-  # let Home Manager manage fonts; https://github.com/nix-community/home-manager/issues/1118
-  fonts.fontconfig.enable = lib.mkForce true;
+  # let Home Manager manage fonts
+  fonts.fontconfig.enable = true;
 
   # let Home Manager manage gtk themes
   gtk = {

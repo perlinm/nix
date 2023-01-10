@@ -13,6 +13,8 @@ sudo nix-channel --add https://github.com/nix-community/home-manager/archive/rel
 sudo nixos-rebuild switch --upgrade
 
 # to disable ctrl+q in firefox, go to 'about:config' and enable 'browser.quitShortcut.disabled'
+# to enable screen sharing in Teams as a chrome app, enable WebRPC PipeWire support:
+#   chrome://flags/#enable-webrtc-pipewire-capturer
 
 ##################################################
 # conda / python
