@@ -75,7 +75,6 @@ in
     # display (login), desktop, and window managers
     displayManager.gdm.enable = true;
     displayManager.gdm.wayland = true;
-    desktopManager.xfce.enable = true;
 
     # enable automatic login
     displayManager.autoLogin.enable = true;
@@ -114,11 +113,11 @@ in
   # automounting external drives
   services.udisks2.enable = true;
 
-  # change some power settings (TODO: fix)
-  # services.logind.extraConfig = ''
-  #   HandlePowerKey=suspend  # suspend when pressing power key
-  #   HandleLidSwitch=ignore  # ignore laptop lid closing
-  # '';
+  # change some power settings
+  services.logind.extraConfig = ''
+    HandlePowerKey=suspend
+    HandleLidSwitch=ignore
+  '';
 
   users.users.perlinm = {
     isNormalUser = true;
