@@ -1,4 +1,3 @@
-make starship recognize conda-shell
 make git pull work in the conda-shell
 make conda-shell work with zsh
 

@@ -1,6 +1,7 @@
 add_newline = false
 format = """
 $env_var\
+$conda\
 $time\
 $directory\
 $git_branch\
@@ -10,8 +11,11 @@ $git_status
 $character
 """
 
-[env_var.CONDA_DEFAULT_ENV]
-format = '\($env_value\)'
+[env_var.CONDA_EXE]
+format = '🐍'
+
+[conda]
+format = '\($environment\)'
 
 [time]
 disabled = false
