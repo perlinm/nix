@@ -1,3 +1,7 @@
+standalone home-manager
+run without error:
+ nix-instantiate '<nixpkgs>' -A hello
+
 make git pull work in the conda-shell
 
 proper power button + lid handling (see configuration.nix)
