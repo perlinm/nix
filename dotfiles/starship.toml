@@ -1,5 +1,6 @@
 add_newline = false
 format = """
+$env_var\
 $time\
 $directory\
 $git_branch\
@@ -9,9 +10,8 @@ $git_status
 $character
 """
 
-[character]
-success_symbol = '[\$](green)'
-error_symbol = '[\$](bold red)'
+[env_var.CONDA_DEFAULT_ENV]
+format = '\($env_value\)'
 
 [time]
 disabled = false
@@ -33,3 +33,7 @@ style = "purple"
 
 [git_status]
 untracked = ""
+
+[character]
+success_symbol = '[\$](green)'
+error_symbol = '[\$](bold red)'

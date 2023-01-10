@@ -1,6 +1,7 @@
+make starship recognize conda-shell
+make git pull work in the conda-shell
 make conda-shell work with zsh
 
-make starship recognize conda-shell
 proper power button + lid handling (see configuration.nix)
 
 configure starship in programs.nix
