@@ -90,7 +90,7 @@ in
   programs.sway.wrapperFeatures.gtk = true;
   xdg.portal = sway-fixes.xdg-portal;
 
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = [
     sway-fixes.dbus-sway-environment
     sway-fixes.configure-gtk
     sway-fixes.qt5-fix
