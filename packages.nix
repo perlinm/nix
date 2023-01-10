@@ -1,5 +1,9 @@
 { pkgs }:
 let
+  # install unstable packages with unstable.<PACKAGE-NAME>
+  unstable = import <nixos-unstable> {};
+in
+let
   languages = with pkgs; [
     cargo
     gcc
