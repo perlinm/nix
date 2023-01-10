@@ -5,9 +5,6 @@
 { config, pkgs, ... }:
 
 let
-  home-manager-tarball =
-    builtins.fetchTarball
-      "https://github.com/nix-community/home-manager/archive/master.tar.gz";
   sway-fixes = import ./sway-fixes.nix { inherit pkgs; };
 in
 {
@@ -23,11 +20,9 @@ in
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   imports = [
+    ./hardware-configuration.nix  # results of hardware scan
     <nixos-hardware/dell/xps/15-9550>
-    # Include the results of the hardware scan.
-    ./hardware-configuration.nix
-
-    (import "${home-manager-tarball}/nixos")
+    <home-manager/nixos>
   ];
 
   # use the Zen linux kernel (others mignt not work!)
