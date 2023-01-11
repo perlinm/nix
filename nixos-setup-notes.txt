@@ -24,9 +24,6 @@ conda-install
 conda update conda
 conda install python=3.10
 
-# allow activating virtual environments
-conda init
-
 # to set up a virual environment:
 conda create --name <VENV-NAME> python=3.<VERSION>
 
@@ -40,9 +37,13 @@ conda install -c conda-forge jupyter_contrib_nbextensions  # optional extensions
 # inside virtual environment for which we want a jupyter kernel:
 conda install ipykernel
 
-# manually enable conda and activate a virtual environment
-conda-shell
-conda activate <VENV-NAME>
+# WARNING: some package installations may fail due to dependencies external to python.
+# In this case, these packages should be installed after calling 'conda-shell'.
+
+# To enable activating virtual environments, call 'conda init',
+#   which requires '~/."$SHELL"rc' to be writable.
+# In practice, I prefer inspecting how 'conda init' modifies '~/."$SHELL"rc'
+#   and enabling virtual environments 'manually'.
 
 ##################################################
 # mathematica
