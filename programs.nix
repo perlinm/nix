@@ -51,20 +51,7 @@
         'r:[^[:alpha:]]||[[:alpha:]]=** r:|=* m:{a-z\-}={A-Z\_}' \
         'r:|?=** m:{a-z\-}={A-Z\_}'
 
-      # >>> conda initialize >>>
-      __conda_setup="$('/home/perlinm/.conda/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-      if [ $? -eq 0 ]; then
-          eval "$__conda_setup"
-      else
-          if [ -f "/home/perlinm/.conda/etc/profile.d/conda.sh" ]; then
-              . "/home/perlinm/.conda/etc/profile.d/conda.sh"
-          else
-              export PATH="/home/perlinm/.conda/bin:$PATH"
-          fi
-      fi
-      unset __conda_setup
-      # <<< conda initialize <<<
-
+      # command-line prompt
       eval "$(starship init zsh)"
     '';
   };

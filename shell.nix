@@ -1,4 +1,7 @@
 { lib }:
+let
+  conda-setup = ''eval "$(~/.conda/bin/conda shell.$(basename $(echo $SHELL)) hook)"'';
+in
 {
   sessionPath = [
     "$HOME/bin"
@@ -31,40 +34,33 @@
     rem = "trash";  # trash management, replacing "rm"
     calc = "ipython3 --profile=perlinm --no-banner";
 
-    # python aliases
     py = "python";
     ipy = "ipython";
     python = "python3";
     ipython = "ipython3";
 
-    cs = "conda-shell -c $(echo $SHELL)";
+    conda-shell = "conda-shell -c $(echo $SHELL)";
+    cs = "${conda-setup}";
     ss = ''
+      ${conda-setup}
       conda activate SuperstaQ
       cd ~/super.tech/SuperstaQ
     '';
     qq = ''
+      ${conda-setup}
       conda activate QFI-Opt
       cd ~/super.tech/QFI-Opt
     '';
     cc = ''
+      ${conda-setup}
       conda activate ColdQuanta
       cd ~/super.tech/coldquanta-system/modeling/coldquanta/modeling/gates/cz_atomic_sim
     '';
     ccs = ''
+      ${conda-setup}
       conda activate ColdQuanta
       cd ~/super.tech/coldquanta-system
     '';
-
-    # # telehealth
-    # tt = ''
-    #   export FLASK_APP=app
-    #   export FLASK_ENV=development
-    #   cd ~/telehealth
-    #   if [ "$(systemctl is-active postgresql.service)" != "active" ]; then
-    #     echo "systemctl start postgresql.service"
-    #     sudo systemctl start postgresql.service
-    #   fi
-    # '';
   };
 
   activation = {
