@@ -55,6 +55,7 @@ let
     inkscape  # vector graphics (SVG) editor
     maxima sage  # computer algebra systems
     meld  # file comparison tool
+    networkmanagerapplet  # for 'nm-applet'; NOT NECESSARY IN FUTURE VERSIONS OF NIXOS
     pamixer  # command-line volume control
     pavucontrol  # GUI volume control
     qpdfview zathura okular  # pdf viewers
