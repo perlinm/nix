@@ -39,24 +39,21 @@
         };
       }
     ];
+    shellGlobalAliases = {
+        "..." = "../..";
+        "...." = "../../..";
+        NN = "2>/dev/null";
+    };
     initExtra = ''
-      # prompts
-      PROMPT=$(print "[%{$fg[yellow]%}%*%{$reset_color%}]%{$fg[green]%}%~:\n$ %{$reset_color%}")
-      SPROMPT='Correct '%R' to '%r' ? ([y]es/[N]o/[e]dit/[a]bort)'
-
       # fuzzy tab completion: https://superuser.com/a/815317
       zstyle ':completion:*' matcher-list "" \
         'm:{a-z\-}={A-Z\_}' \
         'r:[^[:alpha:]]||[[:alpha:]]=** r:|=* m:{a-z\-}={A-Z\_}' \
         'r:|?=** m:{a-z\-}={A-Z\_}'
 
+      # command-line prompt
       eval "$(starship init zsh)"
     '';
-    shellGlobalAliases = {
-        "..." = "../..";
-        "...." = "../../..";
-        NN = "2>/dev/null";
-    };
   };
 
   exa.enable = true;

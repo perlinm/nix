@@ -9,6 +9,7 @@ let
     ".emacs.d/init.el".source = ./dotfiles/emacs-init.el;
     ".latexmkrc".source = ./dotfiles/latexmkrc;
     ".ipython/profile_perlinm/startup/00-libs.py".source = ./dotfiles/ipython-startup-libs.py;
+    ".condarc".source = ./dotfiles/condarc;
   };
 
   xdg = {

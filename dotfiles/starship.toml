@@ -1,5 +1,8 @@
 add_newline = false
 format = """
+$cmd_duration\
+$custom\
+$conda\
 $time\
 $directory\
 $git_branch\
@@ -9,9 +12,17 @@ $git_status
 $character
 """
 
-[character]
-success_symbol = '[\$](green)'
-error_symbol = '[\$](bold red)'
+[cmd_duration]
+format = """⏱  took [$duration]($style)
+"""
+
+[custom.conda-shell]
+when = 'test "$(env | rg PS1=conda-shell)"'
+format = '\(conda-shell\) '
+
+[conda]
+format = '\($environment\) '
+ignore_base = false
 
 [time]
 disabled = false
@@ -33,3 +44,7 @@ style = "purple"
 
 [git_status]
 untracked = ""
+
+[character]
+success_symbol = '[\$](green)'
+error_symbol = '[\$](bold red)'

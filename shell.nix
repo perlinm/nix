@@ -1,11 +1,10 @@
 { lib }:
+let
+  conda-setup = ''eval "$(~/.conda/bin/conda shell.$(basename $(echo $SHELL)) hook)"'';
+in
 {
   sessionPath = [
     "$HOME/bin"
-    "$HOME/.local/bin"
-    "$HOME/.pyenv/bin"
-    "$HOME/.cargo/bin"
-    "$HOME/.cabal/bin"
   ];
 
   sessionVariables = {
@@ -29,47 +28,35 @@
   aliases = {
     sudo = "sudo ";  # allows using aliases after "sudo"
     rem = "trash";  # trash management, replacing "rm"
-    calc = "ipython3 --profile=perlinm --no-banner";
 
-    # python aliases
     py = "python";
     ipy = "ipython";
-    python = "python3";
-    ipython = "ipython3";
+    calc = "ipython --profile=perlinm --no-banner";
 
+    conda-shell = "conda-shell -c $(echo $SHELL)";
+    cs = ''
+      ${conda-setup}
+      conda activate base
+    '';
     ss = ''
+      ${conda-setup}
       conda activate SuperstaQ
       cd ~/super.tech/SuperstaQ
     '';
     qq = ''
+      ${conda-setup}
       conda activate QFI-Opt
       cd ~/super.tech/QFI-Opt
     '';
     cc = ''
+      ${conda-setup}
       conda activate ColdQuanta
       cd ~/super.tech/coldquanta-system/modeling/coldquanta/modeling/gates/cz_atomic_sim
     '';
     ccs = ''
+      ${conda-setup}
       conda activate ColdQuanta
       cd ~/super.tech/coldquanta-system
-    '';
-
-    # # telehealth
-    # tt = ''
-    #   export FLASK_APP=app
-    #   export FLASK_ENV=development
-    #   cd ~/telehealth
-    #   if [ "$(systemctl is-active postgresql.service)" != "active" ]; then
-    #     echo "systemctl start postgresql.service"
-    #     sudo systemctl start postgresql.service
-    #   fi
-    # '';
-  };
-
-  activation = {
-    makeSymbolicLinks = lib.hm.dag.entryAfter ["writeBoundary"] ''
-      $DRY_RUN_CMD ln -sTf $VERBOSE_ARG $HOME/nix/bin $HOME/bin
-      $DRY_RUN_CMD ln -sTf $VERBOSE_ARG $HOME/nix/scripts $HOME/scripts
     '';
   };
 }

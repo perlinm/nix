@@ -1,7 +1,6 @@
-make conda-shell work with zsh
-
-make starship recognize conda-shell
-proper power button + lid handling (see configuration.nix)
+run without error:
+ nix-instantiate '<nixpkgs>' -A hello
+standalone home-manager
 
 configure starship in programs.nix
 configure firefox with nix

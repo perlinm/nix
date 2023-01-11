@@ -5,9 +5,6 @@
 { config, pkgs, ... }:
 
 let
-  home-manager-tarball =
-    builtins.fetchTarball
-      "https://github.com/nix-community/home-manager/archive/master.tar.gz";
   sway-fixes = import ./sway-fixes.nix { inherit pkgs; };
 in
 {
@@ -23,10 +20,9 @@ in
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   imports = [
-    # Include the results of the hardware scan.
-    ./hardware-configuration.nix
-
-    (import "${home-manager-tarball}/nixos")
+    ./hardware-configuration.nix  # results of hardware scan
+    <nixos-hardware/dell/xps/15-9550>
+    <home-manager/nixos>
   ];
 
   # use the Zen linux kernel (others mignt not work!)
@@ -70,8 +66,10 @@ in
     # display (login), desktop, and window managers
     displayManager.gdm.enable = true;
     displayManager.gdm.wayland = true;
-    desktopManager.xfce.enable = true;
   };
+
+  # keyboard layout in the console
+  console.keyMap = "colemak";
 
   # enable sway window manager
   programs.sway.enable = true;
@@ -79,7 +77,7 @@ in
   programs.sway.wrapperFeatures.gtk = true;
   xdg.portal = sway-fixes.xdg-portal;
 
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = [
     sway-fixes.dbus-sway-environment
     sway-fixes.configure-gtk
     sway-fixes.qt5-fix
@@ -105,11 +103,11 @@ in
   # automounting external drives
   services.udisks2.enable = true;
 
-  # change some power settings (TODO: fix)
-  # services.logind.extraConfig = ''
-  #   HandlePowerKey=suspend  # suspend when pressing power key
-  #   HandleLidSwitch=ignore  # ignore laptop lid closing
-  # '';
+  # change some power settings
+  services.logind.extraConfig = ''
+    HandlePowerKey=suspend
+    HandleLidSwitch=ignore
+  '';
 
   users.users.perlinm = {
     isNormalUser = true;
