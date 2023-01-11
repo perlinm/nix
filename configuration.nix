@@ -24,9 +24,6 @@ in
     <home-manager/nixos>
   ];
 
-  # use the Zen linux kernel (others mignt not work!)
-  boot.kernelPackages = pkgs.linuxPackages_zen;
-
   # bootloader
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
