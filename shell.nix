@@ -32,15 +32,16 @@ in
   aliases = {
     sudo = "sudo ";  # allows using aliases after "sudo"
     rem = "trash";  # trash management, replacing "rm"
-    calc = "ipython3 --profile=perlinm --no-banner";
 
     py = "python";
     ipy = "ipython";
-    python = "python3";
-    ipython = "ipython3";
+    calc = "ipython --profile=perlinm --no-banner";
 
     conda-shell = "conda-shell -c $(echo $SHELL)";
-    cs = "${conda-setup}";
+    cs = ''
+      ${conda-setup}
+      conda activate base
+    '';
     ss = ''
       ${conda-setup}
       conda activate SuperstaQ

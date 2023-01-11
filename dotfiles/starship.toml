@@ -22,6 +22,7 @@ format = '\(conda-shell\) '
 
 [conda]
 format = '\($environment\) '
+ignore_base = false
 
 [time]
 disabled = false
