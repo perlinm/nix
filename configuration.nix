@@ -29,6 +29,9 @@ in
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
 
+  # ...because the boot partition on this laptop is too small...
+  boot.loader.systemd-boot.configurationLimit = 2;
+
   # schedule user processes/threads
   security.rtkit.enable = true;
 
