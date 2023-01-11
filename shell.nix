@@ -5,10 +5,6 @@ in
 {
   sessionPath = [
     "$HOME/bin"
-    "$HOME/.local/bin"
-    "$HOME/.pyenv/bin"
-    "$HOME/.cargo/bin"
-    "$HOME/.cabal/bin"
   ];
 
   sessionVariables = {
@@ -61,13 +57,6 @@ in
       ${conda-setup}
       conda activate ColdQuanta
       cd ~/super.tech/coldquanta-system
-    '';
-  };
-
-  activation = {
-    makeSymbolicLinks = lib.hm.dag.entryAfter ["writeBoundary"] ''
-      $DRY_RUN_CMD ln -sTf $VERBOSE_ARG $HOME/nix/bin $HOME/bin
-      $DRY_RUN_CMD ln -sTf $VERBOSE_ARG $HOME/nix/scripts $HOME/scripts
     '';
   };
 }

@@ -24,16 +24,24 @@ in
     "grp:ctrls_toggle"
   ];
 
-  services = services;
-  programs = programs;
+  # add ~/bin and ~/scripts symlinks
+  home.activation = {
+    makeSymbolicLinks = lib.hm.dag.entryAfter ["writeBoundary"] ''
+      $DRY_RUN_CMD ln -sTf $VERBOSE_ARG $HOME/nix/bin $HOME/bin
+      $DRY_RUN_CMD ln -sTf $VERBOSE_ARG $HOME/nix/scripts $HOME/scripts
+    '';
+  };
+
+  # add symlinks inside ~/ and ~/.config
   home.file = files.home;
   xdg.configFile = files.xdg;
+
+  services = services;
+  programs = programs;
 
   home.sessionPath = shell.sessionPath;
   home.sessionVariables = shell.sessionVariables;
   home.shellAliases = shell.aliases;
-  home.activation = shell.activation;
-
   home.packages = packages;
 
   # let Home Manager manage fonts
