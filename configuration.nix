@@ -19,6 +19,9 @@ in
   # system.autoUpgrade.enable = true;
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
+  # allow unfree software, which may be necessary for some drivers
+  nixpkgs.config.allowUnfree = true;
+
   imports = [
     ./hardware-configuration.nix  # results of hardware scan
     <nixos-hardware/dell/xps/15-9550>
@@ -42,29 +45,33 @@ in
   boot.initrd.luks.devices."luks-f4650d9b-98cf-48a4-b7e2-6b1a6ccc1538".device = "/dev/disk/by-uuid/f4650d9b-98cf-48a4-b7e2-6b1a6ccc1538";
   boot.initrd.luks.devices."luks-f4650d9b-98cf-48a4-b7e2-6b1a6ccc1538".keyFile = "/crypto_keyfile.bin";
 
-  # schedule user processes/threads
-  security.rtkit.enable = true;
-
-  # fine-grained authentication agent
-  security.polkit.enable = true;
-
-  # networking options
-  networking.hostName = "map-work";
-  networking.networkmanager.enable = true;
-
   # internationalisation properties
   # WARNING: these are ignored by some desktop environments (e.g. GNOME)
   time.timeZone = "America/Chicago";
   i18n.defaultLocale = "en_US.utf8";
   i18n.extraLocaleSettings.LC_TIME = "en_GB.utf8";
 
+  # networking options
+  networking.hostName = "map-work";
+  networking.networkmanager.enable = true;
+
+  # keyboard layout in the console
+  console.keyMap = "colemak";
+
+  users.users.perlinm = {
+    isNormalUser = true;
+    description = "Michael A. Perlin";
+    extraGroups = [ "wheel" "networkmanager" "audio" "video" ];
+    shell = pkgs.zsh;
+  };
+
   # X11 services
   services.xserver = {
     enable = true;
 
-    # touchpad
-    libinput.enable = true;
-    libinput.touchpad.naturalScrolling = true;
+    # enable automatic login
+    displayManager.autoLogin.enable = true;
+    displayManager.autoLogin.user = "perlinm";
 
     # keyboard layout
     layout = "us";
@@ -76,13 +83,10 @@ in
     displayManager.gdm.enable = true;
     displayManager.gdm.wayland = true;
 
-    # enable automatic login
-    displayManager.autoLogin.enable = true;
-    displayManager.autoLogin.user = "perlinm";
+    # touchpad
+    libinput.enable = true;
+    libinput.touchpad.naturalScrolling = true;
   };
-
-  # keyboard layout in the console
-  console.keyMap = "colemak";
 
   # enable sway window manager
   programs.sway.enable = true;
@@ -107,30 +111,16 @@ in
   hardware.bluetooth.enable = true;
   hardware.bluetooth.package = pkgs.bluezFull;
 
-  # enable CUPS to print documents
-  services.printing.enable = true;
-
-  # interprocess communications manager
-  services.dbus.enable = true;
-
-  # automounting external drives
-  services.udisks2.enable = true;
-
   # change some power settings
-  services.logind.extraConfig = ''
-    HandlePowerKey=suspend
-    HandleLidSwitch=ignore
-  '';
+  services.logind.lidSwitch = "ignore";
+  services.logind.extraConfig = "HandlePowerKey=suspend";
 
-  users.users.perlinm = {
-    isNormalUser = true;
-    description = "Michael A. Perlin";
-    extraGroups = [ "wheel" "networkmanager" "audio" "video" ];
-    shell = pkgs.zsh;
-  };
-
-  # allow unfree software, which may be necessary for some drivers
-  nixpkgs.config.allowUnfree = true;
+  # miscellaneous utilities 
+  security.rtkit.enable = true;  # schedule user processes/threads
+  security.polkit.enable = true;  # fine-grained authentication agent
+  services.dbus.enable = true;  # interprocess communications manager
+  services.udisks2.enable = true;  # automounting external drives
+  services.printing.enable = true;  # enable CUPS to print documents
 
   # make home-manager use global configs and install paths (as opposed to user-specefic ones)
   home-manager.useUserPackages = true;
