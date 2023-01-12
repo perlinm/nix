@@ -4,18 +4,20 @@ let
     ".ssh/id_rsa.gpg".source = ./dotfiles/ssh/id_rsa.gpg;
     ".ssh/id_rsa.pub".source = ./dotfiles/ssh/id_rsa.pub;
     ".ssh/fingerprint".source = ./dotfiles/ssh/fingerprint;
-    
+
     ".vimrc".source = ./dotfiles/vimrc;
     ".emacs.d/init.el".source = ./dotfiles/emacs-init.el;
     ".latexmkrc".source = ./dotfiles/latexmkrc;
-    ".ipython/profile_perlinm/startup/00-libs.py".source = ./dotfiles/ipython-startup-libs.py;
+    ".ipython/profile_perlinm/startup/00-libs.py".source =
+      ./dotfiles/ipython-startup-libs.py;
     ".condarc".source = ./dotfiles/condarc;
   };
 
   xdg = {
     "helix/config.toml".source = ./dotfiles/helix/config.toml;
     "helix/languages.toml".source = ./dotfiles/helix/languages.toml;
-    "helix/themes/onedark_perlinm.toml".source = ./dotfiles/helix/themes/onedark_perlinm.toml;
+    "helix/themes/onedark_perlinm.toml".source =
+      ./dotfiles/helix/themes/onedark_perlinm.toml;
 
     "starship.toml".source = ./dotfiles/starship.toml;
     "alacritty/alacritty.yml".source = ./dotfiles/alacritty.yml;
@@ -38,8 +40,7 @@ let
     "waybar/style.css".source = ./dotfiles/waybar/style.css;
     "swaylock/config".source = ./dotfiles/swaylock-config;
   };
-in
-{
+in {
   xdg = xdg;
   home = home;
 }

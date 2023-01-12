@@ -1,4 +1,4 @@
- # https://github.com/nix-community/home-manager
+# https://github.com/nix-community/home-manager
 { pkgs, lib, ... }:
 let
   services = import ./services.nix;
@@ -6,8 +6,7 @@ let
   packages = import ./packages.nix { inherit pkgs; };
   files = import ./files.nix;
   shell = import ./shell.nix { inherit lib; };
-in
-{
+in {
   # The state version determines some configuration defaults.
   # This version can be updated, but doing so may require manual intervention.
   # https://nix-community.github.io/home-manager/options.html#opt-home.stateVersion
@@ -26,7 +25,7 @@ in
 
   # add ~/bin and ~/scripts symlinks
   home.activation = {
-    makeSymbolicLinks = lib.hm.dag.entryAfter ["writeBoundary"] ''
+    makeSymbolicLinks = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
       $DRY_RUN_CMD ln -sTf $VERBOSE_ARG $HOME/nix/bin $HOME/bin
       $DRY_RUN_CMD ln -sTf $VERBOSE_ARG $HOME/nix/scripts $HOME/scripts
     '';

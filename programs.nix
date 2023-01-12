@@ -1,11 +1,11 @@
-{ pkgs }:
-{
+{ pkgs }: {
   # let Home Manager install and manage itself
   home-manager.enable = true;
 
   bash = {
     enable = true;
-    enableCompletion = true;  # https://rycee.gitlab.io/home-manager/options.html#opt-programs.bash.enableCompletion
+    # https://rycee.gitlab.io/home-manager/options.html#opt-programs.bash.enableCompletion
+    enableCompletion = true;
     enableVteIntegration = true;
     initExtra = ''
       eval "$(starship init bash)"
@@ -14,7 +14,8 @@
 
   zsh = {
     enable = true;
-    enableCompletion = true;  # https://rycee.gitlab.io/home-manager/options.html#opt-programs.zsh.enableCompletion
+    enableCompletion =
+      true; # https://rycee.gitlab.io/home-manager/options.html#opt-programs.zsh.enableCompletion
     enableVteIntegration = true;
     enableSyntaxHighlighting = true;
     defaultKeymap = "emacs";
@@ -40,9 +41,9 @@
       }
     ];
     shellGlobalAliases = {
-        "..." = "../..";
-        "...." = "../../..";
-        NN = "2>/dev/null";
+      "..." = "../..";
+      "...." = "../../..";
+      NN = "2>/dev/null";
     };
     initExtra = ''
       # fuzzy tab completion: https://superuser.com/a/815317

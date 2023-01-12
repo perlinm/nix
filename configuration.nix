@@ -1,13 +1,7 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
 { config, pkgs, ... }:
 
-let
-  sway-fixes = import ./sway-fixes.nix { inherit pkgs; };
-in
-{
+let sway-fixes = import ./sway-fixes.nix { inherit pkgs; };
+in {
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
@@ -23,7 +17,7 @@ in
   nixpkgs.config.allowUnfree = true;
 
   imports = [
-    ./hardware-configuration.nix  # results of hardware scan
+    ./hardware-configuration.nix # results of hardware scan
     <nixos-hardware/dell/xps/15-9550>
     <home-manager/nixos>
   ];
@@ -37,13 +31,13 @@ in
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
 
   # setup keyfile for encrypted hard drive
-  boot.initrd.secrets = {
-    "/crypto_keyfile.bin" = null;
-  };
+  boot.initrd.secrets = { "/crypto_keyfile.bin" = null; };
 
   # enable swap on LUKS
-  boot.initrd.luks.devices."luks-f4650d9b-98cf-48a4-b7e2-6b1a6ccc1538".device = "/dev/disk/by-uuid/f4650d9b-98cf-48a4-b7e2-6b1a6ccc1538";
-  boot.initrd.luks.devices."luks-f4650d9b-98cf-48a4-b7e2-6b1a6ccc1538".keyFile = "/crypto_keyfile.bin";
+  boot.initrd.luks.devices."luks-f4650d9b-98cf-48a4-b7e2-6b1a6ccc1538".device =
+    "/dev/disk/by-uuid/f4650d9b-98cf-48a4-b7e2-6b1a6ccc1538";
+  boot.initrd.luks.devices."luks-f4650d9b-98cf-48a4-b7e2-6b1a6ccc1538".keyFile =
+    "/crypto_keyfile.bin";
 
   # internationalisation properties
   # WARNING: these are ignored by some desktop environments (e.g. GNOME)
@@ -116,11 +110,11 @@ in
   services.logind.extraConfig = "HandlePowerKey=suspend";
 
   # miscellaneous utilities 
-  security.rtkit.enable = true;  # schedule user processes/threads
-  security.polkit.enable = true;  # fine-grained authentication agent
-  services.dbus.enable = true;  # interprocess communications manager
-  services.udisks2.enable = true;  # automounting external drives
-  services.printing.enable = true;  # enable CUPS to print documents
+  security.rtkit.enable = true; # schedule user processes/threads
+  security.polkit.enable = true; # fine-grained authentication agent
+  services.dbus.enable = true; # interprocess communications manager
+  services.udisks2.enable = true; # automounting external drives
+  services.printing.enable = true; # enable CUPS to print documents
 
   # make home-manager use global configs and install paths (as opposed to user-specefic ones)
   home-manager.useUserPackages = true;
