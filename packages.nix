@@ -48,7 +48,6 @@ in let
     noto-fonts-emoji
     noto-fonts-extra
     papirus-icon-theme
-    vistafonts # provides consolas
   ];
   applications = with pkgs; [
     alacritty
