@@ -36,6 +36,11 @@ in {
       ${conda-setup}
       conda activate base
     '';
+    nn = ''
+      ${conda-setup}
+      conda activate base
+      jupyter notebook
+    '';
     ss = ''
       ${conda-setup}
       conda activate SuperstaQ
