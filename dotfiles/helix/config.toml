@@ -3,6 +3,9 @@ theme = "onedark_perlinm"
 [editor]
 line-number = "absolute"
 gutters = ["diagnostics", "line-numbers"]
+# gutters = ["diagnostics", "line-numbers", "diff"]  # update in Helix 22.12
+# bufferline = "multiple"  # update in Helix 22.12
+color-modes = true
 mouse = false
 middle-click-paste = false
 completion-trigger-len = 3
@@ -12,8 +15,8 @@ auto-pairs = false
 [editor.cursor-shape]
 insert = "bar"
 
-# [editor.lsp]
-# auto-signature-help = false
+[editor.lsp]
+auto-signature-help = false
 
 [keys.normal]
 ### unbind old keys
