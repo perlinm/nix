@@ -1,13 +1,12 @@
- # https://github.com/nix-community/home-manager
+# https://github.com/nix-community/home-manager
 { pkgs, lib, ... }:
 let
-  services = import ./services.nix;
-  programs = import ./programs.nix { inherit pkgs; };
-  packages = import ./packages.nix { inherit pkgs; };
-  files = import ./files.nix;
-  shell = import ./shell.nix { inherit lib; };
-in
-{
+  services = import /home/perlinm/nix/services.nix;
+  programs = import /home/perlinm/nix/programs.nix { inherit pkgs; };
+  packages = import /home/perlinm/nix/packages.nix { inherit pkgs; };
+  files = import /home/perlinm/nix/files.nix;
+  shell = import /home/perlinm/nix/shell.nix { inherit lib; };
+in {
   # The state version determines some configuration defaults.
   # This version can be updated, but doing so may require manual intervention.
   # https://nix-community.github.io/home-manager/options.html#opt-home.stateVersion
@@ -26,7 +25,7 @@ in
 
   # add ~/bin and ~/scripts symlinks
   home.activation = {
-    makeSymbolicLinks = lib.hm.dag.entryAfter ["writeBoundary"] ''
+    makeSymbolicLinks = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
       $DRY_RUN_CMD ln -sTf $VERBOSE_ARG $HOME/nix/bin $HOME/bin
       $DRY_RUN_CMD ln -sTf $VERBOSE_ARG $HOME/nix/scripts $HOME/scripts
     '';
@@ -55,4 +54,7 @@ in
     iconTheme.name = "Papirus-Dark";
     iconTheme.package = pkgs.papirus-icon-theme;
   };
+
+  # allow installing unfree packages
+  nixpkgs.config.allowUnfree = true;
 }

@@ -1,26 +1,23 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
 { config, pkgs, ... }:
 
-let
-  sway-fixes = import ./sway-fixes.nix { inherit pkgs; };
-in
-{
+let sway-fixes = import ./sway-fixes.nix { inherit pkgs; };
+in {
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "22.05"; # Did you read the comment?
+  system.stateVersion = "22.11"; # Did you read the comment?
 
   # system.autoUpgrade.enable = true;
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
+  # allow unfree software, which may be necessary for some drivers
+  nixpkgs.config.allowUnfree = true;
+
   imports = [
-    ./hardware-configuration.nix  # results of hardware scan
+    ./hardware-configuration.nix # results of hardware scan
     <home-manager/nixos>
   ];
 
@@ -32,29 +29,33 @@ in
   # ...because the boot partition on this laptop is too small...
   boot.loader.systemd-boot.configurationLimit = 2;
 
-  # schedule user processes/threads
-  security.rtkit.enable = true;
-
-  # fine-grained authentication agent
-  security.polkit.enable = true;
-
-  # networking options
-  networking.hostName = "map-nix";
-  networking.networkmanager.enable = true;
-
   # internationalisation properties
   # WARNING: these are ignored by some desktop environments (e.g. GNOME)
   time.timeZone = "America/Chicago";
   i18n.defaultLocale = "en_US.utf8";
   i18n.extraLocaleSettings.LC_TIME = "en_GB.utf8";
 
+  # networking options
+  networking.hostName = "map-work";
+  networking.networkmanager.enable = true;
+
+  # keyboard layout in the console
+  console.keyMap = "colemak";
+
+  users.users.perlinm = {
+    isNormalUser = true;
+    description = "Michael A. Perlin";
+    extraGroups = [ "wheel" "networkmanager" "audio" "video" ];
+    shell = pkgs.zsh;
+  };
+
   # X11 services
   services.xserver = {
     enable = true;
 
-    # touchpad
-    libinput.enable = true;
-    libinput.touchpad.naturalScrolling = true;
+    # enable automatic login
+    displayManager.autoLogin.enable = true;
+    displayManager.autoLogin.user = "perlinm";
 
     # keyboard layout
     layout = "us";
@@ -65,10 +66,11 @@ in
     # display (login), desktop, and window managers
     displayManager.gdm.enable = true;
     displayManager.gdm.wayland = true;
-  };
 
-  # keyboard layout in the console
-  console.keyMap = "colemak";
+    # touchpad
+    libinput.enable = true;
+    libinput.touchpad.naturalScrolling = true;
+  };
 
   # enable sway window manager
   programs.sway.enable = true;
@@ -77,6 +79,7 @@ in
   xdg.portal = sway-fixes.xdg-portal;
 
   environment.systemPackages = [
+    pkgs.home-manager
     sway-fixes.dbus-sway-environment
     sway-fixes.configure-gtk
     sway-fixes.qt5-fix
@@ -93,33 +96,18 @@ in
   hardware.bluetooth.enable = true;
   hardware.bluetooth.package = pkgs.bluezFull;
 
-  # enable CUPS to print documents
-  services.printing.enable = true;
-
-  # interprocess communications manager
-  services.dbus.enable = true;
-
-  # automounting external drives
-  services.udisks2.enable = true;
-
   # change some power settings
-  services.logind.extraConfig = ''
-    HandlePowerKey=suspend
-    HandleLidSwitch=ignore
-  '';
+  services.logind.lidSwitch = "ignore";
+  services.logind.extraConfig = "HandlePowerKey=suspend";
 
-  users.users.perlinm = {
-    isNormalUser = true;
-    description = "Michael A. Perlin";
-    extraGroups = [ "wheel" "networkmanager" "audio" "video" ];
-    shell = pkgs.zsh;
-  };
+  # miscellaneous utilities 
+  security.rtkit.enable = true; # schedule user processes/threads
+  security.polkit.enable = true; # fine-grained authentication agent
+  services.dbus.enable = true; # interprocess communications manager
+  services.udisks2.enable = true; # automounting external drives
+  services.printing.enable = true; # enable CUPS to print documents
 
-  # allow unfree software, which may be necessary for some drivers
-  nixpkgs.config.allowUnfree = true;
-
-  # make home-manager use global configs and install paths (as opposed to user-specefic ones)
+  # make home-manager use global install paths and package configurations
   home-manager.useUserPackages = true;
   home-manager.useGlobalPkgs = true;
-  home-manager.users.perlinm = import /home/perlinm/.config/nixpkgs/home.nix;
 }

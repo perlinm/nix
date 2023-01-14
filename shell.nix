@@ -1,11 +1,9 @@
 { lib }:
 let
-  conda-setup = ''eval "$(~/.conda/bin/conda shell.$(basename $(echo $SHELL)) hook)"'';
-in
-{
-  sessionPath = [
-    "$HOME/bin"
-  ];
+  conda-setup =
+    ''eval "$(~/.conda/bin/conda shell.$(basename $(echo $SHELL)) hook)"'';
+in {
+  sessionPath = [ "$HOME/bin" ];
 
   sessionVariables = {
     EDITOR = "hx";
@@ -26,8 +24,8 @@ in
   };
 
   aliases = {
-    sudo = "sudo ";  # allows using aliases after "sudo"
-    rem = "trash";  # trash management, replacing "rm"
+    sudo = "sudo "; # allows using aliases after "sudo"
+    rem = "trash"; # trash management, replacing "rm"
 
     py = "python";
     ipy = "ipython";
@@ -37,6 +35,11 @@ in
     cs = ''
       ${conda-setup}
       conda activate base
+    '';
+    nn = ''
+      ${conda-setup}
+      conda activate base
+      jupyter notebook
     '';
     ss = ''
       ${conda-setup}

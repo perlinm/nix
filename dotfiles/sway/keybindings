@@ -212,4 +212,7 @@ $bind $mod+F12 exec swaymsg [app_id="^pad-F12$"] scratchpad show || $terminal --
 $bind $mod+v   exec swaymsg [app_id="^pavucontrol$"] scratchpad show || $volume
 
 # hack to toggle idle inhibitor with waybar
-$bind $alt+Ctrl+apostrophe seat - cursor set 1723 13; seat - cursor press button1; seat - cursor release button1
+$bind $mod+apostrophe seat - cursor set 1723 13; seat - cursor press button1; seat - cursor release button1
+
+# focus on most recent urgent application
+bindsym $mod+j [urgent=latest] focus
