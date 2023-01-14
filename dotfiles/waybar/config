@@ -112,8 +112,8 @@
         "format-source": " ",
         "format-source-muted": "<span color='red'>•</span>",
         "on-click": "~/scripts/volume toggle",
+        "on-click-right": "~/scripts/volume mic toggle",
         "on-click-middle": "~/scripts/volume med",
-        "on-click-right": "swaymsg [app_id='^pavucontrol$'] scratchpad show || pavucontrol",
     },
 
     "tray": {
