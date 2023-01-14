@@ -2,6 +2,12 @@
 sudo nix-channel --add https://nixos.org/channels/nixos-22.11 nixos
 sudo nix-channel --add https://nixos.org/channels/nixos-unstable nixos-unstable
 sudo nix-channel --add https://github.com/NixOS/nixos-hardware/archive/master.tar.gz nixos-hardware
+sudo nix-channel --add https://github.com/nix-community/home-manager/archive/release-22.11.tar.gz home-manager
+sudo nix-channel --update
+
+# as user (no sudo/root)
+nix-channel --add https://github.com/nix-community/home-manager/archive/release-22.11.tar.gz home-manager
+nix-channel --update
 
 # copy over main config files
 sudo cp ~/nix/configuration.nix /etc/nixos
@@ -9,10 +15,11 @@ sudo cp ~/nix/sway-fixes.nix /etc/nixos
 mkdir -p ~/.config/nixpkgs
 ln -s ~/home/nix/home.nix ~/.config/nixpkgs/home.nix
 
-sudo nix-channel --add https://github.com/nix-community/home-manager/archive/release-22.11.tar.gz home-manager
-
 # set up nixos!
-sudo nixos-rebuild switch --upgrade
+sudo nixos-rebuild switch
+
+# note: it *may* be necessary to run
+# nix-shell '<home-manager>' -A install
 
 # to disable ctrl+q in firefox, go to 'about:config' and enable 'browser.quitShortcut.disabled'
 # to enable screen sharing in Teams as a chrome app, enable WebRPC PipeWire support:

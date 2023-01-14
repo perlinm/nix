@@ -54,4 +54,7 @@ in {
     iconTheme.name = "Papirus-Dark";
     iconTheme.package = pkgs.papirus-icon-theme;
   };
+
+  # allow installing unfree packages
+  nixpkgs.config.allowUnfree = true;
 }

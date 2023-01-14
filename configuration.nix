@@ -89,6 +89,7 @@ in {
   xdg.portal = sway-fixes.xdg-portal;
 
   environment.systemPackages = [
+    pkgs.home-manager
     sway-fixes.dbus-sway-environment
     sway-fixes.configure-gtk
     sway-fixes.qt5-fix
@@ -116,8 +117,7 @@ in {
   services.udisks2.enable = true; # automounting external drives
   services.printing.enable = true; # enable CUPS to print documents
 
-  # make home-manager use global configs and install paths (as opposed to user-specefic ones)
+  # make home-manager use global install paths and package configurations
   home-manager.useUserPackages = true;
   home-manager.useGlobalPkgs = true;
-  home-manager.users.perlinm = import /home/perlinm/.config/nixpkgs/home.nix;
 }
