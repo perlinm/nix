@@ -2,7 +2,12 @@ run without error:
  nix-instantiate '<nixpkgs>' -A hello
 standalone home-manager
 
-configure starship in programs.nix
-configure firefox with nix
+fix zoom
+https://www.reddit.com/r/swaywm/comments/l9asbc/zoom_on_sway_what_settings_do_you_use/
 
 look into https://looking-glass.io/ (?)
+
+
+AT NEXT NIXOS UPDATE:
+- update helix config file
+- remove 'networkmanagerapplet' from packages.nix (which will be obsolete)
