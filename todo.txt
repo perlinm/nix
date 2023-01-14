@@ -1,5 +1,3 @@
-run without error:
- nix-instantiate '<nixpkgs>' -A hello
 standalone home-manager
 
 fix zoom

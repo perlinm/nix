@@ -1,44 +1,45 @@
-let
+let dir = "/home/perlinm/nix/dotfiles";
+in let
   home = {
-    ".ssh/config".source = ./dotfiles/ssh/config;
-    ".ssh/id_rsa.gpg".source = ./dotfiles/ssh/id_rsa.gpg;
-    ".ssh/id_rsa.pub".source = ./dotfiles/ssh/id_rsa.pub;
-    ".ssh/fingerprint".source = ./dotfiles/ssh/fingerprint;
+    ".ssh/config".source = "${dir}/ssh/config";
+    ".ssh/id_rsa.gpg".source = "${dir}/ssh/id_rsa.gpg";
+    ".ssh/id_rsa.pub".source = "${dir}/ssh/id_rsa.pub";
+    ".ssh/fingerprint".source = "${dir}/ssh/fingerprint";
 
-    ".vimrc".source = ./dotfiles/vimrc;
-    ".emacs.d/init.el".source = ./dotfiles/emacs-init.el;
-    ".latexmkrc".source = ./dotfiles/latexmkrc;
+    ".vimrc".source = "${dir}/vimrc";
+    ".emacs.d/init.el".source = "${dir}/emacs-init.el";
+    ".latexmkrc".source = "${dir}/latexmkrc";
     ".ipython/profile_perlinm/startup/00-libs.py".source =
-      ./dotfiles/ipython-startup-libs.py;
-    ".condarc".source = ./dotfiles/condarc;
+      "${dir}/ipython-startup-libs.py";
+    ".condarc".source = "${dir}/condarc";
   };
 
   xdg = {
-    "helix/config.toml".source = ./dotfiles/helix/config.toml;
-    "helix/languages.toml".source = ./dotfiles/helix/languages.toml;
+    "helix/config.toml".source = "${dir}/helix/config.toml";
+    "helix/languages.toml".source = "${dir}/helix/languages.toml";
     "helix/themes/onedark_perlinm.toml".source =
-      ./dotfiles/helix/themes/onedark_perlinm.toml;
+      "${dir}/helix/themes/onedark_perlinm.toml";
 
-    "starship.toml".source = ./dotfiles/starship.toml;
-    "alacritty/alacritty.yml".source = ./dotfiles/alacritty.yml;
-    "qpdfview/shortcuts.conf".source = ./dotfiles/qpdfview-shortcuts.conf;
-    "flake8".source = ./dotfiles/flake8;
+    "starship.toml".source = "${dir}/starship.toml";
+    "alacritty/alacritty.yml".source = "${dir}/alacritty.yml";
+    "qpdfview/shortcuts.conf".source = "${dir}/qpdfview-shortcuts.conf";
+    "flake8".source = "${dir}/flake8";
 
-    "i3/config".source = ./dotfiles/i3/config;
-    "i3/keybindings".source = ./dotfiles/i3/keybindings;
-    "i3/rules".source = ./dotfiles/i3/rules;
-    "i3/startup".source = ./dotfiles/i3/startup;
-    "polybar/config.ini".source = ./dotfiles/polybar/config.ini;
-    "polybar/launch.sh".source = ./dotfiles/polybar/launch.sh;
+    "i3/config".source = "${dir}/i3/config";
+    "i3/keybindings".source = "${dir}/i3/keybindings";
+    "i3/rules".source = "${dir}/i3/rules";
+    "i3/startup".source = "${dir}/i3/startup";
+    "polybar/config.ini".source = "${dir}/polybar/config.ini";
+    "polybar/launch.sh".source = "${dir}/polybar/launch.sh";
 
-    "sway/config".source = ./dotfiles/sway/config;
-    "sway/keybindings".source = ./dotfiles/sway/keybindings;
-    "sway/rules".source = ./dotfiles/sway/rules;
-    "sway/startup".source = ./dotfiles/sway/startup;
-    "sway/variables".source = ./dotfiles/sway/variables;
-    "waybar/config".source = ./dotfiles/waybar/config;
-    "waybar/style.css".source = ./dotfiles/waybar/style.css;
-    "swaylock/config".source = ./dotfiles/swaylock-config;
+    "sway/config".source = "${dir}/sway/config";
+    "sway/keybindings".source = "${dir}/sway/keybindings";
+    "sway/rules".source = "${dir}/sway/rules";
+    "sway/startup".source = "${dir}/sway/startup";
+    "sway/variables".source = "${dir}/sway/variables";
+    "waybar/config".source = "${dir}/waybar/config";
+    "waybar/style.css".source = "${dir}/waybar/style.css";
+    "swaylock/config".source = "${dir}/swaylock-config";
   };
 in {
   xdg = xdg;

@@ -6,6 +6,8 @@ sudo nix-channel --add https://github.com/NixOS/nixos-hardware/archive/master.ta
 # copy over main config files
 sudo cp ~/nix/configuration.nix /etc/nixos
 sudo cp ~/nix/sway-fixes.nix /etc/nixos
+mkdir -p ~/.config/nixpkgs
+ln -s ~/home/nix/home.nix ~/.config/nixpkgs/home.nix
 
 sudo nix-channel --add https://github.com/nix-community/home-manager/archive/release-22.11.tar.gz home-manager
 
