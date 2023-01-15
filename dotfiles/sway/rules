@@ -29,8 +29,13 @@ for_window [app_id="^pinentry-qt$"]          floating enable
 # indicator for sharing screen etc.
 for_window [title="^Firefox\ —\ Sharing\ Indicator$"] floating enable
 
-# zoom!
-for_window [title="^(z|Z)oom$"] floating enable
+# zoom hacks
+for_window [class="^zoom$"]                  floating enable
+for_window [title="^zoom$"]                  floating enable
+for_window [title="^Zoom$"]                  floating enable
+for_window [title="^Zoom\ Meeting$"]         floating enable
+for_window [title="^Zoom\ Cloud\ Meetings$"] floating enable
 for_window [title="^Zoom\ -\ Free Account$"] floating enable
-for_window [title="^Settings$"] floating enable
-for_window [title="^Zoom\ Meeting$"] inhibit_idle
+for_window [title="^Settings$"]              floating enable
+for_window [title="^Meeting\ Alert$"]        floating enable
+for_window [title="^share_preview_window$"]  floating enable
