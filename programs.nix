@@ -14,8 +14,8 @@
 
   zsh = {
     enable = true;
-    enableCompletion =
-      true; # https://rycee.gitlab.io/home-manager/options.html#opt-programs.zsh.enableCompletion
+    # https://rycee.gitlab.io/home-manager/options.html#opt-programs.zsh.enableCompletion
+    enableCompletion = true;
     enableVteIntegration = true;
     enableSyntaxHighlighting = true;
     defaultKeymap = "emacs";
