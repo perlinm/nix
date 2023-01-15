@@ -16,11 +16,6 @@ in {
     # make firefox work with wayland
     MOZ_ENABLE_WAYLAND = 1;
     XDG_CURRENT_DESKTOP = "sway";
-
-    # to fix matlab isssues
-    MATLAB_LOG_DIR = "$HOME/Workspace/MATLAB/logs";
-    QT_LOGGING_RULES = "qt5ct.debug=false";
-    TF_CPP_MIN_LOG_LEVEL = 2;
   };
 
   aliases = {
