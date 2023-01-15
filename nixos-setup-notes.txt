@@ -36,6 +36,9 @@ conda install python=3.10
 # to set up a virual environment:
 conda create --name <VENV-NAME> python=3.<VERSION>
 
+# to delete a virtual environment:
+conda env remove --name <VENV-NAME>
+
 # for jupyter notebooks
 # NOTE: 'jupyter notebook' must be executed OUTSIDE virtual environments
 #       venvs in notebooks are controlled by the choice of kernel
