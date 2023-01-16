@@ -56,5 +56,10 @@ in {
       conda activate ColdQuanta
       cd ~/super.tech/coldquanta-system
     '';
+
+    mm = ''
+      rm ~/.Mathematica/Autoload/PacletManager/Configuration/FrontEnd/init_13.2.0.0.m
+      mathematica 2> /dev/null
+    '';
   };
 }
