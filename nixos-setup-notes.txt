@@ -25,6 +25,9 @@ sudo nixos-rebuild switch
 # to enable screen sharing in Teams as a chrome app, enable WebRPC PipeWire support:
 #   chrome://flags/#enable-webrtc-pipewire-capturer
 
+# to install mathematica, aquire installer file and run
+nix-store --add-fixed sha256 <FILE>
+
 ##################################################
 # conda / python
 
@@ -56,22 +59,3 @@ conda install ipykernel
 #   which requires '~/."$SHELL"rc' to be writable.
 # In practice, I prefer inspecting how 'conda init' modifies '~/."$SHELL"rc'
 #   and enabling virtual environments 'manually'.
-
-##################################################
-# mathematica
-# procedure inspired by https://gist.github.com/kinnala/b45c0ce0b2670be6cdaffb9b6e9ec6f3
-# do everything in the ~/.mathematica directory
-
-# aquire mathematica installer file, run
-nix-store --add-fixed sha256 <FILE>
-
-# download files here to a local directory:
-# https://github.com/NixOS/nixpkgs/tree/master/pkgs/applications/science/math/mathematica
-
-# get installer file hash, and update the hash in 'versions.nix', if necessary
-nix --extra-experimental-features nix-command hash file <FILE>
-
-# install mathematica!
-nix-build default.nix
-
-# executable will be in ~/.mathematica/result/...
