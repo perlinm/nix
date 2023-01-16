@@ -1,15 +1,14 @@
 { pkgs }:
 let
   # install unstable packages with unstable.<PACKAGE-NAME>
-  unstable = import <nixos-unstable> { };
+  unstable = import <nixos-unstable> { config.allowUnfree = true; };
 in let
   languages = with pkgs; [
     cargo
     gcc
-    # mathematica
+    unstable.mathematica
     nixfmt # nix formatter
     texlive.combined.scheme-full
-    # wolfram-engine
   ];
   python = import ./python.nix { inherit pkgs; };
   console-utilities = with pkgs; [
@@ -55,6 +54,7 @@ in let
     blueberry # bluetooth tool
     firefox
     google-chrome # web browsers
+    gimp # image editor
     gnome.eog # image viewer
     gparted # graphical disk partitioning
     gpick # color picker
