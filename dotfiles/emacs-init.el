@@ -96,7 +96,7 @@
 ;; aesthetics
 (set-frame-parameter (selected-frame) 'alpha '(75 75)) ;; background transparency
 (add-to-list 'default-frame-alist '(alpha 75 75)) ;; background transparency
-(add-to-list 'default-frame-alist '(font . "Consolas-14")) ;; font
+(add-to-list 'default-frame-alist '(font . "Noto Sans Mono-13")) ;; font
 (add-to-list 'default-frame-alist '(foreground-color . "grey90")) ;; font color
 
 ;; highlight parentheses

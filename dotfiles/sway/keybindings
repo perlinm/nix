@@ -176,9 +176,9 @@ $bind XF86AudioMute               exec ~/scripts/volume toggle
 $bind Ctrl+slash                  exec ~/scripts/volume toggle
 $bind Ctrl+Shift+Up               exec ~/scripts/volume max
 $bind Ctrl+Shift+Down             exec ~/scripts/volume min
-$bind Ctrl+Shift+slash            exec ~/scripts/volume med
+$bind $alt+Ctrl+slash             exec ~/scripts/volume med
 $bind XF86AudioMicMute            exec ~/scripts/volume mic toggle
-$bind $alt+Ctrl+slash             exec ~/scripts/volume mic toggle
+$bind Ctrl+Shift+slash            exec ~/scripts/volume mic toggle
 
 # screen brightness
 $bind-repeat XF86MonBrightnessUp   exec ~/scripts/w-brightness inc
@@ -212,7 +212,7 @@ $bind $mod+F12 exec swaymsg [app_id="^pad-F12$"] scratchpad show || $terminal --
 $bind $mod+v   exec swaymsg [app_id="^pavucontrol$"] scratchpad show || $volume
 
 # hack to toggle idle inhibitor with waybar
-$bind $mod+apostrophe seat - cursor set 1723 13; seat - cursor press button1; seat - cursor release button1
+$bind Ctrl+apostrophe seat - cursor set 1723 13; seat - cursor press button1; seat - cursor release button1
 
 # focus on most recent urgent application
 bindsym $mod+j [urgent=latest] focus
