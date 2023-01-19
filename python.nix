@@ -15,6 +15,7 @@ let
       # pip # only use inside virtual environments!
       pylint
       pytest
+      qutip
       scipy
       setuptools
       sympy

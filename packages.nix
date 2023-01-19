@@ -19,6 +19,7 @@ in let
     vim
     emacs # text editors
     htop # process viewer
+    ispell # spell checker
     jq # json parsing
     killall # kill processes by name
     mosh # better than ssh
