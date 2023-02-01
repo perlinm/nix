@@ -17,7 +17,6 @@ let
       pytest
       qutip
       scipy
-      setuptools
       sympy
       # language server protocol packages
       python-lsp-server
