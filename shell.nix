@@ -26,9 +26,8 @@ in {
     ipy = "ipython";
     calc = "ipython --profile=perlinm --no-banner";
 
-    conda-shell = "conda-shell -c $(echo $SHELL)";
     cs = ''
-      ${conda-setup}
+      conda-shell -c $(echo $SHELL)
       conda activate base
     '';
     nn = ''
@@ -49,12 +48,12 @@ in {
     cc = ''
       ${conda-setup}
       conda activate ColdQuanta
-      cd ~/super.tech/coldquanta-system/modeling/coldquanta/modeling/gates/cz_atomic_sim
+      cd ~/super.tech/coldquanta-system
     '';
-    ccs = ''
+    ccc = ''
       ${conda-setup}
       conda activate ColdQuanta
-      cd ~/super.tech/coldquanta-system
+      cd ~/super.tech/coldquanta-system/modeling/coldquanta/modeling/gates/cz_atomic_sim
     '';
 
     mm = ''
