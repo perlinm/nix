@@ -26,10 +26,8 @@ in {
     ipy = "ipython";
     calc = "ipython --profile=perlinm --no-banner";
 
-    cs = ''
-      conda-shell -c $(echo $SHELL)
-      conda activate base
-    '';
+    cs = "conda-shell -c $(echo $SHELL)";
+    ca = "${conda-setup}";
     nn = ''
       ${conda-setup}
       conda activate base
