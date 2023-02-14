@@ -26,4 +26,9 @@ let
       pylsp-mypy
     ];
   python-with-my-packages = [ (pkgs.python3.withPackages my-python-packages) ];
-in python-with-my-packages ++ [ pkgs.conda ]
+
+  extra-libs-for-conda = with pkgs; [ ];
+  conda-with-extra-libs =
+    pkgs.conda.override { extraPkgs = extra-libs-for-conda; };
+
+in python-with-my-packages ++ [ conda-with-extra-libs ]
