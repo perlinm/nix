@@ -26,6 +26,7 @@ in let
     pciutils
     dmidecode # inspect hardware devices
     pdftk # pdf editor
+    pdf2svg # convert 'pdf's to 'svg's
     pulseaudio # provides pactl for audio control
     ripgrep # faster grep
     ripgrep-all # faster grep, now also for pdf, docx, etc. files
