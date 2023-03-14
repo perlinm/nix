@@ -9,6 +9,7 @@ let
       ipython
       jupyter
       matplotlib
+      multiprocess
       mypy
       networkx
       numpy
