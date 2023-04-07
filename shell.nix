@@ -38,7 +38,7 @@ in {
     ci = conda-init;
     nn = conda-go "base" "jupyter notebook";
     ss = conda-go "superstaq" "cd ~/super.tech/superstaq-server";
-    sc = conda-go "superstaq" "cd ~/super.tech/superstaq-client";
+    ssc = conda-go "superstaq" "cd ~/super.tech/superstaq-client";
     qq = conda-go "QFI-Opt" "cd ~/super.tech/QFI-Opt";
     cc = conda-go "ColdQuanta" "cd ~/super.tech/coldquanta-system";
     ccc = conda-go "ColdQuanta"

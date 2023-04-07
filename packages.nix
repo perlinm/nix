@@ -25,6 +25,7 @@ in let
     mosh # better than ssh
     pciutils
     dmidecode # inspect hardware devices
+    pandoc # converter between markup formats
     pdftk # pdf editor
     pdf2svg # convert 'pdf's to 'svg's
     pulseaudio # provides pactl for audio control
@@ -111,5 +112,8 @@ in let
     xorg.xprop # get window properties
     xss-lock # lock screen manager
   ];
+  misc = with pkgs; [
+    awscli2 # AWS command line services
+  ];
 in console-utilities ++ languages ++ python ++ fonts-icons-themes
-++ applications ++ sway-utilities
+++ applications ++ sway-utilities ++ misc
