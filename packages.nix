@@ -112,8 +112,9 @@ in let
     xorg.xprop # get window properties
     xss-lock # lock screen manager
   ];
-  misc = with pkgs; [
-    awscli2 # AWS command line services
-  ];
+  misc = with pkgs;
+    [
+      awscli2 # AWS command line services
+    ];
 in console-utilities ++ languages ++ python ++ fonts-icons-themes
 ++ applications ++ sway-utilities ++ misc
