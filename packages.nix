@@ -15,7 +15,7 @@ in let
     cmake
     gnumake # build system
     git # version control system
-    helix
+    unstable.helix
     vim
     emacs # text editors
     htop # process viewer
@@ -25,7 +25,9 @@ in let
     mosh # better than ssh
     pciutils
     dmidecode # inspect hardware devices
+    pandoc # converter between markup formats
     pdftk # pdf editor
+    pdf2svg # convert 'pdf's to 'svg's
     pulseaudio # provides pactl for audio control
     ripgrep # faster grep
     ripgrep-all # faster grep, now also for pdf, docx, etc. files
@@ -110,5 +112,9 @@ in let
     xorg.xprop # get window properties
     xss-lock # lock screen manager
   ];
+  misc = with pkgs;
+    [
+      awscli2 # AWS command line services
+    ];
 in console-utilities ++ languages ++ python ++ fonts-icons-themes
-++ applications ++ sway-utilities
+++ applications ++ sway-utilities ++ misc

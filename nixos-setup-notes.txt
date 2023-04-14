@@ -59,3 +59,6 @@ conda install ipykernel
 #   which requires '~/."$SHELL"rc' to be writable.
 # In practice, I prefer inspecting how 'conda init' modifies '~/."$SHELL"rc'
 #   and enabling virtual environments 'manually'.
+
+# Some standard packages/libraries can be installed with
+conda install -c conda-forge <PACKAGE>

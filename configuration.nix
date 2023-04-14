@@ -18,7 +18,6 @@ in {
 
   imports = [
     ./hardware-configuration.nix # results of hardware scan
-    <nixos-hardware/dell/xps/15-9550>
     <home-manager/nixos>
   ];
 
