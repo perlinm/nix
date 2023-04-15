@@ -13,7 +13,7 @@ nix-channel --update
 sudo cp ~/nix/configuration.nix /etc/nixos
 sudo cp ~/nix/sway-fixes.nix /etc/nixos
 mkdir -p ~/.config/nixpkgs
-ln -s ~/home/nix/home.nix ~/.config/nixpkgs/home.nix
+ln -s ~/nix/home.nix ~/.config/nixpkgs/home.nix
 
 # set up nixos!
 sudo nixos-rebuild switch
