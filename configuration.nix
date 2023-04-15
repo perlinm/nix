@@ -32,12 +32,6 @@ in {
   # setup keyfile for encrypted hard drive
   boot.initrd.secrets = { "/crypto_keyfile.bin" = null; };
 
-  # enable swap on LUKS
-  boot.initrd.luks.devices."luks-f4650d9b-98cf-48a4-b7e2-6b1a6ccc1538".device =
-    "/dev/disk/by-uuid/f4650d9b-98cf-48a4-b7e2-6b1a6ccc1538";
-  boot.initrd.luks.devices."luks-f4650d9b-98cf-48a4-b7e2-6b1a6ccc1538".keyFile =
-    "/crypto_keyfile.bin";
-
   # internationalisation properties
   # WARNING: these are ignored by some desktop environments (e.g. GNOME)
   time.timeZone = "America/Chicago";
