@@ -1,12 +1,9 @@
 { pkgs }:
 let
-  # install unstable packages with unstable.<PACKAGE-NAME>
-  unstable = import <nixos-unstable> { config.allowUnfree = true; };
-in let
   languages = with pkgs; [
     cargo
     gcc
-    unstable.mathematica
+    mathematica
     nixfmt # nix formatter
     texlive.combined.scheme-full
   ];

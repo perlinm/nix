@@ -2,9 +2,8 @@ theme = "onedark_perlinm"
 
 [editor]
 line-number = "absolute"
-gutters = ["diagnostics", "line-numbers"]
-#gutters = ["diagnostics", "line-numbers", "diff"]
-#bufferline = "multiple"
+gutters = ["diagnostics", "line-numbers", "diff"]
+bufferline = "multiple"
 color-modes = true
 mouse = false
 middle-click-paste = false
@@ -18,6 +17,11 @@ insert = "bar"
 [editor.lsp]
 auto-signature-help = false
 
+[editor.soft-wrap]
+enable = true
+max-indent-retain = 0
+wrap-indicator = ""
+
 [keys.normal]
 ### unbind old keys
 # q = "no_op"  # keep default
@@ -30,8 +34,8 @@ A-c = "no_op"
 k = "align_view_center"
 n = "move_char_left"
 i = "move_char_right"
-u = "move_line_up"
-e = "move_line_down"
+u = "move_visual_line_up"
+e = "move_visual_line_down"
 l = "goto_first_nonwhitespace"
 y = "goto_line_end"
 A-n = "move_prev_word_start"
@@ -102,8 +106,8 @@ A-c = "no_op"
 k = "align_view_center"
 n = "extend_char_left"
 i = "extend_char_right"
-u = "extend_line_up"
-e = "extend_line_down"
+u = "extend_visual_line_up"
+e = "extend_visual_line_down"
 l = "goto_first_nonwhitespace"
 y = "goto_line_end"
 A-n = "extend_prev_word_start"
@@ -167,8 +171,8 @@ D = "extend_line_above"
 A-k = "align_view_center"
 A-n = "move_char_left"
 A-i = "move_char_right"
-A-u = "move_line_up"
-A-e = "move_line_down"
+A-u = "move_visual_line_up"
+A-e = "move_visual_line_down"
 A-l = "goto_first_nonwhitespace"
 A-y = "goto_line_end_newline"
 ### buffer and search

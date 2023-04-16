@@ -10,7 +10,7 @@ import scipy, scipy.optimize
 
 import sympy as sym
 
-import cirq
+# import cirq
 
 sym.init_printing()
 np.set_printoptions(linewidth=200)
