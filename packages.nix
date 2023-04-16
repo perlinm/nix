@@ -15,7 +15,7 @@ in let
     cmake
     gnumake # build system
     git # version control system
-    unstable.helix
+    helix
     vim
     emacs # text editors
     htop # process viewer

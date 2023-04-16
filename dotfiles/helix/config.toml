@@ -2,8 +2,9 @@ theme = "onedark_perlinm"
 
 [editor]
 line-number = "absolute"
-gutters = ["diagnostics", "line-numbers", "diff"]
-bufferline = "multiple"
+gutters = ["diagnostics", "line-numbers"]
+#gutters = ["diagnostics", "line-numbers", "diff"]
+#bufferline = "multiple"
 color-modes = true
 mouse = false
 middle-click-paste = false
