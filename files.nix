@@ -22,6 +22,7 @@ in let
 
     "starship.toml".source = "${dir}/starship.toml";
     "alacritty/alacritty.yml".source = "${dir}/alacritty.yml";
+    "kitty/kitty.conf".source = "${dir}/kitty/kitty.conf";
     "kitty/current-theme.conf".source = "${dir}/kitty/current-theme.conf";
     "qpdfview/shortcuts.conf".source = "${dir}/qpdfview-shortcuts.conf";
     "flake8".source = "${dir}/flake8";
