@@ -59,7 +59,7 @@ in {
     enable = true;
 
     # enable automatic login
-    displayManager.autoLogin.enable = true;
+    displayManager.autoLogin.enable = false;
     displayManager.autoLogin.user = "perlinm";
 
     # keyboard layout
@@ -79,8 +79,8 @@ in {
 
   # enable sway window manager
   programs.sway.enable = true;
-  programs.xwayland.enable = true;
   programs.sway.wrapperFeatures.gtk = true;
+  programs.xwayland.enable = true;
   xdg.portal = sway-fixes.xdg-portal;
 
   # system-wide packages
