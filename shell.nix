@@ -45,7 +45,7 @@ in {
       "cd ~/super.tech/coldquanta-system/modeling/coldquanta/modeling/gates/cz_atomic_sim";
 
     mm = ''
-      rm ~/.Mathematica/Autoload/PacletManager/Configuration/FrontEnd/init_13.2.0.0.m
+      rm ~/.Mathematica/Autoload/PacletManager/Configuration/FrontEnd/init_*.m
       mathematica 2> /dev/null
     '';
   };
