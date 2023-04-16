@@ -50,6 +50,8 @@ let
   ];
   applications = with pkgs; [
     alacritty
+    kitty
+    kitty-themes
     xfce.xfce4-terminal # terminal emulators
     blueberry # bluetooth tool
     firefox
