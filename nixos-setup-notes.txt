@@ -12,8 +12,8 @@ nix-channel --update
 # copy over main config files
 sudo cp ~/nix/configuration.nix /etc/nixos
 sudo cp ~/nix/sway-fixes.nix /etc/nixos
-mkdir -p ~/.config/home-manager
-ln -s ~/nix/home.nix ~/.config/home-manager/home.nix
+mkdir -p ~/.config/nixpkgs
+ln -s ~/nix/home.nix ~/.config/nixpkgs/home.nix
 
 # set up nixos!
 sudo nixos-rebuild switch
