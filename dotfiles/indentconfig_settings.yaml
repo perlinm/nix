@@ -1,1 +1,4 @@
 defaultIndent: "  "
+onlyOneBackUp: 1
+indentRules:
+  item: "  "
