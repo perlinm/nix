@@ -26,12 +26,12 @@ in let
       python-lsp-black
       pyls-flake8
       pyls-isort
-      pylsp-mypy
+      # pylsp-mypy
     ];
   python-with-my-packages = [ (pkgs.python3.withPackages my-python-packages) ];
 
   extra-libs-for-conda = with pkgs; [ ];
   conda-with-extra-libs =
-    unstable.conda.override { extraPkgs = extra-libs-for-conda; };
+    pkgs.conda.override { extraPkgs = extra-libs-for-conda; };
 
 in python-with-my-packages ++ [ conda-with-extra-libs ]

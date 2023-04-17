@@ -30,6 +30,9 @@ in {
     sudo = "sudo "; # allows using aliases after "sudo"
     rem = "trash-put"; # trash management, replacing "rm"
 
+    # hack for unstable helix to work in stable conda
+    hx = "LD_LIBRARY_PATH='' hx";
+
     py = "python";
     ipy = "ipython";
     calc = "ipython --profile=perlinm --no-banner";

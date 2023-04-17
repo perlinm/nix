@@ -54,7 +54,8 @@
     userName = "Michael A. Perlin";
     userEmail = "mika.perlin@gmail.com";
     extraConfig = {
-      core.editor = "hx";
+      # clear LD_LIBRARY PATH for helix ~ hack for unstable helix to work in stable conda
+      core.editor = "LD_LIBRARY_PATH='' hx";
       init.defaultBranch = "main";
       fetch.prune = "true";
       pull.ff = "only";
