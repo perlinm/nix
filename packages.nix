@@ -33,7 +33,7 @@ in let
     ripgrep # faster grep
     ripgrep-all # faster grep, now also for pdf, docx, etc. files
     starship # customizable shell prompt
-    trashy # trash management, replacing "rm"
+    trash-cli # trash management, replacing "rm"
     tree # list directories
     udevil # sudo-free mounting
     udiskie # automounting removable media

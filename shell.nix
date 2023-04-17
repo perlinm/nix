@@ -28,7 +28,7 @@ in {
 
   aliases = {
     sudo = "sudo "; # allows using aliases after "sudo"
-    rem = "trash"; # trash management, replacing "rm"
+    rem = "trash-put"; # trash management, replacing "rm"
 
     py = "python";
     ipy = "ipython";
