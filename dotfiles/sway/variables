@@ -7,7 +7,7 @@ set $alt Mod1
 set $bind bindsym --to-code --no-repeat
 set $bind-repeat bindsym --to-code
 
-set $terminal      kitty
+set $terminal      alacritty
 set $browser       WAYLAND_DISPLAY=firefox firefox
 set $notifications swaync-client -t -sw
 set $display       wdisplays
