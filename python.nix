@@ -7,7 +7,7 @@ in let
   my-python-packages = python-packages:
     with python-packages; [
       black
-      # cirq
+      cirq
       flake8
       ipython
       jupyter
@@ -18,7 +18,7 @@ in let
       #pip # only use inside virtual environments!
       pylint
       pytest
-      # qutip
+      qutip
       scipy
       sympy
       # language server protocol packages
