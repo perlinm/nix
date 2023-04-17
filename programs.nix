@@ -4,7 +4,6 @@
 
   bash = {
     enable = true;
-    # https://rycee.gitlab.io/home-manager/options.html#opt-programs.bash.enableCompletion
     enableCompletion = true;
     enableVteIntegration = true;
     initExtra = ''
@@ -14,29 +13,21 @@
 
   zsh = {
     enable = true;
-    # https://rycee.gitlab.io/home-manager/options.html#opt-programs.zsh.enableCompletion
+    enableAutosuggestions = true;
     enableCompletion = true;
-    enableVteIntegration = true;
     enableSyntaxHighlighting = true;
+    enableVteIntegration = true;
+    autocd = true;
     defaultKeymap = "emacs";
     oh-my-zsh.enable = true;
     plugins = [
-      # {
-      #   name = "zsh-autocomplete";
-      #   src = pkgs.fetchFromGitHub {
-      #     owner = "marlonrichert";
-      #     repo = "zsh-autocomplete";
-      #     rev = "22.01.21";
-      #     sha256 = "12y0zg06hqkkz5snzf1gp07fv8ds4fxar99bk6p9i0i3id6y4k7r";
-      #   };
-      # }
       {
-        name = "zsh-autosuggestions";
+        name = "fzf-tab";
         src = pkgs.fetchFromGitHub {
-          owner = "zsh-users";
-          repo = "zsh-autosuggestions";
-          rev = "v0.7.0";
-          sha256 = "1g3pij5qn2j7v7jjac2a63lxd97mcsgw6xq6k5p7835q9fjiid98";
+          owner = "Aloxaf";
+          repo = "fzf-tab";
+          rev = "5a81e13792a1eed4a03d2083771ee6e5b616b9ab";
+          sha256 = "sha256-dPe5CLCAuuuLGRdRCt/nNruxMrP9f/oddRxERkgm1FE=";
         };
       }
     ];

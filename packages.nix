@@ -15,6 +15,7 @@ let
     helix
     vim
     emacs # text editors
+    fzf # command-line fuzzy finder
     htop # process viewer
     ispell # spell checker
     jq # json parsing
