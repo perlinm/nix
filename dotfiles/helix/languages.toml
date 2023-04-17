@@ -1,3 +1,16 @@
 [[language]]
 name = "python"
-config = { pylsp = { plugins = { pycodestyle = { enabled = false }, mccabe = { enabled = false }, pyflakes = { enabled = false }, flake8 = { enabled = true } }, configurationSources = ["flake8"] } }
+
+[language.config.pylsp]
+configurationSources = ["flake8"]
+
+[language.config.pylsp.plugins]
+flake8 = { enabled = true }
+mccabe = { enabled = false }
+pycodestyle = { enabled = false }
+pyflakes = { enabled = false }
+
+# disable TOML LSP due to time-out bug
+[[language]]
+name = "toml"
+language-server = { command = "" }

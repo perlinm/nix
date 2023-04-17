@@ -12,6 +12,9 @@ in let
     ".ipython/profile_perlinm/startup/00-libs.py".source =
       "${dir}/ipython-startup-libs.py";
     ".condarc".source = "${dir}/condarc";
+
+    ".indentconfig_settings.yaml".source = "${dir}/indentconfig_settings.yaml";
+    ".indentconfig.yaml".source = "${dir}/indentconfig.yaml";
   };
 
   xdg = {

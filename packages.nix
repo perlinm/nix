@@ -8,7 +8,9 @@ in let
     gcc
     unstable.mathematica
     nixfmt # nix formatter
+    taplo # TOML toolkit
     texlive.combined.scheme-full
+    texlab
   ];
   python = import ./python.nix { inherit pkgs; };
   console-utilities = with pkgs; [
