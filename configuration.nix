@@ -59,7 +59,7 @@ in {
     enable = true;
 
     # enable automatic login
-    displayManager.autoLogin.enable = false;
+    displayManager.autoLogin.enable = true;
     displayManager.autoLogin.user = "perlinm";
 
     # keyboard layout

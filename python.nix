@@ -1,6 +1,9 @@
 # https://nixos.wiki/wiki/Python
 { pkgs }:
 let
+  # install unstable packages with unstable.<PACKAGE-NAME>
+  unstable = import <nixos-unstable> { config.allowUnfree = true; };
+in let
   my-python-packages = python-packages:
     with python-packages; [
       black
@@ -29,6 +32,6 @@ let
 
   extra-libs-for-conda = with pkgs; [ ];
   conda-with-extra-libs =
-    pkgs.conda.override { extraPkgs = extra-libs-for-conda; };
+    unstable.conda.override { extraPkgs = extra-libs-for-conda; };
 
 in python-with-my-packages ++ [ conda-with-extra-libs ]

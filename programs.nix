@@ -20,17 +20,15 @@
     autocd = true;
     defaultKeymap = "emacs";
     oh-my-zsh.enable = true;
-    plugins = [
-      {
-        name = "fzf-tab";
-        src = pkgs.fetchFromGitHub {
-          owner = "Aloxaf";
-          repo = "fzf-tab";
-          rev = "5a81e13792a1eed4a03d2083771ee6e5b616b9ab";
-          sha256 = "sha256-dPe5CLCAuuuLGRdRCt/nNruxMrP9f/oddRxERkgm1FE=";
-        };
-      }
-    ];
+    plugins = [{
+      name = "fzf-tab";
+      src = pkgs.fetchFromGitHub {
+        owner = "Aloxaf";
+        repo = "fzf-tab";
+        rev = "5a81e13792a1eed4a03d2083771ee6e5b616b9ab";
+        sha256 = "sha256-dPe5CLCAuuuLGRdRCt/nNruxMrP9f/oddRxERkgm1FE=";
+      };
+    }];
     shellGlobalAliases = {
       "..." = "../..";
       "...." = "../../..";

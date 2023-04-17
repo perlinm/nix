@@ -1,9 +1,12 @@
 { pkgs }:
 let
+  # install unstable packages with unstable.<PACKAGE-NAME>
+  unstable = import <nixos-unstable> { config.allowUnfree = true; };
+in let
   languages = with pkgs; [
     cargo
     gcc
-    mathematica
+    unstable.mathematica
     nixfmt # nix formatter
     texlive.combined.scheme-full
   ];
@@ -12,7 +15,7 @@ let
     cmake
     gnumake # build system
     git # version control system
-    helix
+    unstable.helix
     vim
     emacs # text editors
     fzf # command-line fuzzy finder
