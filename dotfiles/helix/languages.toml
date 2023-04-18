@@ -1,6 +1,10 @@
 [[language]]
 name = "python"
 
+[language.formatter]
+command = "black"
+args = ["-", "--quiet", "--line-length=100"]
+
 [language.config.pylsp]
 configurationSources = ["flake8"]
 
