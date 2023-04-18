@@ -19,7 +19,7 @@ auto-signature-help = false
 
 [editor.soft-wrap]
 enable = true
-max-indent-retain = 0
+max-indent-retain = 100
 wrap-indicator = ""
 
 [keys.normal]
@@ -49,6 +49,7 @@ o = "half_page_down"
 A-j = "copy_selection_on_prev_line"
 A-h = "copy_selection_on_next_line"
 ### buffer and search
+F = ":format"
 C-s = ":write"
 A-f = ":reload"
 "tab" = ":buffer-next"
@@ -121,6 +122,7 @@ o = "half_page_down"
 A-j = "copy_selection_on_prev_line"
 A-h = "copy_selection_on_next_line"
 ### buffer and search
+F = ":format"
 C-s = ":write"
 A-f = ":reload"
 "tab" = ":buffer-next"
