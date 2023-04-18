@@ -2,3 +2,5 @@ defaultIndent: "  "
 onlyOneBackUp: 1
 indentRules:
   item: "  "
+lookForAlignDelims:
+   align: 0
