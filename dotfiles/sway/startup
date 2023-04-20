@@ -38,6 +38,6 @@ exec ~/scripts/w-enable-screensharing
 # applications
 ###############################################################################
 
-exec google-chrome-stable --app=https://teams.microsoft.com
+exec google-chrome-beta --app=https://teams.microsoft.com
 exec slack
 exec zotero

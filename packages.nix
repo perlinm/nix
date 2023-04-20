@@ -61,6 +61,7 @@ in let
     xfce.xfce4-terminal # terminal emulators
     blueberry # bluetooth tool
     firefox
+    google-chrome-beta
     google-chrome # web browsers
     gimp # image editor
     gnome.eog # image viewer
