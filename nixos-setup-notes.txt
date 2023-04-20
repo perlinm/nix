@@ -25,7 +25,7 @@ sudo nixos-rebuild switch
 
 # to enable screen sharing in Teams as a chrome app, enable WebRPC PipeWire support:
 #   chrome://flags/#enable-webrtc-pipewire-capturer
-# also set the Preferred OzonePlatform to "wayland"
+# also set the Preferred OzonePlatform to "Auto"
 
 # to install mathematica, aquire installer file and run
 nix-store --add-fixed sha256 <FILE>
