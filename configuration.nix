@@ -58,10 +58,6 @@ in {
   services.xserver = {
     enable = true;
 
-    # enable automatic login
-    displayManager.autoLogin.enable = true;
-    displayManager.autoLogin.user = "perlinm";
-
     # keyboard layout
     layout = "us";
     xkbVariant = "colemak";
