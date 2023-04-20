@@ -42,12 +42,14 @@ in {
   # keyboard layout in the console
   console.keyMap = "colemak";
 
+  # define user
   users.users.perlinm = {
     isNormalUser = true;
     description = "Michael A. Perlin";
     extraGroups = [ "wheel" "networkmanager" "audio" "video" ];
     shell = pkgs.zsh;
   };
+  programs.zsh.enable = true;
 
   # X11 services
   services.xserver = {
@@ -70,10 +72,11 @@ in {
 
   # enable sway window manager
   programs.sway.enable = true;
-  programs.xwayland.enable = true;
   programs.sway.wrapperFeatures.gtk = true;
+  programs.xwayland.enable = true;
   xdg.portal = sway-fixes.xdg-portal;
 
+  # system-wide packages
   environment.systemPackages = [
     pkgs.home-manager
     sway-fixes.dbus-sway-environment

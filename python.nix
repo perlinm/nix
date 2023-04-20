@@ -1,6 +1,9 @@
 # https://nixos.wiki/wiki/Python
 { pkgs }:
 let
+  # install unstable packages with unstable.<PACKAGE-NAME>
+  unstable = import <nixos-unstable> { config.allowUnfree = true; };
+in let
   my-python-packages = python-packages:
     with python-packages; [
       black
@@ -12,7 +15,7 @@ let
       mypy
       networkx
       numpy
-      # pip # only use inside virtual environments!
+      #pip # only use inside virtual environments!
       pylint
       pytest
       qutip
@@ -23,7 +26,7 @@ let
       python-lsp-black
       pyls-flake8
       pyls-isort
-      pylsp-mypy
+      # pylsp-mypy
     ];
   python-with-my-packages = [ (pkgs.python3.withPackages my-python-packages) ];
 

@@ -8,7 +8,9 @@ in let
     gcc
     unstable.mathematica
     nixfmt # nix formatter
+    taplo # TOML toolkit
     texlive.combined.scheme-full
+    texlab
   ];
   python = import ./python.nix { inherit pkgs; };
   console-utilities = with pkgs; [
@@ -18,6 +20,7 @@ in let
     unstable.helix
     vim
     emacs # text editors
+    fzf # command-line fuzzy finder
     htop # process viewer
     ispell # spell checker
     jq # json parsing
@@ -32,7 +35,7 @@ in let
     ripgrep # faster grep
     ripgrep-all # faster grep, now also for pdf, docx, etc. files
     starship # customizable shell prompt
-    trashy # trash management, replacing "rm"
+    trash-cli # trash management, replacing "rm"
     tree # list directories
     udevil # sudo-free mounting
     udiskie # automounting removable media
@@ -53,6 +56,8 @@ in let
   ];
   applications = with pkgs; [
     alacritty
+    kitty
+    kitty-themes
     xfce.xfce4-terminal # terminal emulators
     blueberry # bluetooth tool
     firefox

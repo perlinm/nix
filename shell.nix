@@ -28,7 +28,10 @@ in {
 
   aliases = {
     sudo = "sudo "; # allows using aliases after "sudo"
-    rem = "trash"; # trash management, replacing "rm"
+    rem = "trash-put"; # trash management, replacing "rm"
+
+    # hack for unstable helix to work in stable conda
+    hx = "LD_LIBRARY_PATH='' hx";
 
     py = "python";
     ipy = "ipython";
@@ -44,9 +47,6 @@ in {
     ccc = conda-go "ColdQuanta"
       "cd ~/super.tech/coldquanta-system/modeling/coldquanta/modeling/gates/cz_atomic_sim";
 
-    mm = ''
-      rm ~/.Mathematica/Autoload/PacletManager/Configuration/FrontEnd/init_13.2.0.0.m
-      mathematica 2> /dev/null
-    '';
+    mm = "mathematica 2> /dev/null";
   };
 }
