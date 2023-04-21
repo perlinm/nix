@@ -21,10 +21,10 @@ sudo nixos-rebuild switch
 # note: it *may* be necessary to run
 # nix-shell '<home-manager>' -A install
 
-# to disable ctrl+q in firefox, go to 'about:config' and enable 'browser.quitShortcut.disabled'
-
-# to install mathematica, aquire installer file and run
-nix-store --add-fixed sha256 <FILE>
+# in firefox, 'about:config':
+# enable 'browser.quitShortcut.disabled' to disable exiting with ctrl+q
+# increase 'browser.low_commit_space_threshold_percent' to decrease memory usage
+# TODO: set firefox configs elsewhere
 
 ##################################################
 # conda / python
