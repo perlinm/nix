@@ -10,6 +10,7 @@ middle-click-paste = false
 completion-trigger-len = 3
 idle-timeout = 0
 auto-pairs = false
+auto-format = false
 
 [editor.cursor-shape]
 insert = "bar"

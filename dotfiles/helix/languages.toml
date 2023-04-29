@@ -1,3 +1,4 @@
+##################################################
 [[language]]
 name = "python"
 
@@ -14,7 +15,13 @@ mccabe = { enabled = false }
 pycodestyle = { enabled = false }
 pyflakes = { enabled = false }
 
-# disable TOML LSP due to time-out bug
+##################################################
+[[language]]
+name = "nix"
+formatter = { command = "nixfmt" }
+
+##################################################
+# disable TOML language server due to time-out bug
 [[language]]
 name = "toml"
 language-server = { command = "" }
