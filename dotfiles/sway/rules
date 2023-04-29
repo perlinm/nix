@@ -40,3 +40,20 @@ for_window [title="^Settings$"]              floating enable
 for_window [title="^Meeting\ Alert$"]        floating enable
 for_window [title="^share_preview_window$"]  floating enable
 for_window [title="^Invite\ people\ to\ join\ meeting"]  floating enable
+
+###############################################################################
+# move named firefox windows to their respective workspaces
+###############################################################################
+
+for_window [class="[Ff]irefox" title="^\[WS1\]"] move window to $ws-1
+for_window [class="[Ff]irefox" title="^\[WS2\]"] move window to $ws-2
+for_window [class="[Ff]irefox" title="^\[WS3\]"] move window to $ws-3
+for_window [class="[Ff]irefox" title="^\[WS4\]"] move window to $ws-4
+for_window [class="[Ff]irefox" title="^\[WS5\]"] move window to $ws-5
+for_window [class="[Ff]irefox" title="^\[WS6\]"] move window to $ws-6
+for_window [class="[Ff]irefox" title="^\[WS7\]"] move window to $ws-7
+for_window [class="[Ff]irefox" title="^\[WS8\]"] move window to $ws-8
+for_window [class="[Ff]irefox" title="^\[WS9\]"] move window to $ws-9
+for_window [class="[Ff]irefox" title="^\[WS10\]"] move window to $ws-10
+for_window [class="[Ff]irefox" title="^\[WS11\]"] move window to $ws-11
+for_window [class="[Ff]irefox" title="^\[WS12\]"] move window to $ws-12
