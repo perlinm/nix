@@ -28,6 +28,7 @@ in let
     "kitty/kitty.conf".source = "${dir}/kitty/kitty.conf";
     "kitty/current-theme.conf".source = "${dir}/kitty/current-theme.conf";
     "qpdfview/shortcuts.conf".source = "${dir}/qpdfview-shortcuts.conf";
+    "black".source = "${dir}/black";
     "flake8".source = "${dir}/flake8";
 
     "i3/config".source = "${dir}/i3/config";

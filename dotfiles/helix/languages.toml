@@ -4,7 +4,7 @@ name = "python"
 
 [language.formatter]
 command = "black"
-args = ["-", "--quiet", "--line-length=100"]
+args = ["-", "--quiet"]
 
 [language.config.pylsp]
 configurationSources = ["flake8"]
