@@ -21,7 +21,9 @@ name = "nix"
 formatter = { command = "nixfmt" }
 
 ##################################################
-# disable TOML language server due to time-out bug
 [[language]]
 name = "toml"
-language-server = { command = "" }
+formatter = { command = "taplo", args = ["fmt", "-"] }
+
+[language.language-server]
+command = "" # disable TOML language server due to time-out bug

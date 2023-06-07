@@ -34,7 +34,7 @@
 "markup.italic" = { fg = "purple", modifiers = ["italic"] }
 "markup.list" = { fg = "red" }
 "markup.quote" = { fg = "yellow" }
-"markup.link.url" = { fg = "cyan", modifiers = ["underlined"]}
+"markup.link.url" = { fg = "cyan", modifiers = ["underlined"] }
 "markup.link.text" = { fg = "purple" }
 
 "diff.plus" = "green"
@@ -55,7 +55,7 @@ diagnostic = { modifiers = ["underlined"] }
 
 "ui.cursor" = { fg = "white", modifiers = ["reversed"] }
 "ui.cursor.primary" = { fg = "white", modifiers = ["reversed"] }
-"ui.cursor.match" = { fg = "blue", modifiers = ["underlined"]}
+"ui.cursor.match" = { fg = "blue", modifiers = ["underlined"] }
 
 "ui.selection" = { bg = "gray" }
 "ui.selection.primary" = { bg = "gray" }
