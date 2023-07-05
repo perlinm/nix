@@ -67,6 +67,7 @@ in let
     gnome.eog # image viewer
     gparted # graphical disk partitioning
     gpick # color picker
+    imagemagick # mainpulate images, e.g. with `convert`
     inkscape # vector graphics (SVG) editor
     maxima
     sage # computer algebra systems

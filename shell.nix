@@ -40,8 +40,9 @@ in {
     cs = conda-setup;
     ci = conda-init;
     nn = conda-go "base" "jupyter notebook";
-    ss = conda-go "superstaq" "cd ~/super.tech/superstaq-server";
-    ssc = conda-go "superstaq" "cd ~/super.tech/superstaq-client";
+    ss = conda-go "superstaq" "cd ~/super.tech/server-superstaq";
+    ssc = conda-go "superstaq" "cd ~/super.tech/client-superstaq";
+    ssr = conda-go "superstaq" "cd ~/super.tech/research-superstaq";
     qq = conda-go "QFI-Opt" "cd ~/super.tech/QFI-Opt";
     cc = conda-go "ColdQuanta" "cd ~/super.tech/coldquanta-system";
     ccc = conda-go "ColdQuanta"
