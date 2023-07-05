@@ -43,9 +43,7 @@ conda env remove --name <VENV-NAME>
 # for jupyter notebooks
 # NOTE: 'jupyter notebook' must be executed OUTSIDE virtual environments
 #       venvs in notebooks are controlled by the choice of kernel
-conda install -c conda-forge jupyterlab
-conda install -c conda-forge nb_conda_kernels
-conda install -c conda-forge jupyter_contrib_nbextensions  # optional extensions
+conda install -c conda-forge jupyterlab nb_conda_kernels jupyter_contrib_nbextensions
 
 # inside virtual environment for which we want a jupyter kernel:
 conda install ipykernel
