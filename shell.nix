@@ -45,8 +45,6 @@ in {
     ssr = conda-go "superstaq" "cd ~/super.tech/research-superstaq";
     qq = conda-go "QFI-Opt" "cd ~/super.tech/QFI-Opt";
     cc = conda-go "ColdQuanta" "cd ~/super.tech/coldquanta-system";
-    ccc = conda-go "ColdQuanta"
-      "cd ~/super.tech/coldquanta-system/modeling/coldquanta/modeling/gates/cz_atomic_sim";
 
     mm = "mathematica 2> /dev/null";
   };
