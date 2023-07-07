@@ -45,6 +45,7 @@ for_window [title="^Invite\ people\ to\ join\ meeting"]  floating enable
 # move named firefox windows to their respective workspaces
 ###############################################################################
 
+for_window [class="[Ff]irefox" title="^\[WS0\]"] move window to $ws-0
 for_window [class="[Ff]irefox" title="^\[WS1\]"] move window to $ws-1
 for_window [class="[Ff]irefox" title="^\[WS2\]"] move window to $ws-2
 for_window [class="[Ff]irefox" title="^\[WS3\]"] move window to $ws-3
