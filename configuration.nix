@@ -27,12 +27,17 @@ in {
   # bootloader
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.efi.efiSysMountPoint = "/boot/efi";
 
   # setup keyfile for encrypted hard drive
   boot.initrd.secrets = { "/crypto_keyfile.bin" = null; };
 
-  # internationalisation properties
+  # Enable swap on luks
+  boot.initrd.luks.devices."luks-6584249e-94c5-4559-a9e8-3654b2b164ae".device =
+    "/dev/disk/by-uuid/6584249e-94c5-4559-a9e8-3654b2b164ae";
+  boot.initrd.luks.devices."luks-6584249e-94c5-4559-a9e8-3654b2b164ae".keyFile =
+    "/crypto_keyfile.bin";
+
+  # internationalization properties
   # WARNING: these are ignored by some desktop environments (e.g. GNOME)
   time.timeZone = "America/Chicago";
   i18n.defaultLocale = "en_US.utf8";
@@ -66,26 +71,34 @@ in {
 
     # display (login), desktop, and window managers
     displayManager.gdm.enable = true;
-    displayManager.gdm.wayland = true;
+    displayManager.autoLogin.enable = true;
+    displayManager.autoLogin.user = "perlinm";
+
+    desktopManager.xterm.enable = false;
+    desktopManager.gnome.enable = true;
+
+    windowManager.i3.enable = true;
+    displayManager.defaultSession = "none+i3";
 
     # touchpad
     libinput.enable = true;
     libinput.touchpad.naturalScrolling = true;
+    libinput.touchpad.clickMethod = "clickfinger";
   };
 
-  # enable sway window manager
-  programs.sway.enable = true;
-  programs.sway.wrapperFeatures.gtk = true;
-  programs.xwayland.enable = true;
-  xdg.portal = sway-fixes.xdg-portal;
+  # # enable sway window manager
+  # programs.sway.enable = true;
+  # programs.sway.wrapperFeatures.gtk = true;
+  # programs.xwayland.enable = true;
+  # xdg.portal = sway-fixes.xdg-portal;
 
   # system-wide packages
   environment.systemPackages = [
     pkgs.home-manager
-    sway-fixes.dbus-sway-environment
-    sway-fixes.configure-gtk
-    sway-fixes.qt5-fix
-    sway-fixes.qt6-fix
+     # sway-fixes.dbus-sway-environment
+     # sway-fixes.configure-gtk
+     # sway-fixes.qt5-fix
+     # sway-fixes.qt6-fix
   ];
 
   # sound and bluetooth control
@@ -95,6 +108,7 @@ in {
     alsa.enable = true;
     pulse.enable = true;
   };
+  hardware.pulseaudio.enable = false;
   hardware.bluetooth.enable = true;
   hardware.bluetooth.package = pkgs.bluezFull;
 

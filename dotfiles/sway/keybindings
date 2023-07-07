@@ -36,10 +36,10 @@ $bind $mod+BackSpace split toggle
 floating_modifier $mod
 
 # resize window
-$bind-repeat $mod+Left  resize shrink width  5 ppt or 100 px
-$bind-repeat $mod+Up    resize shrink height 5 ppt or 100 px
-$bind-repeat $mod+Right resize grow   width  5 ppt or 100 px
-$bind-repeat $mod+Down  resize grow   height 5 ppt or 100 px
+$bind-repeat $mod+Left  resize shrink width  100 px or 5 ppt
+$bind-repeat $mod+Up    resize shrink height 100 px or 5 ppt
+$bind-repeat $mod+Right resize grow   width  100 px or 5 ppt
+$bind-repeat $mod+Down  resize grow   height 100 px or 5 ppt
 
 ###############################################################################
 # changing workspaces
@@ -181,14 +181,14 @@ $bind XF86AudioMicMute            exec ~/scripts/volume mic toggle
 $bind $alt+Ctrl+slash             exec ~/scripts/volume mic toggle
 
 # screen brightness
-$bind-repeat XF86MonBrightnessUp   exec ~/scripts/w-brightness inc
-$bind-repeat XF86MonBrightnessDown exec ~/scripts/w-brightness dec
-$bind-repeat $mod+Ctrl+Up          exec ~/scripts/w-brightness inc
-$bind-repeat $mod+Ctrl+Down        exec ~/scripts/w-brightness dec
-$bind $mod+Ctrl+Shift+Up           exec ~/scripts/w-brightness max
-$bind $mod+Ctrl+Shift+Down         exec ~/scripts/w-brightness min
-$bind $mod+Ctrl+slash              exec ~/scripts/w-brightness mid
-$bind $mod+Ctrl+Shift+slash        exec ~/scripts/w-brightness mid
+$bind-repeat XF86MonBrightnessUp   exec ~/scripts/brightness inc
+$bind-repeat XF86MonBrightnessDown exec ~/scripts/brightness dec
+$bind-repeat $mod+Ctrl+Up          exec ~/scripts/brightness inc
+$bind-repeat $mod+Ctrl+Down        exec ~/scripts/brightness dec
+$bind $mod+Ctrl+Shift+Up           exec ~/scripts/brightness max
+$bind $mod+Ctrl+Shift+Down         exec ~/scripts/brightness min
+$bind $mod+Ctrl+slash              exec ~/scripts/brightness mid
+$bind $mod+Ctrl+Shift+slash        exec ~/scripts/brightness mid
 
 ###############################################################################
 # miscellaneous

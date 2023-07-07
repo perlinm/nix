@@ -2,7 +2,10 @@
 { pkgs, lib, ... }:
 let
   services = import /home/perlinm/nix/services.nix;
-  programs = import /home/perlinm/nix/programs.nix { inherit pkgs; };
+  programs = import /home/perlinm/nix/programs.nix {
+    inherit pkgs;
+    inherit lib;
+  };
   packages = import /home/perlinm/nix/packages.nix { inherit pkgs; };
   files = import /home/perlinm/nix/files.nix;
   shell = import /home/perlinm/nix/shell.nix { inherit lib; };
@@ -22,6 +25,9 @@ in {
     "shift:both_capslock_cancel"
     "grp:ctrls_toggle"
   ];
+
+  # let Home Manager manager the x session, e.g. to set keyboard settings
+  xsession.enable = true;
 
   # add ~/bin and ~/scripts symlinks
   home.activation = {

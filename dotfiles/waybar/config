@@ -49,7 +49,7 @@
         "format": "{capacity}% {icon} ",
         // Not connected to AC
         "format-discharging": "{capacity}% {icon}  ",
-        "format-icons": ["", "", "", "", "", "", "", "","", ""],
+        "format-icons": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
         "tooltip": true,
     },
 

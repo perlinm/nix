@@ -1,19 +1,19 @@
 # add package channels
-sudo nix-channel --add https://nixos.org/channels/nixos-22.11 nixos
+sudo nix-channel --add https://nixos.org/channels/nixos-23.05 nixos
 sudo nix-channel --add https://nixos.org/channels/nixos-unstable nixos-unstable
 sudo nix-channel --add https://github.com/NixOS/nixos-hardware/archive/master.tar.gz nixos-hardware
-sudo nix-channel --add https://github.com/nix-community/home-manager/archive/release-22.11.tar.gz home-manager
+sudo nix-channel --add https://github.com/nix-community/home-manager/archive/release-23.05.tar.gz home-manager
 sudo nix-channel --update
 
 # as user (no sudo/root)
-nix-channel --add https://github.com/nix-community/home-manager/archive/release-22.11.tar.gz home-manager
+nix-channel --add https://github.com/nix-community/home-manager/archive/release-23.05.tar.gz home-manager
 nix-channel --update
 
 # copy over main config files
 sudo cp ~/nix/configuration.nix /etc/nixos
 sudo cp ~/nix/sway-fixes.nix /etc/nixos
-mkdir -p ~/.config/nixpkgs
-ln -s ~/nix/home.nix ~/.config/nixpkgs/home.nix
+mkdir -p ~/.config/home-manager
+ln -s ~/nix/home.nix ~/.config/home-manager/home.nix
 
 # set up nixos!
 sudo nixos-rebuild switch
@@ -21,10 +21,19 @@ sudo nixos-rebuild switch
 # note: it *may* be necessary to run
 # nix-shell '<home-manager>' -A install
 
-# in firefox, 'about:config':
-# enable 'browser.quitShortcut.disabled' to disable exiting with ctrl+q
-# increase 'browser.low_commit_space_threshold_percent' to decrease memory usage
 # TODO: set firefox configs elsewhere
+# in firefox, 'about:config':
+# browser.quitShortcut.disabled: set to true to disable exiting with ctrl+q
+# browser.low_commit_space_threshold_percent: set to (say) 30 to decrease memory usage
+
+# to remove close/minimize buttons from firefox windows:
+# toolkit.legacyUserProfileCustomizations.stylesheets: set to true
+# make sure that the directory of dotfiles/firefox_userChrome.css in files.nix agrees with the profile directory firefox lists in about:support
+# see https://www.reddit.com/r/FirefoxCSS/wiki/index/tutorials/
+
+
+# in google-chrome, chrome://flags
+# enable WebRTC PipeWire support
 
 ##################################################
 # conda / python
@@ -40,13 +49,15 @@ conda create --name <VENV-NAME> python=3.<VERSION>
 # to delete a virtual environment:
 conda env remove --name <VENV-NAME>
 
-# for jupyter notebooks
-# NOTE: 'jupyter notebook' must be executed OUTSIDE virtual environments
-#       venvs in notebooks are controlled by the choice of kernel
+# for jupyter notebooks:
 conda install -c conda-forge jupyterlab nb_conda_kernels jupyter_contrib_nbextensions
 
-# inside virtual environment for which we want a jupyter kernel:
+# inside virtual environment for which we want a jupyter kernel
 conda install ipykernel
+
+
+# NOTE: 'jupyter notebook' must be executed OUTSIDE virtual environments
+#       venvs in notebooks are controlled by the choice of kernel
 
 # WARNING: some package installations may fail due to dependencies external to python.
 # In this case, these packages should be installed after calling 'conda-shell'.

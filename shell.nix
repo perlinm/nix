@@ -21,17 +21,14 @@ in {
 
     RUST_BACKTRACE = 1;
 
-    # make firefox work with wayland
-    MOZ_ENABLE_WAYLAND = 1;
-    XDG_CURRENT_DESKTOP = "sway";
+    # # make firefox work with wayland / sway
+    # MOZ_ENABLE_WAYLAND = 1;
+    # XDG_CURRENT_DESKTOP = "sway";
   };
 
   aliases = {
     sudo = "sudo "; # allows using aliases after "sudo"
     rem = "trash-put"; # trash management, replacing "rm"
-
-    # hack for unstable helix to work in stable conda
-    hx = "LD_LIBRARY_PATH='' hx";
 
     py = "python";
     ipy = "ipython";
@@ -42,9 +39,14 @@ in {
     nn = conda-go "base" "jupyter notebook";
     ss = conda-go "superstaq" "cd ~/super.tech/server-superstaq";
     ssc = conda-go "superstaq" "cd ~/super.tech/client-superstaq";
-    ssr = conda-go "superstaq" "cd ~/super.tech/research-superstaq";
+    ssr = conda-go "superstaq"
+      "cd ~/super.tech/research-superstaq/research_superstaq/theory";
+    ssl = conda-go "shaken-lattice"
+      "cd ~/super.tech/research-superstaq/research_superstaq/theory/shaken_lattice";
     qq = conda-go "QFI-Opt" "cd ~/super.tech/QFI-Opt";
     cc = conda-go "ColdQuanta" "cd ~/super.tech/coldquanta-system";
+
+    update-cq = "python -m coldquanta.qc_common_api.cq_authorize";
 
     mm = "mathematica 2> /dev/null";
   };

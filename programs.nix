@@ -1,4 +1,7 @@
-{ pkgs }: {
+{ pkgs, lib }:
+# NOTE: path and session variables *should* be set by Home Manager, but are not...
+let shell = import /home/perlinm/nix/shell.nix { inherit lib; };
+in {
   # let Home Manager install and manage itself
   home-manager.enable = true;
 
@@ -8,7 +11,10 @@
     enableVteIntegration = true;
     initExtra = ''
       eval "$(starship init bash)"
+
+      export PATH="$PATH''${PATH:+:}$HOME/bin"
     '';
+    sessionVariables = shell.sessionVariables;
   };
 
   zsh = {
@@ -17,7 +23,6 @@
     enableCompletion = true;
     enableSyntaxHighlighting = true;
     enableVteIntegration = true;
-    autocd = true;
     defaultKeymap = "emacs";
     oh-my-zsh.enable = true;
     plugins = [{
@@ -43,7 +48,10 @@
 
       # command-line prompt
       eval "$(starship init zsh)"
+
+      export PATH="$PATH''${PATH:+:}$HOME/bin"
     '';
+    sessionVariables = shell.sessionVariables;
   };
 
   exa.enable = true;
@@ -54,8 +62,7 @@
     userName = "Michael A. Perlin";
     userEmail = "mika.perlin@gmail.com";
     extraConfig = {
-      # clear LD_LIBRARY PATH for helix ~ hack for unstable helix to work in stable conda
-      core.editor = "LD_LIBRARY_PATH='' hx";
+      core.editor = "hx";
       init.defaultBranch = "main";
       fetch.prune = "true";
       pull.ff = "only";

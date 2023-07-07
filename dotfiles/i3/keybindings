@@ -5,9 +5,9 @@
 set $mod Mod4
 set $alt Mod1
 
-set $terminal  xfce4-terminal
+set $terminal  alacritty
 set $browser   firefox
-set $display   gnome-control-center display
+set $display   arandr
 set $volume    pavucontrol
 set $bluetooth blueberry
 
@@ -180,7 +180,6 @@ bindsym Ctrl+Escape exec --no-startup-id ~/scripts/x-lock
 bindsym $mod+Tab    exec --no-startup-id $terminal
 bindsym $mod+Return exec --no-startup-id $browser
 bindsym $mod+d      exec --no-startup-id $display
-bindsym $mod+v      exec --no-startup-id $volume
 bindsym $mod+b      exec --no-startup-id $bluetooth
 
 ###############################################################################
@@ -208,14 +207,14 @@ bindsym Ctrl+Shift+slash     exec --no-startup-id ~/scripts/volume med
 bindsym XF86AudioMicMute     exec --no-startup-id ~/scripts/volume mic toggle
 
 # screen brightness
-bindsym XF86MonBrightnessUp   exec --no-startup-id ~/scripts/x-brightness inc
-bindsym XF86MonBrightnessDown exec --no-startup-id ~/scripts/x-brightness dec
-bindsym $mod+Ctrl+Up          exec --no-startup-id ~/scripts/x-brightness inc
-bindsym $mod+Ctrl+Down        exec --no-startup-id ~/scripts/x-brightness dec
-bindsym $mod+Ctrl+Shift+Up    exec --no-startup-id ~/scripts/x-brightness max
-bindsym $mod+Ctrl+Shift+Down  exec --no-startup-id ~/scripts/x-brightness min
-bindsym $mod+Ctrl+slash       exec --no-startup-id ~/scripts/x-brightness mid
-bindsym $mod+Ctrl+Shift+slash exec --no-startup-id ~/scripts/x-brightness mid
+bindsym XF86MonBrightnessUp   exec --no-startup-id ~/scripts/brightness inc
+bindsym XF86MonBrightnessDown exec --no-startup-id ~/scripts/brightness dec
+bindsym $mod+Ctrl+Up          exec --no-startup-id ~/scripts/brightness inc
+bindsym $mod+Ctrl+Down        exec --no-startup-id ~/scripts/brightness dec
+bindsym $mod+Ctrl+Shift+Up    exec --no-startup-id ~/scripts/brightness max
+bindsym $mod+Ctrl+Shift+Down  exec --no-startup-id ~/scripts/brightness min
+bindsym $mod+Ctrl+slash       exec --no-startup-id ~/scripts/brightness mid
+bindsym $mod+Ctrl+Shift+slash exec --no-startup-id ~/scripts/brightness mid
 
 # scratchpads
 bindsym $mod+F1  exec --no-startup-id i3-msg [title="^pad-F1$"]  scratchpad show || $terminal --title="pad-F1"
@@ -230,3 +229,6 @@ bindsym $mod+F9  exec --no-startup-id i3-msg [title="^pad-F9$"]  scratchpad show
 bindsym $mod+F10 exec --no-startup-id i3-msg [title="^pad-F10$"] scratchpad show || $terminal --title="pad-F10"
 bindsym $mod+F11 exec --no-startup-id i3-msg [title="^pad-F11$"] scratchpad show || $terminal --title="pad-F11"
 bindsym $mod+F12 exec --no-startup-id i3-msg [title="^pad-F12$"] scratchpad show || $terminal --title="pad-F12"
+
+# volume control scratchpad
+bindsym $mod+v   exec swaymsg [app_id="^pavucontrol$"] scratchpad show || $volume

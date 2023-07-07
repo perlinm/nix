@@ -17,7 +17,7 @@ in let
     cmake
     gnumake # build system
     git # version control system
-    unstable.helix
+    helix
     vim
     emacs # text editors
     fzf # command-line fuzzy finder
@@ -72,7 +72,6 @@ in let
     maxima
     sage # computer algebra systems
     meld # file comparison tool
-    networkmanagerapplet # for 'nm-applet'; NOT NECESSARY IN FUTURE VERSIONS OF NIXOS
     pamixer # command-line volume control
     pavucontrol # GUI volume control
     qpdfview
@@ -103,6 +102,7 @@ in let
     wl-clipboard # CLI copy/paste tool
   ];
   i3-utilities = with pkgs; [
+    arandr # for display management
     autotiling # sane tiling defaults
     feh # set background image
     gnome.gnome-control-center # provides display settings
@@ -110,7 +110,7 @@ in let
     maim # screenshots
     notify-osd-customizable # noitification daemon
     picom # window compositor
-    polybar # info bar / panel
+    polybarFull # info bar / panel
     xclip # CLI copy/paste tool
     xdotool # simulate keyboard/mouse input, manipulate windows
     xidlehook # lock or turn off screen when idling
@@ -119,9 +119,9 @@ in let
     xorg.xprop # get window properties
     xss-lock # lock screen manager
   ];
-  misc = with pkgs;
-    [
-      awscli2 # AWS command line services
-    ];
+  misc = with pkgs; [
+    awscli2 # AWS command line services
+    protobuf # for protoc command
+  ];
 in console-utilities ++ languages ++ python ++ fonts-icons-themes
-++ applications ++ sway-utilities ++ misc
+++ applications ++ sway-utilities ++ i3-utilities ++ misc
