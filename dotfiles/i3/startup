@@ -10,16 +10,16 @@ exec --no-startup-id gsettings set org.gnome.desktop.interface icon-theme 'Papir
 exec --no-startup-id picom --fading --fade-delta=2 --daemon
 
 # add network manger to system tray
-exec --no-startup-id nm-applet --indicator
+exec --no-startup-id nm-applet --no-startup-id --indicator
 
 # notification daemon
 exec --no-startup-id notify-osd
 
+# screen locker
+exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock-fancy --nofork
+
 # sane tiling defaults
 exec --no-startup-id autotiling
-
-# screen locker
-exec --no-startup-id xss-lock -- ~/scripts/x-lock
 
 # keyboard settings
 exec --no-startup-id xset r 66

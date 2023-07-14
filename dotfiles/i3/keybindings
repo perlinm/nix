@@ -231,4 +231,4 @@ bindsym $mod+F11 exec --no-startup-id i3-msg [title="^pad-F11$"] scratchpad show
 bindsym $mod+F12 exec --no-startup-id i3-msg [title="^pad-F12$"] scratchpad show || $terminal --title="pad-F12"
 
 # volume control scratchpad
-bindsym $mod+v   exec swaymsg [app_id="^pavucontrol$"] scratchpad show || $volume
+bindsym $mod+v exec --no-startup-id i3-msg [class="^Pavucontrol$"] scratchpad show || $volume

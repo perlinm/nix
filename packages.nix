@@ -63,6 +63,7 @@ in let
     firefox
     google-chrome-beta
     google-chrome # web browsers
+    brightnessctl # screen brightness
     gimp # image editor
     gnome.eog # image viewer
     gparted # graphical disk partitioning
@@ -72,6 +73,7 @@ in let
     maxima
     sage # computer algebra systems
     meld # file comparison tool
+    networkmanagerapplet # network management tray app
     pamixer # command-line volume control
     pavucontrol # GUI volume control
     qpdfview
@@ -81,13 +83,13 @@ in let
     spotify # music
     vlc # for watching videos
     xfce.thunar # file browser
+    wpsoffice # office suite (like Word, Excel, etc.)
     zoom-us # video conferencing app
     zotero # bibliography/reference manager
   ];
   sway-utilities = with pkgs; [
     i3 # parent to sway, incuded for 'i3-msg' command
     autotiling-rs # sane tiling defaults
-    brightnessctl # screen brightness
     grim
     slurp # for screenshots
     swaybg # set background image
@@ -104,8 +106,10 @@ in let
   i3-utilities = with pkgs; [
     arandr # for display management
     autotiling # sane tiling defaults
+    i3lock-fancy
+    xss-lock # lock screen management
+    i3-wk-switch # XMonad-like workspace switching
     feh # set background image
-    gnome.gnome-control-center # provides display settings
     lxappearance # set GTK themes
     maim # screenshots
     notify-osd-customizable # noitification daemon
@@ -114,10 +118,8 @@ in let
     xclip # CLI copy/paste tool
     xdotool # simulate keyboard/mouse input, manipulate windows
     xidlehook # lock or turn off screen when idling
-    xorg.xbacklight # screen brightness
     xorg.xev # event logger
     xorg.xprop # get window properties
-    xss-lock # lock screen manager
   ];
   misc = with pkgs; [
     awscli2 # AWS command line services
