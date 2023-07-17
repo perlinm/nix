@@ -30,6 +30,6 @@ exec --no-startup-id setxkbmap us(colemak),us -option caps:backspace -option lv3
 # applications
 ###############################################################################
 
-exec --no-startup-id google-chrome-beta --app=https://teams.microsoft.com
+exec --no-startup-id google-chrome-stable --app=https://teams.microsoft.com
 exec --no-startup-id slack
 exec --no-startup-id zotero

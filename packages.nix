@@ -61,7 +61,6 @@ in let
     xfce.xfce4-terminal # terminal emulators
     blueberry # bluetooth tool
     firefox
-    google-chrome-beta
     google-chrome # web browsers
     brightnessctl # screen brightness
     gimp # image editor
