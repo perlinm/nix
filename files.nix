@@ -16,7 +16,8 @@ in let
     ".indentconfig_settings.yaml".source = "${dir}/indentconfig_settings.yaml";
     ".indentconfig.yaml".source = "${dir}/indentconfig.yaml";
 
-    ".mozilla/firefox/p32pbshe.default/chrome/userChrome.css".source = "${dir}/firefox_userChrome.css";
+    ".mozilla/firefox/p32pbshe.default/chrome/userChrome.css".source =
+      "${dir}/firefox_userChrome.css";
   };
 
   xdg = {

@@ -6,7 +6,7 @@ in let
   languages = with pkgs; [
     cargo
     gcc
-    unstable.mathematica
+    unstable.mathematica # https://github.com/NixOS/nixpkgs/blob/master/pkgs/applications/science/math/mathematica/default.nix
     nixfmt # nix formatter
     taplo # TOML toolkit
     texlive.combined.scheme-full
