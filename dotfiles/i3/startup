@@ -15,8 +15,11 @@ exec --no-startup-id nm-applet --no-startup-id --indicator
 # notification daemon
 exec --no-startup-id notify-osd
 
-# screen locker
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock-fancy --nofork
+# sreen idle timeout
+exec --no-startup-id xset dpms 0 0 1800
+
+# automatic screen locker
+# exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock-fancy --nofork
 
 # sane tiling defaults
 exec --no-startup-id autotiling
