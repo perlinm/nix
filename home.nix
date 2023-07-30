@@ -61,6 +61,14 @@ in {
     iconTheme.package = pkgs.papirus-icon-theme;
   };
 
+  # disable networkmanager notifications
+  dconf.settings = {
+    "org/gnome/nm-applet" = {
+      disable-connected-notifications = true;
+      disable-disconnected-notifications = true;
+    };
+  };
+
   # allow installing unfree packages
   nixpkgs.config.allowUnfree = true;
 }

@@ -1,5 +1,3 @@
-fix networkmanager popup
-
 application launcher
 gnome-control-center display
 
