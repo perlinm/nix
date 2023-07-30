@@ -3,10 +3,24 @@ let
   # install unstable packages with unstable.<PACKAGE-NAME>
   unstable = import <nixos-unstable> { config.allowUnfree = true; };
 in let
+  # https://github.com/NixOS/nixpkgs/blob/master/pkgs/applications/science/math/mathematica/default.nix
+  mathematica-13-2-1 = unstable.mathematica.override {
+    source = pkgs.requireFile {
+      name = "Mathematica_13.2.1_BNDL_LINUX.sh";
+      # Get this hash via a command similar to this:
+      # nix-store --query --hash $(nix store add-path Mathematica_13.2.1_BNDL_LINUX.sh --name 'Mathematica_13.2.1_BNDL_LINUX.sh')
+      sha256 = "070ybhgskk3fw8c6fgqs4lq9252ds6585cqdd5as94hj55vjibmq";
+      message = ''
+        Your override for Mathematica includes a different src for the installer, and it is missing.
+      '';
+      hashMode = "recursive";
+    };
+  };
+in let
   languages = with pkgs; [
     cargo
     gcc
-    unstable.mathematica # https://github.com/NixOS/nixpkgs/blob/master/pkgs/applications/science/math/mathematica/default.nix
+    mathematica-13-2-1
     nixfmt # nix formatter
     taplo # TOML toolkit
     texlive.combined.scheme-full
@@ -18,8 +32,7 @@ in let
     gnumake # build system
     git # version control system
     helix
-    vim
-    emacs # text editors
+    vim # text editors
     fzf # command-line fuzzy finder
     htop # process viewer
     ispell # spell checker
@@ -72,7 +85,6 @@ in let
     maxima
     sage # computer algebra systems
     meld # file comparison tool
-    networkmanagerapplet # network management tray app
     pamixer # command-line volume control
     pavucontrol # GUI volume control
     qpdfview
