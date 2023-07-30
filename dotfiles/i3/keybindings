@@ -179,6 +179,7 @@ bindsym Ctrl+Escape exec --no-startup-id ~/scripts/x-lock
 
 bindsym $mod+Tab    exec --no-startup-id $terminal
 bindsym $mod+Return exec --no-startup-id $browser
+bindsym $mod+v      exec --no-startup-id $volume
 bindsym $mod+d      exec --no-startup-id $display
 bindsym $mod+b      exec --no-startup-id $bluetooth
 
@@ -229,6 +230,3 @@ bindsym $mod+F9  exec --no-startup-id i3-msg [title="^pad-F9$"]  scratchpad show
 bindsym $mod+F10 exec --no-startup-id i3-msg [title="^pad-F10$"] scratchpad show || $terminal --title="pad-F10"
 bindsym $mod+F11 exec --no-startup-id i3-msg [title="^pad-F11$"] scratchpad show || $terminal --title="pad-F11"
 bindsym $mod+F12 exec --no-startup-id i3-msg [title="^pad-F12$"] scratchpad show || $terminal --title="pad-F12"
-
-# volume control scratchpad
-bindsym $mod+v exec --no-startup-id i3-msg [class="^Pavucontrol$"] scratchpad show || $volume

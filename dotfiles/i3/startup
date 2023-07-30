@@ -2,10 +2,6 @@
 # startup and reload commands
 ###############################################################################
 
-# set GTK theme
-exec --no-startup-id gsettings set org.gnome.desktop.interface gtk-theme 'Dracula'
-exec --no-startup-id gsettings set org.gnome.desktop.interface icon-theme 'Papirus-Dark'
-
 # window compositing
 exec --no-startup-id picom --fading --fade-delta=2 --daemon
 
@@ -16,18 +12,18 @@ exec --no-startup-id nm-applet --no-startup-id --indicator
 exec --no-startup-id notify-osd
 
 # sreen idle timeout
-exec --no-startup-id xset dpms 0 0 1800
+exec_always --no-startup-id xset dpms 0 0 1800
 
 # automatic screen locker
-# exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock-fancy --nofork
+# exec --no-startup-id xss-lock --transfer-sleep-lock -- ~/nix/scripts/x-lock
 
 # sane tiling defaults
-exec --no-startup-id autotiling
+exec_always --no-startup-id autotiling
 
 # keyboard settings
-exec --no-startup-id xset r 66
-exec --no-startup-id xset r rate 200 60
-exec --no-startup-id setxkbmap us(colemak),us -option caps:backspace -option lv3:ralt_alt -option shift:both_capslock_cancel -option grp:ctrls_toggle
+exec_always --no-startup-id xset r 66
+exec_always --no-startup-id xset r rate 200 60
+exec_always --no-startup-id setxkbmap us(colemak),us -option caps:backspace -option lv3:ralt_alt -option shift:both_capslock_cancel -option grp:ctrls_toggle
 
 ###############################################################################
 # applications

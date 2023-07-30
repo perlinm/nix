@@ -117,8 +117,7 @@ in let
   i3-utilities = with pkgs; [
     arandr # for display management
     autotiling # sane tiling defaults
-    i3lock-fancy
-    xss-lock # lock screen management
+    i3lock-fancy-rapid # lock screen management
     i3-wk-switch # XMonad-like workspace switching
     feh # set background image
     lxappearance # set GTK themes
@@ -131,6 +130,7 @@ in let
     xidlehook # lock or turn off screen when idling
     xorg.xev # event logger
     xorg.xprop # get window properties
+    xss-lock # idle screen manager
   ];
   misc = with pkgs; [
     awscli2 # AWS command line services
