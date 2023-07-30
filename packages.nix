@@ -121,7 +121,8 @@ in let
     i3-wk-switch # XMonad-like workspace switching
     feh # set background image
     lxappearance # set GTK themes
-    maim # screenshots
+    maim
+    scrot # screenshots
     notify-osd-customizable # noitification daemon
     picom # window compositor
     polybarFull # info bar / panel
