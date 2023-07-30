@@ -6,9 +6,10 @@ set $mod Mod4
 set $alt Mod1
 
 set $terminal  alacritty
+set $launcher  rofi -show drun
 set $browser   firefox
-set $display   arandr
 set $volume    pavucontrol
+set $display   arandr
 set $bluetooth blueberry
 
 set $ws-0  workspace number 0
@@ -178,6 +179,7 @@ bindsym Ctrl+Escape exec --no-startup-id ~/scripts/x-lock
 ###############################################################################
 
 bindsym $mod+Tab    exec --no-startup-id $terminal
+bindsym Ctrl+grave  exec --no-startup-id $launcher
 bindsym $mod+Return exec --no-startup-id $browser
 bindsym $mod+v      exec --no-startup-id $volume
 bindsym $mod+d      exec --no-startup-id $display

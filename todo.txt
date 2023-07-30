@@ -1,4 +1,3 @@
-application launcher
 gnome-control-center display
 
 i3-wk-switch

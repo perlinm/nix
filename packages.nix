@@ -90,6 +90,7 @@ in let
     qpdfview
     zathura
     okular # pdf viewers
+    rofi # application launcher
     slack # work chat
     spotify # music
     vlc # for watching videos

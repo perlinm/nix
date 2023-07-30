@@ -41,6 +41,10 @@ in let
     "polybar/config.ini".source = "${dir}/polybar/config.ini";
     "polybar/launch.sh".source = "${dir}/polybar/launch.sh";
 
+    "rofi/config.rasi".source = "${dir}/rofi/config.rasi";
+    "rofi/rounded-common.rasi".source = "${dir}/rofi/rounded-common.rasi";
+    "rofi/rounded-orange-dark.rasi".source = "${dir}/rofi/rounded-orange-dark.rasi";
+
     "sway/config".source = "${dir}/sway/config";
     "sway/keybindings".source = "${dir}/sway/keybindings";
     "sway/rules".source = "${dir}/sway/rules";
