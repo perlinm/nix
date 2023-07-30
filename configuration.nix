@@ -74,11 +74,16 @@ in {
     displayManager.autoLogin.enable = true;
     displayManager.autoLogin.user = "perlinm";
 
-    desktopManager.xterm.enable = false;
-    desktopManager.gnome.enable = true;
-
+    desktopManager = {
+      xterm.enable = false;
+      xfce = {
+        enable = true;
+        noDesktop = true;
+        enableXfwm = false;
+      };
+    };
+    displayManager.defaultSession = "xfce+i3";
     windowManager.i3.enable = true;
-    displayManager.defaultSession = "none+i3";
 
     # touchpad
     libinput.enable = true;
