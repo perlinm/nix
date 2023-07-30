@@ -1,11 +1,6 @@
 let dir = "/home/perlinm/nix/dotfiles";
-in let
+in {
   home = {
-    ".ssh/config".source = "${dir}/ssh/config";
-    ".ssh/id_rsa.gpg".source = "${dir}/ssh/id_rsa.gpg";
-    ".ssh/id_rsa.pub".source = "${dir}/ssh/id_rsa.pub";
-    ".ssh/fingerprint".source = "${dir}/ssh/fingerprint";
-
     ".vimrc".source = "${dir}/vimrc";
     ".emacs.d/init.el".source = "${dir}/emacs-init.el";
     ".latexmkrc".source = "${dir}/latexmkrc";
@@ -21,11 +16,6 @@ in let
   };
 
   xdg = {
-    "helix/config.toml".source = "${dir}/helix/config.toml";
-    "helix/languages.toml".source = "${dir}/helix/languages.toml";
-    "helix/themes/onedark_perlinm.toml".source =
-      "${dir}/helix/themes/onedark_perlinm.toml";
-
     "starship.toml".source = "${dir}/starship.toml";
     "alacritty/alacritty.yml".source = "${dir}/alacritty.yml";
     "kitty/kitty.conf".source = "${dir}/kitty/kitty.conf";
@@ -33,28 +23,19 @@ in let
     "qpdfview/shortcuts.conf".source = "${dir}/qpdfview-shortcuts.conf";
     "black".source = "${dir}/black";
     "flake8".source = "${dir}/flake8";
-
-    "i3/config".source = "${dir}/i3/config";
-    "i3/keybindings".source = "${dir}/i3/keybindings";
-    "i3/rules".source = "${dir}/i3/rules";
-    "i3/startup".source = "${dir}/i3/startup";
-    "polybar/config.ini".source = "${dir}/polybar/config.ini";
-    "polybar/launch.sh".source = "${dir}/polybar/launch.sh";
-
-    "rofi/config.rasi".source = "${dir}/rofi/config.rasi";
-    "rofi/rounded-common.rasi".source = "${dir}/rofi/rounded-common.rasi";
-    "rofi/rounded-orange-dark.rasi".source = "${dir}/rofi/rounded-orange-dark.rasi";
-
-    "sway/config".source = "${dir}/sway/config";
-    "sway/keybindings".source = "${dir}/sway/keybindings";
-    "sway/rules".source = "${dir}/sway/rules";
-    "sway/startup".source = "${dir}/sway/startup";
-    "sway/variables".source = "${dir}/sway/variables";
-    "waybar/config".source = "${dir}/waybar/config";
-    "waybar/style.css".source = "${dir}/waybar/style.css";
     "swaylock/config".source = "${dir}/swaylock-config";
   };
-in {
-  xdg = xdg;
-  home = home;
+
+  activation = ''
+    $DRY_RUN_CMD ln -sTf $VERBOSE_ARG $HOME/nix/dotfiles/bin $HOME/bin
+    $DRY_RUN_CMD ln -sTf $VERBOSE_ARG $HOME/nix/dotfiles/scripts $HOME/scripts
+    $DRY_RUN_CMD ln -sTf $VERBOSE_ARG $HOME/nix/dotfiles/ssh $HOME/.ssh
+
+    $DRY_RUN_CMD ln -sTf $VERBOSE_ARG $HOME/nix/dotfiles/helix $HOME/.config/helix
+    $DRY_RUN_CMD ln -sTf $VERBOSE_ARG $HOME/nix/dotfiles/i3 $HOME/.config/i3
+    $DRY_RUN_CMD ln -sTf $VERBOSE_ARG $HOME/nix/dotfiles/polybar $HOME/.config/polybar
+    $DRY_RUN_CMD ln -sTf $VERBOSE_ARG $HOME/nix/dotfiles/rofi $HOME/.config/rofi
+    $DRY_RUN_CMD ln -sTf $VERBOSE_ARG $HOME/nix/dotfiles/sway $HOME/.config/sway
+    $DRY_RUN_CMD ln -sTf $VERBOSE_ARG $HOME/nix/dotfiles/waybar $HOME/.config/waybar
+  '';
 }

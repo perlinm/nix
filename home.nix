@@ -29,15 +29,10 @@ in {
   # let Home Manager manager the x session, e.g. to set keyboard settings
   xsession.enable = true;
 
-  # add ~/bin and ~/scripts symlinks
+  # add symlinks
   home.activation = {
-    makeSymbolicLinks = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-      $DRY_RUN_CMD ln -sTf $VERBOSE_ARG $HOME/nix/bin $HOME/bin
-      $DRY_RUN_CMD ln -sTf $VERBOSE_ARG $HOME/nix/scripts $HOME/scripts
-    '';
+    makeSymbolicLinks = lib.hm.dag.entryAfter [ "writeBoundary" ] files.activation;
   };
-
-  # add symlinks inside ~/ and ~/.config
   home.file = files.home;
   xdg.configFile = files.xdg;
 
