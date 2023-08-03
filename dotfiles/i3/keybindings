@@ -74,19 +74,20 @@ bindsym $mod+Down  resize grow   height 100 px or 5 ppt
 ###############################################################################
 
 # move to workspace
-bindsym $mod+grave $ws-0
-bindsym $mod+1     $ws-1
-bindsym $mod+2     $ws-2
-bindsym $mod+3     $ws-3
-bindsym $mod+4     $ws-4
-bindsym $mod+5     $ws-5
-bindsym $mod+6     $ws-6
-bindsym $mod+7     $ws-7
-bindsym $mod+8     $ws-8
-bindsym $mod+9     $ws-9
-bindsym $mod+0     $ws-10
-bindsym $mod+minus $ws-11
-bindsym $mod+equal $ws-12
+set $wk-switch exec --no-startup-id i3-wk-switch
+bindsym $mod+grave $wk-switch 0
+bindsym $mod+1     $wk-switch 1
+bindsym $mod+2     $wk-switch 2
+bindsym $mod+3     $wk-switch 3
+bindsym $mod+4     $wk-switch 4
+bindsym $mod+5     $wk-switch 5
+bindsym $mod+6     $wk-switch 6
+bindsym $mod+7     $wk-switch 7
+bindsym $mod+8     $wk-switch 8
+bindsym $mod+9     $wk-switch 9
+bindsym $mod+0     $wk-switch 10
+bindsym $mod+minus $wk-switch 11
+bindsym $mod+equal $wk-switch 12
 bindsym $mod+x workspace back_and_forth
 bindsym $mod+q workspace prev_on_output
 bindsym $mod+f workspace next_on_output

@@ -1,3 +1,5 @@
+boot into last used by default for systemd-boot
+
 gnome-control-center display
 
 i3-wk-switch
