@@ -39,10 +39,8 @@ in {
     nn = conda-go "base" "jupyter notebook";
     ss = conda-go "superstaq" "cd ~/super.tech/server-superstaq";
     ssc = conda-go "superstaq" "cd ~/super.tech/client-superstaq";
-    ssr = conda-go "superstaq"
+    ssr = conda-go "research-superstaq"
       "cd ~/super.tech/research-superstaq/research_superstaq/theory";
-    ssl = conda-go "shaken-lattice"
-      "cd ~/super.tech/research-superstaq/research_superstaq/theory/shaken_lattice";
     qq = conda-go "QFI-Opt" "cd ~/super.tech/QFI-Opt";
     cc = conda-go "ColdQuanta" "cd ~/super.tech/coldquanta-system";
 
