@@ -50,11 +50,9 @@ conda create --name <VENV-NAME> python=3.<VERSION>
 conda env remove --name <VENV-NAME>
 
 # for jupyter notebooks:
-conda install -c conda-forge jupyterlab nb_conda_kernels jupyter_contrib_nbextensions
-
-# inside virtual environment for which we want a jupyter kernel
-conda install ipykernel
-
+conda install jupyter ipykernel
+conda install -c conda-forge jupyterlab nb_conda_kernels
+conda install -c conda-forge jupyter_contrib_nbextensions  # might not work?
 
 # NOTE: 'jupyter notebook' must be executed OUTSIDE virtual environments
 #       venvs in notebooks are controlled by the choice of kernel
