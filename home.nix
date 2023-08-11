@@ -31,7 +31,8 @@ in {
 
   # add symlinks
   home.activation = {
-    makeSymbolicLinks = lib.hm.dag.entryAfter [ "writeBoundary" ] files.activation;
+    makeSymbolicLinks =
+      lib.hm.dag.entryAfter [ "writeBoundary" ] files.activation;
   };
   home.file = files.home;
   xdg.configFile = files.xdg;
