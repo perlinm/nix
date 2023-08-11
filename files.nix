@@ -1,7 +1,7 @@
 { config }:
-let
-  dir = "/home/perlinm/nix/dotfiles";
-  link_source = "$DRY_RUN_CMD ln -sTf $VERBOSE_ARG $HOME/nix/dotfiles";
+let dir = "/home/perlinm/nix/dotfiles";
+in let
+  link_source = "$DRY_RUN_CMD ln -sTf $VERBOSE_ARG ${dir}";
   symlink = path: config.lib.file.mkOutOfStoreSymlink path;
 in {
   home = {
@@ -12,7 +12,8 @@ in {
       "${dir}/ipython-startup-libs.py";
     ".condarc".source = symlink "${dir}/condarc";
 
-    ".indentconfig_settings.yaml".source = symlink "${dir}/indentconfig_settings.yaml";
+    ".indentconfig_settings.yaml".source =
+      symlink "${dir}/indentconfig_settings.yaml";
     ".indentconfig.yaml".source = symlink "${dir}/indentconfig.yaml";
 
     ".mozilla/firefox/p32pbshe.default/chrome/userChrome.css".source =
@@ -23,7 +24,8 @@ in {
     "starship.toml".source = symlink "${dir}/starship.toml";
     "alacritty/alacritty.yml".source = symlink "${dir}/alacritty.yml";
     "kitty/kitty.conf".source = symlink "${dir}/kitty/kitty.conf";
-    "kitty/current-theme.conf".source = symlink "${dir}/kitty/current-theme.conf";
+    "kitty/current-theme.conf".source =
+      symlink "${dir}/kitty/current-theme.conf";
     "qpdfview/shortcuts.conf".source = symlink "${dir}/qpdfview-shortcuts.conf";
     "black".source = symlink "${dir}/black";
     "flake8".source = symlink "${dir}/flake8";
