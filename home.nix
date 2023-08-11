@@ -1,5 +1,5 @@
 # https://github.com/nix-community/home-manager
-{ pkgs, lib, ... }:
+{ config, lib, pkgs, ... }:
 let
   services = import /home/perlinm/nix/services.nix;
   programs = import /home/perlinm/nix/programs.nix {
@@ -7,7 +7,7 @@ let
     inherit lib;
   };
   packages = import /home/perlinm/nix/packages.nix { inherit pkgs; };
-  files = import /home/perlinm/nix/files.nix;
+  files = import /home/perlinm/nix/files.nix { inherit config; };
   shell = import /home/perlinm/nix/shell.nix { inherit lib; };
 in {
   # The state version determines some configuration defaults.
