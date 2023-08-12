@@ -7,7 +7,10 @@ let
     inherit lib;
   };
   packages = import /home/perlinm/nix/packages.nix { inherit pkgs; };
-  files = import /home/perlinm/nix/files.nix { inherit config; };
+  files = import /home/perlinm/nix/files.nix {
+    inherit config;
+    inherit lib;
+  };
   shell = import /home/perlinm/nix/shell.nix { inherit lib; };
 in {
   # The state version determines some configuration defaults.
