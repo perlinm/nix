@@ -3,47 +3,45 @@ let
   dir = "/home/perlinm/nix/dotfiles";
   newline-join = lines: lib.strings.concatMapStrings (line: line + "\n") lines;
 in let
-  store-symlink = path: config.lib.file.mkOutOfStoreSymlink "${dir}/${path}";
-  make-symlink = source: dest:
+  copy = path: config.lib.file.mkOutOfStoreSymlink "${dir}/${path}";
+  symlink = source: dest:
     "$DRY_RUN_CMD ln -sfT $VERBOSE_ARG ${dir}/${source} $HOME/${dest}";
 in {
   home = {
-    ".vimrc".source = store-symlink "vimrc";
-    ".emacs.d/init.el".source = store-symlink "emacs-init.el";
-    ".latexmkrc".source = store-symlink "latexmkrc";
+    ".vimrc".source = copy "vimrc";
+    ".emacs.d/init.el".source = copy "emacs-init.el";
+    ".latexmkrc".source = copy "latexmkrc";
     ".ipython/profile_perlinm/startup/00-libs.py".source =
-      store-symlink "ipython-startup-libs.py";
-    ".condarc".source = store-symlink "condarc";
+      copy "ipython-startup-libs.py";
+    ".condarc".source = copy "condarc";
 
-    ".indentconfig_settings.yaml".source =
-      store-symlink "indentconfig_settings.yaml";
-    ".indentconfig.yaml".source = store-symlink "indentconfig.yaml";
+    ".indentconfig_settings.yaml".source = copy "indentconfig_settings.yaml";
+    ".indentconfig.yaml".source = copy "indentconfig.yaml";
 
     ".mozilla/firefox/p32pbshe.default/chrome/userChrome.css".source =
-      store-symlink "firefox_userChrome.css";
+      copy "firefox_userChrome.css";
   };
 
   xdg = {
-    "starship.toml".source = store-symlink "starship.toml";
-    "alacritty/alacritty.yml".source = store-symlink "alacritty.yml";
-    "kitty/kitty.conf".source = store-symlink "kitty/kitty.conf";
-    "kitty/current-theme.conf".source =
-      store-symlink "kitty/current-theme.conf";
-    "qpdfview/shortcuts.conf".source = store-symlink "qpdfview-shortcuts.conf";
-    "black".source = store-symlink "black";
-    "flake8".source = store-symlink "flake8";
-    "swaylock/config".source = store-symlink "swaylock-config";
+    "starship.toml".source = copy "starship.toml";
+    "alacritty/alacritty.yml".source = copy "alacritty.yml";
+    "kitty/kitty.conf".source = copy "kitty/kitty.conf";
+    "kitty/current-theme.conf".source = copy "kitty/current-theme.conf";
+    "qpdfview/shortcuts.conf".source = copy "qpdfview-shortcuts.conf";
+    "black".source = copy "black";
+    "flake8".source = copy "flake8";
+    "swaylock/config".source = copy "swaylock-config";
   };
 
   activation = newline-join [
-    (make-symlink "bin" "bin")
-    (make-symlink "scripts" "scripts")
-    (make-symlink "ssh" ".ssh")
-    (make-symlink "helix" ".config/helix")
-    (make-symlink "i3" ".config/i3")
-    (make-symlink "polybar" ".config/polybar")
-    (make-symlink "rofi" ".config/rofi")
-    (make-symlink "sway" ".config/sway")
-    (make-symlink "waybar" ".config/waybar")
+    (symlink "bin" "bin")
+    (symlink "scripts" "scripts")
+    (symlink "ssh" ".ssh")
+    (symlink "helix" ".config/helix")
+    (symlink "i3" ".config/i3")
+    (symlink "polybar" ".config/polybar")
+    (symlink "rofi" ".config/rofi")
+    (symlink "sway" ".config/sway")
+    (symlink "waybar" ".config/waybar")
   ];
 }
