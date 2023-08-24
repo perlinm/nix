@@ -40,7 +40,7 @@ in {
     ss = conda-go "superstaq" "cd ~/super.tech/server-superstaq";
     ssc = conda-go "superstaq" "cd ~/super.tech/client-superstaq";
     ssr = conda-go "research-superstaq"
-      "cd ~/super.tech/research-superstaq/research_superstaq/theory";
+      "cd ~/super.tech/research-superstaq/research_superstaq/theory/LDPC";
     qq = conda-go "QFI-Opt" "cd ~/super.tech/QFI-Opt";
     cc = conda-go "ColdQuanta" "cd ~/super.tech/coldquanta-system";
 

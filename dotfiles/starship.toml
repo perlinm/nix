@@ -17,7 +17,7 @@ format = """⏱  took [$duration]($style)
 """
 
 [custom.conda-shell]
-when = 'test "$(env | grep CONDA_EXE)"'
+when = '[[ -n $(env | grep CONDA_EXE) && -z $(env | grep CONDA_PREFIX) ]]'
 format = '\(conda-shell\) '
 
 [conda]
