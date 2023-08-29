@@ -64,10 +64,10 @@ bindsym $mod+BackSpace split toggle
 floating_modifier $mod
 
 # resize window
-bindsym $mod+Left  resize shrink width  105 px or 6 ppt
-bindsym $mod+Up    resize shrink height 105 px or 6 ppt
-bindsym $mod+Right resize grow   width  105 px or 6 ppt
-bindsym $mod+Down  resize grow   height 105 px or 6 ppt
+bindsym $mod+Left  resize shrink width  100 px or 7 ppt
+bindsym $mod+Up    resize shrink height 100 px or 7 ppt
+bindsym $mod+Right resize grow   width  100 px or 7 ppt
+bindsym $mod+Down  resize grow   height 100 px or 7 ppt
 
 ###############################################################################
 # changing workspaces

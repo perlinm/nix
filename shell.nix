@@ -43,6 +43,7 @@ in {
       "cd ~/super.tech/research-superstaq/research_superstaq/theory/LDPC";
     qq = conda-go "QFI-Opt" "cd ~/super.tech/QFI-Opt";
     cc = conda-go "ColdQuanta" "cd ~/super.tech/coldquanta-system";
+    zz = conda-go "zain" "cd ~/super.tech/zain";
 
     update-cq = "python -m coldquanta.qc_common_api.cq_authorize";
 
