@@ -45,6 +45,9 @@ conda update conda python
 # disable pip installing in the base environment
 pip uninstall pip
 
+# for jupyter notebooks:
+pip install jupyter ipykernel
+
 # TO SET UP A VIRUAL ENVIRONMENT:
 conda create --name <VENV-NAME> python=3.<VERSION>
 
