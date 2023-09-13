@@ -55,6 +55,7 @@ in let
     watch # repeat a command and watch output
     wget # retrieve files from the web
     woof # secure network file sharing
+    # xpdf # pdf manipulation
     zip
     unzip # zipping/unzipping
   ];
@@ -136,6 +137,7 @@ in let
   ];
   misc = with pkgs; [
     awscli2 # AWS command line services
+    lynx # text-based browser
     protobuf # for protoc command
   ];
 in console-utilities ++ languages ++ python ++ fonts-icons-themes

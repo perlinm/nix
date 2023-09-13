@@ -36,7 +36,7 @@ in {
 
     cs = conda-setup;
     ci = conda-init;
-    nn = conda-go "base" "jupyter notebook";
+    nn = "jupyter notebook";
     ss = conda-go "superstaq" "cd ~/super.tech/server-superstaq";
     ssc = conda-go "superstaq" "cd ~/super.tech/client-superstaq";
     ssr = conda-go "research-superstaq"

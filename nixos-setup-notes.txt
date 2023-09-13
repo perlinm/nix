@@ -40,22 +40,16 @@ sudo nixos-rebuild switch
 
 conda-shell
 conda-install
-conda update conda
-conda install python=3.10
+conda update conda python
 
-# to set up a virual environment:
+# disable pip installing in the base environment
+pip uninstall pip
+
+# TO SET UP A VIRUAL ENVIRONMENT:
 conda create --name <VENV-NAME> python=3.<VERSION>
 
 # to delete a virtual environment:
 conda env remove --name <VENV-NAME>
-
-# for jupyter notebooks:
-conda install jupyter ipykernel
-conda install -c conda-forge jupyterlab nb_conda_kernels
-conda install -c conda-forge jupyter_contrib_nbextensions  # might not work?
-
-# NOTE: 'jupyter notebook' must be executed OUTSIDE virtual environments
-#       venvs in notebooks are controlled by the choice of kernel
 
 # WARNING: some package installations may fail due to dependencies external to python.
 # In this case, these packages should be installed after calling 'conda-shell'.
