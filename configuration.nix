@@ -82,8 +82,11 @@ in {
 
     # touchpad
     libinput.enable = true;
-    libinput.touchpad.naturalScrolling = true;
-    libinput.touchpad.clickMethod = "clickfinger";
+    libinput.touchpad = {
+      naturalScrolling = true;
+      clickMethod = "clickfinger";
+      disableWhileTyping = true;
+    };
   };
 
   # # enable sway window manager
