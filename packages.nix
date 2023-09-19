@@ -20,6 +20,7 @@ in let
   languages = with pkgs; [
     cargo
     gcc
+    julia-bin
     mathematica-13-2-1
     nixfmt # nix formatter
     taplo # TOML toolkit

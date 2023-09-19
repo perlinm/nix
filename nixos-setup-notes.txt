@@ -64,3 +64,15 @@ conda env remove --name <VENV-NAME>
 
 # Some standard packages/libraries can be installed with
 conda install -c conda-forge <PACKAGE>
+
+##################################################
+# julia
+
+# add julia kernel for Jupyter notebooks:
+julia -e 'import Pkg; Pkg.add("IJulia")'
+
+# julia formatter:
+julia -e 'import Pkg; Pkg.add("JuliaFormatter")'
+
+# activate julia environment:
+import Pkg; Pkg.activate("MyEnvironment")

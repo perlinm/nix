@@ -43,7 +43,7 @@ in {
       "cd ~/super.tech/research-superstaq/research_superstaq/theory";
     # ssl = conda-go "qldpc" "cd ~/src/qLDPC";
     ssl = conda-go "qldpc"
-      "cd ~/super.tech/research-superstaq/research_superstaq/theory/LDPC";
+      "cd ~/super.tech/research-superstaq/research_superstaq/theory/qLDPC";
     qq = conda-go "QFI-Opt" "cd ~/super.tech/QFI-Opt";
     cc = conda-go "ColdQuanta" "cd ~/super.tech/coldquanta-system";
     zz = conda-go "zain" "cd ~/super.tech/zain";
