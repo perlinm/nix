@@ -15,6 +15,7 @@ in let
       mypy
       networkx
       numpy
+      pandas
       #pip # only use inside virtual environments!
       pylint
       pytest
