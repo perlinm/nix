@@ -96,6 +96,11 @@ h = "hover"
 d = "extend_line_below"
 D = "extend_line_above"
 
+[keys.normal.space]
+f = "file_picker_in_current_directory"
+F = "file_picker"
+c = "file_picker_in_current_buffer_directory"
+
 [keys.select]
 ### unbind old keys
 # q = "no_op"  # keep default

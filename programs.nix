@@ -61,6 +61,7 @@ in {
   zoxide.enableZshIntegration = true;
 
   atuin.enable = true;
+  atuin.flags = [ "--disable-up-arrow" ];
 
   git = {
     enable = true;
