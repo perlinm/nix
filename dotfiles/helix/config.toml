@@ -23,6 +23,9 @@ enable = true
 max-indent-retain = 100
 wrap-indicator = ""
 
+[editor.file-picker]
+hidden = false
+
 [keys.normal]
 ### unbind old keys
 # q = "no_op"  # keep default
