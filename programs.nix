@@ -57,6 +57,11 @@ in {
   exa.enable = true;
   exa.enableAliases = true;
 
+  zoxide.enable = true;
+  zoxide.enableZshIntegration = true;
+
+  atuin.enable = true;
+
   git = {
     enable = true;
     userName = "Michael A. Perlin";
