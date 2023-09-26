@@ -2,7 +2,6 @@
 let
   dir = "/home/perlinm/nix/dotfiles";
   newline-join = lines: lib.strings.concatMapStrings (line: line + "\n") lines;
-in let
   copy = path: config.lib.file.mkOutOfStoreSymlink "${dir}/${path}";
   symlink = source: dest:
     "$DRY_RUN_CMD ln -sfT $VERBOSE_ARG ${dir}/${source} $HOME/${dest}";

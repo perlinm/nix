@@ -3,7 +3,7 @@
 let
   # install unstable packages with unstable.<PACKAGE-NAME>
   unstable = import <nixos-unstable> { config.allowUnfree = true; };
-in let
+
   my-python-packages = python-packages:
     with python-packages; [
       black

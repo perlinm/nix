@@ -2,7 +2,7 @@
 let
   # install unstable packages with unstable.<PACKAGE-NAME>
   unstable = import <nixos-unstable> { config.allowUnfree = true; };
-in let
+
   # https://github.com/NixOS/nixpkgs/blob/master/pkgs/applications/science/math/mathematica/default.nix
   mathematica-13-2-1 = unstable.mathematica.override {
     source = pkgs.requireFile {
@@ -16,18 +16,21 @@ in let
       hashMode = "recursive";
     };
   };
-in let
+
   languages = with pkgs; [
     cargo
     gcc
     julia-bin
     mathematica-13-2-1
+    nil # nix LSP
     nixfmt # nix formatter
-    taplo # TOML toolkit
+    unstable.taplo # TOML formatter
     texlive.combined.scheme-full
     texlab
   ];
+
   python = import ./python.nix { inherit pkgs; };
+
   console-utilities = with pkgs; [
     cmake
     gnumake # build system
@@ -60,6 +63,7 @@ in let
     zip
     unzip # zipping/unzipping
   ];
+
   fonts-icons-themes = with pkgs; [
     dracula-theme
     nerdfonts
@@ -69,6 +73,7 @@ in let
     noto-fonts-extra
     papirus-icon-theme
   ];
+
   applications = with pkgs; [
     alacritty
     kitty
@@ -101,6 +106,7 @@ in let
     zoom-us # video conferencing app
     zotero # bibliography/reference manager
   ];
+
   sway-utilities = with pkgs; [
     i3 # parent to sway, incuded for 'i3-msg' command
     autotiling-rs # sane tiling defaults
@@ -117,6 +123,7 @@ in let
     wev # event logger
     wl-clipboard # CLI copy/paste tool
   ];
+
   i3-utilities = with pkgs; [
     arandr # for display management
     autotiling # sane tiling defaults
@@ -136,10 +143,12 @@ in let
     xorg.xprop # get window properties
     xss-lock # idle screen manager
   ];
+
   misc = with pkgs; [
     awscli2 # AWS command line services
     lynx # text-based browser
     protobuf # for protoc command
   ];
+
 in console-utilities ++ languages ++ python ++ fonts-icons-themes
 ++ applications ++ sway-utilities ++ i3-utilities ++ misc

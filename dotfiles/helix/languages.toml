@@ -19,11 +19,3 @@ pyflakes = { enabled = false }
 [[language]]
 name = "nix"
 formatter = { command = "nixfmt" }
-
-##################################################
-[[language]]
-name = "toml"
-formatter = { command = "taplo", args = ["fmt", "-"] }
-
-[language.language-server]
-command = "" # disable TOML language server due to time-out bug
