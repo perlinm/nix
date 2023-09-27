@@ -8,6 +8,15 @@
       url = "github:nix-community/home-manager/release-23.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    helix = {
+      url = "github:paholg/helix/temp";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    snippets-ls = {
+      url = "github:perlinm/snippets-ls";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs:
@@ -29,6 +38,9 @@
           system = prev.system;
           config.allowUnfree = true;
         };
+
+        external.helix = helix.packages.${prev.system}.default;
+        external.snippets-ls = snippets-ls.packages.${prev.system}.snippets-ls;
       };
 
     in {

@@ -19,7 +19,7 @@ let
     du-dust # better 'du'
     gnumake # build system
     git # version control system
-    helix
+    external.helix
     vim # text editors
     fd # better 'find'
     fzf # command-line fuzzy finder
@@ -150,7 +150,7 @@ let
     };
   };
 
-  misc-other = [ mathematica-13-2-1 ];
+  misc-other = with pkgs; [ mathematica-13-2-1 external.snippets-ls ];
 
 in {
   home.packages = console-utilities ++ languages ++ python ++ fonts-icons-themes
