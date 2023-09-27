@@ -40,6 +40,7 @@ in {
   home.file = files.home;
   xdg.configFile = files.xdg;
 
+  imports = [ ./helix.nix ];
   services = services;
   programs = programs;
 
