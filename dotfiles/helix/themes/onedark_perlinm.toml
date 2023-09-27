@@ -52,6 +52,8 @@ diagnostic = { modifiers = ["underlined"] }
 "ui.virtual.indent-guide" = { fg = "faint-gray" }
 "ui.virtual.whitespace" = { fg = "light-gray" }
 "ui.virtual.ruler" = { bg = "gray" }
+"ui.virtual.jump.multi" = { fg = "red", modifiers = ["bold"] }
+"ui.virtual.jump.single" = { fg = "red", modifiers = ["bold"] }
 
 "ui.cursor" = { fg = "white", modifiers = ["reversed"] }
 "ui.cursor.primary" = { fg = "white", modifiers = ["reversed"] }
