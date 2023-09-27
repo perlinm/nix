@@ -1,13 +1,9 @@
-{ pkgs, ... }:
+{ pkgs, unstable, ... }:
 let
-  # install unstable packages with unstable.<PACKAGE-NAME>
-  unstable = import <nixos-unstable> { config.allowUnfree = true; };
-
   languages = with pkgs; [
     cargo
     gcc
     julia-bin
-    mathematica-13-2-1
     nil # nix LSP
     nixfmt # nix formatter
     unstable.taplo # TOML formatter
@@ -134,7 +130,7 @@ let
     xss-lock # idle screen manager
   ];
 
-  misc = with pkgs; [
+  misc-work = with pkgs; [
     awscli2 # AWS command line services
     lynx # text-based browser
     protobuf # for protoc command
@@ -154,7 +150,10 @@ let
     };
   };
 
+  misc-other = [ mathematica-13-2-1 ];
+
 in {
   home.packages = console-utilities ++ languages ++ python ++ fonts-icons-themes
-    ++ applications ++ sway-utilities ++ i3-utilities ++ misc;
+    ++ applications ++ sway-utilities ++ i3-utilities ++ misc-work
+    ++ misc-other;
 }

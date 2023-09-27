@@ -14,6 +14,7 @@ sudo cp ~/nix/configuration.nix /etc/nixos
 sudo cp ~/nix/sway-fixes.nix /etc/nixos
 mkdir -p ~/.config/home-manager
 ln -s ~/nix/home.nix ~/.config/home-manager/home.nix
+ln -s ~/nix/flake.nix ~/.config/home-manager/flake.nix
 
 # set up nixos!
 sudo nixos-rebuild switch
