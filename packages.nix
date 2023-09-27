@@ -32,11 +32,14 @@ let
   python = import ./python.nix { inherit pkgs; };
 
   console-utilities = with pkgs; [
+    choose # better awk '{print $...}'
     cmake
+    du-dust # better 'du'
     gnumake # build system
     git # version control system
     helix
     vim # text editors
+    fd # better 'find'
     fzf # command-line fuzzy finder
     htop # process viewer
     ispell # spell checker
@@ -51,6 +54,7 @@ let
     pulseaudio # provides pactl for audio control
     ripgrep # faster grep
     ripgrep-all # faster grep, now also for pdf, docx, etc. files
+    sd # better 'sed'
     starship # customizable shell prompt
     trash-cli # trash management, replacing "rm"
     tree # list directories
