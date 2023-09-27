@@ -27,7 +27,7 @@
       nixosConfigurations.map-work = nixpkgs.lib.nixosSystem {
         inherit system pkgs;
         modules = [
-          ./configuration.nix
+          ./nixos.nix
           ./hardware-configuration.nix # results of hardware scan
           home-manager.nixosModules.home-manager
         ];
