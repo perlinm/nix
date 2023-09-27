@@ -36,7 +36,7 @@ in {
     (symlink "bin" "bin")
     (symlink "scripts" "scripts")
     (symlink "ssh" ".ssh")
-    # (symlink "helix" ".config/helix")
+    (symlink "helix" ".config/helix")
     (symlink "i3" ".config/i3")
     (symlink "polybar" ".config/polybar")
     (symlink "rofi" ".config/rofi")
