@@ -1,4 +1,4 @@
-{ pkgs, unstable, ... }:
+{ pkgs, ... }:
 let
   languages = with pkgs; [
     cargo
@@ -19,7 +19,7 @@ let
     du-dust # better 'du'
     gnumake # build system
     git # version control system
-    helix
+    external.helix
     vim # text editors
     fd # better 'find'
     fzf # command-line fuzzy finder
@@ -137,7 +137,7 @@ let
   ];
 
   # https://github.com/NixOS/nixpkgs/blob/master/pkgs/applications/science/math/mathematica/default.nix
-  mathematica-13-2-1 = unstable.mathematica.override {
+  mathematica-13-2-1 = pkgs.unstable.mathematica.override {
     source = pkgs.requireFile {
       name = "Mathematica_13.2.1_BNDL_LINUX.sh";
       # Get this hash via a command similar to:
@@ -150,7 +150,7 @@ let
     };
   };
 
-  misc-other = [ mathematica-13-2-1 ];
+  misc-other = with pkgs; [ mathematica-13-2-1 external.snippets-ls ];
 
 in {
   home.packages = console-utilities ++ languages ++ python ++ fonts-icons-themes

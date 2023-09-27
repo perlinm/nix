@@ -1,15 +1,16 @@
 ##################################################
 [[language]]
 name = "python"
+language-servers = ["pylsp"]
 
 [language.formatter]
 command = "black"
 args = ["-", "--quiet"]
 
-[language.config.pylsp]
+[language-server.pylsp.config]
 configurationSources = ["flake8"]
 
-[language.config.pylsp.plugins]
+[language-server.pylsp.config.plugins]
 flake8 = { enabled = true }
 mccabe = { enabled = false }
 pycodestyle = { enabled = false }
@@ -19,3 +20,11 @@ pyflakes = { enabled = false }
 [[language]]
 name = "nix"
 formatter = { command = "nixfmt" }
+
+[[language]]
+name = "latex"
+language-servers = ["texlab", "snippets-ls-latex"]
+
+[language-server.snippets-ls-latex]
+command = "snippets-ls"
+args = ["-config", "/home/perlinm/nix/dotfiles/snippets-latex.json"]
