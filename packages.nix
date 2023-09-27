@@ -1,4 +1,4 @@
-{ pkgs, unstable, ... }:
+{ pkgs, ... }:
 let
   languages = with pkgs; [
     cargo
@@ -137,7 +137,7 @@ let
   ];
 
   # https://github.com/NixOS/nixpkgs/blob/master/pkgs/applications/science/math/mathematica/default.nix
-  mathematica-13-2-1 = unstable.mathematica.override {
+  mathematica-13-2-1 = pkgs.unstable.mathematica.override {
     source = pkgs.requireFile {
       name = "Mathematica_13.2.1_BNDL_LINUX.sh";
       # Get this hash via a command similar to:
