@@ -85,9 +85,7 @@
   # programs.sway.wrapperFeatures.gtk = true;
   # programs.xwayland.enable = true;
   # xdg.portal = sway-fixes.xdg-portal;
-
-  # system-wide packages
-  environment.systemPackages = [ pkgs.home-manager ]; # ++ sway-fixes.packages;
+  # environment.systemPackages = sway-fixes.packages;
 
   # sound and bluetooth control
   sound.enable = true;
