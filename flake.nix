@@ -1,5 +1,5 @@
 {
-  description = "Home Manager configuration of perlinm";
+  description = "NixOS and Home Manager configuration of perlinm";
 
   inputs = {
     nixpkgs = { url = "github:nixos/nixpkgs/nixos-23.05"; };

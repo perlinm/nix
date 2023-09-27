@@ -41,7 +41,4 @@
       disable-disconnected-notifications = true;
     };
   };
-
-  # allow installing unfree packages
-  nixpkgs.config.allowUnfree = true;
 }
