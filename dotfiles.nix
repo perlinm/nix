@@ -1,10 +1,11 @@
 { config, lib, ... }:
 let
-  dir = "/home/perlinm/nix/dotfiles";
-  newline-join = lines: lib.strings.concatMapStrings (line: line + "\n") lines;
-  copy = path: config.lib.file.mkOutOfStoreSymlink "${dir}/${path}";
+  dotfile-dir = "/home/perlinm/nix/dotfiles";
+  copy = path: config.lib.file.mkOutOfStoreSymlink "${dotfile-dir}/${path}";
+
   symlink = source: dest:
-    "$DRY_RUN_CMD ln -sfT $VERBOSE_ARG ${dir}/${source} $HOME/${dest}";
+    "$DRY_RUN_CMD ln -sfT $VERBOSE_ARG ${dotfile-dir}/${source} $HOME/${dest}";
+  newline-join = lines: lib.strings.concatMapStrings (line: line + "\n") lines;
   activation = newline-join [
     (symlink "bin" "bin")
     (symlink "scripts" "scripts")
@@ -18,10 +19,6 @@ let
   ];
 
 in {
-  home.activation = {
-    makeSymbolicLinks = lib.hm.dag.entryAfter [ "writeBoundary" ] activation;
-  };
-
   home.file = {
     ".vimrc".source = copy "vimrc";
     ".emacs.d/init.el".source = copy "emacs-init.el";
@@ -46,5 +43,9 @@ in {
     "black".source = copy "black";
     "flake8".source = copy "flake8";
     "swaylock/config".source = copy "swaylock-config";
+  };
+
+  home.activation = {
+    makeSymbolicLinks = lib.hm.dag.entryAfter [ "writeBoundary" ] activation;
   };
 }
