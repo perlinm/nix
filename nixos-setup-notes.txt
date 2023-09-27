@@ -1,6 +1,6 @@
 # copy and symlink config files
 cd ~/nix
-sudo cp flake.nix flake.lock configuration.nix sway-fixes.nix /etc/nixos
+sudo cp flake.nix flake.lock sway-fixes.nix /etc/nixos
 
 mkdir -p ~/.config/home-manager
 ln -sf flake.nix flake.lock home.nix ~/.config/home-manager

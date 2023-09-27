@@ -19,9 +19,6 @@
   # let Home Manager manager the x session, e.g. to set keyboard settings
   xsession.enable = true;
 
-  imports =
-    [ ./dotfiles.nix ./programs.nix ./services.nix ./packages.nix ./shell.nix ];
-
   # let Home Manager manage fonts
   fonts.fontconfig.enable = true;
 
@@ -41,4 +38,7 @@
       disable-disconnected-notifications = true;
     };
   };
+
+  imports =
+    [ ./dotfiles.nix ./programs.nix ./services.nix ./packages.nix ./shell.nix ];
 }
