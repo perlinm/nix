@@ -1,6 +1,8 @@
 { pkgs, ... }:
 # let sway-fixes = import ./sway-fixes.nix { inherit pkgs; };
 {
+  imports = [ ./hardware-configuration.nix ]; # results of hardware scan
+
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
@@ -22,7 +24,7 @@
   # setup keyfile for encrypted hard drive
   boot.initrd.secrets = { "/crypto_keyfile.bin" = null; };
 
-  # Enable swap on luks
+  # enable swap on luks
   boot.initrd.luks.devices."luks-6584249e-94c5-4559-a9e8-3654b2b164ae".device =
     "/dev/disk/by-uuid/6584249e-94c5-4559-a9e8-3654b2b164ae";
   boot.initrd.luks.devices."luks-6584249e-94c5-4559-a9e8-3654b2b164ae".keyFile =
@@ -102,7 +104,7 @@
   services.logind.lidSwitch = "ignore";
   services.logind.extraConfig = "HandlePowerKey=suspend";
 
-  # miscellaneous utilities 
+  # miscellaneous utilities
   security.rtkit.enable = true; # schedule user processes/threads
   security.polkit.enable = true; # fine-grained authentication agent
   services.dbus.enable = true; # interprocess communications manager

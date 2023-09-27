@@ -26,11 +26,7 @@
     in {
       nixosConfigurations.map-work = nixpkgs.lib.nixosSystem {
         inherit system pkgs;
-        modules = [
-          ./nixos.nix
-          ./hardware-configuration.nix # results of hardware scan
-          home-manager.nixosModules.home-manager
-        ];
+        modules = [ ./nixos.nix home-manager.nixosModules.home-manager ];
       };
 
       homeConfigurations.perlinm = home-manager.lib.homeManagerConfiguration {
