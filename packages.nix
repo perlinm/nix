@@ -1,4 +1,4 @@
-{ pkgs }:
+{ pkgs, ... }:
 let
   # install unstable packages with unstable.<PACKAGE-NAME>
   unstable = import <nixos-unstable> { config.allowUnfree = true; };
@@ -150,5 +150,7 @@ let
     protobuf # for protoc command
   ];
 
-in console-utilities ++ languages ++ python ++ fonts-icons-themes
-++ applications ++ sway-utilities ++ i3-utilities ++ misc
+in {
+  home.packages = console-utilities ++ languages ++ python ++ fonts-icons-themes
+    ++ applications ++ sway-utilities ++ i3-utilities ++ misc;
+}

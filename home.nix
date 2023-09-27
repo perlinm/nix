@@ -1,18 +1,5 @@
 # https://github.com/nix-community/home-manager
-{ config, lib, pkgs, ... }:
-let
-  services = import /home/perlinm/nix/services.nix;
-  programs = import /home/perlinm/nix/programs.nix {
-    inherit pkgs;
-    inherit lib;
-  };
-  packages = import /home/perlinm/nix/packages.nix { inherit pkgs; };
-  files = import /home/perlinm/nix/files.nix {
-    inherit config;
-    inherit lib;
-  };
-  shell = import /home/perlinm/nix/shell.nix { inherit lib; };
-in {
+{ pkgs, ... }: {
   # The state version determines some configuration defaults.
   # This version can be updated, but doing so may require manual intervention.
   # https://nix-community.github.io/home-manager/options.html#opt-home.stateVersion
@@ -32,21 +19,8 @@ in {
   # let Home Manager manager the x session, e.g. to set keyboard settings
   xsession.enable = true;
 
-  # add symlinks
-  home.activation = {
-    makeSymbolicLinks =
-      lib.hm.dag.entryAfter [ "writeBoundary" ] files.activation;
-  };
-  home.file = files.home;
-  xdg.configFile = files.xdg;
-
-  services = services;
-  programs = programs;
-
-  home.sessionPath = shell.sessionPath;
-  home.sessionVariables = shell.sessionVariables;
-  home.shellAliases = shell.aliases;
-  home.packages = packages;
+  imports =
+    [ ./dotfiles.nix ./programs.nix ./services.nix ./packages.nix ./shell.nix ];
 
   # let Home Manager manage fonts
   fonts.fontconfig.enable = true;

@@ -1,4 +1,4 @@
-{ lib }:
+{ ... }:
 let
   conda-setup = "conda-shell -c $(echo $SHELL)";
   conda-init =
@@ -11,9 +11,9 @@ let
     ${cmd}
   '';
 in {
-  sessionPath = [ "$HOME/bin" ];
+  home.sessionPath = [ "$HOME/bin" ];
 
-  sessionVariables = {
+  home.sessionVariables = {
     EDITOR = "hx";
     VISUAL = "hx";
     BROWSER = "firefox";
@@ -26,7 +26,7 @@ in {
     # XDG_CURRENT_DESKTOP = "sway";
   };
 
-  aliases = {
+  home.shellAliases = {
     sudo = "sudo "; # allows using aliases after "sudo"
     rem = "trash-put"; # trash management, replacing "rm"
     cd = "z"; # zoxide

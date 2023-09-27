@@ -1,12 +1,28 @@
-{ config, lib }:
+{ config, lib, ... }:
 let
   dir = "/home/perlinm/nix/dotfiles";
   newline-join = lines: lib.strings.concatMapStrings (line: line + "\n") lines;
   copy = path: config.lib.file.mkOutOfStoreSymlink "${dir}/${path}";
   symlink = source: dest:
     "$DRY_RUN_CMD ln -sfT $VERBOSE_ARG ${dir}/${source} $HOME/${dest}";
+  activation = newline-join [
+    (symlink "bin" "bin")
+    (symlink "scripts" "scripts")
+    (symlink "ssh" ".ssh")
+    (symlink "helix" ".config/helix")
+    (symlink "i3" ".config/i3")
+    (symlink "polybar" ".config/polybar")
+    (symlink "rofi" ".config/rofi")
+    (symlink "sway" ".config/sway")
+    (symlink "waybar" ".config/waybar")
+  ];
+
 in {
-  home = {
+  home.activation = {
+    makeSymbolicLinks = lib.hm.dag.entryAfter [ "writeBoundary" ] activation;
+  };
+
+  home.file = {
     ".vimrc".source = copy "vimrc";
     ".emacs.d/init.el".source = copy "emacs-init.el";
     ".latexmkrc".source = copy "latexmkrc";
@@ -21,7 +37,7 @@ in {
       copy "firefox_userChrome.css";
   };
 
-  xdg = {
+  xdg.configFile = {
     "starship.toml".source = copy "starship.toml";
     "alacritty/alacritty.yml".source = copy "alacritty.yml";
     "kitty/kitty.conf".source = copy "kitty/kitty.conf";
@@ -31,16 +47,4 @@ in {
     "flake8".source = copy "flake8";
     "swaylock/config".source = copy "swaylock-config";
   };
-
-  activation = newline-join [
-    (symlink "bin" "bin")
-    (symlink "scripts" "scripts")
-    (symlink "ssh" ".ssh")
-    (symlink "helix" ".config/helix")
-    (symlink "i3" ".config/i3")
-    (symlink "polybar" ".config/polybar")
-    (symlink "rofi" ".config/rofi")
-    (symlink "sway" ".config/sway")
-    (symlink "waybar" ".config/waybar")
-  ];
 }
