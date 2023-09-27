@@ -95,13 +95,7 @@
   # xdg.portal = sway-fixes.xdg-portal;
 
   # system-wide packages
-  environment.systemPackages = [
-    pkgs.home-manager
-    # sway-fixes.dbus-sway-environment
-    # sway-fixes.configure-gtk
-    # sway-fixes.qt5-fix
-    # sway-fixes.qt6-fix
-  ];
+  environment.systemPackages = [ pkgs.home-manager ]; # ++ sway-fixes.packages;
 
   # sound and bluetooth control
   sound.enable = true;
