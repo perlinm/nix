@@ -17,10 +17,15 @@
       pkgs = import nixpkgs {
         overlays = [ pkgs_overlay ];
         system = linux;
-        config.allowUnfree = true;
       };
+
       pkgs_overlay = final: prev: {
-        unstable = import nixpkgs-unstable {
+        unfree = import nixpkgs {
+          system = prev.system;
+          config.allowUnfree = true;
+        };
+        unstable = import nixpkgs-unstable { system = prev.system; };
+        unstable-unfree = import nixpkgs-unstable {
           system = prev.system;
           config.allowUnfree = true;
         };

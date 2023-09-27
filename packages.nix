@@ -66,8 +66,8 @@ let
     kitty-themes
     xfce.xfce4-terminal # terminal emulators
     blueberry # bluetooth tool
-    firefox
-    google-chrome # web browsers
+    chromium
+    firefox # web browsers
     brightnessctl # screen brightness
     gimp # image editor
     gnome.eog # image viewer
@@ -84,12 +84,12 @@ let
     zathura
     okular # pdf viewers
     rofi # application launcher
-    slack # work chat
-    spotify # music
+    unfree.slack # work chat
+    unfree.spotify # music
     vlc # for watching videos
     xfce.thunar # file browser
-    wpsoffice # office suite (like Word, Excel, etc.)
-    zoom-us # video conferencing app
+    unfree.wpsoffice # office suite (like Word, Excel, etc.)
+    unfree.zoom-us # video conferencing app
     zotero # bibliography/reference manager
   ];
 
@@ -137,7 +137,7 @@ let
   ];
 
   # https://github.com/NixOS/nixpkgs/blob/master/pkgs/applications/science/math/mathematica/default.nix
-  mathematica-13-2-1 = pkgs.unstable.mathematica.override {
+  mathematica-13-2-1 = pkgs.unstable-unfree.mathematica.override {
     source = pkgs.requireFile {
       name = "Mathematica_13.2.1_BNDL_LINUX.sh";
       # Get this hash via a command similar to:

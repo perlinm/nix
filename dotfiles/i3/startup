@@ -29,6 +29,6 @@ exec_always --no-startup-id setxkbmap us(colemak),us -option caps:backspace -opt
 # applications
 ###############################################################################
 
-exec --no-startup-id google-chrome-stable --app=https://teams.microsoft.com
+exec --no-startup-id chromium --app=https://teams.microsoft.com
 exec --no-startup-id slack
 exec --no-startup-id zotero
