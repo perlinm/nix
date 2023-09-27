@@ -113,6 +113,7 @@ let
   i3-utilities = with pkgs; [
     arandr # for display management
     autotiling # sane tiling defaults
+    i3 # the one and only
     i3lock-fancy-rapid # lock screen management
     i3-wk-switch # XMonad-like workspace switching
     feh # set background image
