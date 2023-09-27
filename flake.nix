@@ -22,8 +22,8 @@
         inherit system;
         config.allowUnfree = true;
       };
-    in {
 
+    in {
       nixosConfigurations.map-work = nixpkgs.lib.nixosSystem {
         inherit system pkgs;
         modules = [

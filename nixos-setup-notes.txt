@@ -1,10 +1,11 @@
-# copy over config files
-sudo cp ~/nix/configuration.nix ~/nix/flake.nix ~/nix/flake.lock ~/nix/sway-fixes.nix /etc/nixos
-mkdir -p ~/.config/home-manager
-ln -sf ~/nix/home.nix ~/.config/home-manager/home.nix
-ln -sf ~/nix/flake.nix ~/.config/home-manager/flake.nix
+# copy and symlink config files
+cd ~/nix
+sudo cp flake.nix flake.lock configuration.nix sway-fixes.nix /etc/nixos
 
-# set up nixos!
+mkdir -p ~/.config/home-manager
+ln -sf flake.nix flake.lock home.nix ~/.config/home-manager
+
+# install everything!
 sudo nixos-rebuild switch
 home-manager switch
 
@@ -31,25 +32,23 @@ conda update conda python
 # disable pip installing in the base environment
 pip uninstall pip
 
-# for jupyter notebooks:
+# for jupyter notebooks (in an environment):
 pip install jupyter ipykernel
 
-# TO SET UP A VIRUAL ENVIRONMENT:
+# creating and deleting environments
 conda create --name <VENV-NAME> python=3.<VERSION>
-
-# to delete a virtual environment:
 conda env remove --name <VENV-NAME>
 
 # WARNING: some package installations may fail due to dependencies external to python.
 # In this case, these packages should be installed after calling 'conda-shell'.
 
+# Some standard packages/libraries can be installed with
+conda install -c conda-forge <PACKAGE>
+
 # To enable activating virtual environments, call 'conda init',
 #   which requires '~/."$SHELL"rc' to be writable.
 # In practice, I prefer inspecting how 'conda init' modifies '~/."$SHELL"rc'
 #   and enabling virtual environments 'manually'.
-
-# Some standard packages/libraries can be installed with
-conda install -c conda-forge <PACKAGE>
 
 ##################################################
 # julia
