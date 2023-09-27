@@ -31,7 +31,6 @@ sudo nixos-rebuild switch
 # make sure that the directory of dotfiles/firefox_userChrome.css in files.nix agrees with the profile directory firefox lists in about:support
 # see https://www.reddit.com/r/FirefoxCSS/wiki/index/tutorials/
 
-
 # in google-chrome, chrome://flags
 # enable WebRTC PipeWire support
 
