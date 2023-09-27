@@ -19,6 +19,7 @@ in {
 
     zsh = {
       enable = true;
+      autocd = false;
       enableAutosuggestions = true;
       enableCompletion = true;
       enableSyntaxHighlighting = true;
