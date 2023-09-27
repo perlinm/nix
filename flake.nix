@@ -10,23 +10,25 @@
     };
   };
 
-  outputs = { nixpkgs, nixpkgs-unstable, home-manager, ... }:
+  outputs = inputs:
+    with inputs;
     let
       system = "x86_64-linux";
+      pkgs = import nixpkgs {
+        inherit system;
+        config.allowUnfree = true;
+      };
       unstable = import nixpkgs-unstable {
         inherit system;
         config.allowUnfree = true;
       };
     in {
+
       nixosConfigurations.map-work = nixpkgs.lib.nixosSystem {
-        inherit system;
-        pkgs = import nixpkgs {
-          inherit system;
-          config.allowUnfree = true;
-        };
+        inherit system pkgs;
         modules = [
           ./configuration.nix
-          ./hardware-configuration.nix
+          ./hardware-configuration.nix # results of hardware scan
           home-manager.nixosModules.home-manager
           { # make home-manager use global install paths and package configurations
             home-manager.useGlobalPkgs = true;
@@ -34,11 +36,9 @@
           }
         ];
       };
+
       homeConfigurations.perlinm = home-manager.lib.homeManagerConfiguration {
-        pkgs = import nixpkgs {
-          inherit system;
-          config.allowUnfree = true;
-        };
+        inherit pkgs;
         modules = [ ./home.nix ];
         extraSpecialArgs = { inherit unstable; };
       };

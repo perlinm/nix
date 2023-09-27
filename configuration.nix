@@ -29,7 +29,7 @@
     "/crypto_keyfile.bin";
 
   # internationalization properties
-  # WARNING: these are ignored by some desktop environments (e.g. GNOME)
+  # WARNING: these are ignored by some desktop environments (such as GNOME)
   time.timeZone = "America/Chicago";
   i18n.defaultLocale = "en_US.utf8";
   i18n.extraLocaleSettings.LC_TIME = "en_GB.utf8";
