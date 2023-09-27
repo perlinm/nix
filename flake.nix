@@ -21,7 +21,7 @@
       };
       pkgs_overlay = final: prev: {
         unstable = import nixpkgs-unstable {
-          system = linux;
+          system = prev.system;
           config.allowUnfree = true;
         };
       };
