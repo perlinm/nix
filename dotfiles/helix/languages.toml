@@ -7,10 +7,10 @@ language-servers = ["pylsp"]
 command = "black"
 args = ["-", "--quiet"]
 
-[language-server.pylsp.config]
+[language-server.pylsp.config.pylsp]
 configurationSources = ["flake8"]
 
-[language-server.pylsp.config.plugins]
+[language-server.pylsp.config.pylsp.plugins]
 flake8 = { enabled = true }
 mccabe = { enabled = false }
 pycodestyle = { enabled = false }
