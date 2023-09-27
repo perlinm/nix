@@ -18,7 +18,23 @@
         config.allowUnfree = true;
       };
     in {
-      homeConfigurations."perlinm" = home-manager.lib.homeManagerConfiguration {
+      nixosConfigurations.map-work = nixpkgs.lib.nixosSystem {
+        inherit system;
+        pkgs = import nixpkgs {
+          inherit system;
+          config.allowUnfree = true;
+        };
+        modules = [
+          ./configuration.nix
+          ./hardware-configuration.nix
+          home-manager.nixosModules.home-manager
+          { # make home-manager use global install paths and package configurations
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+          }
+        ];
+      };
+      homeConfigurations.perlinm = home-manager.lib.homeManagerConfiguration {
         pkgs = import nixpkgs {
           inherit system;
           config.allowUnfree = true;

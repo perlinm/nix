@@ -12,14 +12,6 @@
   # system.autoUpgrade.enable = true;
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-  # allow unfree software, which may be necessary for some drivers
-  nixpkgs.config.allowUnfree = true;
-
-  imports = [
-    ./hardware-configuration.nix # results of hardware scan
-    <home-manager/nixos>
-  ];
-
   # use the Zen linux kernel (others mignt not work!)
   boot.kernelPackages = pkgs.linuxPackages_zen;
 
@@ -118,8 +110,4 @@
   services.dbus.enable = true; # interprocess communications manager
   services.udisks2.enable = true; # automounting external drives
   services.printing.enable = true; # enable CUPS to print documents
-
-  # make home-manager use global install paths and package configurations
-  home-manager.useUserPackages = true;
-  home-manager.useGlobalPkgs = true;
 }

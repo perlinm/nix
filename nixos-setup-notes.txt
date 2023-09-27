@@ -1,26 +1,12 @@
-# add package channels
-sudo nix-channel --add https://nixos.org/channels/nixos-23.05 nixos
-sudo nix-channel --add https://nixos.org/channels/nixos-unstable nixos-unstable
-sudo nix-channel --add https://github.com/NixOS/nixos-hardware/archive/master.tar.gz nixos-hardware
-sudo nix-channel --add https://github.com/nix-community/home-manager/archive/release-23.05.tar.gz home-manager
-sudo nix-channel --update
-
-# as user (no sudo/root)
-nix-channel --add https://github.com/nix-community/home-manager/archive/release-23.05.tar.gz home-manager
-nix-channel --update
-
-# copy over main config files
-sudo cp ~/nix/configuration.nix /etc/nixos
-sudo cp ~/nix/sway-fixes.nix /etc/nixos
+# copy over config files
+sudo cp ~/nix/configuration.nix ~/nix/flake.nix ~/nix/flake.lock ~/nix/sway-fixes.nix /etc/nixos
 mkdir -p ~/.config/home-manager
-ln -s ~/nix/home.nix ~/.config/home-manager/home.nix
-ln -s ~/nix/flake.nix ~/.config/home-manager/flake.nix
+ln -sf ~/nix/home.nix ~/.config/home-manager/home.nix
+ln -sf ~/nix/flake.nix ~/.config/home-manager/flake.nix
 
 # set up nixos!
 sudo nixos-rebuild switch
-
-# note: it *may* be necessary to run
-# nix-shell '<home-manager>' -A install
+home-manager switch
 
 # TODO: set firefox configs elsewhere
 # in firefox, 'about:config':
