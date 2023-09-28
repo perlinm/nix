@@ -1,11 +1,11 @@
 { pkgs, ... }:
 let
   languages = with pkgs; [
-    cargo
     gcc
     julia-bin
     nil # nix LSP
     nixfmt # nix formatter
+    rustup
     unstable.taplo # TOML formatter
     texlive.combined.scheme-full
     texlab
@@ -14,10 +14,11 @@ let
   python = import ./python.nix { inherit pkgs; };
 
   console-utilities = with pkgs; [
+    bat # better 'cat': cat with wings
     choose # better awk '{print $...}'
     cmake
-    du-dust # better 'du'
     gnumake # build system
+    du-dust # better 'du'
     git # version control system
     external.helix
     vim # text editors
@@ -152,7 +153,10 @@ let
     };
   };
 
-  misc-other = with pkgs; [ mathematica-13-2-1 external.snippets-ls ];
+  misc-other = with pkgs; [
+    mathematica-13-2-1
+    external.simple-completion-language-server
+  ];
 
 in {
   home.packages = console-utilities ++ languages ++ python ++ fonts-icons-themes

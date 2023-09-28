@@ -23,8 +23,12 @@ formatter = { command = "nixfmt" }
 
 [[language]]
 name = "latex"
-language-servers = ["texlab", "snippets-ls-latex"]
+language-servers = ["texlab", "simple-completion-language-server"]
 
-[language-server.snippets-ls-latex]
-command = "snippets-ls"
-args = ["-config", "/home/perlinm/nix/dotfiles/snippets-latex.json"]
+[language-server.simple-completion-language-server]
+command = "simple-completion-language-server"
+config = { max_completion_items = 5 }
+
+[language-server.simple-completion-language-server.environment]
+RUST_LOG = "debug,simple-completion-langauge-server=debug"
+LOG_FILE = "/tmp/completion.log"

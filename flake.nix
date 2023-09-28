@@ -9,13 +9,18 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    flake-utils.url = "github:numtide/flake-utils";
+
     helix = {
       url = "github:paholg/helix/temp";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
     };
-    snippets-ls = {
-      url = "github:quantonganh/snippets-ls";
+    simple-completion-language-server = {
+      # url = "github:perlinm/simple-completion-language-server";
+      url = "/home/perlinm/src/simple-completion-language-server";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
     };
   };
 
@@ -40,7 +45,8 @@
         };
 
         external.helix = helix.packages.${prev.system}.default;
-        external.snippets-ls = snippets-ls.packages.${prev.system}.snippets-ls;
+        external.simple-completion-language-server =
+          simple-completion-language-server.defaultPackage.${prev.system};
       };
 
     in {
