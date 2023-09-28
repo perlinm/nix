@@ -2,19 +2,19 @@
   "parenthesis": {
     "prefix": "pp",
     "body": [
-      "\\left($1\\right) $0"
+      "\\left($1\\right)$0"
     ]
   },
   "parenthesis-square": {
     "prefix": "ps",
     "body": [
-      "\\left[$1\\right] $0"
+      "\\left[$1\\right]$0"
     ]
   },
   "parenthesis-curly": {
     "prefix": "set",
     "body": [
-      "\\left\\{$1\\right\\} $0"
+      "\\left\\{$1\\right\\}$0"
     ]
   },
   "align": {
@@ -31,7 +31,7 @@
     "prefix": "itemize",
     "body": [
       "\\begin{itemize}",
-      "  \\item $0",
+      "  \\item $1",
       "\\end{itemize}",
       "$0"
     ]
@@ -95,7 +95,7 @@
   "operatorname": {
     "prefix": "op",
     "body": [
-      "\\operatorname{$1} $0"
+      "\\operatorname{$1}$0"
     ]
   }
 }
