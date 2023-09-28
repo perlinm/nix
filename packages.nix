@@ -123,6 +123,7 @@ let
     notify-osd-customizable # noitification daemon
     picom # window compositor
     polybarFull # info bar / panel
+    wmctrl # CLI to interact with windows; needed for i3-scratchpad
     xclip # CLI copy/paste tool
     xdotool # simulate keyboard/mouse input, manipulate windows
     xidlehook # lock or turn off screen when idling
