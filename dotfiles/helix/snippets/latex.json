@@ -1,206 +1,101 @@
 {
-	"Align*": {
-		"prefix": "al",
-		"body": [
-			"\\begin{align*}",
-			"\t$0",
-			"\\end{align*}"
-		]
-	},
-	"fraction": {
-		"prefix": "f",
-		"body": [
-			"\\frac{$1}{$2} $0"
-		]
-	},
-	"bold": {
-		"prefix": "bold",
-		"body": [
-			"\\textbf{${1:${TM_SELECTED_TEXT}}} $0"
-		]
-	},
-	"italic": {
-		"prefix": "italic",
-		"body": [
-			"\\textit{${1:${TM_SELECTED_TEXT}}} $0"
-		]
-	},
-	"underbrace": {
-		"prefix": "underbrace",
-		"body": [
-			"\\underbrace{${1:${TM_SELECTED_TEXT}}}_{$2} $0"
-		]
-	},
-	"overbrace": {
-		"prefix": "overbrace",
-		"body": [
-			"\\overbrace{${1:${TM_SELECTED_TEXT}}}_{$2} $0"
-		]
-	},
-	"underset": {
-		"prefix": "underset",
-		"body": [
-			"\\underset{$1}{${2:${TM_SELECTED_TEXT}}} $0"
-		]
-	},
-	"overset": {
-		"prefix": "overset",
-		"body": [
-			"\\overset{$1}{${2:${TM_SELECTED_TEXT}}} $0"
-		]
-	},
-	"thm": {
-		"prefix": "thm",
-		"body": [
-			"\\begin{thm} $1 \\end{thm} $0"
-		]
-	},
-	"itemize": {
-		"prefix": "itemize",
-		"body": [
-			"\\begin{itemize}",
-			"\t\\item $1",
-			"\\end{itemize}",
-			"$0"
-		]
-	},
-	"enumerate": {
-		"prefix": "enum",
-		"body": [
-			"\\begin{enumerate}",
-			"\t\\item $1",
-			"\\end{enumerate}",
-			"$0"
-		]
-	},
-	"Environment": {
-		"prefix": "beg",
-		"body": [
-			"\\begin{${1:name}}",
-			"\t$0",
-			"\\end{${1:name}}"
-		]
-	},
-	"Text": {
-		"prefix": "txt",
-		"body": [
-			"\\text{$0}"
-		]
-	},
-	"Image": {
-		"prefix": "img",
-		"body": [
-			"\\begin{figure}[H]",
-			"\t\\centering",
-			"\t\\includegraphics[width=0.5\\textwidth]{${1:${TM_SELECTED_TEXT}}}",
-			"\t\\caption{${2:caption}\\label{fig:${3:sample}}}",
-			"\\end{figure}",
-			"$0"
-		]
-	},
-	"Table": {
-		"prefix": "tab",
-		"body": [
-			"\\begin{table}[H]",
-			"\t\\centering",
-			"\t\\begin{tabular}{${1:ccc}}",
-			"\t\t\\toprule",
-			"\t\ta & b & c \\\\\\ \\midrule",
-			"\t\t1 & 2 & 3 \\\\\\",
-			"\t\t\\bottomrule",
-			"\t\\end{tabular}",
-			"\t\\caption{${2:caption}\\label{tab:${3:sample}}}",
-			"\\end{table}",
-			"$0"
-		]
-	},
-	"pmatrix": {
-		"prefix": "pm",
-		"body": [
-			"\\begin{pmatrix}",
-			"$1",
-			"\\end{pmatrix}",
-			"$0"
-		]
-	},
-	"Integral": {
-		"prefix": "int",
-		"body": [
-			"\\int_{${1:0}}^{${2:\\infty}} $0"
-		]
-	},
-	"Sum Full": {
-		"prefix": "sumi",
-		"body": [
-			"\\sum_{${1:i}=${2:0}}^{${3:\\infty}} $0"
-		]
-	},
-	"undersetinline": {
-		"prefix": "_",
-		"body": [
-			"_{$1}$0"
-		]
-	},
-	"parenthesis1": {
-		"prefix": "(",
-		"body": [
-			"\\left($1\\right"
-		]
-	},
-	"parenthesis2": {
-		"prefix": "[",
-		"body": [
-			"\\left[$1\\right"
-		]
-	},
-	"parenthesis3": {
-		"prefix": "{",
-		"body": [
-			"\\left{$1\\right"
-		]
-	},
-	"average": {
-		"prefix": "avg",
-		"body": [
-			"\\langle $1 \\rangle$0"
-		]
-	},
-	"Sum": {
-		"prefix": "sum",
-		"body": [
-			"\\sum_{${1:i=0}}^{${2:\\infty}} $0"
-		]
-	},
-	"hbar": {
-		"prefix": "hb",
-		"body": [
-			"\\hbar"
-		]
-	},
-	"section": {
-		"prefix": "sec",
-		"body": [
-			"\\section{$1}",
-			"$0"
-		]
-	},
-	"subsection": {
-		"prefix": "ssec",
-		"body": [
-			"\\subsection{$1}",
-			"$0"
-		]
-	},
-	"operatorname": {
-		"prefix": "op",
-		"body": [
-			"\\operatorname{$1} $0"
-		]
-	},
-	"mathrm": {
-		"prefix": "rm",
-		"body": [
-			"\\mathrm{$1} $0"
-		]
-	}
+  "parenthesis": {
+    "prefix": "pp",
+    "body": [
+      "\\left($1\\right) $0"
+    ]
+  },
+  "parenthesis-square": {
+    "prefix": "ps",
+    "body": [
+      "\\left[$1\\right] $0"
+    ]
+  },
+  "parenthesis-curly": {
+    "prefix": "set",
+    "body": [
+      "\\left\\{$1\\right\\} $0"
+    ]
+  },
+  "align": {
+    "prefix": "align",
+    "body": [
+      "\\begin{align}",
+      "  $1",
+      "  \\label{eq:${2:name}}",
+      "\\end{align}",
+      "$0"
+    ]
+  },
+  "itemize": {
+    "prefix": "itemize",
+    "body": [
+      "\\begin{itemize}",
+      "  \\item $0",
+      "\\end{itemize}",
+      "$0"
+    ]
+  },
+  "enumerate": {
+    "prefix": "enum",
+    "body": [
+      "\\begin{enumerate}",
+      "  \\item $1",
+      "\\end{enumerate}",
+      "$0"
+    ]
+  },
+  "pmatrix": {
+    "prefix": "pm",
+    "body": [
+      "\\begin{pmatrix}",
+      "  $1",
+      "\\end{pmatrix}",
+      "$0"
+    ]
+  },
+  "environment": {
+    "prefix": "begin",
+    "body": [
+      "\\begin{${1:name}}",
+      "  $2",
+      "\\end{${1:name}}",
+      "$0"
+    ]
+  },
+  "figure": {
+    "prefix": "figure",
+    "body": [
+      "\\begin{figure}",
+      "  \\centering",
+      "  \\includegraphics{${1:figure}}",
+      "  \\caption{${2:caption}}",
+      "  \\label{fig:${3:name}}",
+      "\\end{figure}",
+      "$0"
+    ]
+  },
+  "table": {
+    "prefix": "tab",
+    "body": [
+      "\\begin{table}",
+      "  \\centering",
+      "  \\begin{tabular}{${1:ccc}}",
+      "    \\toprule",
+      "    a & b & c \\\\\\ \\midrule",
+      "    1 & 2 & 3 \\\\\\",
+      "    \\bottomrule",
+      "  \\end{tabular}",
+      "  \\caption{${2:caption}}",
+      "  \\label{tab:${3:name}}",
+      "\\end{table}",
+      "$0"
+    ]
+  },
+  "operatorname": {
+    "prefix": "op",
+    "body": [
+      "\\operatorname{$1} $0"
+    ]
+  }
 }
