@@ -14,7 +14,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     snippets-ls = {
-      url = "github:perlinm/snippets-ls";
+      url = "github:quantonganh/snippets-ls";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -24,8 +24,8 @@
     let
       linux = "x86_64-linux";
       pkgs = import nixpkgs {
-        overlays = [ pkgs_overlay ];
         system = linux;
+        overlays = [ pkgs_overlay ];
       };
 
       pkgs_overlay = final: prev: {

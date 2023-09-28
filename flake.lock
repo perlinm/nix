@@ -95,16 +95,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1695108154,
-        "narHash": "sha256-gSg7UTVtls2yO9lKtP0yb66XBHT1Fx5qZSZbGMpSn2c=",
+        "lastModified": 1695738267,
+        "narHash": "sha256-LTNAbTQ96xSj17xBfsFrFS9i56U2BMLpD0BduhrsVkU=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "07682fff75d41f18327a871088d20af2710d4744",
+        "rev": "0f4e5b4999fd6a42ece5da8a3a2439a50e48e486",
         "type": "github"
       },
       "original": {
         "owner": "nix-community",
-        "ref": "release-23.05",
         "repo": "home-manager",
         "type": "github"
       }
@@ -182,15 +181,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1695838878,
-        "narHash": "sha256-4SAV9Id56owaC97kdA8sNZM/pG0revfDw8sLSPjDVJM=",
-        "owner": "perlinm",
+        "lastModified": 1695862434,
+        "narHash": "sha256-HhbjvUxxnkeu/FxPHuh6PwkL7XrEKyAEn4jeTshvk9A=",
+        "owner": "quantonganh",
         "repo": "snippets-ls",
-        "rev": "c62248f46327feaeffc0844642ddb5d69750eaf5",
+        "rev": "16916b5f0988545608dd1d418f0e5561d1fc4a1a",
         "type": "github"
       },
       "original": {
-        "owner": "perlinm",
+        "owner": "quantonganh",
         "repo": "snippets-ls",
         "type": "github"
       }
