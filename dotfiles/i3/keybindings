@@ -219,18 +219,18 @@ bindsym $mod+Ctrl+Shift+slash exec --no-startup-id ~/scripts/brightness mid
 
 # scratchpads
 set $scratch exec --no-startup-id ~/scripts/i3-scratchpad -t
-bindsym $mod+F1  $scratch $terminal --title="pad-F1"
-bindsym $mod+F2  $scratch $terminal --title="pad-F2"
-bindsym $mod+F3  $scratch $terminal --title="pad-F3"
-bindsym $mod+F4  $scratch $terminal --title="pad-F4"
-bindsym $mod+F5  $scratch $terminal --title="pad-F5"
-bindsym $mod+F6  $scratch $terminal --title="pad-F6"
-bindsym $mod+F7  $scratch $terminal --title="pad-F7"
-bindsym $mod+F8  $scratch $terminal --title="pad-F8"
-bindsym $mod+F9  $scratch $terminal --title="pad-F9"
-bindsym $mod+F10 $scratch $terminal --title="pad-F10"
-bindsym $mod+F11 $scratch $terminal --title="pad-F11"
-bindsym $mod+F12 $scratch $terminal --title="pad-F12"
-bindsym $mod+v $scratch $volume
-bindsym $mod+d $scratch $display
-bindsym $mod+b $scratch $bluetooth
+bindsym $mod+F1  $scratch -d 1000x800 $terminal --title="pad-F1"
+bindsym $mod+F2  $scratch -d 1000x800 $terminal --title="pad-F2"
+bindsym $mod+F3  $scratch -d 1000x800 $terminal --title="pad-F3"
+bindsym $mod+F4  $scratch -d 1000x800 $terminal --title="pad-F4"
+bindsym $mod+F5  $scratch -d 1000x800 $terminal --title="pad-F5"
+bindsym $mod+F6  $scratch -d 1000x800 $terminal --title="pad-F6"
+bindsym $mod+F7  $scratch -d 1000x800 $terminal --title="pad-F7"
+bindsym $mod+F8  $scratch -d 1000x800 $terminal --title="pad-F8"
+bindsym $mod+F9  $scratch -d 1000x800 $terminal --title="pad-F9"
+bindsym $mod+F10 $scratch -d 1000x800 $terminal --title="pad-F10"
+bindsym $mod+F11 $scratch -d 1000x800 $terminal --title="pad-F11"
+bindsym $mod+F12 $scratch -d 1000x800 $terminal --title="pad-F12"
+bindsym $mod+v $scratch -d 1000x800 $volume
+bindsym $mod+d $scratch -d 600x500 $display
+bindsym $mod+b $scratch -d 600x600 $bluetooth
