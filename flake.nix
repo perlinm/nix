@@ -12,7 +12,8 @@
     flake-utils.url = "github:numtide/flake-utils";
 
     helix = {
-      url = "github:paholg/helix/temp";
+      # url = "github:paholg/helix/temp";
+      url = "github:paholg/helix/mikabranch";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };
