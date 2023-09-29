@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 # let sway-fixes = import ./sway-fixes.nix { inherit pkgs; };
 {
   imports = [ ./hardware-configuration.nix ]; # results of hardware scan
@@ -32,7 +32,8 @@
 
   # internationalization properties
   # WARNING: these are ignored by some desktop environments (such as GNOME)
-  time.timeZone = "America/Chicago";
+  time.timeZone = lib.mkForce null; # allow time zone to be set by user
+  services.automatic-timezoned.enable = true;
   i18n.defaultLocale = "en_US.utf8";
   i18n.extraLocaleSettings.LC_TIME = "en_GB.utf8";
 

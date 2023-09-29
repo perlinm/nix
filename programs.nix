@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ lib, pkgs, ... }:
 let shell = import ./shell.nix { inherit lib; };
 in {
   programs = {

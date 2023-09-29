@@ -9,6 +9,9 @@ ln -sf flake.nix ~/.config/home-manager
 sudo nixos-rebuild switch
 home-manager switch
 
+# time zone:
+sudo timedatectl set-timezone US/Central
+
 # TODO: set firefox configs elsewhere
 # in firefox, 'about:config':
 # browser.quitShortcut.disabled: set to true to disable exiting with ctrl+q
