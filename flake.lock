@@ -212,15 +212,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1695936433,
+        "lastModified": 1695970196,
         "narHash": "sha256-Zv2cy1kl5jLkqd5p3DJolXb4LgEUOg3/FyaCbnSthzY=",
-        "owner": "perlinm",
+        "owner": "estin",
         "repo": "simple-completion-language-server",
-        "rev": "a5c88a37b44fdf57b79372132c4f23f19043e7f1",
+        "rev": "88e910e8f56c996408023884b06982de63e75897",
         "type": "github"
       },
       "original": {
-        "owner": "perlinm",
+        "owner": "estin",
         "repo": "simple-completion-language-server",
         "type": "github"
       }

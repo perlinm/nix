@@ -17,7 +17,7 @@
       inputs.flake-utils.follows = "flake-utils";
     };
     simple-completion-language-server = {
-      url = "github:perlinm/simple-completion-language-server";
+      url = "github:estin/simple-completion-language-server";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };

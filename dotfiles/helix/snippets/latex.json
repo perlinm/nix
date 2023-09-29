@@ -17,6 +17,12 @@
       "\\left\\{$1\\right\\}$0"
     ]
   },
+  "fraction": {
+    "prefix": "frac",
+    "body": [
+      "\\frac{$1}{$2}$0"
+    ]
+  },
   "environment": {
     "prefix": "begin",
     "body": [
