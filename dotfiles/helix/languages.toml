@@ -24,6 +24,11 @@ formatter = { command = "nixfmt" }
 [[language]]
 name = "latex"
 language-servers = ["texlab", "simple-completion-language-server"]
+# language-servers = ["texlab", "snippets-ls"]
+
+[language-server.snippets-ls]
+command = "snippets-ls"
+args = ["-config", "/home/perlinm/.config/helix/snippets/latex.json"]
 
 [language-server.simple-completion-language-server]
 command = "simple-completion-language-server"

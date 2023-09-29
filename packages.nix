@@ -156,6 +156,7 @@ let
   misc-other = with pkgs; [
     mathematica-13-2-1
     external.simple-completion-language-server
+    external.snippets-ls
   ];
 
 in {

@@ -17,6 +17,15 @@
       "\\left\\{$1\\right\\}$0"
     ]
   },
+  "environment": {
+    "prefix": "begin",
+    "body": [
+      "\\begin{${1:name}}",
+      "  $2",
+      "\\end{${1:name}}",
+      "$0"
+    ]
+  },
   "align": {
     "prefix": "align",
     "body": [
@@ -51,15 +60,6 @@
       "\\begin{pmatrix}",
       "  $1",
       "\\end{pmatrix}",
-      "$0"
-    ]
-  },
-  "environment": {
-    "prefix": "begin",
-    "body": [
-      "\\begin{${1:name}}",
-      "  $2",
-      "\\end{${1:name}}",
       "$0"
     ]
   },
