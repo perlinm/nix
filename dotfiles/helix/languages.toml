@@ -32,8 +32,8 @@ args = ["-config", "/home/perlinm/.config/helix/snippets/latex.json"]
 
 [language-server.simple-completion-language-server]
 command = "simple-completion-language-server"
-config = { max_completion_items = 5 }
+config = { max_completion_items = 5, snippets_first = true }
 
 [language-server.simple-completion-language-server.environment]
 RUST_LOG = "debug,simple-completion-langauge-server=debug"
-LOG_FILE = "/tmp/completion.log"
+LOG_FILE = "/tmp/scls-completion.log"

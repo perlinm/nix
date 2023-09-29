@@ -1,17 +1,24 @@
 { pkgs, ... }:
 let
-  languages = with pkgs; [
-    gcc
-    julia-bin
-    nil # nix LSP
-    nixfmt # nix formatter
-    rustup
-    unstable.taplo # TOML formatter
-    texlive.combined.scheme-full
-    texlab
+  python = import ./python.nix { inherit pkgs; };
+
+  rust = with pkgs; [
+    cargo # build system
+    rust-analyzer # LSP
+    rustfmt # formatter
+    clippy # linter
   ];
 
-  python = import ./python.nix { inherit pkgs; };
+  languages = with pkgs;
+    [
+      gcc
+      julia-bin
+      nil # nix LSP
+      nixfmt # nix formatter
+      unstable.taplo # TOML formatter
+      texlive.combined.scheme-full
+      texlab
+    ] ++ python ++ rust;
 
   console-utilities = with pkgs; [
     bat # better 'cat': cat with wings
@@ -160,7 +167,7 @@ let
   ];
 
 in {
-  home.packages = console-utilities ++ languages ++ python ++ fonts-icons-themes
+  home.packages = console-utilities ++ languages ++ fonts-icons-themes
     ++ applications ++ sway-utilities ++ i3-utilities ++ misc-work
     ++ misc-other;
 }
