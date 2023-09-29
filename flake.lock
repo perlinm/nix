@@ -211,14 +211,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1695935231,
-        "narHash": "sha256-JqgIjrpgGhSifnkNJQ5912sZr8VrWbtnZsgsys0gIeY=",
-        "type": "git",
-        "url": "file:///home/perlinm/src/simple-completion-language-server"
+        "lastModified": 1695936433,
+        "narHash": "sha256-Zv2cy1kl5jLkqd5p3DJolXb4LgEUOg3/FyaCbnSthzY=",
+        "owner": "perlinm",
+        "repo": "simple-completion-language-server",
+        "rev": "a5c88a37b44fdf57b79372132c4f23f19043e7f1",
+        "type": "github"
       },
       "original": {
-        "type": "git",
-        "url": "file:///home/perlinm/src/simple-completion-language-server"
+        "owner": "perlinm",
+        "repo": "simple-completion-language-server",
+        "type": "github"
       }
     },
     "systems": {

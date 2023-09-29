@@ -1,12 +1,12 @@
 {
   "parenthesis": {
-    "prefix": "pp",
+    "prefix": "lpp",
     "body": [
       "\\left($1\\right)$0"
     ]
   },
   "parenthesis-square": {
-    "prefix": "ps",
+    "prefix": "lps",
     "body": [
       "\\left[$1\\right]$0"
     ]
