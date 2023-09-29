@@ -21,10 +21,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };
-    snippets-ls = {
-      url = "github:quantonganh/snippets-ls";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs = inputs:
@@ -50,7 +46,6 @@
         external.helix = helix.packages.${prev.system}.default;
         external.simple-completion-language-server =
           simple-completion-language-server.defaultPackage.${prev.system};
-        external.snippets-ls = snippets-ls.defaultPackage.${prev.system};
       };
 
     in {

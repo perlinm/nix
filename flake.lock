@@ -172,8 +172,7 @@
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
         "nixpkgs-unstable": "nixpkgs-unstable",
-        "simple-completion-language-server": "simple-completion-language-server",
-        "snippets-ls": "snippets-ls"
+        "simple-completion-language-server": "simple-completion-language-server"
       }
     },
     "rust-overlay": {
@@ -222,26 +221,6 @@
       "original": {
         "owner": "estin",
         "repo": "simple-completion-language-server",
-        "type": "github"
-      }
-    },
-    "snippets-ls": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1695894046,
-        "narHash": "sha256-cFMxfVw+xgk03p926ujiIZLbLcix7P/UKOKBD0ow8GE=",
-        "owner": "quantonganh",
-        "repo": "snippets-ls",
-        "rev": "6ddd28f34182b257fe9c80c904512eefb723a864",
-        "type": "github"
-      },
-      "original": {
-        "owner": "quantonganh",
-        "repo": "snippets-ls",
         "type": "github"
       }
     },
