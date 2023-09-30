@@ -1,7 +1,7 @@
 add_newline = false
 format = """
 $cmd_duration\
-$custom\
+$nix_shell\
 $conda\
 $time\
 $directory\
@@ -16,8 +16,13 @@ $character
 format = """⏱  took [$duration]($style)
 """
 
+[nix_shell]
+heuristic = true
+format = '[\($state $name\)]($style) '
+unknown_msg = 'unknown'
+
 [custom.conda-shell]
-when = '[[ -n $(env | grep CONDA_EXE) && -z $(env | grep CONDA_PREFIX) ]]'
+when = '[[ -n $CONDA_EXE && -z $CONDA_PREFIX ]]'
 format = '\(conda-shell\) '
 
 [conda]
