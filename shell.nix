@@ -19,8 +19,6 @@ in {
     BROWSER = "firefox";
     TERM = "xterm-256color";
 
-    RUST_BACKTRACE = 1;
-
     # # make firefox work with wayland / sway
     # MOZ_ENABLE_WAYLAND = 1;
     # XDG_CURRENT_DESKTOP = "sway";
