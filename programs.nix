@@ -11,7 +11,7 @@ in {
       enableVteIntegration = true;
       initExtra = ''
         eval "$(starship init bash)"
-        export PATH="$PATH''${PATH:+:}$HOME/bin"
+        export PATH=$HOME/bin:$PATH
       '';
       sessionVariables = shell.home.sessionVariables;
     };
@@ -48,7 +48,7 @@ in {
           'r:|?=** m:{a-z\-}={A-Z\_}'
 
         eval "$(starship init zsh)"
-        export PATH="$PATH''${PATH:+:}$HOME/bin"
+        export PATH=$HOME/bin:$PATH
       '';
       sessionVariables = shell.home.sessionVariables;
     };

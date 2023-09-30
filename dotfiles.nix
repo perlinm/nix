@@ -1,6 +1,6 @@
 { config, lib, ... }:
 let
-  dotfile-dir = "/home/perlinm/nix/dotfiles";
+  dotfile-dir = "${config.home.homeDirectory}/nix/dotfiles";
   copy = path: config.lib.file.mkOutOfStoreSymlink "${dotfile-dir}/${path}";
 
   symlink = source: dest:
