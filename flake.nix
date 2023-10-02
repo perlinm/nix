@@ -2,6 +2,7 @@
   description = "NixOS and Home Manager configuration of perlinm";
 
   inputs = {
+    # nixos repositories
     nixpkgs = { url = "github:nixos/nixpkgs/nixos-23.05"; };
     nixpkgs-unstable = { url = "github:nixos/nixpkgs/nixos-unstable"; };
     home-manager = {
@@ -9,12 +10,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # common dependencies of external repositories
     naersk = {
       url = "github:nix-community/naersk/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     flake-utils.url = "github:numtide/flake-utils";
 
+    # external repositories
     trashy = {
       url = "github:perlinm/trashy";
       inputs.nixpkgs.follows = "nixpkgs";
