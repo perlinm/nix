@@ -9,8 +9,18 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    naersk = {
+      url = "github:nix-community/naersk/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     flake-utils.url = "github:numtide/flake-utils";
 
+    trashy = {
+      url = "github:perlinm/trashy";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.naersk.follows = "naersk";
+      inputs.flake-utils.follows = "flake-utils";
+    };
     helix = {
       # url = "github:paholg/helix/temp";
       url = "github:paholg/helix/mikabranch";
@@ -20,6 +30,7 @@
     simple-completion-language-server = {
       url = "github:estin/simple-completion-language-server";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.naersk.follows = "naersk";
       inputs.flake-utils.follows = "flake-utils";
     };
   };
@@ -44,6 +55,7 @@
           config.allowUnfree = true;
         };
 
+        external.trashy = trashy.defaultPackage.${prev.system};
         external.helix = helix.packages.${prev.system}.default;
         external.simple-completion-language-server =
           simple-completion-language-server.defaultPackage.${prev.system};

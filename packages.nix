@@ -46,7 +46,8 @@ let
     ripgrep-all # faster grep, now also for pdf, docx, etc. files
     sd # better 'sed'
     starship # customizable shell prompt
-    trash-cli # trash management, replacing "rm"
+    external.trashy # trash management, replacing "rm"
+    # trash-cli # trash management, replacing "rm"
     tree # list directories
     udevil # sudo-free mounting
     udiskie # automounting removable media
