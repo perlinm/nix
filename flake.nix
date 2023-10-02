@@ -19,6 +19,7 @@
 
     # external repositories
     trashy = {
+      # url = "github:oberblastmeister/trashy";
       url = "github:perlinm/trashy";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.naersk.follows = "naersk";
