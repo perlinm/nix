@@ -2,6 +2,7 @@ add_newline = false
 format = """
 $cmd_duration\
 $nix_shell\
+$custom\
 $conda\
 $time\
 $directory\
@@ -17,7 +18,6 @@ format = """⏱  took [$duration]($style)
 """
 
 [nix_shell]
-heuristic = true
 format = '[\($state $name\)]($style) '
 unknown_msg = 'unknown'
 
