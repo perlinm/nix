@@ -47,7 +47,6 @@ let
     sd # better 'sed'
     starship # customizable shell prompt
     external.trashy # trash management, replacing "rm"
-    # trash-cli # trash management, replacing "rm"
     tree # list directories
     udevil # sudo-free mounting
     udiskie # automounting removable media

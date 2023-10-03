@@ -19,8 +19,7 @@
 
     # external repositories
     trashy = {
-      # url = "github:oberblastmeister/trashy";
-      url = "github:perlinm/trashy";
+      url = "github:oberblastmeister/trashy";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.naersk.follows = "naersk";
       inputs.flake-utils.follows = "flake-utils";

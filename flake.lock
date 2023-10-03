@@ -255,15 +255,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1696265153,
+        "lastModified": 1696334323,
         "narHash": "sha256-lFB9UyVdfP3Vkzk7YDrCMMEAlk7lk3ciNYU3hPOTsNg=",
-        "owner": "perlinm",
+        "owner": "oberblastmeister",
         "repo": "trashy",
-        "rev": "2d5de495bcffb8d58276c3de6397b89b4ab03229",
+        "rev": "8d939859fe44f93e23c3666e4f72e9b48ee00c6e",
         "type": "github"
       },
       "original": {
-        "owner": "perlinm",
+        "owner": "oberblastmeister",
         "repo": "trashy",
         "type": "github"
       }
