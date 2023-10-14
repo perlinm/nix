@@ -63,16 +63,14 @@
     autoRepeatDelay = 200;
     autoRepeatInterval = 60;
 
-    # display (login), desktop, and window managers
-    displayManager.gdm.enable = true;
-    displayManager.autoLogin.enable = true;
-    displayManager.autoLogin.user = "perlinm";
-
-    desktopManager.xterm.enable = false;
-    desktopManager.gnome.enable = true;
-
+    # display (login) and window managers
+    displayManager = {
+      sddm.enable = true;
+      autoLogin.enable = true;
+      autoLogin.user = "perlinm";
+      defaultSession = "none+i3";
+    };
     windowManager.i3.enable = true;
-    displayManager.defaultSession = "none+i3";
 
     # touchpad
     libinput.enable = true;
