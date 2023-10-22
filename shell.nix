@@ -26,6 +26,10 @@ in {
 
   home.shellAliases = {
     sudo = "sudo "; # allows using aliases after "sudo"
+    res = "systemctl reboot";
+    sus = "systemctl suspend";
+    hib = "systemctl hibernate";
+
     rem = "trash-put"; # trash management, replacing "rm"
     cd = "z"; # zoxide
 
