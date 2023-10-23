@@ -81,6 +81,9 @@
     };
   };
 
+  # gtk configuration tool; expected by gtk applications
+  programs.dconf.enable = true;
+
   # # enable sway window manager
   # programs.sway.enable = true;
   # programs.sway.wrapperFeatures.gtk = true;
