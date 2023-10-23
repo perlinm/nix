@@ -26,6 +26,7 @@ in {
 
   home.shellAliases = {
     sudo = "sudo "; # allows using aliases after "sudo"
+    down = "systemctl poweroff";
     res = "systemctl reboot";
     sus = "systemctl suspend";
     hib = "systemctl hibernate";
