@@ -89,7 +89,10 @@
   # programs.sway.wrapperFeatures.gtk = true;
   # programs.xwayland.enable = true;
   # xdg.portal = sway-fixes.xdg-portal;
-  # environment.systemPackages = sway-fixes.packages;
+
+  # basic packages for bootstrapping
+  environment.systemPackages = with pkgs; [ git home-manager ];
+  # ++ sway-fixes.packages;
 
   # sound and bluetooth control
   sound.enable = true;
