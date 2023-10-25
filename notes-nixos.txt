@@ -4,10 +4,13 @@ git clone https://github.com/perlinm/scripts-configs-etc ~/nix
 
 # copy and symlink config files
 cd ~/nix
-sudo cp flake.nix flake.lock nixos.nix sway-fixes.nix /etc/nixos
+sudo cp flake.nix flake.lock nixos.nix luks.nix sway-fixes.nix /etc/nixos
 
 mkdir -p ~/.config/home-manager
 ln -sf flake.nix ~/.config/home-manager
+
+# Note: override luks.nix if necessary.
+# If there is no disk encryption, 'echo {} > luks.nix' is sufficient
 
 # install everything!
 sudo nixos-rebuild switch --flake /etc/nixos#map-work

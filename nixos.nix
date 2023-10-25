@@ -1,7 +1,8 @@
 { lib, pkgs, ... }:
 # let sway-fixes = import ./sway-fixes.nix { inherit pkgs; };
 {
-  imports = [ ./hardware-configuration.nix ]; # results of hardware scan
+  imports =
+    [ ./hardware-configuration.nix ./luks.nix ]; # results of hardware scan
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
@@ -20,15 +21,6 @@
   # bootloader
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-
-  # setup keyfile for encrypted hard drive
-  boot.initrd.secrets = { "/crypto_keyfile.bin" = null; };
-
-  # enable swap on luks
-  boot.initrd.luks.devices."luks-6584249e-94c5-4559-a9e8-3654b2b164ae".device =
-    "/dev/disk/by-uuid/6584249e-94c5-4559-a9e8-3654b2b164ae";
-  boot.initrd.luks.devices."luks-6584249e-94c5-4559-a9e8-3654b2b164ae".keyFile =
-    "/crypto_keyfile.bin";
 
   # internationalization properties
   # WARNING: these are ignored by some desktop environments (such as GNOME)
