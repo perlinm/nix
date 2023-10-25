@@ -1,3 +1,7 @@
+# download configurations
+nix-shell -p git
+git clone https://github.com/perlinm/scripts-configs-etc ~/nix
+
 # copy and symlink config files
 cd ~/nix
 sudo cp flake.nix flake.lock nixos.nix sway-fixes.nix /etc/nixos
