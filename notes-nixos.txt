@@ -2,8 +2,12 @@
 nix-shell -p git
 git clone https://github.com/perlinm/scripts-configs-etc ~/nix
 
+# NOTE: fix ~/nix/luks.nix if necessary
+# The value of luks-swap-uuid can be found in /etc/nixos/configuration.nix,
+# or as 'luks-<THIS-SUBSTRING>:' in the output of 'blkid | grep swap'.
+# If there is no LUKS encryption, then 'echo {} > ~/nix/luks.nix' will suffice.
+
 # copy and symlink config files
-# NOTE: override luks.nix if necessary
 cd ~/nix
 sudo cp flake.nix flake.lock nixos.nix luks.nix sway-fixes.nix /etc/nixos
 
