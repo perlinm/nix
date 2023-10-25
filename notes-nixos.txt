@@ -6,11 +6,8 @@ mkdir -p ~/.config/home-manager
 ln -sf flake.nix ~/.config/home-manager
 
 # install everything!
-sudo nixos-rebuild switch
+sudo nixos-rebuild switch --flake /etc/nixos#map-work
 home-manager switch
-
-# time zone:
-sudo timedatectl set-timezone US/Central
 
 # TODO: set firefox configs elsewhere
 # in firefox, 'about:config':
