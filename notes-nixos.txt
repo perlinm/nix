@@ -45,6 +45,9 @@ sudo systemctl reload firewall
 woof <file>  # <-- prints url
 wget <url>   # <-- on other machine
 
+# to open an ad-hoc server for file sharing on port 8080
+python -m http.server 8080
+
 ##################################################
 # conda / python
 
