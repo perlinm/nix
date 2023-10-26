@@ -83,8 +83,10 @@
   # xdg.portal = sway-fixes.xdg-portal;
 
   # basic packages for bootstrapping
-  environment.systemPackages = with pkgs; [ git home-manager ];
-  # ++ sway-fixes.packages;
+  environment.systemPackages = with pkgs; [
+    git
+    home-manager
+  ]; # ++ sway-fixes.packages;
 
   # sound and bluetooth control
   sound.enable = true;
