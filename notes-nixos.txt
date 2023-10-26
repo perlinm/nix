@@ -37,7 +37,7 @@ home-manager switch
 
 # woof is an awesome tool for sharing files over a local network
 # however, nixos has a firewall enabled by default
-# to open, say, port 8080 for sharing files over the local network, run
+# to open port 8080 (or a range of ports, such as 8000:9000) for the local network, run
 sudo iptables -A INPUT -p tcp -j ACCEPT --dport 8080
 sudo systemctl reload firewall
 
