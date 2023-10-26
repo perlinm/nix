@@ -24,11 +24,6 @@ home-manager switch
 # browser.low_commit_space_threshold_percent: set to (say) 30 to decrease memory usage
 # permissions.default.shortcuts: set to 2 to disable websites capturing keyboard shortcuts
 
-# to remove close/minimize buttons from firefox windows:
-# toolkit.legacyUserProfileCustomizations.stylesheets: set to true
-# make sure that the directory of dotfiles/firefox_userChrome.css in dotfiles.nix agrees with the profile directory firefox lists in about:support
-# see https://www.reddit.com/r/FirefoxCSS/wiki/index/tutorials/
-
 # in chromium, chrome://flags
 # enable WebRTC PipeWire support
 

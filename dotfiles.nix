@@ -29,9 +29,6 @@ in {
 
     ".indentconfig_settings.yaml".source = copy "indentconfig_settings.yaml";
     ".indentconfig.yaml".source = copy "indentconfig.yaml";
-
-    ".mozilla/firefox/p32pbshe.default/chrome/userChrome.css".source =
-      copy "firefox_userChrome.css";
   };
 
   xdg.configFile = {
