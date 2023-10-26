@@ -135,6 +135,7 @@ let
     xdotool # simulate keyboard/mouse input, manipulate windows
     xidlehook # lock or turn off screen when idling
     xorg.xev # event logger
+    xorg.xkill # kill applications with the mouse
     xorg.xprop # get window properties
     xss-lock # idle screen manager
   ];
