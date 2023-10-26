@@ -26,7 +26,7 @@ home-manager switch
 
 # to remove close/minimize buttons from firefox windows:
 # toolkit.legacyUserProfileCustomizations.stylesheets: set to true
-# make sure that the directory of dotfiles/firefox_userChrome.css in files.nix agrees with the profile directory firefox lists in about:support
+# make sure that the directory of dotfiles/firefox_userChrome.css in dotfiles.nix agrees with the profile directory firefox lists in about:support
 # see https://www.reddit.com/r/FirefoxCSS/wiki/index/tutorials/
 
 # in chromium, chrome://flags
