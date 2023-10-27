@@ -1,6 +1,9 @@
 flake for python
 - nix shells instead of conda
 
+handle symlinks more cleanly (see dotfiles.nix:symlink)
+- stale symlinks should be deleted
+
 direnv package
 
 boot into last used by default for systemd-boot
