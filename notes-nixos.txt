@@ -1,6 +1,6 @@
 # download configurations
 nix-shell -p git
-git clone https://github.com/perlinm/scripts-configs-etc ~/nix
+git clone https://github.com/perlinm/nix ~/nix
 
 # NOTE: fix ~/nix/luks.nix if necessary
 # The value of luks-swap-uuid can be found in /etc/nixos/configuration.nix,
