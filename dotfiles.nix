@@ -3,6 +3,9 @@ let
   dotfile-dir = "${config.home.homeDirectory}/nix/dotfiles";
   copy = path: config.lib.file.mkOutOfStoreSymlink "${dotfile-dir}/${path}";
 
+  # Define custom symbolic links.
+  # These links are "dirty", in the sense that home-manager will add links according to
+  # the list below, but removing an entry from the list will not remove a link.
   symlink = source: dest:
     "$DRY_RUN_CMD ln -sfT $VERBOSE_ARG ${dotfile-dir}/${source} $HOME/${dest}";
   newline-join = lines: lib.strings.concatMapStrings (line: line + "\n") lines;

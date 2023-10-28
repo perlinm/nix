@@ -1,16 +1,9 @@
 flake for python
 - nix shells instead of conda
-
-handle symlinks more cleanly (see dotfiles.nix:symlink)
-- stale symlinks should be deleted
-
-direnv package
+- direnv package
 
 boot into last used by default for systemd-boot
 
 gnome-control-center display
-
-i3-wk-switch
-i3-resurrect
 
 look into https://looking-glass.io/ (?)
