@@ -183,7 +183,10 @@ bindsym $mod+Tab    exec --no-startup-id $terminal
 bindsym Ctrl+grave  exec --no-startup-id $launcher
 bindsym $mod+Return exec --no-startup-id $browser
 
-bindsym $mod+Shift+Return exec --no-startup-id chromium --app=https://teams.microsoft.com; exec --no-startup-id slack; exec --no-startup-id zotero
+bindsym $mod+Shift+Return \
+    exec --no-startup-id chromium --app=https://teams.microsoft.com; \
+    exec --no-startup-id slack; \
+    exec --no-startup-id zotero
 
 ###############################################################################
 # personal scripts
