@@ -3,10 +3,11 @@
 
   inputs = {
     # nixos repositories
-    nixpkgs = { url = "github:nixos/nixpkgs/nixos-23.05"; };
-    nixpkgs-unstable = { url = "github:nixos/nixpkgs/nixos-unstable"; };
+    nixpkgs = { url = "github:nixos/nixpkgs/nixos-unstable"; };
+    nixpkgs-unstable = { url = "github:nixos/nixpkgs/nixpkgs-unstable"; };
+    nixpkgs-stable = { url = "github:nixos/nixpkgs/nixos-23.05"; };
     home-manager = {
-      url = "github:nix-community/home-manager/release-23.05";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -25,7 +26,6 @@
       inputs.flake-utils.follows = "flake-utils";
     };
     helix = {
-      # url = "github:paholg/helix/temp";
       url = "github:paholg/helix/mikabranch";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
@@ -53,10 +53,7 @@
           config.allowUnfree = true;
         };
         unstable = import nixpkgs-unstable { system = prev.system; };
-        unstable-unfree = import nixpkgs-unstable {
-          system = prev.system;
-          config.allowUnfree = true;
-        };
+        stable = import nixpkgs-stable { system = prev.system; };
 
         external.trashy = trashy.defaultPackage.${prev.system};
         external.helix = helix.packages.${prev.system}.default;

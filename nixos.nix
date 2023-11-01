@@ -97,7 +97,7 @@
   };
   hardware.pulseaudio.enable = false;
   hardware.bluetooth.enable = true;
-  hardware.bluetooth.package = pkgs.bluezFull;
+  hardware.bluetooth.package = pkgs.bluez;
 
   # change some power settings
   services.logind.lidSwitch = "ignore";

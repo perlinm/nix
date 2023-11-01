@@ -15,7 +15,7 @@ let
       julia-bin
       nil # nix LSP
       nixfmt # nix formatter
-      unstable.taplo # TOML formatter
+      taplo # TOML formatter
       texlive.combined.scheme-full
       texlab
     ] ++ python ++ rust;
@@ -43,7 +43,7 @@ let
     pdf2svg # convert 'pdf's to 'svg's
     pulseaudio # provides pactl for audio control
     ripgrep # faster grep
-    ripgrep-all # faster grep, now also for pdf, docx, etc. files
+    stable.ripgrep-all # faster grep, now also for pdf, docx, etc. files
     sd # better 'sed'
     starship # customizable shell prompt
     external.trashy # trash management, replacing "rm"
@@ -147,7 +147,7 @@ let
   ];
 
   # https://github.com/NixOS/nixpkgs/blob/master/pkgs/applications/science/math/mathematica/default.nix
-  mathematica-13-2-1 = pkgs.unstable-unfree.mathematica.override {
+  mathematica-13-2-1 = pkgs.unfree.mathematica.override {
     source = pkgs.requireFile {
       name = "Mathematica_13.2.1_BNDL_LINUX.sh";
       # Get this hash via a command similar to:
@@ -169,4 +169,8 @@ in {
   home.packages = console-utilities ++ languages ++ fonts-icons-themes
     ++ applications ++ sway-utilities ++ i3-utilities ++ misc-work
     ++ misc-other;
+
+  # override refusal to install zotero...
+  # https://github.com/NixOS/nixpkgs/commit/9438baa49d527dd7f748e90bdfea576cd1daa0db
+  nixpkgs.config.permittedInsecurePackages = [ "zotero-6.0.27" ];
 }

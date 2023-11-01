@@ -2,9 +2,10 @@
 let shell = import ./shell.nix { inherit lib; };
 in {
   programs = {
-    # let Home Manager install and manage itself
+    # let home-manager install and manage itself
     home-manager.enable = true;
 
+    # command-line interpreter
     bash = {
       enable = true;
       enableCompletion = true;
@@ -16,12 +17,13 @@ in {
       sessionVariables = shell.home.sessionVariables;
     };
 
+    # replacement for bash
     zsh = {
       enable = true;
       autocd = false;
       enableAutosuggestions = true;
       enableCompletion = true;
-      enableSyntaxHighlighting = true;
+      syntaxHighlighting.enable = true;
       enableVteIntegration = true;
       defaultKeymap = "emacs";
       oh-my-zsh.enable = true;
@@ -53,15 +55,7 @@ in {
       sessionVariables = shell.home.sessionVariables;
     };
 
-    exa.enable = true;
-    exa.enableAliases = true;
-
-    zoxide.enable = true;
-    zoxide.enableZshIntegration = true;
-
-    atuin.enable = true;
-    atuin.flags = [ "--disable-up-arrow" ];
-
+    # version control!
     git = {
       enable = true;
       userName = "Michael A. Perlin";
@@ -80,5 +74,17 @@ in {
         co = "checkout";
       };
     };
+
+    # replacement for 'ls'
+    eza.enable = true;
+    eza.enableAliases = true;
+
+    # replacement for 'cd'
+    zoxide.enable = true;
+    zoxide.enableZshIntegration = true;
+
+    # better shell history
+    atuin.enable = true;
+    atuin.flags = [ "--disable-up-arrow" ];
   };
 }
