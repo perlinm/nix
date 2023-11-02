@@ -4,11 +4,11 @@ let
   conda-init =
     ''eval "$(~/.conda/bin/conda shell.$(basename $(echo $SHELL)) hook)"'';
   conda-activate = conda-env: "${conda-init} && conda activate ${conda-env}";
-  conda-go = conda-env: cmd: ''
+  conda-go = conda-env: dir: ''
     if [ "$(env | grep CONDA_EXE)" ]; then
       ${conda-activate conda-env}
     fi
-    ${cmd}
+    cd ${dir}
   '';
 in {
   home.sessionPath = [ "$HOME/bin" ];
@@ -41,16 +41,19 @@ in {
     cs = conda-setup;
     ci = conda-init;
     nn = "jupyter notebook";
-    ss = conda-go "superstaq" "cd ~/super.tech/server-superstaq";
-    ssc = conda-go "superstaq" "cd ~/super.tech/client-superstaq";
+    ss = conda-go "superstaq" "~/super.tech/server-superstaq";
+    ssc = conda-go "superstaq" "~/super.tech/client-superstaq";
     ssr = conda-go "research-superstaq"
-      "cd ~/super.tech/research-superstaq/research_superstaq/theory";
-    # ssl = conda-go "qldpc" "cd ~/src/qLDPC";
+      "~/super.tech/research-superstaq/research_superstaq/theory";
+    # ssl = conda-go "qldpc" "~/src/qLDPC";
     ssl = conda-go "qldpc"
-      "cd ~/super.tech/research-superstaq/research_superstaq/theory/qLDPC";
-    qq = conda-go "QFI-Opt" "cd ~/super.tech/QFI-Opt";
-    cc = conda-go "ColdQuanta" "cd ~/super.tech/coldquanta-system";
-    zz = conda-go "zain" "cd ~/super.tech/zain";
+      "~/super.tech/research-superstaq/research_superstaq/theory/qLDPC";
+    qq = conda-go "QFI-Opt" "~/super.tech/QFI-Opt";
+    cc = conda-go "ColdQuanta" "~/super.tech/coldquanta-system";
+    zz = conda-go "zain" "~/super.tech/zain";
+
+    tt = conda-go "test" ".";
+    ntt = "conda create --name test python=3.11 -y";
 
     update-cq = "python -m coldquanta.qc_common_api.cq_authorize";
 
