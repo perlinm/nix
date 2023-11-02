@@ -146,22 +146,10 @@ let
     protobuf # for protoc command
   ];
 
-  # https://github.com/NixOS/nixpkgs/blob/master/pkgs/applications/science/math/mathematica/default.nix
-  mathematica-13-2-1 = pkgs.unfree.mathematica.override {
-    source = pkgs.requireFile {
-      name = "Mathematica_13.2.1_BNDL_LINUX.sh";
-      # Get this hash via a command similar to:
-      # nix-store --query --hash $(nix store add-path Mathematica_13.2.1_BNDL_LINUX.sh --name 'Mathematica_13.2.1_BNDL_LINUX.sh')
-      sha256 = "070ybhgskk3fw8c6fgqs4lq9252ds6585cqdd5as94hj55vjibmq";
-      message = ''
-        Your override for Mathematica includes a different src for the installer, and it is missing.
-      '';
-      hashMode = "recursive";
-    };
-  };
+  mathematica = pkgs.unfree.mathematica.override { version = "13.2.1"; };
 
   misc-other = with pkgs; [
-    mathematica-13-2-1
+    mathematica
     external.simple-completion-language-server
   ];
 
