@@ -63,13 +63,17 @@ conda env remove --name <VENV-NAME>
 # WARNING: some package installations may fail due to dependencies external to python.
 # In this case, these packages should be installed after calling 'conda-shell'.
 
-# Some standard packages/libraries can be installed with
+# For example, if you get the error:
+#   ERROR: Failed building wheel for mpi4py
+# this can be fixed with
+conda install -c conda-forge mpi4py openmpi
+
+# Other standard packages/libraries can likewise be installed with
 conda install -c conda-forge <PACKAGE>
 
-# To enable activating virtual environments, call 'conda init',
-#   which requires '~/."$SHELL"rc' to be writable.
-# In practice, I prefer inspecting how 'conda init' modifies '~/."$SHELL"rc'
-#   and enabling virtual environments 'manually'.
+# To enable activating virtual environments, call 'conda init', which requires
+# '~/."$SHELL"rc' to be writable.  In practice, I prefer inspecting how 'conda init'
+# modifies '~/."$SHELL"rc', and enabling virtual environments 'manually'.
 
 ##################################################
 # julia
