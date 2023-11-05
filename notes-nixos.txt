@@ -22,6 +22,7 @@ home-manager switch
 # in firefox, 'about:config':
 # browser.quitShortcut.disabled: set to true to disable exiting with ctrl+q
 # browser.low_commit_space_threshold_percent: set to (say) 30 to decrease memory usage
+# accessibility.typeaheadfind.enablesound: set to false to disable bell/warning sounds
 # permissions.default.shortcuts: set to 2 to disable websites capturing keyboard shortcuts
 
 # in chromium, chrome://flags
