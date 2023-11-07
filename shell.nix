@@ -31,7 +31,7 @@ in {
     sus = "systemctl suspend";
     hib = "systemctl hibernate";
 
-    rem = "trash-put"; # trash management, replacing "rm"
+    rem = "trashy put"; # trash management, replacing "rm"
     cd = "z"; # zoxide
 
     py = "python";
