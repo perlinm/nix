@@ -194,6 +194,9 @@ $bind $mod+Ctrl+Shift+slash        exec ~/scripts/brightness mid
 # miscellaneous
 ###############################################################################
 
+# focus on most recent urgent application
+bindsym $mod+j [urgent=latest] focus
+
 # terminal scratchpads
 $bind $mod+F1  exec swaymsg [app_id="^pad-F1$"]  scratchpad show || $terminal --class="pad-F1"
 $bind $mod+F2  exec swaymsg [app_id="^pad-F2$"]  scratchpad show || $terminal --class="pad-F2"
@@ -209,10 +212,13 @@ $bind $mod+F11 exec swaymsg [app_id="^pad-F11$"] scratchpad show || $terminal --
 $bind $mod+F12 exec swaymsg [app_id="^pad-F12$"] scratchpad show || $terminal --class="pad-F12"
 
 # volume control scratchpad
-$bind $mod+v   exec swaymsg [app_id="^pavucontrol$"] scratchpad show || $volume
+$bind $mod+v exec swaymsg [app_id="^pavucontrol$"] scratchpad show || $volume
 
 # hack to toggle idle inhibitor with waybar
 $bind Ctrl+apostrophe seat - cursor set 1723 13; seat - cursor press button1; seat - cursor release button1
 
-# focus on most recent urgent application
-bindsym $mod+j [urgent=latest] focus
+# startup applications
+$bind $mod+Shift+Return \
+    exec chromium --app=https://teams.microsoft.com; \
+    exec slack; \
+    exec zotero

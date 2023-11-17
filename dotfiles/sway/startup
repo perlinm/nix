@@ -33,11 +33,3 @@ exec swayidle -w before-sleep swaylock timeout 300 $screen-off resume $screen-on
 
 # enable screen sharing in Teams
 exec ~/scripts/w-enable-screensharing
-
-###############################################################################
-# applications
-###############################################################################
-
-exec google-chrome-beta --app=https://teams.microsoft.com
-exec slack
-exec zotero

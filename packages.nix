@@ -108,6 +108,7 @@ let
     autotiling-rs # sane tiling defaults
     grim
     slurp # for screenshots
+    networkmanagerapplet # apparently needed for nm-applet
     swaybg # set background image
     swaylock-effects # screen locker
     swayidle # lock or turn off screen when idling
