@@ -3,8 +3,8 @@
 ###############################################################################
 
 # pin slack and zotero to specific workspaces
-assign [class="^Slack$"]            workspace number 11
-assign [class="^Zotero$"]           workspace number 12
+assign [class="^Slack$"]  workspace number 11
+assign [class="^Zotero$"] workspace number 12
 
 # scratchpads
 for_window [title="^pad-F[0-9]+$"] move scratchpad, scratchpad show

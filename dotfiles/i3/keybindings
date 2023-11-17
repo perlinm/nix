@@ -182,6 +182,9 @@ bindsym Ctrl+Escape exec --no-startup-id ~/scripts/x-lock
 bindsym $mod+Tab    exec --no-startup-id $terminal
 bindsym Ctrl+grave  exec --no-startup-id $launcher
 bindsym $mod+Return exec --no-startup-id $browser
+bindsym $mod+v      exec --no-startup-id $volume
+bindsym $mod+d      exec --no-startup-id $display
+bindsym $mod+b      exec --no-startup-id $bluetooth
 
 bindsym $mod+Shift+Return \
     exec --no-startup-id chromium --app=https://teams.microsoft.com; \
@@ -223,19 +226,15 @@ bindsym $mod+Ctrl+slash       exec --no-startup-id ~/scripts/brightness mid
 bindsym $mod+Ctrl+Shift+slash exec --no-startup-id ~/scripts/brightness mid
 
 # scratchpads
-set $scratch exec --no-startup-id ~/scripts/i3-scratchpad -t
-bindsym $mod+F1  $scratch -d 1000x800 $terminal --title="pad-F1"
-bindsym $mod+F2  $scratch -d 1000x800 $terminal --title="pad-F2"
-bindsym $mod+F3  $scratch -d 1000x800 $terminal --title="pad-F3"
-bindsym $mod+F4  $scratch -d 1000x800 $terminal --title="pad-F4"
-bindsym $mod+F5  $scratch -d 1000x800 $terminal --title="pad-F5"
-bindsym $mod+F6  $scratch -d 1000x800 $terminal --title="pad-F6"
-bindsym $mod+F7  $scratch -d 1000x800 $terminal --title="pad-F7"
-bindsym $mod+F8  $scratch -d 1000x800 $terminal --title="pad-F8"
-bindsym $mod+F9  $scratch -d 1000x800 $terminal --title="pad-F9"
-bindsym $mod+F10 $scratch -d 1000x800 $terminal --title="pad-F10"
-bindsym $mod+F11 $scratch -d 1000x800 $terminal --title="pad-F11"
-bindsym $mod+F12 $scratch -d 1000x800 $terminal --title="pad-F12"
-bindsym $mod+v $scratch -d 1000x800 $volume
-bindsym $mod+d $scratch -d 600x500 $display
-bindsym $mod+b $scratch -d 600x600 $bluetooth
+bindsym $mod+F1  exec --no-startup-id i3-msg [title="^pad-F1$"]  scratchpad show || $terminal --title="pad-F1"
+bindsym $mod+F2  exec --no-startup-id i3-msg [title="^pad-F2$"]  scratchpad show || $terminal --title="pad-F2"
+bindsym $mod+F3  exec --no-startup-id i3-msg [title="^pad-F3$"]  scratchpad show || $terminal --title="pad-F3"
+bindsym $mod+F4  exec --no-startup-id i3-msg [title="^pad-F4$"]  scratchpad show || $terminal --title="pad-F4"
+bindsym $mod+F5  exec --no-startup-id i3-msg [title="^pad-F5$"]  scratchpad show || $terminal --title="pad-F5"
+bindsym $mod+F6  exec --no-startup-id i3-msg [title="^pad-F6$"]  scratchpad show || $terminal --title="pad-F6"
+bindsym $mod+F7  exec --no-startup-id i3-msg [title="^pad-F7$"]  scratchpad show || $terminal --title="pad-F7"
+bindsym $mod+F8  exec --no-startup-id i3-msg [title="^pad-F8$"]  scratchpad show || $terminal --title="pad-F8"
+bindsym $mod+F9  exec --no-startup-id i3-msg [title="^pad-F9$"]  scratchpad show || $terminal --title="pad-F9"
+bindsym $mod+F10 exec --no-startup-id i3-msg [title="^pad-F10$"] scratchpad show || $terminal --title="pad-F10"
+bindsym $mod+F11 exec --no-startup-id i3-msg [title="^pad-F11$"] scratchpad show || $terminal --title="pad-F11"
+bindsym $mod+F12 exec --no-startup-id i3-msg [title="^pad-F12$"] scratchpad show || $terminal --title="pad-F12"
