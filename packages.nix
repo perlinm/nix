@@ -41,7 +41,7 @@ let
     pandoc # converter between markup formats
     pdftk # pdf editor
     pdf2svg # convert 'pdf' to 'svg'
-    poppler_utils  # convert 'pdf' to 'png' with 'pdftoppm -png input.pdf output'
+    poppler_utils # convert 'pdf' to 'png' with 'pdftoppm -png input.pdf output'
     pulseaudio # provides pactl for audio control
     ripgrep # faster grep
     stable.ripgrep-all # faster grep, now also for pdf, docx, etc. files
