@@ -26,7 +26,7 @@
       inputs.flake-utils.follows = "flake-utils";
     };
     helix = {
-      url = "github:paholg/helix/mikabranch";
+      url = "github:perlinm/helix/mika";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };
