@@ -21,6 +21,7 @@ pyflakes = { enabled = false }
 name = "nix"
 formatter = { command = "nixfmt" }
 
+##################################################
 [[language]]
 name = "latex"
 language-servers = ["texlab", "simple-completion-language-server"]
