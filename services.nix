@@ -4,6 +4,7 @@
     gpg-agent = {
       enable = true;
       enableSshSupport = true;
+      enableZshIntegration = true;
     };
 
     # network management
