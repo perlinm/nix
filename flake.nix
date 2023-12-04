@@ -36,6 +36,11 @@
       inputs.naersk.follows = "naersk";
       inputs.flake-utils.follows = "flake-utils";
     };
+    nps = {
+      url = "github:OleMussmann/Nix-Package-Search";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+    };
   };
 
   outputs = inputs:
@@ -59,6 +64,7 @@
         external.helix = helix.packages.${prev.system}.default;
         external.simple-completion-language-server =
           simple-completion-language-server.defaultPackage.${prev.system};
+        external.nps = nps.defaultPackage.${prev.system};
       };
 
     in {
