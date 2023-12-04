@@ -14,8 +14,10 @@ elif [ $1 = window ]; then
   maim --hidecursor --window=$(xdotool getactivewindow) --capturebackground $output
 
 elif [ $1 = selection ]; then
-  maim -s $output
-
+  # TODO: switch to using maim (when freezing is supported)
+  # maim -s $output
+  sleep 0.2
+  scrot --freeze --select $output
 fi
 
 xclip -selection clipboard -t image/png -i $output

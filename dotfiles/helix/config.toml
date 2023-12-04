@@ -7,9 +7,10 @@ bufferline = "multiple"
 color-modes = true
 mouse = false
 middle-click-paste = false
-completion-trigger-len = 3
+completion-trigger-len = 1
 idle-timeout = 0
 auto-pairs = false
+auto-format = false
 
 [editor.cursor-shape]
 insert = "bar"
@@ -21,6 +22,9 @@ auto-signature-help = false
 enable = true
 max-indent-retain = 100
 wrap-indicator = ""
+
+[editor.file-picker]
+hidden = false
 
 [keys.normal]
 ### unbind old keys
@@ -94,6 +98,11 @@ S = "select_regex"
 h = "hover"
 d = "extend_line_below"
 D = "extend_line_above"
+
+[keys.normal.space]
+f = "file_picker_in_current_directory"
+F = "file_picker"
+c = "file_picker_in_current_buffer_directory"
 
 [keys.select]
 ### unbind old keys

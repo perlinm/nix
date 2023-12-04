@@ -1,9 +1,6 @@
 # https://nixos.wiki/wiki/Python
 { pkgs }:
 let
-  # install unstable packages with unstable.<PACKAGE-NAME>
-  unstable = import <nixos-unstable> { config.allowUnfree = true; };
-in let
   my-python-packages = python-packages:
     with python-packages; [
       black
@@ -15,6 +12,7 @@ in let
       mypy
       networkx
       numpy
+      pandas
       #pip # only use inside virtual environments!
       pylint
       pytest
@@ -30,7 +28,7 @@ in let
     ];
   python-with-my-packages = [ (pkgs.python3.withPackages my-python-packages) ];
 
-  extra-libs-for-conda = with pkgs; [ ];
+  extra-libs-for-conda = [ ];
   conda-with-extra-libs =
     pkgs.conda.override { extraPkgs = extra-libs-for-conda; };
 

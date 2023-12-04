@@ -1,7 +1,6 @@
 # https://nixos.wiki/wiki/Sway
 { pkgs }:
-
-{
+let
   # bash script to let dbus know about important env variables and
   # propogate them to relevent services run at the end of sway config
   # see
@@ -39,6 +38,13 @@
     '';
   };
 
+  # packages to assist wayland compabitility with QT
+  qt5-fix = pkgs.libsForQt5.qt5.qtwayland;
+  qt6-fix = pkgs.qt6.qtwayland;
+
+in {
+  packages = [ dbus-sway-environment configure-gtk qt5-fix qt6-fix ];
+
   # xdg-desktop-portal works by exposing a series of D-Bus interfaces
   # known as portals under a well-known name
   # (org.freedesktop.portal.Desktop) and object path
@@ -51,8 +57,4 @@
     # gtk portal needed to make gtk apps happy
     extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   };
-
-  # packages to assist wayland compabitility with QT
-  qt5-fix = pkgs.libsForQt5.qt5.qtwayland;
-  qt6-fix = pkgs.qt6.qtwayland;
 }

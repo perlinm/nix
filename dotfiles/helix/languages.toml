@@ -1,20 +1,35 @@
+##################################################
 [[language]]
 name = "python"
+language-servers = ["pylsp"]
 
 [language.formatter]
 command = "black"
-args = ["-", "--quiet", "--line-length=100"]
+args = ["-", "--quiet"]
 
-[language.config.pylsp]
+[language-server.pylsp.config.pylsp]
 configurationSources = ["flake8"]
 
-[language.config.pylsp.plugins]
+[language-server.pylsp.config.pylsp.plugins]
 flake8 = { enabled = true }
 mccabe = { enabled = false }
 pycodestyle = { enabled = false }
 pyflakes = { enabled = false }
 
-# disable TOML LSP due to time-out bug
+##################################################
 [[language]]
-name = "toml"
-language-server = { command = "" }
+name = "nix"
+formatter = { command = "nixfmt" }
+
+##################################################
+[[language]]
+name = "latex"
+language-servers = ["texlab", "simple-completion-language-server"]
+
+[language-server.simple-completion-language-server]
+command = "simple-completion-language-server"
+config = { max_completion_items = 5, snippets_first = true }
+
+[language-server.simple-completion-language-server.environment]
+RUST_LOG = "debug,simple-completion-langauge-server=debug"
+LOG_FILE = "/tmp/scls-completion.log"

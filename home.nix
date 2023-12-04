@@ -1,12 +1,5 @@
 # https://github.com/nix-community/home-manager
-{ pkgs, lib, ... }:
-let
-  services = import /home/perlinm/nix/services.nix;
-  programs = import /home/perlinm/nix/programs.nix { inherit pkgs; };
-  packages = import /home/perlinm/nix/packages.nix { inherit pkgs; };
-  files = import /home/perlinm/nix/files.nix;
-  shell = import /home/perlinm/nix/shell.nix { inherit lib; };
-in {
+{ pkgs, ... }: {
   # The state version determines some configuration defaults.
   # This version can be updated, but doing so may require manual intervention.
   # https://nix-community.github.io/home-manager/options.html#opt-home.stateVersion
@@ -23,25 +16,8 @@ in {
     "grp:ctrls_toggle"
   ];
 
-  # add ~/bin and ~/scripts symlinks
-  home.activation = {
-    makeSymbolicLinks = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-      $DRY_RUN_CMD ln -sTf $VERBOSE_ARG $HOME/nix/bin $HOME/bin
-      $DRY_RUN_CMD ln -sTf $VERBOSE_ARG $HOME/nix/scripts $HOME/scripts
-    '';
-  };
-
-  # add symlinks inside ~/ and ~/.config
-  home.file = files.home;
-  xdg.configFile = files.xdg;
-
-  services = services;
-  programs = programs;
-
-  home.sessionPath = shell.sessionPath;
-  home.sessionVariables = shell.sessionVariables;
-  home.shellAliases = shell.aliases;
-  home.packages = packages;
+  # let Home Manager manager the x session, e.g. to set keyboard settings
+  xsession.enable = true;
 
   # let Home Manager manage fonts
   fonts.fontconfig.enable = true;
@@ -55,6 +31,39 @@ in {
     iconTheme.package = pkgs.papirus-icon-theme;
   };
 
-  # allow installing unfree packages
-  nixpkgs.config.allowUnfree = true;
+  # disable networkmanager notifications
+  dconf.settings = {
+    "org/gnome/nm-applet" = {
+      disable-connected-notifications = true;
+      disable-disconnected-notifications = true;
+    };
+  };
+
+  # default xdg applications
+  xdg = {
+    enable = true;
+    mimeApps = {
+      enable = true;
+      defaultApplications = {
+        "application/pdf" = "qpdfview.desktop";
+        "text/plain" = "firefox.desktop";
+        "text/html" = "firefox.desktop";
+        "x-scheme-handler/http" = "firefox.desktop";
+        "x-scheme-handler/https" = "firefox.desktop";
+        "x-scheme-handler/ftp" = "firefox.desktop";
+        "x-scheme-handler/chrome" = "firefox.desktop";
+        "x-scheme-handler/about" = "firefox.desktop";
+        "x-scheme-handler/unknown" = "firefox.desktop";
+        "application/x-extension-htm" = "firefox.desktop";
+        "application/x-extension-html" = "firefox.desktop";
+        "application/x-extension-shtml" = "firefox.desktop";
+        "application/xhtml+xml" = "firefox.desktop";
+        "application/x-extension-xhtml" = "firefox.desktop";
+        "application/x-extension-xht" = "firefox.desktop";
+      };
+    };
+  };
+
+  imports =
+    [ ./dotfiles.nix ./programs.nix ./services.nix ./packages.nix ./shell.nix ];
 }

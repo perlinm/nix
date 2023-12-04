@@ -5,10 +5,11 @@
 set $mod Mod4
 set $alt Mod1
 
-set $terminal  xfce4-terminal
+set $terminal  alacritty
+set $launcher  rofi -show drun
 set $browser   firefox
-set $display   gnome-control-center display
 set $volume    pavucontrol
+set $display   arandr
 set $bluetooth blueberry
 
 set $ws-0  workspace number 0
@@ -63,29 +64,30 @@ bindsym $mod+BackSpace split toggle
 floating_modifier $mod
 
 # resize window
-bindsym $mod+Left  resize shrink width  100 px or 5 ppt
-bindsym $mod+Up    resize shrink height 100 px or 5 ppt
-bindsym $mod+Right resize grow   width  100 px or 5 ppt
-bindsym $mod+Down  resize grow   height 100 px or 5 ppt
+bindsym $mod+Left  resize shrink width  100 px or 7 ppt
+bindsym $mod+Up    resize shrink height 100 px or 7 ppt
+bindsym $mod+Right resize grow   width  100 px or 7 ppt
+bindsym $mod+Down  resize grow   height 100 px or 7 ppt
 
 ###############################################################################
 # changing workspaces
 ###############################################################################
 
 # move to workspace
-bindsym $mod+grave $ws-0
-bindsym $mod+1     $ws-1
-bindsym $mod+2     $ws-2
-bindsym $mod+3     $ws-3
-bindsym $mod+4     $ws-4
-bindsym $mod+5     $ws-5
-bindsym $mod+6     $ws-6
-bindsym $mod+7     $ws-7
-bindsym $mod+8     $ws-8
-bindsym $mod+9     $ws-9
-bindsym $mod+0     $ws-10
-bindsym $mod+minus $ws-11
-bindsym $mod+equal $ws-12
+set $wk-switch exec --no-startup-id i3-wk-switch
+bindsym $mod+grave $wk-switch 0
+bindsym $mod+1     $wk-switch 1
+bindsym $mod+2     $wk-switch 2
+bindsym $mod+3     $wk-switch 3
+bindsym $mod+4     $wk-switch 4
+bindsym $mod+5     $wk-switch 5
+bindsym $mod+6     $wk-switch 6
+bindsym $mod+7     $wk-switch 7
+bindsym $mod+8     $wk-switch 8
+bindsym $mod+9     $wk-switch 9
+bindsym $mod+0     $wk-switch 10
+bindsym $mod+minus $wk-switch 11
+bindsym $mod+equal $wk-switch 12
 bindsym $mod+x workspace back_and_forth
 bindsym $mod+q workspace prev_on_output
 bindsym $mod+f workspace next_on_output
@@ -178,10 +180,16 @@ bindsym Ctrl+Escape exec --no-startup-id ~/scripts/x-lock
 ###############################################################################
 
 bindsym $mod+Tab    exec --no-startup-id $terminal
+bindsym Ctrl+grave  exec --no-startup-id $launcher
 bindsym $mod+Return exec --no-startup-id $browser
-bindsym $mod+d      exec --no-startup-id $display
 bindsym $mod+v      exec --no-startup-id $volume
+bindsym $mod+d      exec --no-startup-id $display
 bindsym $mod+b      exec --no-startup-id $bluetooth
+
+bindsym $mod+Shift+Return \
+    exec --no-startup-id chromium --app=https://teams.microsoft.com; \
+    exec --no-startup-id slack; \
+    exec --no-startup-id zotero
 
 ###############################################################################
 # personal scripts
@@ -208,14 +216,14 @@ bindsym Ctrl+Shift+slash     exec --no-startup-id ~/scripts/volume med
 bindsym XF86AudioMicMute     exec --no-startup-id ~/scripts/volume mic toggle
 
 # screen brightness
-bindsym XF86MonBrightnessUp   exec --no-startup-id ~/scripts/x-brightness inc
-bindsym XF86MonBrightnessDown exec --no-startup-id ~/scripts/x-brightness dec
-bindsym $mod+Ctrl+Up          exec --no-startup-id ~/scripts/x-brightness inc
-bindsym $mod+Ctrl+Down        exec --no-startup-id ~/scripts/x-brightness dec
-bindsym $mod+Ctrl+Shift+Up    exec --no-startup-id ~/scripts/x-brightness max
-bindsym $mod+Ctrl+Shift+Down  exec --no-startup-id ~/scripts/x-brightness min
-bindsym $mod+Ctrl+slash       exec --no-startup-id ~/scripts/x-brightness mid
-bindsym $mod+Ctrl+Shift+slash exec --no-startup-id ~/scripts/x-brightness mid
+bindsym XF86MonBrightnessUp   exec --no-startup-id ~/scripts/brightness inc
+bindsym XF86MonBrightnessDown exec --no-startup-id ~/scripts/brightness dec
+bindsym $mod+Ctrl+Up          exec --no-startup-id ~/scripts/brightness inc
+bindsym $mod+Ctrl+Down        exec --no-startup-id ~/scripts/brightness dec
+bindsym $mod+Ctrl+Shift+Up    exec --no-startup-id ~/scripts/brightness max
+bindsym $mod+Ctrl+Shift+Down  exec --no-startup-id ~/scripts/brightness min
+bindsym $mod+Ctrl+slash       exec --no-startup-id ~/scripts/brightness mid
+bindsym $mod+Ctrl+Shift+slash exec --no-startup-id ~/scripts/brightness mid
 
 # scratchpads
 bindsym $mod+F1  exec --no-startup-id i3-msg [title="^pad-F1$"]  scratchpad show || $terminal --title="pad-F1"

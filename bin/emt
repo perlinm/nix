@@ -1,3 +1,0 @@
-#!/usr/bin/env sh
-
-emacsclient -t "$@" || (emacs --daemon && emacsclient -t "$@")

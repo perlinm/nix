@@ -1,7 +1,9 @@
-{ config, pkgs, ... }:
+{ lib, pkgs, ... }:
+# let sway-fixes = import ./sway-fixes.nix { inherit pkgs; };
+{
+  imports =
+    [ ./hardware-configuration.nix ]; # results of hardware scan
 
-let sway-fixes = import ./sway-fixes.nix { inherit pkgs; };
-in {
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
@@ -13,13 +15,8 @@ in {
   # system.autoUpgrade.enable = true;
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-  # allow unfree software, which may be necessary for some drivers
-  nixpkgs.config.allowUnfree = true;
-
-  imports = [
-    ./hardware-configuration.nix # results of hardware scan
-    <home-manager/nixos>
-  ];
+  # use the Zen linux kernel (others mignt not work!)
+  boot.kernelPackages = pkgs.linuxPackages_zen;
 
   # bootloader
   boot.loader.systemd-boot.enable = true;
@@ -29,9 +26,10 @@ in {
   # ...because the boot partition on this laptop is too small...
   boot.loader.systemd-boot.configurationLimit = 2;
 
-  # internationalisation properties
-  # WARNING: these are ignored by some desktop environments (e.g. GNOME)
-  time.timeZone = "America/Chicago";
+  # internationalization properties
+  # WARNING: these are ignored by some desktop environments (such as GNOME)
+  time.timeZone = lib.mkForce null; # allow time zone to be set by user
+  services.automatic-timezoned.enable = true;
   i18n.defaultLocale = "en_US.utf8";
   i18n.extraLocaleSettings.LC_TIME = "en_GB.utf8";
 
@@ -61,29 +59,38 @@ in {
     autoRepeatDelay = 200;
     autoRepeatInterval = 60;
 
-    # display (login), desktop, and window managers
-    displayManager.gdm.enable = true;
-    displayManager.gdm.wayland = true;
+    # display (login) and window managers
+    displayManager = {
+      sddm.enable = true;
+      autoLogin.enable = true;
+      autoLogin.user = "perlinm";
+      defaultSession = "none+i3";
+    };
+    windowManager.i3.enable = true;
 
     # touchpad
     libinput.enable = true;
-    libinput.touchpad.naturalScrolling = true;
+    libinput.touchpad = {
+      naturalScrolling = true;
+      clickMethod = "clickfinger";
+      disableWhileTyping = true;
+    };
   };
 
-  # enable sway window manager
-  programs.sway.enable = true;
-  programs.sway.wrapperFeatures.gtk = true;
-  programs.xwayland.enable = true;
-  xdg.portal = sway-fixes.xdg-portal;
+  # gtk configuration tool; expected by gtk applications
+  programs.dconf.enable = true;
 
-  # system-wide packages
-  environment.systemPackages = [
-    pkgs.home-manager
-    sway-fixes.dbus-sway-environment
-    sway-fixes.configure-gtk
-    sway-fixes.qt5-fix
-    sway-fixes.qt6-fix
-  ];
+  # # enable sway window manager
+  # programs.sway.enable = true;
+  # programs.sway.wrapperFeatures.gtk = true;
+  # programs.xwayland.enable = true;
+  # xdg.portal = sway-fixes.xdg-portal;
+
+  # basic packages for bootstrapping
+  environment.systemPackages = with pkgs; [
+    git
+    home-manager
+  ]; # ++ sway-fixes.packages;
 
   # sound and bluetooth control
   sound.enable = true;
@@ -92,14 +99,15 @@ in {
     alsa.enable = true;
     pulse.enable = true;
   };
+  hardware.pulseaudio.enable = false;
   hardware.bluetooth.enable = true;
-  hardware.bluetooth.package = pkgs.bluezFull;
+  hardware.bluetooth.package = pkgs.bluez;
 
   # change some power settings
   services.logind.lidSwitch = "ignore";
   services.logind.extraConfig = "HandlePowerKey=suspend";
 
-  # miscellaneous utilities 
+  # miscellaneous utilities
   security.rtkit.enable = true; # schedule user processes/threads
   security.polkit.enable = true; # fine-grained authentication agent
   services.dbus.enable = true; # interprocess communications manager
@@ -107,6 +115,6 @@ in {
   services.printing.enable = true; # enable CUPS to print documents
 
   # make home-manager use global install paths and package configurations
-  home-manager.useUserPackages = true;
   home-manager.useGlobalPkgs = true;
+  home-manager.useUserPackages = true;
 }

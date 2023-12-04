@@ -1,0 +1,100 @@
+{
+  "parenthesis": {
+    "prefix": "lpp",
+    "body": [
+      "\\left($1\\right)$0"
+    ]
+  },
+  "parenthesis-square": {
+    "prefix": "lps",
+    "body": [
+      "\\left[$1\\right]$0"
+    ]
+  },
+  "parenthesis-curly": {
+    "prefix": "set",
+    "body": [
+      "\\left\\{$1\\right\\}$0"
+    ]
+  },
+  "fraction": {
+    "prefix": "frac",
+    "body": [
+      "\\frac{$1}{$2}$0"
+    ]
+  },
+  "environment": {
+    "prefix": "begin",
+    "body": [
+      "\\begin{${1:name}}",
+      "  $2",
+      "\\end{${1:name}}$0"
+    ]
+  },
+  "align": {
+    "prefix": "align",
+    "body": [
+      "\\begin{align}",
+      "  $1",
+      "  \\label{eq:${2:name}}",
+      "\\end{align}$0"
+    ]
+  },
+  "itemize": {
+    "prefix": "itemize",
+    "body": [
+      "\\begin{itemize}",
+      "  \\item $1",
+      "\\end{itemize}$0"
+    ]
+  },
+  "enumerate": {
+    "prefix": "enum",
+    "body": [
+      "\\begin{enumerate}",
+      "  \\item $1",
+      "\\end{enumerate}$0"
+    ]
+  },
+  "pmatrix": {
+    "prefix": "pm",
+    "body": [
+      "\\begin{pmatrix}",
+      "  $1",
+      "\\end{pmatrix}$0"
+    ]
+  },
+  "figure": {
+    "prefix": "figure",
+    "body": [
+      "\\begin{figure}",
+      "  \\centering",
+      "  \\includegraphics{${1:figure}}",
+      "  \\caption{${2:caption}}",
+      "  \\label{fig:${3:name}}",
+      "\\end{figure}$0"
+    ]
+  },
+  "table": {
+    "prefix": "tab",
+    "body": [
+      "\\begin{table}",
+      "  \\centering",
+      "  \\begin{tabular}{${1:ccc}}",
+      "    \\toprule",
+      "    a & b & c \\\\\\ \\midrule",
+      "    1 & 2 & 3 \\\\\\",
+      "    \\bottomrule",
+      "  \\end{tabular}",
+      "  \\caption{${2:caption}}",
+      "  \\label{tab:${3:name}}",
+      "\\end{table}$0"
+    ]
+  },
+  "operatorname": {
+    "prefix": "op",
+    "body": [
+      "\\operatorname{$1}$0"
+    ]
+  }
+}

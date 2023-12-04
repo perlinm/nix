@@ -2,22 +2,42 @@
 # window rules
 ###############################################################################
 
-# pin teams, slack, and zotero to specific workspaces
-assign [class="^teams-for-linux$"]  workspace number 0
-assign [class="^Slack$"]            workspace number 11
-assign [class="^Zotero$"]           workspace number 12
+# pin slack and zotero to specific workspaces
+assign [class="^Slack$"]  workspace number 11
+assign [class="^Zotero$"] workspace number 12
 
 # scratchpads
 for_window [title="^pad-F[0-9]+$"] move scratchpad, scratchpad show
 for_window [title="^pad-F[0-9]+$"] floating enable, move position center, resize set 1000 800
 
 # floating windows
-for_window [class="^Pavucontrol$"]          floating enable, move position center, resize set 1000 800
+for_window [class="^Pavucontrol$"]          floating enable, resize set 1000 800, move position center
 for_window [class="^Nm-connection-editor$"] floating enable, move position center
-for_window [class="^gnome-control-center$"] floating enable, move position center
+for_window [class="^.arandr-wrapped$"]      floating enable, resize set 600 500, move position center
 for_window [class="^Blueberry\.py$"]        floating enable, move position center
 for_window [class="^Gpick$"]                floating enable, move position center
 for_window [title="^Event\ Tester$"]        floating enable, move position center
-for_window [class="^Thunar$"]               floating enable, move position center, resize set 1000 800
+for_window [class="^Thunar$"]               floating enable, resize set 1000 800, move position center
 for_window [class="^Matplotlib$"]           floating enable, move position center
 for_window [class="^Lxappearance$"]         floating enable, move position center
+
+# zoom rules
+for_window [class="^zoom$"]                 floating enable, move position center
+
+###############################################################################
+# move named firefox windows to their respective workspaces
+###############################################################################
+
+for_window [class="[Ff]irefox" title="^\[WS0\]"]  move window to workspace number 0
+for_window [class="[Ff]irefox" title="^\[WS1\]"]  move window to workspace number 1
+for_window [class="[Ff]irefox" title="^\[WS2\]"]  move window to workspace number 2
+for_window [class="[Ff]irefox" title="^\[WS3\]"]  move window to workspace number 3
+for_window [class="[Ff]irefox" title="^\[WS4\]"]  move window to workspace number 4
+for_window [class="[Ff]irefox" title="^\[WS5\]"]  move window to workspace number 5
+for_window [class="[Ff]irefox" title="^\[WS6\]"]  move window to workspace number 6
+for_window [class="[Ff]irefox" title="^\[WS7\]"]  move window to workspace number 7
+for_window [class="[Ff]irefox" title="^\[WS8\]"]  move window to workspace number 8
+for_window [class="[Ff]irefox" title="^\[WS9\]"]  move window to workspace number 8
+for_window [class="[Ff]irefox" title="^\[WS10\]"] move window to workspace number 10
+for_window [class="[Ff]irefox" title="^\[WS11\]"] move window to workspace number 11
+for_window [class="[Ff]irefox" title="^\[WS12\]"] move window to workspace number 12

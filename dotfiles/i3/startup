@@ -2,34 +2,28 @@
 # startup and reload commands
 ###############################################################################
 
-# set GTK theme
-exec --no-startup-id gsettings set org.gnome.desktop.interface gtk-theme 'Dracula'
-exec --no-startup-id gsettings set org.gnome.desktop.interface icon-theme 'Papirus-Dark'
-
-# keyboard settings
-exec --no-startup-id xset r 66
-exec --no-startup-id xset r rate 200 60
-exec --no-startup-id setxkbmap us(colemak),us -option caps:backspace -option lv3:ralt_alt -option shift:both_capslock_cancel -option grp:ctrls_toggle
+# start on workspace 0
+exec --no-startup-id i3-msg workspace number 0
 
 # window compositing
 exec --no-startup-id picom --fading --fade-delta=2 --daemon
 
 # add network manger to system tray
-exec --no-startup-id nm-applet --indicator
+exec --no-startup-id nm-applet --no-startup-id --indicator
 
 # notification daemon
 exec --no-startup-id notify-osd
 
+# sreen idle timeout
+exec_always --no-startup-id xset dpms 0 0 1800
+
+# automatic screen locker
+# exec --no-startup-id xss-lock --transfer-sleep-lock -- ~/nix/scripts/x-lock
+
 # sane tiling defaults
-exec --no-startup-id autotiling
+exec_always --no-startup-id autotiling
 
-# screen locker
-exec --no-startup-id xss-lock -- ~/scripts/x-lock
-
-###############################################################################
-# applications
-###############################################################################
-
-exec --no-startup-id teams-for-linux
-exec --no-startup-id slack
-exec --no-startup-id zotero
+# keyboard settings
+exec_always --no-startup-id xset r 66
+exec_always --no-startup-id xset r rate 200 60
+exec_always --no-startup-id setxkbmap us(colemak),us -option caps:backspace -option lv3:ralt_alt -option shift:both_capslock_cancel -option grp:ctrls_toggle

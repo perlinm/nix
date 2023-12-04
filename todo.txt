@@ -1,9 +1,9 @@
-fix zoom
-https://www.reddit.com/r/swaywm/comments/l9asbc/zoom_on_sway_what_settings_do_you_use/
+flake for python
+- nix shells instead of conda
+- direnv package
+
+boot into last used by default for systemd-boot
+
+gnome-control-center display
 
 look into https://looking-glass.io/ (?)
-
-
-AT NEXT NIXOS UPDATE:
-- update helix config file
-- remove 'networkmanagerapplet' from packages.nix (which will be obsolete)
