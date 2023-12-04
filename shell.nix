@@ -57,6 +57,6 @@ in {
 
     update-cq = "python -m coldquanta.qc_common_api.cq_authorize";
 
-    mm = "mathematica --clean 2> /dev/null";
+    mm = "mathematica";
   };
 }
