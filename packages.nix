@@ -149,7 +149,7 @@ let
     protobuf # for protoc command
   ];
 
-  mathematica = pkgs.unfree.mathematica.override { version = "13.2.1"; };
+  mathematica = pkgs.unfree.mathematica.override { version = "13.3.1"; };
 
   misc-other = with pkgs; [
     mathematica
