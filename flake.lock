@@ -154,6 +154,29 @@
         "type": "github"
       }
     },
+    "nps": {
+      "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1673182603,
+        "narHash": "sha256-h4JnEk0fzcpYJ3x7C0HrwjUm6itiTXb8r7lpPEPj9AM=",
+        "owner": "OleMussmann",
+        "repo": "Nix-Package-Search",
+        "rev": "afda50c9c7b81789e89a096037dcfec2eddbf48a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "OleMussmann",
+        "repo": "Nix-Package-Search",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "flake-utils": "flake-utils",
@@ -163,6 +186,7 @@
         "nixpkgs": "nixpkgs",
         "nixpkgs-stable": "nixpkgs-stable",
         "nixpkgs-unstable": "nixpkgs-unstable",
+        "nps": "nps",
         "simple-completion-language-server": "simple-completion-language-server",
         "trashy": "trashy"
       }

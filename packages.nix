@@ -36,6 +36,7 @@ let
     jq # json parsing
     killall # kill processes by name
     mosh # better than ssh
+    external.nps # nix package search
     pciutils
     dmidecode # inspect hardware devices
     pandoc # converter between markup formats
