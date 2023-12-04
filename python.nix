@@ -13,7 +13,7 @@ let
       networkx
       numpy
       pandas
-      #pip # only use inside virtual environments!
+      # pip # only use inside virtual environments!
       pylint
       pytest
       qutip
@@ -32,4 +32,4 @@ let
   conda-with-extra-libs =
     pkgs.conda.override { extraPkgs = extra-libs-for-conda; };
 
-in python-with-my-packages ++ [ conda-with-extra-libs ]
+in python-with-my-packages ++ [ conda-with-extra-libs pkgs.sage ]
