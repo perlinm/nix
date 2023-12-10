@@ -45,6 +45,8 @@ in {
     ssc = conda-go "superstaq" "~/super.tech/client-superstaq";
     ssr = conda-go "research-superstaq"
       "~/super.tech/research-superstaq/research_superstaq/theory";
+    ssq = conda-go "research-superstaq"
+      "~/super.tech/research-superstaq/research_superstaq/theory/qchop";
     # ssl = conda-go "qldpc" "~/src/qLDPC";
     ssl = conda-go "qldpc"
       "~/super.tech/research-superstaq/research_superstaq/theory/qLDPC";
