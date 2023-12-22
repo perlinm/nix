@@ -47,6 +47,7 @@ let
     ripgrep # faster grep
     stable.ripgrep-all # faster grep, now also for pdf, docx, etc. files
     sd # better 'sed'
+    sshfs # mounting remote filesystems
     starship # customizable shell prompt
     external.trashy # trash management, replacing "rm"
     tree # list directories

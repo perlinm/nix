@@ -36,7 +36,6 @@
     "body": [
       "\\begin{align}",
       "  $1",
-      "  \\label{eq:${2:name}}",
       "\\end{align}$0"
     ]
   },
