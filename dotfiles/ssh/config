@@ -1,6 +1,7 @@
-Host bebop
-  HostName bebop.lcrc.anl.gov
-  User ac.perlin
+Host qchop
+  HostName ec2-3-94-160-93.compute-1.amazonaws.com
+  User ec2-user
+  IdentityFile ~/super.tech/.secrets/QCHOP.pem
 
 Host aws-gpu
   HostName ec2-3-230-154-206.compute-1.amazonaws.com
@@ -11,6 +12,10 @@ Host aws-gpu2
   HostName ec2-18-206-229-94.compute-1.amazonaws.com
   User ubuntu
   IdentityFile ~/super.tech/.secrets/superstaq_gpu.pem
+
+Host bebop
+  HostName bebop.lcrc.anl.gov
+  User ac.perlin
 
 Host jlse
   HostName login.jlse.anl.gov

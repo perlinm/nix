@@ -67,6 +67,7 @@ in {
         pull.ff = "only";
         push.autoSetupRemote = "true";
         core.pager = "less -XF";
+        core.askpass = "";
       };
       aliases = {
         st = "status";
