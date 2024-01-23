@@ -30,10 +30,6 @@ home-manager switch
 
 # for Overleaf <--> git integration:
 gpg --decrypt ~/nix/dotfiles/.git-credentials.gpg > ~/.git-credentials
-# this file contains the password to clone an Overleaf repository:
-# https://git:<PASSWORD>@git.overleaf.com
-# after cloning an Overleaf repository, run from within the repo:
-git config credential.helper store
 
 ##################################################
 # sharing files over a local network
