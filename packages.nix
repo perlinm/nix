@@ -31,7 +31,8 @@ let
     vim # text editors
     fd # better 'find'
     fzf # command-line fuzzy finder
-    gnupg # encryption tools
+    gnupg
+    pinentry-gtk2 # encryption tools
     htop # process viewer
     ispell # spell checker
     jq # json parsing
