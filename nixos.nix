@@ -50,8 +50,8 @@
     enable = true;
 
     # keyboard layout
-    layout = "us";
-    xkbVariant = "colemak";
+    xkb.layout = "us";
+    xkb.variant = "colemak";
     autoRepeatDelay = 200;
     autoRepeatInterval = 60;
 
