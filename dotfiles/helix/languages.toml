@@ -33,3 +33,11 @@ config = { max_completion_items = 5, snippets_first = true }
 [language-server.simple-completion-language-server.environment]
 RUST_LOG = "debug,simple-completion-langauge-server=debug"
 LOG_FILE = "/tmp/scls-completion.log"
+
+##################################################
+[[language]]
+name = "bibtex"
+
+[language.formatter]
+command = "bibtex-tidy"
+args = ["--blank-lines", "--sort", "--trailing-commas", "--strip-enclosing-braces"]

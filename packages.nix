@@ -9,6 +9,12 @@ let
     clippy # linter
   ];
 
+  latex = with pkgs; [
+    texlive.combined.scheme-full
+    texlab # latex LSP
+    bibtex-tidy # bibtex file formatter
+  ];
+
   languages = with pkgs;
     [
       gcc
@@ -16,9 +22,7 @@ let
       nil # nix LSP
       nixfmt # nix formatter
       taplo # TOML formatter
-      texlive.combined.scheme-full
-      texlab
-    ] ++ python ++ rust;
+    ] ++ python ++ rust ++ latex;
 
   console-utilities = with pkgs; [
     bat # better 'cat': cat with wings

@@ -12,11 +12,15 @@
     };
 
     # common dependencies of external repositories
+    systems.url = "github:nix-systems/default";
     naersk = {
       url = "github:nix-community/naersk/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    flake-utils.url = "github:numtide/flake-utils";
+    flake-utils = {
+      url = "github:numtide/flake-utils";
+      inputs.systems.follows = "systems";
+    };
 
     # external repositories
     trashy = {
@@ -40,6 +44,11 @@
       url = "github:OleMussmann/Nix-Package-Search";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
+    };
+    bibtex-tidy = {
+      url = "github:perlinm/bibtex-tidy/add-flake";
+      inputs.systems.follows = "systems";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
