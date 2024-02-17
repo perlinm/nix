@@ -1,6 +1,8 @@
 { lib, pkgs, ... }:
-# let sway-fixes = import ./sway-fixes.nix { inherit pkgs; };
-{
+let
+  json = pkgs.formats.json { };
+  # sway-fixes = import ./sway-fixes.nix { inherit pkgs; };
+in {
   imports =
     [ ./hardware-configuration.nix ./luks.nix ]; # results of hardware scan
 
@@ -98,6 +100,15 @@
   hardware.pulseaudio.enable = false;
   hardware.bluetooth.enable = true;
   hardware.bluetooth.package = pkgs.bluez;
+
+  # disable bell that beeps all the time!
+  # https://discourse.nixos.org/t/mysterious-unstoppable-alert-sounds/26801/10
+  environment.etc = {
+    "pipewire/pipewire.conf.d/99-silent-bell.conf".source =
+      json.generate "99-silent-bell.conf" {
+        "context.properties" = { "module.x11.bell" = false; };
+      };
+  };
 
   # change some power settings
   services.logind.lidSwitch = "ignore";
