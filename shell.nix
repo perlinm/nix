@@ -35,7 +35,8 @@ in {
     cd = "z"; # zoxide
 
     py = "python";
-    ipy = "ipython";
+    ipy =
+      "ipython --InteractiveShellApp.extensions 'autoreload' --InteractiveShellApp.exec_lines '%autoreload 2'";
     calc = "ipython --profile=perlinm --no-banner";
 
     cs = conda-setup;

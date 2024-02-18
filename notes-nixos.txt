@@ -28,6 +28,9 @@ home-manager switch
 # in chromium, chrome://flags
 # enable WebRTC PipeWire support
 
+# for Overleaf <--> git integration:
+gpg --decrypt ~/nix/dotfiles/.git-credentials.gpg > ~/.git-credentials
+
 ##################################################
 # sharing files over a local network
 

@@ -68,6 +68,7 @@ in {
         push.autoSetupRemote = "true";
         core.pager = "less -XF";
         core.askpass = "";
+        credential = { helper = "store"; };
       };
       aliases = {
         st = "status";

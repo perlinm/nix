@@ -36,7 +36,7 @@ in {
 
   xdg.configFile = {
     "starship.toml".source = copy "starship.toml";
-    "alacritty/alacritty.yml".source = copy "alacritty.yml";
+    "alacritty/alacritty.toml".source = copy "alacritty.toml";
     "kitty/kitty.conf".source = copy "kitty/kitty.conf";
     "kitty/current-theme.conf".source = copy "kitty/current-theme.conf";
     "qpdfview/shortcuts.conf".source = copy "qpdfview-shortcuts.conf";

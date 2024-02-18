@@ -21,6 +21,14 @@ pyflakes = { enabled = false }
 name = "nix"
 formatter = { command = "nixfmt" }
 
+# [language-server.simple-completion-language-server]
+# command = "simple-completion-language-server"
+# config = { max_completion_items = 5, snippets_first = true }
+
+# [language-server.simple-completion-language-server.environment]
+# RUST_LOG = "debug,simple-completion-langauge-server=debug"
+# LOG_FILE = "/tmp/simple-completion-langauge-server-completion.log"
+
 ##################################################
 [[language]]
 name = "latex"
@@ -28,8 +36,23 @@ language-servers = ["texlab", "simple-completion-language-server"]
 
 [language-server.simple-completion-language-server]
 command = "simple-completion-language-server"
-config = { max_completion_items = 5, snippets_first = true }
 
+[language-server.simple-completion-language-server.config]
+max_completion_items = 5     # set max completion results length
+feature_words = true          # enable completion by word
+feature_snippets = true       # enable snippets
+snippets_first = true         # completions will return before snippets by default
+feature_unicode_input = true  # enable "unicode input"
+
+# write logs to /tmp/completion.log
 [language-server.simple-completion-language-server.environment]
-RUST_LOG = "debug,simple-completion-langauge-server=debug"
+RUST_LOG = "info,simple-completion-language-server=info"
 LOG_FILE = "/tmp/scls-completion.log"
+
+##################################################
+[[language]]
+name = "bibtex"
+
+[language.formatter]
+command = "bibtex-tidy"
+args = ["--blank-lines", "--sort", "--trailing-commas", "--strip-enclosing-braces"]

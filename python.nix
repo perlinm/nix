@@ -4,7 +4,7 @@ let
   my-python-packages = python-packages:
     with python-packages; [
       black
-      cirq
+      # cirq
       flake8
       ipython
       jupyter
