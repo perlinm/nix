@@ -104,6 +104,7 @@ let
     rofi # application launcher
     unfree.slack # work chat
     unfree.spotify # music
+    virtualbox # computer emulator
     vlc # for watching videos
     xfce.thunar # file browser
     unfree.wpsoffice # office suite (like Word, Excel, etc.)
