@@ -50,12 +50,12 @@ in {
       "~/super.tech/research-superstaq/research_superstaq/theory/qchop";
     ssl = conda-go "qldpc" "~/super.tech/qLDPC";
     qq = conda-go "QFI-Opt" "~/super.tech/QFI-Opt";
-    cc = conda-go "ColdQuanta" "~/super.tech/coldquanta-system";
     zz = conda-go "zain" "~/super.tech/zain";
 
     tt = conda-go "test" ".";
     ntt = "conda create --name test python=3.11 -y";
 
+    cc = conda-go "ColdQuanta" "~/super.tech/coldquanta-system";
     update-cq = "python -m coldquanta.qc_common_api.cq_authorize";
 
     mm = "mathematica";
