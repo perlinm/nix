@@ -1,6 +1,7 @@
 # download configurations
 nix-shell -p git
 git clone https://github.com/perlinm/nix ~/nix
+# later: git remote set-url origin git@github.com:perlinm/nix
 
 # NOTE: fix ~/nix/luks.nix if necessary
 # The value of luks-swap-uuid can be found in /etc/nixos/configuration.nix,
@@ -28,8 +29,15 @@ home-manager switch
 # in chromium, chrome://flags
 # enable WebRTC PipeWire support
 
+# set up identity
+gpg --decrypt ~/.ssh/id_rsa.gpg > ~/.ssh/id_rsa
+chmod 0600 ~/.ssh/id_rsa
+
 # for Overleaf <--> git integration:
 gpg --decrypt ~/nix/dotfiles/.git-credentials.gpg > ~/.git-credentials
+
+# backup!!!
+rsync -avP /home/perlinm /run/media/perlinm/backup/perlinm
 
 ##################################################
 # sharing files over a local network
