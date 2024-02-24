@@ -29,7 +29,7 @@ let
     choose # better awk '{print $...}'
     cmake
     gnumake # build system
-    du-dust # better 'du'
+    du-dust # better 'du', disk space analyzer
     git # version control system
     external.helix
     vim # text editors
