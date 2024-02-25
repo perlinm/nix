@@ -1,4 +1,4 @@
-let luks-swap-uuid = "578b5840-2be0-4eab-a2e8-1748cfdf7da0";
+let luks-swap-uuid = "dc619c76-9689-4b2a-8a42-8566831b2500";
 in {
   boot.initrd = {
     # setup keyfile for a luks-encrypted hard drive
