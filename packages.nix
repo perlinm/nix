@@ -153,7 +153,7 @@ let
   ];
 
   misc-work = with pkgs; [
-    awscli2 # AWS command line services
+    # awscli2 # AWS command line services
     lynx # text-based browser
     protobuf # for protoc command
   ];
@@ -172,5 +172,5 @@ in {
 
   # override refusal to install zotero...
   # https://github.com/NixOS/nixpkgs/commit/9438baa49d527dd7f748e90bdfea576cd1daa0db
-  nixpkgs.config.permittedInsecurePackages = [ "zotero-6.0.27" ];
+  nixpkgs.config.permittedInsecurePackages = [ "zotero-6.0.35" ];
 }
