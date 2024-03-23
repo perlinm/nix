@@ -17,6 +17,7 @@ let
 
   languages = with pkgs;
     [
+      gap-full # compute algebra system
       gcc
       julia-bin
       nil # nix LSP
