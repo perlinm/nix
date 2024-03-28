@@ -42,21 +42,29 @@ in {
     cs = conda-setup;
     ci = conda-init;
     nn = "jupyter notebook";
+
+    # super.tech repos
     ss = conda-go "superstaq" "~/super.tech/server-superstaq";
     ssc = conda-go "superstaq" "~/super.tech/client-superstaq";
     ssr = conda-go "research-superstaq"
       "~/super.tech/research-superstaq/research_superstaq/theory";
+    ssl = conda-go "qldpc" "~/super.tech/qLDPC";
     ssq = conda-go "research-superstaq"
       "~/super.tech/research-superstaq/research_superstaq/theory/qchop";
-    ssl = conda-go "qldpc" "~/super.tech/qLDPC";
+    update-cq = "python -m coldquanta.qc_common_api.cq_authorize";
+
+    # coldquanta repos
+    cc = conda-go "ColdQuanta" "~/super.tech/coldquanta-system";
+    ccz = conda-go "ColdQuanta"
+      "~/super.tech/coldquanta-system/modeling/coldquanta/modeling/gates";
+
+    # miscellaneous
     qq = conda-go "QFI-Opt" "~/super.tech/QFI-Opt";
     zz = conda-go "zain" "~/super.tech/zain";
 
+    # testing
     tt = conda-go "test" ".";
     ntt = "conda create --name test python=3.11 -y";
-
-    cc = conda-go "ColdQuanta" "~/super.tech/coldquanta-system";
-    update-cq = "python -m coldquanta.qc_common_api.cq_authorize";
 
     mm = "mathematica";
   };
