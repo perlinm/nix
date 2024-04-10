@@ -25,6 +25,7 @@ home-manager switch
 # browser.low_commit_space_threshold_percent: set to (say) 30 to decrease memory usage
 # accessibility.typeaheadfind.enablesound: set to false to disable bell/warning sounds
 # permissions.default.shortcuts: set to 2 to disable websites capturing keyboard shortcuts
+# pdfjs.sidebarViewOnLoad: set to 0 to prevent sidebar from opening automatically for PDFs
 
 # in chromium, chrome://flags
 # enable WebRTC PipeWire support

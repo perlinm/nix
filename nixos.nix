@@ -114,7 +114,14 @@
   security.polkit.enable = true; # fine-grained authentication agent
   services.dbus.enable = true; # interprocess communications manager
   services.udisks2.enable = true; # automounting external drives
-  services.printing.enable = true; # enable CUPS to print documents
+
+  # printing with CUPS and network printer discovery with avahi
+  services.printing.enable = true;
+  services.avahi = {
+    enable = true;
+    nssmdns6 = true;
+    openFirewall = true;
+  };
 
   # make home-manager use global install paths and package configurations
   home-manager.useGlobalPkgs = true;
