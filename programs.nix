@@ -21,7 +21,7 @@ in {
     zsh = {
       enable = true;
       autocd = false;
-      enableAutosuggestions = true;
+      autosuggestion.enable = true;
       enableCompletion = true;
       syntaxHighlighting.enable = true;
       enableVteIntegration = true;
@@ -91,7 +91,8 @@ in {
 
     # replacement for 'ls'
     eza.enable = true;
-    eza.enableAliases = true;
+    eza.enableBashIntegration = true;
+    eza.enableZshIntegration = true;
 
     # replacement for 'cd'
     zoxide.enable = true;

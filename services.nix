@@ -1,11 +1,11 @@
-{
+{ pkgs, ... }: {
   services = {
     # cryptographic software suite
     gpg-agent = {
       enable = true;
       enableSshSupport = true;
-      pinentryFlavor = "gtk2";
       enableZshIntegration = true;
+      pinentryPackage = pkgs.pinentry-gtk2;
     };
 
     # network management

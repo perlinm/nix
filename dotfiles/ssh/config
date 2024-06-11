@@ -48,7 +48,7 @@ Host el
   User perlinm
 
 Host paho
-  HostName paho.asuscomm.com
+  HostName home.paholg.com
   User perlinm
 
 Host osu
