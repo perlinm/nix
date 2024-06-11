@@ -103,7 +103,6 @@ let
     zathura
     okular # pdf viewers
     rofi # application launcher
-    unfree.slack # work chat
     unfree.spotify # music
     vlc # for watching videos
     xfce.thunar # file browser
@@ -153,9 +152,8 @@ let
   ];
 
   misc-work = with pkgs; [
-    # awscli2 # AWS command line services
-    lynx # text-based browser
-    protobuf # for protoc command
+    unfree.citrix_workspace # remote console
+    unfree.slack # work chat
   ];
 
   mathematica = pkgs.unfree.mathematica.override { version = "13.3.1"; };
