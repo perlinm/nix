@@ -55,8 +55,8 @@ in {
 
     # coldquanta repos
     cc = conda-go "ColdQuanta" "~/super.tech/coldquanta-system";
-    ccz = conda-go "ColdQuanta"
-      "~/super.tech/coldquanta-system/modeling/coldquanta/modeling/gates";
+    ccm = conda-go "ColdQuanta"
+      "~/super.tech/coldquanta-system/qpu_golden_scripts/coldquanta/qpu_golden_scripts/modeling_prototypes/michael";
 
     # miscellaneous
     qq = conda-go "QFI-Opt" "~/super.tech/QFI-Opt";

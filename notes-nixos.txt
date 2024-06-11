@@ -27,9 +27,6 @@ home-manager switch
 # permissions.default.shortcuts: set to 2 to disable websites capturing keyboard shortcuts
 # pdfjs.sidebarViewOnLoad: set to 0 to prevent sidebar from opening automatically for PDFs
 
-# in chromium, chrome://flags
-# enable WebRTC PipeWire support
-
 # set up identity
 gpg --decrypt ~/.ssh/id_rsa.gpg > ~/.ssh/id_rsa
 chmod 0600 ~/.ssh/id_rsa
@@ -38,7 +35,7 @@ chmod 0600 ~/.ssh/id_rsa
 gpg --decrypt ~/nix/dotfiles/.git-credentials.gpg > ~/.git-credentials
 
 # backup!!!
-rsync -avP /home/perlinm /run/media/perlinm/backup/perlinm
+rsync -avP --exclude '.conda' --exclude '.cache' /home/perlinm /run/media/perlinm/backup/perlinm
 
 ##################################################
 # sharing files over a local network
@@ -80,6 +77,9 @@ conda env remove --name <VENV-NAME>
 #   ERROR: Failed building wheel for mpi4py
 # this can be fixed with
 conda install -c conda-forge mpi4py openmpi
+
+# necessary for pyqt to work on the coldquanta repo:
+conda install pyqt
 
 # Other standard packages/libraries can likewise be installed with
 conda install -c conda-forge <PACKAGE>
