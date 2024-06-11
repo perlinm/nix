@@ -35,7 +35,7 @@ chmod 0600 ~/.ssh/id_rsa
 gpg --decrypt ~/nix/dotfiles/.git-credentials.gpg > ~/.git-credentials
 
 # backup!!!
-rsync -avP --exclude '.conda' --exclude '.cache' /home/perlinm /run/media/perlinm/backup/perlinm
+rsync -avP --exclude '.conda' --exclude '.cache' /home/perlinm /run/media/perlinm/backup
 
 ##################################################
 # sharing files over a local network
