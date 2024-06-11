@@ -219,6 +219,5 @@ $bind Ctrl+apostrophe seat - cursor set 1723 13; seat - cursor press button1; se
 
 # startup applications
 $bind $mod+Shift+Return \
-    exec chromium --app=https://teams.microsoft.com; \
     exec slack; \
     exec zotero
