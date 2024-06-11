@@ -78,9 +78,6 @@ conda env remove --name <VENV-NAME>
 # this can be fixed with
 conda install -c conda-forge mpi4py openmpi
 
-# necessary for pyqt to work on the coldquanta repo:
-conda install pyqt
-
 # Other standard packages/libraries can likewise be installed with
 conda install -c conda-forge <PACKAGE>
 

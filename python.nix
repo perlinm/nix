@@ -28,7 +28,7 @@ let
     ];
   python-with-my-packages = [ (pkgs.python3.withPackages my-python-packages) ];
 
-  extra-libs-for-conda = [ pkgs.git ];
+  extra-libs-for-conda = [ ];
   conda-with-extra-libs =
     pkgs.conda.override { extraPkgs = extra-libs-for-conda; };
 

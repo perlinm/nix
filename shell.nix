@@ -51,12 +51,6 @@ in {
     ssl = conda-go "qldpc" "~/super.tech/qLDPC";
     ssq = conda-go "research-superstaq"
       "~/super.tech/research-superstaq/research_superstaq/theory/qchop";
-    update-cq = "python -m coldquanta.qc_common_api.cq_authorize";
-
-    # coldquanta repos
-    cc = conda-go "ColdQuanta" "~/super.tech/coldquanta-system";
-    ccm = conda-go "ColdQuanta"
-      "~/super.tech/coldquanta-system/qpu_golden_scripts/coldquanta/qpu_golden_scripts/modeling_prototypes/michael";
 
     # miscellaneous
     qq = conda-go "QFI-Opt" "~/super.tech/QFI-Opt";
