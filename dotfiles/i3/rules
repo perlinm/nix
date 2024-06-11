@@ -3,7 +3,7 @@
 ###############################################################################
 
 # pin slack and zotero to specific workspaces
-assign [class="^Slack$"]  workspace number 11
+assign [class="^Slack$"]  workspace number 0
 assign [class="^Zotero$"] workspace number 12
 
 # scratchpads

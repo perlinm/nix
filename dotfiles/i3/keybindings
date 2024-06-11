@@ -187,7 +187,6 @@ bindsym $mod+d      exec --no-startup-id $display
 bindsym $mod+b      exec --no-startup-id $bluetooth
 
 bindsym $mod+Shift+Return \
-    exec --no-startup-id chromium --app=https://teams.microsoft.com; \
     exec --no-startup-id slack; \
     exec --no-startup-id zotero
 

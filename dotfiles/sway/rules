@@ -3,7 +3,7 @@
 ###############################################################################
 
 # pin teams, slack, and zotero to specific workspaces
-assign [class="^Slack$"]  $ws-11
+assign [class="^Slack$"]  $ws-0
 assign [class="^Zotero$"] $ws-12
 
 # fullscreen windows prevent "idling"
