@@ -46,11 +46,9 @@ in {
     # super.tech repos
     ss = conda-go "superstaq" "~/super.tech/server-superstaq";
     ssc = conda-go "superstaq" "~/super.tech/client-superstaq";
-    ssr = conda-go "research-superstaq"
-      "~/super.tech/research-superstaq/research_superstaq/theory";
     ssl = conda-go "qldpc" "~/super.tech/qLDPC";
     ssq = conda-go "research-superstaq"
-      "~/super.tech/research-superstaq/research_superstaq/theory/qchop";
+      "~/super.tech/research-superstaq/poc/theory/qchop";
 
     # miscellaneous
     qq = conda-go "QFI-Opt" "~/super.tech/QFI-Opt";
