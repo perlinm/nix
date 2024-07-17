@@ -82,11 +82,11 @@ noremap w N|
 
 " copy/paste/undo
 set clipboard=unnamed,unnamedplus
-noremap <C-c> "+y| " copy selection to clipboard
-noremap <C-x> "+d| " cut selection to clipboard
-noremap <C-v> "+P| " paste
-noremap <C-z> :undo<CR>| " undo
-noremap <C-r> :redo<CR>| " redo
+noremap c "+y| " copy selection to clipboard
+noremap x "+d| " cut selection to clipboard
+noremap v "+P| " paste
+noremap z :undo<CR>| " undo
+noremap Z :redo<CR>| " redo
 
 " miscellaneous
 noremap k zz| " center line
