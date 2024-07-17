@@ -4,7 +4,6 @@
 " general configs
 set nocompatible " helpful default vim settings
 set number " number lines
-set relativenumber " relative line numbering
 set ruler " show cursor position (row / col / %-of-file, in bottom right)
 set incsearch " incremental search
 set scrolloff=2 " minimum number of lines above/below cursor
