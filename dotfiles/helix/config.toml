@@ -54,6 +54,8 @@ A-y = "goto_line_end_newline"
 o = "half_page_down"
 A-j = "copy_selection_on_prev_line"
 A-h = "copy_selection_on_next_line"
+"A-;" = "flip_selections"
+"A-," = "remove_primary_selection"
 ### buffer and search
 F = ":format"
 A-s = ":write"
@@ -133,6 +135,8 @@ A-y = "goto_line_end_newline"
 o = "half_page_down"
 A-j = "copy_selection_on_prev_line"
 A-h = "copy_selection_on_next_line"
+"A-;" = "flip_selections"
+"A-," = "remove_primary_selection"
 ### buffer and search
 F = ":format"
 A-s = ":write"
@@ -181,7 +185,6 @@ D = "extend_line_above"
 
 [keys.insert]
 ### cursor navigation
-A-k = "align_view_center"
 A-n = "move_char_left"
 A-i = "move_char_right"
 A-u = "move_visual_line_up"
