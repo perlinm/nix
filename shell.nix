@@ -47,8 +47,8 @@ in {
     ss = conda-go "superstaq" "~/super.tech/server-superstaq";
     ssc = conda-go "superstaq" "~/super.tech/client-superstaq";
     ssl = conda-go "qldpc" "~/super.tech/qLDPC";
-    ssq = conda-go "research-superstaq"
-      "~/super.tech/research-superstaq/poc/theory/qchop";
+    ssr = conda-go "research-superstaq"
+      "~/super.tech/research-superstaq/poc/theory";
 
     # miscellaneous
     qq = conda-go "QFI-Opt" "~/super.tech/QFI-Opt";
