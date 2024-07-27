@@ -122,8 +122,8 @@ noremap w N|
 set clipboard=unnamed,unnamedplus
 noremap c "+y| " copy selection to clipboard
 noremap x "+d| " cut selection to clipboard
-noremap v "+p| " paste
-noremap V "+P| " paste
+noremap v "+P| " paste
+noremap V "+p| " paste
 noremap z :undo<CR>| " undo
 noremap Z :redo<CR>| " redo
 
