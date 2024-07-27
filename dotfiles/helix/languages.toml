@@ -38,7 +38,7 @@ language-servers = ["texlab", "simple-completion-language-server"]
 command = "simple-completion-language-server"
 
 [language-server.simple-completion-language-server.config]
-max_completion_items = 5     # set max completion results length
+max_completion_items = 5      # set max completion results length
 feature_words = true          # enable completion by word
 feature_snippets = true       # enable snippets
 snippets_first = true         # completions will return before snippets by default
