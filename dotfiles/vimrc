@@ -1,6 +1,3 @@
-" default colemak bindings
-" source ~/.colemak.vim " pull configs from file
-
 " general configs
 set nocompatible " helpful default vim settings
 set number " number lines
@@ -40,64 +37,7 @@ set timeoutlen=1000 " delay for key mapping (interpreted by vim)
 set ttimeoutlen=5 " delay for keycodes (interpreted by terminal)
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" key bindings
-" see :help map-modes
-
-" remove undesired mappings
-map j <nop>
-map J <nop>
-map k <nop>
-map K <nop>
-map p <nop>
-map P <nop>
-map w <nop>
-map W <nop>
-map b <nop>
-map B <nop>
-map x <nop>
-map d <nop>
-map D <nop>
-
-" mode management
-noremap t <Insert>| " insert
-noremap T a| " append
-noremap s v| " visual mode
-
-" make backspace delete selected text
-vnoremap <BS> DELETE
-
-" cursor navigation
-noremap n <Left>|
-map u <Up>|
-map e <Down>|
-noremap i <Right>|
-map l <Home>|
-map y <End>|
-noremap <silent> <expr> ; (winheight(0)/2) . "\<C-u>" " half page up
-noremap <silent> <expr> o (winheight(0)/2) . "\<C-d>" " half page down
-
-" repeat search forward/backward
-noremap f n|
-noremap w N|
-
-" copy/paste/undo
-set clipboard=unnamed,unnamedplus
-noremap c "+y| " copy selection to clipboard
-noremap x "+d| " cut selection to clipboard
-noremap v "+P| " paste
-noremap z :undo<CR>| " undo
-noremap Z :redo<CR>| " redo
-
-" miscellaneous
-noremap k zz| " center line
-nnoremap Q @q| " replay the macro recorded by qq
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" key modifiers
-
-" make up/down keys move one 'displayed' line up/down
-noremap <Up> g<Up>
-noremap <Down> g<Down>
+" functions
 
 " make <Home> clever about going to beginning of line vs. first nonblank character
 function! SmartHome()
@@ -112,10 +52,93 @@ function! SmartHome()
   " if word wrapping, go to beginning of 'displayed' line, else go to beginning of line
   return &wrap ? 'g^' : '^'
 endfunction
-noremap <expr> <silent> <Home> SmartHome()
 
 " make <End> go to the end of the 'displayed' line, if word wrapping
 function SmartEnd()
   return &wrap ? 'g$' : '$'
 endfunction
-noremap <expr> <silent> <end> SmartEnd()
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" key bindings
+" see :help map-modes
+
+" remove undesired mappings
+map j <nop>
+map K <nop>
+map p <nop>
+map P <nop>
+map w <nop>
+map W <nop>
+map b <nop>
+map B <nop>
+map x <nop>
+map d <nop>
+map D <nop>
+map V <nop>
+
+" mode management
+noremap t i| " insert
+noremap T a| " append
+noremap s v| " visual mode
+noremap d V| " visual mode
+
+vnoremap t I|
+vnoremap T A|
+
+" backspace key behavior
+vnoremap <BS> "_d|
+nnoremap <BS> "_x|
+
+" cursor navigation
+noremap u g<Up>|
+noremap e g<Down>|
+noremap n <Left>|
+noremap i <Right>|
+noremap <silent> <expr> l SmartHome()|
+noremap <silent> <expr> y SmartEnd()|
+noremap <silent> <expr> ; (winheight(0)/2) . "\<C-u>"| " half page up
+noremap <silent> <expr> o (winheight(0)/2) . "\<C-d>"| " half page down
+noremap <C-u> {|
+noremap <C-e> }|
+noremap <C-n> b|
+noremap <C-i> w|
+
+inoremap <C-u> <C-o>g<Up>|
+inoremap <C-e> <C-o>g<Down>|
+inoremap <C-n> <Left>|
+inoremap <C-i> <Right>|
+inoremap <silent> <expr> <C-l> "\<C-o>" . SmartHome()|
+inoremap <silent> <expr> <C-y> "\<C-o>" . SmartEnd()|
+
+" open new lines
+noremap p O|
+noremap P o|
+
+" repeat search forward/backward
+noremap f n|
+noremap w N|
+
+" copy/paste/undo
+set clipboard=unnamed,unnamedplus
+noremap c "+y| " copy selection to clipboard
+noremap x "+d| " cut selection to clipboard
+noremap v "+p| " paste
+noremap V "+P| " paste
+noremap z :undo<CR>| " undo
+noremap Z :redo<CR>| " redo
+
+" miscellaneous
+noremap k zz| " center line
+nnoremap Q @q| " replay the macro recorded by qq
+
+nnoremap <Tab> :bnext<CR>
+nnoremap <S-Tab> :bprevious<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" key modifiers
+
+" make up/down keys move one 'displayed' line up/down
+noremap <Up> g<Up>|
+noremap <Down> g<Down>|
+noremap <Home> SmartHome()|
+noremap <end> SmartEnd()|
