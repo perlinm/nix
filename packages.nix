@@ -88,14 +88,13 @@ let
     firefox # web browsers
     brightnessctl # screen brightness
     gimp # image editor
-    gnome.eog # image viewer
+    eog # image viewer
     gparted # graphical disk partitioning
     gpick # color picker
     imagemagick # mainpulate images, e.g. with 'convert'
     inkscape # vector graphics (SVG) editor
     kmag # color blindness filter/simulator
     maxima
-    sage # computer algebra systems
     meld # file comparison tool
     pamixer # command-line volume control
     pavucontrol # GUI volume control
