@@ -40,7 +40,7 @@ in {
         "..." = "../..";
         "...." = "../../..";
         "....." = "../../../..";
-        NN = "2>/dev/null";
+        DN = "2>/dev/null";
       };
       initExtra = ''
         # fuzzy tab completion: https://superuser.com/a/815317
