@@ -18,14 +18,7 @@ config.color_scheme = 'onedark_perlinm'
 config.hide_tab_bar_if_only_one_tab = true
 -- config.show_close_tab_button_in_tabs = false
 
--- broken: unbind <C-i> from <Tab>
--- https://github.com/wez/wezterm/issues/1851
-config.keys = {
-  {
-    key = 'phys:i',
-    mods = 'CTRL',
-    action = wezterm.action.SendKey { key = 'phys:i', mods = 'CTRL' },
-  },
-}
+-- unbind <C-i> from <Tab>
+config.enable_csi_u_key_encoding = true
 
 return config
