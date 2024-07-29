@@ -39,3 +39,9 @@ size = 8.5
 
 [window]
 opacity = 0.75
+
+# unbind <C-i> from <Tab>
+[[keyboard.bindings]]
+key = "i"
+mods = "control"
+action = "ReceiveChar"
