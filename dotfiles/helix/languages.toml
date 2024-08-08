@@ -15,14 +15,6 @@ extendSelect = ["I"]
 name = "nix"
 formatter = { command = "nixfmt" }
 
-# [language-server.simple-completion-language-server]
-# command = "simple-completion-language-server"
-# config = { max_completion_items = 5, snippets_first = true }
-
-# [language-server.simple-completion-language-server.environment]
-# RUST_LOG = "debug,simple-completion-langauge-server=debug"
-# LOG_FILE = "/tmp/simple-completion-langauge-server-completion.log"
-
 ##################################################
 [[language]]
 name = "latex"
