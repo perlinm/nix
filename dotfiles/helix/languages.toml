@@ -1,20 +1,14 @@
 ##################################################
 [[language]]
 name = "python"
-language-servers = ["pylsp"]
+language-servers = ["ruff"]
 
-[language.formatter]
-command = "black"
-args = ["-", "--quiet"]
+[language-server.ruff]
+command = "ruff"
+args = ["server"]
 
-[language-server.pylsp.config.pylsp]
-configurationSources = ["flake8"]
-
-[language-server.pylsp.config.pylsp.plugins]
-flake8 = { enabled = true }
-mccabe = { enabled = false }
-pycodestyle = { enabled = false }
-pyflakes = { enabled = false }
+[language-server.ruff.config.settings.lint]
+extendSelect = ["I"]
 
 ##################################################
 [[language]]
