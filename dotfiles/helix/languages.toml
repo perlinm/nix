@@ -1,7 +1,7 @@
 ##################################################
 [[language]]
 name = "python"
-language-servers = ["ruff"]
+language-servers = ["ruff", "pylsp"]
 
 [language-server.ruff]
 command = "ruff"
@@ -9,6 +9,12 @@ args = ["server"]
 
 [language-server.ruff.config.settings.lint]
 extendSelect = ["I"]
+
+[language-server.pylsp.config.pylsp.plugins]
+flake8 = { enabled = false }
+mccabe = { enabled = false }
+pycodestyle = { enabled = false }
+pyflakes = { enabled = false }
 
 ##################################################
 [[language]]

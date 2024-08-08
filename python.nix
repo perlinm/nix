@@ -13,6 +13,7 @@ let
       pandas
       # pip # only use inside virtual environments!
       pytest
+      python-lsp-server
       qutip
       scipy
       sympy
