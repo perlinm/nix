@@ -28,9 +28,6 @@ hidden = false
 
 [keys.normal]
 ### unbind old keys
-# q = "no_op"  # keep default
-# g = "no_op"  # keep default
-# m = "no_op"  # keep default
 j = "no_op"
 a = "no_op"
 A-c = "no_op"
@@ -110,11 +107,32 @@ f = "file_picker_in_current_directory"
 F = "file_picker"
 c = "file_picker_in_current_buffer_directory"
 
+[keys.normal.space.w]
+# unbind old navigation keys
+h = "no_op"
+j = "no_op"
+k = "no_op"
+l = "no_op"
+C-h = "no_op"
+C-j = "no_op"
+C-k = "no_op"
+C-l = "no_op"
+H = "no_op"
+J = "no_op"
+K = "no_op"
+L = "no_op"
+# new navigation keys
+n = "jump_view_left"
+i = "jump_view_right"
+u = "jump_view_up"
+e = "jump_view_down"
+N = "swap_view_left"
+I = "swap_view_right"
+U = "swap_view_up"
+E = "swap_view_down"
+
 [keys.select]
 ### unbind old keys
-# q = "no_op"  # keep default
-# g = "no_op"  # keep default
-# m = "no_op"  # keep default
 j = "no_op"
 a = "no_op"
 A-c = "no_op"
@@ -188,6 +206,35 @@ S = "select_regex"
 h = "hover"
 d = "extend_line_below"
 D = "extend_line_above"
+
+[keys.select.space]
+f = "file_picker_in_current_directory"
+F = "file_picker"
+c = "file_picker_in_current_buffer_directory"
+
+[keys.select.space.w]
+# unbind old navigation keys
+h = "no_op"
+j = "no_op"
+k = "no_op"
+l = "no_op"
+C-h = "no_op"
+C-j = "no_op"
+C-k = "no_op"
+C-l = "no_op"
+H = "no_op"
+J = "no_op"
+K = "no_op"
+L = "no_op"
+# new navigation keys
+n = "jump_view_left"
+i = "jump_view_right"
+u = "jump_view_up"
+e = "jump_view_down"
+N = "swap_view_left"
+I = "swap_view_right"
+U = "swap_view_up"
+E = "swap_view_down"
 
 [keys.insert]
 ### cursor navigation
