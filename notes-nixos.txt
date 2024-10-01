@@ -88,6 +88,9 @@ conda install -c conda-forge <PACKAGE>
 ##################################################
 # julia
 
+# install julia LSP
+julia -e 'using Pkg; Pkg.add("LanguageServer")'
+
 # add julia kernel for Jupyter notebooks:
 julia -e 'import Pkg; Pkg.add("IJulia")'
 
