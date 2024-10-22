@@ -46,7 +46,7 @@ in {
     # super.tech repos
     ss = conda-go "superstaq" "~/super.tech/server-superstaq";
     ssc = conda-go "superstaq" "~/super.tech/client-superstaq";
-    ssl = conda-go "qldpc" "~/super.tech/qLDPC";
+    ssq = conda-go "qldpc" "~/super.tech/qLDPC";
     ssr = conda-go "research-superstaq"
       "~/super.tech/research-superstaq/poc/theory";
 
