@@ -64,7 +64,7 @@ conda update conda python
 pip uninstall pip
 
 # for jupyter notebooks (in an environment):
-pip install jupyter ipykernel
+pip install jupyter
 
 # creating and deleting environments
 conda create --name <VENV-NAME> python=3.<VERSION>
