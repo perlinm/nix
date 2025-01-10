@@ -30,11 +30,11 @@ language-servers = ["texlab", "simple-completion-language-server"]
 command = "simple-completion-language-server"
 
 [language-server.simple-completion-language-server.config]
-max_completion_items = 5      # set max completion results length
-feature_words = true          # enable completion by word
-feature_snippets = true       # enable snippets
-snippets_first = true         # completions will return before snippets by default
-feature_unicode_input = true  # enable "unicode input"
+max_completion_items = 5     # set max completion results length
+feature_words = true         # enable completion by word
+feature_snippets = true      # enable snippets
+snippets_first = true        # completions will return before snippets by default
+feature_unicode_input = true # enable "unicode input"
 
 # write logs to /tmp/completion.log
 [language-server.simple-completion-language-server.environment]
@@ -47,4 +47,30 @@ name = "bibtex"
 
 [language.formatter]
 command = "bibtex-tidy"
-args = ["--blank-lines", "--sort", "--trailing-commas", "--strip-enclosing-braces"]
+args = [
+  "--blank-lines",
+  "--sort",
+  "--trailing-commas",
+  "--strip-enclosing-braces",
+]
+
+##################################################
+[[language]]
+name = "toml"
+formatter = { command = "taplo", args = ["fmt", "-"] }
+
+##################################################
+[[language]]
+name = "julia"
+scope = "source.julia"
+injection-regex = "julia"
+file-types = ["jl"]
+roots = ["Project.toml", "Manifest.toml", "JuliaProject.toml"]
+comment-token = "#"
+language-servers = ["julia-lsp"]
+indent = { tab-width = 4, unit = "    " }
+
+[language-server.julia-lsp]
+command = "julia"
+timeout = 60
+args = ["-e", "using LanguageServer; runserver();"]
