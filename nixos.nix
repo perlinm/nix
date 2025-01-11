@@ -66,6 +66,8 @@
       xkb.variant = "colemak";
       autoRepeatDelay = 200;
       autoRepeatInterval = 60;
+
+      windowManager.i3.enable = true;
     };
 
     # display (login) and window managers
@@ -75,7 +77,6 @@
       autoLogin.user = "perlinm";
       defaultSession = "none+i3";
     };
-    windowManager.i3.enable = true;
 
     # touchpad
     libinput.enable = true;
