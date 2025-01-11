@@ -28,22 +28,30 @@ let
     name = "configure-gtk";
     destination = "/bin/configure-gtk";
     executable = true;
-    text = let
-      schema = pkgs.gsettings-desktop-schemas;
-      datadir = "${schema}/share/gsettings-schemas/${schema.name}";
-    in ''
-      export XDG_DATA_DIRS=${datadir}:$XDG_DATA_DIRS
-      gnome_schema=org.gnome.desktop.interface
-      gsettings set $gnome_schema gtk-theme 'Dracula'
-    '';
+    text =
+      let
+        schema = pkgs.gsettings-desktop-schemas;
+        datadir = "${schema}/share/gsettings-schemas/${schema.name}";
+      in
+      ''
+        export XDG_DATA_DIRS=${datadir}:$XDG_DATA_DIRS
+        gnome_schema=org.gnome.desktop.interface
+        gsettings set $gnome_schema gtk-theme 'Dracula'
+      '';
   };
 
   # packages to assist wayland compabitility with QT
   qt5-fix = pkgs.libsForQt5.qt5.qtwayland;
   qt6-fix = pkgs.qt6.qtwayland;
 
-in {
-  packages = [ dbus-sway-environment configure-gtk qt5-fix qt6-fix ];
+in
+{
+  packages = [
+    dbus-sway-environment
+    configure-gtk
+    qt5-fix
+    qt6-fix
+  ];
 
   # xdg-desktop-portal works by exposing a series of D-Bus interfaces
   # known as portals under a well-known name

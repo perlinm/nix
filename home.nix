@@ -1,5 +1,6 @@
 # https://github.com/nix-community/home-manager
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   # The state version determines some configuration defaults.
   # This version can be updated, but doing so may require manual intervention.
   # https://nix-community.github.io/home-manager/options.html#opt-home.stateVersion
@@ -64,6 +65,11 @@
     };
   };
 
-  imports =
-    [ ./dotfiles.nix ./programs.nix ./services.nix ./packages.nix ./shell.nix ];
+  imports = [
+    ./dotfiles.nix
+    ./programs.nix
+    ./services.nix
+    ./packages.nix
+    ./shell.nix
+  ];
 }

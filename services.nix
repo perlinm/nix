@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   services = {
     # cryptographic software suite
     gpg-agent = {

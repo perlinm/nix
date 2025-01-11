@@ -1,8 +1,7 @@
 { ... }:
 let
   conda-setup = "conda-shell -c $(echo $SHELL)";
-  conda-init =
-    ''eval "$(~/.conda/bin/conda shell.$(basename $(echo $SHELL)) hook)"'';
+  conda-init = ''eval "$(~/.conda/bin/conda shell.$(basename $(echo $SHELL)) hook)"'';
   conda-activate = conda-env: "${conda-init} && conda activate ${conda-env}";
   conda-go = conda-env: dir: ''
     if [ "$(env | grep CONDA_EXE)" ]; then
@@ -10,7 +9,8 @@ let
     fi
     cd ${dir}
   '';
-in {
+in
+{
   home.sessionPath = [ "$HOME/bin" ];
 
   home.sessionVariables = {
@@ -35,8 +35,7 @@ in {
     cd = "z"; # zoxide
 
     py = "python";
-    ipy =
-      "ipython --InteractiveShellApp.extensions 'autoreload' --InteractiveShellApp.exec_lines '%autoreload 2'";
+    ipy = "ipython --InteractiveShellApp.extensions 'autoreload' --InteractiveShellApp.exec_lines '%autoreload 2'";
     calc = "ipython --profile=perlinm --no-banner";
 
     cs = conda-setup;
@@ -47,8 +46,7 @@ in {
     ss = conda-go "superstaq" "~/super.tech/server-superstaq";
     ssc = conda-go "superstaq" "~/super.tech/client-superstaq";
     ssq = conda-go "qldpc" "~/super.tech/qLDPC";
-    ssr = conda-go "research-superstaq"
-      "~/super.tech/research-superstaq/poc/theory";
+    ssr = conda-go "research-superstaq" "~/super.tech/research-superstaq/poc/theory";
 
     # miscellaneous
     qq = conda-go "QFI-Opt" "~/super.tech/QFI-Opt";

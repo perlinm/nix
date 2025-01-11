@@ -3,9 +3,15 @@
 
   inputs = {
     # nixos repositories
-    nixpkgs = { url = "github:nixos/nixpkgs/nixos-unstable"; };
-    nixpkgs-unstable = { url = "github:nixos/nixpkgs/nixpkgs-unstable"; };
-    nixpkgs-stable = { url = "github:nixos/nixpkgs/nixos-23.05"; };
+    nixpkgs = {
+      url = "github:nixos/nixpkgs/nixos-unstable";
+    };
+    nixpkgs-unstable = {
+      url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    };
+    nixpkgs-stable = {
+      url = "github:nixos/nixpkgs/nixos-23.05";
+    };
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -59,7 +65,8 @@
     };
   };
 
-  outputs = inputs:
+  outputs =
+    inputs:
     with inputs;
     let
       linux = "x86_64-linux";
@@ -83,11 +90,15 @@
         external.nps = nps.defaultPackage.${prev.system};
       };
 
-    in {
+    in
+    {
       nixosConfigurations.map-work = nixpkgs.lib.nixosSystem {
         inherit pkgs;
         system = linux;
-        modules = [ ./nixos.nix home-manager.nixosModules.home-manager ];
+        modules = [
+          ./nixos.nix
+          home-manager.nixosModules.home-manager
+        ];
       };
 
       homeConfigurations.perlinm = home-manager.lib.homeManagerConfiguration {

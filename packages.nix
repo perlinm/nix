@@ -15,7 +15,8 @@ let
     bibtex-tidy # bibtex file formatter
   ];
 
-  languages = with pkgs;
+  languages =
+    with pkgs;
     [
       gap-full # computer algebra system
       gcc
@@ -23,7 +24,10 @@ let
       nil # nix LSP
       nixfmt-rfc-style # nix formatter
       taplo # TOML formatter
-    ] ++ python ++ rust ++ latex;
+    ]
+    ++ python
+    ++ rust
+    ++ latex;
 
   console-utilities = with pkgs; [
     bat # better 'cat': cat with wings
@@ -162,9 +166,16 @@ let
     external.simple-completion-language-server
   ];
 
-in {
-  home.packages = console-utilities ++ languages ++ fonts-icons-themes
-    ++ applications ++ sway-utilities ++ i3-utilities ++ misc-work
+in
+{
+  home.packages =
+    console-utilities
+    ++ languages
+    ++ fonts-icons-themes
+    ++ applications
+    ++ sway-utilities
+    ++ i3-utilities
+    ++ misc-work
     ++ misc-other;
 
   # override refusal to install zotero...

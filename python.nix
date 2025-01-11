@@ -1,8 +1,8 @@
 # https://nixos.wiki/wiki/Python
 { pkgs }:
 let
-  my-python-packages = python-packages:
-    with python-packages; [
+  my-python-packages =
+    python-packages: with python-packages; [
       # cirq
       ipython
       jupyter
@@ -21,8 +21,12 @@ let
   python-with-my-packages = [ (pkgs.python3.withPackages my-python-packages) ];
 
   extra-libs-for-conda = [ ];
-  conda-with-extra-libs =
-    pkgs.conda.override { extraPkgs = extra-libs-for-conda; };
+  conda-with-extra-libs = pkgs.conda.override { extraPkgs = extra-libs-for-conda; };
 
+in
 # in python-with-my-packages ++ [ conda-with-extra-libs pkgs.ruff pkgs.sage ]
-in python-with-my-packages ++ [ conda-with-extra-libs pkgs.ruff ]
+python-with-my-packages
+++ [
+  conda-with-extra-libs
+  pkgs.ruff
+]

@@ -1,6 +1,8 @@
 { lib, pkgs, ... }:
-let shell = import ./shell.nix { inherit lib; };
-in {
+let
+  shell = import ./shell.nix { inherit lib; };
+in
+{
   programs = {
     # let home-manager install and manage itself
     home-manager.enable = true;
@@ -27,15 +29,17 @@ in {
       enableVteIntegration = true;
       defaultKeymap = "emacs";
       oh-my-zsh.enable = true;
-      plugins = [{
-        name = "fzf-tab";
-        src = pkgs.fetchFromGitHub {
-          owner = "Aloxaf";
-          repo = "fzf-tab";
-          rev = "5a81e13792a1eed4a03d2083771ee6e5b616b9ab";
-          sha256 = "sha256-dPe5CLCAuuuLGRdRCt/nNruxMrP9f/oddRxERkgm1FE=";
-        };
-      }];
+      plugins = [
+        {
+          name = "fzf-tab";
+          src = pkgs.fetchFromGitHub {
+            owner = "Aloxaf";
+            repo = "fzf-tab";
+            rev = "5a81e13792a1eed4a03d2083771ee6e5b616b9ab";
+            sha256 = "sha256-dPe5CLCAuuuLGRdRCt/nNruxMrP9f/oddRxERkgm1FE=";
+          };
+        }
+      ];
       shellGlobalAliases = {
         "..." = "../..";
         "...." = "../../..";
@@ -80,7 +84,9 @@ in {
         push.autoSetupRemote = "true";
         core.pager = "less -XF";
         core.askpass = "";
-        credential = { helper = "store"; };
+        credential = {
+          helper = "store";
+        };
       };
       aliases = {
         st = "status";

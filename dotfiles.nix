@@ -6,8 +6,7 @@ let
   # Define custom symbolic links.
   # These links are "dirty", in the sense that home-manager will add links according to
   # the list below, but removing an entry from the list will not remove a link.
-  symlink = source: dest:
-    "$DRY_RUN_CMD ln -sfT $VERBOSE_ARG ${dotfile-dir}/${source} $HOME/${dest}";
+  symlink = source: dest: "$DRY_RUN_CMD ln -sfT $VERBOSE_ARG ${dotfile-dir}/${source} $HOME/${dest}";
   newline-join = lines: lib.strings.concatMapStrings (line: line + "\n") lines;
   activation = newline-join [
     (symlink "bin" "bin")
@@ -21,13 +20,13 @@ let
     (symlink "waybar" ".config/waybar")
   ];
 
-in {
+in
+{
   home.file = {
     ".vimrc".source = copy "vimrc";
     ".emacs.d/init.el".source = copy "emacs-init.el";
     ".latexmkrc".source = copy "latexmkrc";
-    ".ipython/profile_perlinm/startup/00-libs.py".source =
-      copy "ipython-startup-libs.py";
+    ".ipython/profile_perlinm/startup/00-libs.py".source = copy "ipython-startup-libs.py";
     ".condarc".source = copy "condarc";
 
     ".indentconfig_settings.yaml".source = copy "indentconfig_settings.yaml";
