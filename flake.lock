@@ -10,11 +10,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1708210415,
-        "narHash": "sha256-dfybmcACYz4HwfyZqYtIB9XGZ9NpL6ONvKbFl/dGKSE=",
+        "lastModified": 1736619710,
+        "narHash": "sha256-LwVyYgS9XI3d1vbASKpSckp+MtgCkNRYqB6OocB6GgI=",
         "owner": "perlinm",
         "repo": "bibtex-tidy",
-        "rev": "4706687caf9954876d9d944ce9eb7c9310489fa3",
+        "rev": "45de5ea30882a7aefe653792377ae57ee73951ce",
         "type": "github"
       },
       "original": {
