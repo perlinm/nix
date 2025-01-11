@@ -21,6 +21,10 @@
       url = "github:numtide/flake-utils";
       inputs.systems.follows = "systems";
     };
+    rust-overlay = {
+      url = "github:oxalica/rust-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # external repositories
     trashy = {
@@ -33,6 +37,7 @@
       url = "github:perlinm/helix/file-picker-navigation";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
+      inputs.rust-overlay.follows = "rust-overlay";
     };
     simple-completion-language-server = {
       url = "github:estin/simple-completion-language-server";
@@ -43,12 +48,14 @@
     nps = {
       url = "github:OleMussmann/Nix-Package-Search";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.naersk.follows = "naersk";
       inputs.flake-utils.follows = "flake-utils";
+      inputs.rust-overlay.follows = "rust-overlay";
     };
     bibtex-tidy = {
       url = "github:perlinm/bibtex-tidy/add-flake";
-      inputs.systems.follows = "systems";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.systems.follows = "systems";
     };
   };
 
