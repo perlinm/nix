@@ -17,11 +17,11 @@ let
 
   languages = with pkgs;
     [
-      gap-full # compute algebra system
+      gap-full # computer algebra system
       gcc
       julia-bin
       nil # nix LSP
-      nixfmt # nix formatter
+      nixfmt-rfc-style # nix formatter
       taplo # TOML formatter
     ] ++ python ++ rust ++ latex;
 
@@ -70,7 +70,7 @@ let
 
   fonts-icons-themes = with pkgs; [
     dracula-theme
-    nerdfonts
+    # nerdfonts
     nerd-font-patcher
     noto-fonts
     noto-fonts-emoji
@@ -90,7 +90,7 @@ let
     gimp # image editor
     eog # image viewer
     gparted # graphical disk partitioning
-    gpick # color picker
+    # gpick # color picker
     imagemagick # mainpulate images, e.g. with 'convert'
     inkscape # vector graphics (SVG) editor
     kmag # color blindness filter/simulator
@@ -137,7 +137,7 @@ let
     lxappearance # set GTK themes
     maim
     scrot # screenshots
-    notify-osd-customizable # noitification daemon
+    # notify-osd-customizable # noitification daemon
     picom # window compositor
     polybarFull # info bar / panel
     wmctrl # CLI to interact with windows; needed for i3-scratchpad
@@ -151,7 +151,7 @@ let
   ];
 
   misc-work = with pkgs; [
-    unfree.citrix_workspace # remote console
+    # unfree.citrix_workspace # remote console
     unfree.slack # work chat
   ];
 

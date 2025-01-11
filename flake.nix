@@ -30,7 +30,7 @@
       inputs.flake-utils.follows = "flake-utils";
     };
     helix = {
-      url = "github:perlinm/helix/mika";
+      url = "github:perlinm/helix/file-picker-navigation";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };
