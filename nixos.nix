@@ -1,8 +1,7 @@
 { lib, pkgs, ... }:
 # let sway-fixes = import ./sway-fixes.nix { inherit pkgs; }; in
 {
-  imports =
-    [ ./hardware-configuration.nix ]; # results of hardware scan
+  imports = [ ./hardware-configuration.nix ]; # results of hardware scan
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
@@ -13,7 +12,10 @@
   system.stateVersion = "22.11"; # Did you read the comment?
 
   # system.autoUpgrade.enable = true;
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   # use the Zen linux kernel (others mignt not work!)
   boot.kernelPackages = pkgs.linuxPackages_zen;
@@ -44,20 +46,27 @@
   users.users.perlinm = {
     isNormalUser = true;
     description = "Michael A. Perlin";
-    extraGroups = [ "wheel" "networkmanager" "audio" "video" ];
+    extraGroups = [
+      "wheel"
+      "networkmanager"
+      "audio"
+      "video"
+    ];
     shell = pkgs.zsh;
   };
   programs.zsh.enable = true;
 
   # X11 services
-  services.xserver = {
-    enable = true;
+  services = {
+    xserver = {
+      enable = true;
 
-    # keyboard layout
-    xkb.layout = "us";
-    xkb.variant = "colemak";
-    autoRepeatDelay = 200;
-    autoRepeatInterval = 60;
+      # keyboard layout
+      xkb.layout = "us";
+      xkb.variant = "colemak";
+      autoRepeatDelay = 200;
+      autoRepeatInterval = 60;
+    };
 
     # display (login) and window managers
     displayManager = {
@@ -75,6 +84,9 @@
       clickMethod = "clickfinger";
       disableWhileTyping = true;
     };
+
+    # sound services
+    pulseaudio.enable = false;
   };
 
   # gtk configuration tool; expected by gtk applications
@@ -93,13 +105,11 @@
   ]; # ++ sway-fixes.packages;
 
   # sound and bluetooth control
-  sound.enable = true;
   services.pipewire = {
     enable = true;
     alsa.enable = true;
     pulse.enable = true;
   };
-  hardware.pulseaudio.enable = false;
   hardware.bluetooth.enable = true;
   hardware.bluetooth.package = pkgs.bluez;
 
