@@ -80,6 +80,10 @@ let
     papirus-icon-theme
   ];
 
+  nerd-fonts = builtins.attrValues (
+    pkgs.lib.filterAttrs (_name: value: pkgs.lib.isDerivation value) pkgs.nerd-fonts
+  );
+
   applications = with pkgs; [
     alacritty
     kitty
@@ -169,6 +173,7 @@ in
   home.packages =
     console-utilities
     ++ languages
+    ++ nerd-fonts
     ++ fonts-icons-themes
     ++ applications
     ++ sway-utilities
