@@ -74,8 +74,6 @@ let
 
   fonts-icons-themes = with pkgs; [
     dracula-theme
-    # nerdfonts
-    nerd-font-patcher
     noto-fonts
     noto-fonts-emoji
     noto-fonts-extra
