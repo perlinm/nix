@@ -96,8 +96,9 @@ let
     gimp # image editor
     eog # image viewer
     gparted # graphical disk partitioning
-    # gpick # color picker
+    # gpick
     stable.gpick # until https://github.com/NixOS/nixpkgs/pull/371989 is merged
+    xcolor # color pickers
     imagemagick # mainpulate images, e.g. with 'convert'
     inkscape # vector graphics (SVG) editor
     kmag # color blindness filter/simulator
