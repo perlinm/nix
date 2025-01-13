@@ -67,6 +67,9 @@ in
         }
         zstyle :bracketed-paste-magic paste-init pasteinit
         zstyle :bracketed-paste-magic paste-finish pastefinish
+
+        # disable bracketed paste
+        unset zle_bracketed_paste
       '';
       sessionVariables = shell.home.sessionVariables;
     };
