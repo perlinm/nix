@@ -56,7 +56,7 @@ let
     poppler_utils # convert 'pdf' to 'png' with 'pdftoppm -png input.pdf output'
     pulseaudio # provides pactl for audio control
     ripgrep # faster grep
-    stable.ripgrep-all # faster grep, now also for pdf, docx, etc. files
+    ripgrep-all # faster grep, now also for pdf, docx, etc. files
     sd # better 'sed'
     sshfs # mounting remote filesystems
     starship # customizable shell prompt
