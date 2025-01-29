@@ -25,6 +25,7 @@ formatter = { command = "nixfmt" }
 [[language]]
 name = "latex"
 language-servers = ["texlab", "simple-completion-language-server"]
+formatter = { command = "tex-fmt", args = ["--stdin", "--nowrap"] }
 
 [language-server.simple-completion-language-server]
 command = "simple-completion-language-server"
