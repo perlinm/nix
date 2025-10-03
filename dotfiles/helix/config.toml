@@ -60,6 +60,7 @@ A-f = ":reload"
 "tab" = ":buffer-next"
 "S-tab" = ":buffer-previous"
 A-w = ":buffer-close"
+U = "save_selection"
 L = "jump_backward"
 Y = "jump_forward"
 w = "search_prev"
@@ -90,6 +91,8 @@ A-k = "kill_to_line_end"
 "del" = "delete_selection_noyank"
 "`" = "switch_to_lowercase"
 "A-`" = "switch_to_uppercase"
+"A-minus" = "decrement"
+"A-=" = "increment"
 ### mode control
 A-q = ["collapse_selection", "keep_primary_selection"]
 "ret" = "insert_mode"
@@ -103,9 +106,10 @@ d = "extend_line_below"
 D = "extend_line_above"
 
 [keys.normal.space]
-f = "file_picker_in_current_directory"
-F = "file_picker"
-c = "file_picker_in_current_buffer_directory"
+f = "file_picker_in_current_buffer_directory"
+F = "file_picker_in_current_directory"
+e = "file_explorer_in_current_buffer_directory"
+E = "file_explorer_in_current_directory"
 
 [keys.normal.space.w]
 # unbind old navigation keys
@@ -165,6 +169,7 @@ A-f = ":reload"
 "tab" = ":buffer-next"
 "S-tab" = ":buffer-previous"
 A-w = ":buffer-close"
+U = "save_selection"
 L = "jump_backward"
 Y = "jump_forward"
 w = "search_prev"
@@ -195,6 +200,8 @@ A-k = "kill_to_line_end"
 "del" = "delete_selection_noyank"
 "`" = "switch_to_lowercase"
 "A-`" = "switch_to_uppercase"
+"A-minus" = "decrement"
+"A-=" = "increment"
 ### mode control
 A-q = "normal_mode"
 "ret" = "insert_mode"
@@ -208,9 +215,10 @@ d = "extend_line_below"
 D = "extend_line_above"
 
 [keys.select.space]
-f = "file_picker_in_current_directory"
-F = "file_picker"
-c = "file_picker_in_current_buffer_directory"
+f = "file_picker_in_current_buffer_directory"
+F = "file_picker_in_current_directory"
+e = "file_explorer_in_current_buffer_directory"
+E = "file_explorer_in_current_directory"
 
 [keys.select.space.w]
 # unbind old navigation keys

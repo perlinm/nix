@@ -1,6 +1,5 @@
 # Author : Gokul Soumya <gokulps15@gmail.com>
 # https://github.com/helix-editor/helix/blob/d0218f7e78bc0c3af4b0995ab8bda66b9c542cf3/runtime/themes/onedark.toml
-# modified 2025.09.06 by Michael A. Perlin <mika.perlin@gmail.com>
 
 "tag" = { fg = "red" }
 "attribute" = { fg = "yellow" }
@@ -14,20 +13,20 @@
 "function.builtin" = { fg = "blue" }
 "function.macro" = { fg = "purple" }
 "keyword" = { fg = "red" }
-"keyword.control" = { fg = "red" }
-"keyword.control.import" = { fg = "orange" }
+"keyword.control" = { fg = "purple" }
+"keyword.control.import" = { fg = "red" }
 "keyword.directive" = { fg = "purple" }
 "keyword.storage" = { fg = "purple" }
 "label" = { fg = "purple" }
-"namespace" = { fg = "purple" }
+"namespace" = { fg = "blue" }
 "operator" = { fg = "purple" }
 "keyword.operator" = { fg = "purple" }
 "special" = { fg = "blue" }
 "string" = { fg = "green" }
 "type" = { fg = "yellow" }
-"variable" = { fg = "white" }
-"variable.builtin" = { fg = "gold" }
-"variable.parameter" = { fg = "cyan" }
+# "variable" = { fg = "blue" }
+"variable.builtin" = { fg = "blue" }
+"variable.parameter" = { fg = "red" }
 "variable.other.member" = { fg = "red" }
 
 "markup.heading" = { fg = "red" }
@@ -55,21 +54,19 @@
 "warning" = { fg = "yellow", modifiers = ["bold"] }
 "error" = { fg = "red", modifiers = ["bold"] }
 
-"ui.background" = { bg = "transparent" }
+"ui.background" = { bg = "black" }
 "ui.virtual" = { fg = "faint-gray" }
 "ui.virtual.indent-guide" = { fg = "faint-gray" }
 "ui.virtual.whitespace" = { fg = "light-gray" }
 "ui.virtual.ruler" = { bg = "gray" }
 "ui.virtual.inlay-hint" = { fg = "light-gray" }
 "ui.virtual.jump-label" = { fg = "light-gray", modifiers = ["bold"] }
-"ui.virtual.jump.multi" = { fg = "red", modifiers = ["bold"] }
-"ui.virtual.jump.single" = { fg = "red", modifiers = ["bold"] }
 
-"ui.cursor" = { fg = "red", modifiers = ["reversed"] }
+"ui.cursor" = { fg = "white", modifiers = ["reversed"] }
 "ui.cursor.primary" = { fg = "white", modifiers = ["reversed"] }
 "ui.cursor.match" = { fg = "blue", modifiers = ["underlined"] }
 
-"ui.selection" = { bg = "gray" }
+"ui.selection" = { bg = "faint-gray" }
 "ui.selection.primary" = { bg = "gray" }
 "ui.cursorline.primary" = { bg = "light-black" }
 
@@ -111,11 +108,10 @@ purple = "#C678DD"
 green = "#98C379"
 gold = "#D19A66"
 cyan = "#56B6C2"
-white = "#DDDDDD"
+white = "#ABB2BF"
 black = "#282C34"
 light-black = "#2C323C"
 gray = "#3E4452"
 faint-gray = "#3B4048"
-light-gray = "#999999"
+light-gray = "#5C6370"
 linenr = "#4B5263"
-orange = "#E07522"

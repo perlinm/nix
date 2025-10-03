@@ -48,17 +48,12 @@ name = "bibtex"
 
 [language.formatter]
 command = "bibtex-tidy"
-args = [
-  "--blank-lines",
-  "--sort",
-  "--trailing-commas",
-  "--strip-enclosing-braces",
-]
+args = ["--blank-lines", "--sort", "--trailing-commas", "--strip-enclosing-braces"]
 
 ##################################################
 [[language]]
 name = "toml"
-formatter = { command = "taplo", args = ["fmt", "-"] }
+formatter = { command = "taplo", args = ["fmt", "--option", "column_width=100", "-"] }
 
 ##################################################
 [[language]]
@@ -68,10 +63,15 @@ injection-regex = "julia"
 file-types = ["jl"]
 roots = ["Project.toml", "Manifest.toml", "JuliaProject.toml"]
 comment-token = "#"
-language-servers = ["julia-lsp"]
 indent = { tab-width = 4, unit = "    " }
+language-servers = ["julia-lsp"]
 
 [language-server.julia-lsp]
 command = "julia"
-timeout = 60
-args = ["-e", "using LanguageServer; runserver();"]
+args = [
+  "--project=@LanguageServer",
+  "--startup-file=no",
+  "--history-file=no",
+  "-e",
+  "using LanguageServer; runserver()",
+]
