@@ -69,9 +69,9 @@ language-servers = ["julia-lsp"]
 [language-server.julia-lsp]
 command = "julia"
 args = [
-  "--project=@LanguageServer",
   "--startup-file=no",
   "--history-file=no",
+  "--project",
   "-e",
   "using LanguageServer; runserver()",
 ]
