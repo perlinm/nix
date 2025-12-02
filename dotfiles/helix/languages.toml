@@ -48,7 +48,13 @@ name = "bibtex"
 
 [language.formatter]
 command = "bibtex-tidy"
-args = ["--blank-lines", "--sort", "--trailing-commas", "--strip-enclosing-braces"]
+args = [
+  "--modify",
+  "--sort",
+  "--blank-lines",
+  "--trailing-commas",
+  "--strip-enclosing-braces",
+]
 
 ##################################################
 [[language]]
