@@ -54,6 +54,7 @@ args = [
   "--blank-lines",
   "--trailing-commas",
   "--strip-enclosing-braces",
+  "--space",
 ]
 
 ##################################################
