@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   shell = import ./shell.nix { inherit lib; };
 in
@@ -76,30 +81,30 @@ in
     };
 
     # version control!
-    git.enable = true;
-    git.settings = {
-      user = {
-        name = "Michael A. Perlin";
-        email = "mika.perlin@gmail.com";
-      };
-      extraConfig = {
-        core.editor = "hx";
+    git = {
+      enable = true;
+      settings = {
+        user = {
+          name = "Michael A. Perlin";
+          email = "mika.perlin@gmail.com";
+        };
         init.defaultBranch = "main";
+        core = {
+          editor = "hx";
+          pager = "less -XF";
+          askpass = "";
+        };
         fetch.prune = "true";
         pull.ff = "only";
         push.autoSetupRemote = "true";
-        core.pager = "less -XF";
-        core.askpass = "";
-        credential = {
-          helper = "store";
+        credential.helper = "store";
+        alias = {
+          st = "status";
+          br = "branch";
+          co = "checkout";
+          cm = "commit";
+          aa = "!git ls-files -m -o --exclude-standard | fzf -m --print0 | xargs -0 git add";
         };
-      };
-      aliases = {
-        st = "status";
-        br = "branch";
-        co = "checkout";
-        cm = "commit";
-        aa = "!git ls-files -m -o --exclude-standard | fzf -m --print0 | xargs -0 git add";
       };
     };
 
