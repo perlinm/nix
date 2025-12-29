@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 let
   shell = import ./shell.nix { inherit lib; };
 in
@@ -46,7 +46,7 @@ in
         "....." = "../../../..";
         DN = "2>/dev/null";
       };
-      initExtra = ''
+      initContent = ''
         # fuzzy tab completion: https://superuser.com/a/815317
         zstyle ':completion:*' matcher-list "" \
           'm:{a-z\-}={A-Z\_}' \
@@ -72,13 +72,16 @@ in
         unset zle_bracketed_paste
       '';
       sessionVariables = shell.home.sessionVariables;
+      dotDir = "${config.xdg.configHome}/zsh";
     };
 
     # version control!
-    git = {
-      enable = true;
-      userName = "Michael A. Perlin";
-      userEmail = "mika.perlin@gmail.com";
+    git.enable = true;
+    git.settings = {
+      user = {
+        name = "Michael A. Perlin";
+        email = "mika.perlin@gmail.com";
+      };
       extraConfig = {
         core.editor = "hx";
         init.defaultBranch = "main";

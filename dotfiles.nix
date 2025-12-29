@@ -23,7 +23,7 @@ let
 in
 {
   home.file = {
-    ".vimrc".source = copy "vimrc";
+    # ".vimrc".source = copy "vimrc";
     ".emacs.d/init.el".source = copy "emacs-init.el";
     ".latexmkrc".source = copy "latexmkrc";
     ".ipython/profile_perlinm/startup/00-libs.py".source = copy "ipython-startup-libs.py";

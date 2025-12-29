@@ -39,12 +39,6 @@
       inputs.naersk.follows = "naersk";
       inputs.flake-utils.follows = "flake-utils";
     };
-    helix = {
-      url = "github:perlinm/helix/file-picker-navigation";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
-      inputs.rust-overlay.follows = "rust-overlay";
-    };
     simple-completion-language-server = {
       url = "github:estin/simple-completion-language-server";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -56,7 +50,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.naersk.follows = "naersk";
       inputs.flake-utils.follows = "flake-utils";
-      inputs.rust-overlay.follows = "rust-overlay";
+      # inputs.rust-overlay.follows = "rust-overlay";
     };
     bibtex-tidy = {
       url = "github:perlinm/bibtex-tidy/add-flake";

@@ -34,9 +34,9 @@ let
     choose # better awk '{print $...}'
     cmake
     gnumake # build system
-    du-dust # better 'du', disk space analyzer
+    dust # better 'du', disk space analyzer
     git # version control system
-    external.helix
+    helix
     vim # text editors
     fd # better 'find'
     fzf # command-line fuzzy finder
@@ -53,7 +53,7 @@ let
     pandoc # converter between markup formats
     pdftk # pdf editor
     pdf2svg # convert 'pdf' to 'svg'
-    poppler_utils # convert 'pdf' to 'png' with 'pdftoppm -png input.pdf output'
+    poppler-utils # convert 'pdf' to 'png' with 'pdftoppm -png input.pdf output'
     pulseaudio # provides pactl for audio control
     ripgrep # faster grep
     ripgrep-all # faster grep, now also for pdf, docx, etc. files
@@ -66,7 +66,7 @@ let
     udiskie # automounting removable media
     watch # repeat a command and watch output
     wget # retrieve files from the web
-    woof # secure network file sharing
+    # woof # secure network file sharing
     # xpdf # pdf manipulation
     zip
     unzip # zipping/unzipping
@@ -75,8 +75,7 @@ let
   fonts-icons-themes = with pkgs; [
     dracula-theme
     noto-fonts
-    noto-fonts-emoji
-    noto-fonts-extra
+    noto-fonts-color-emoji
     papirus-icon-theme
   ];
 
@@ -101,14 +100,14 @@ let
     xcolor # color pickers
     imagemagick # mainpulate images, e.g. with 'convert'
     inkscape # vector graphics (SVG) editor
-    kmag # color blindness filter/simulator
+    kdePackages.kmag # color blindness filter/simulator
     maxima
     meld # file comparison tool
     pamixer # command-line volume control
     pavucontrol # GUI volume control
     qpdfview
     zathura
-    okular # pdf viewers
+    kdePackages.okular # pdf viewers
     rofi # application launcher
     unfree.spotify # music
     vlc # for watching videos
